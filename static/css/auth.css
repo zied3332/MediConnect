@@ -1,0 +1,274 @@
+
+/* ==================================================
+   MediConnect Authentication Pages
+   ================================================== */
+
+.mc-auth-header {
+    min-height: 88px;
+    padding: 20px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: #fff;
+}
+
+.mc-auth-brand,
+.mc-auth-card-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #292929;
+    font-size: 23px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.mc-auth-brand:hover {
+    color: #292929;
+}
+
+.mc-auth-logo {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #ffeb4d;
+    color: #292929;
+    font-size: 31px;
+    font-weight: 500;
+}
+
+.mc-auth-header-note {
+    color: #777;
+    font-size: 14px;
+}
+
+.mc-auth-header-note span {
+    color: #333;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.mc-auth-page {
+    min-height: calc(100vh - 88px);
+    font-family: "DM Sans", sans-serif;
+}
+
+/* Signup */
+
+.mc-auth-signup {
+    background: #fff;
+    padding: 65px 24px 100px;
+}
+
+.mc-auth-form-container {
+    max-width: 570px;
+    margin: 0 auto;
+}
+
+.mc-auth-form-container h1 {
+    margin: 0 0 35px;
+    color: #303030;
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+}
+
+/* Forms */
+
+.mc-auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+}
+
+.mc-auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.mc-auth-field label {
+    color: #303030;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.mc-auth-field input {
+    width: 100%;
+    min-height: 54px;
+    padding: 13px 15px;
+    background: #fff;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    color: #303030;
+    font: inherit;
+    font-size: 16px;
+}
+
+.mc-auth-field input:focus {
+    outline: 2px solid #c6a83c;
+    outline-offset: 1px;
+}
+
+.mc-auth-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.mc-auth-password-wrapper {
+    position: relative;
+}
+
+.mc-auth-password-wrapper input {
+    padding-right: 80px;
+}
+
+.mc-auth-password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: #303030;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mc-auth-submit {
+    width: 100%;
+    min-height: 54px;
+    margin-top: 12px;
+    border: 0;
+    border-radius: 4px;
+    background: #ffeb4d;
+    color: #252525;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mc-auth-submit:hover {
+    background: #f5df40;
+}
+
+.mc-auth-switch {
+    margin: 0;
+    text-align: center;
+    color: #303030;
+    font-size: 15px;
+}
+
+.mc-auth-switch a {
+    color: #303030;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.mc-auth-notice {
+    margin: 0;
+    color: #73766e;
+    font-size: 13px;
+    text-align: center;
+}
+
+.mc-auth-error {
+    margin: 0;
+    color: #a12d2d;
+    font-size: 14px;
+}
+
+.mc-auth-error[hidden] {
+    display: none;
+}
+
+/* Login */
+
+.mc-auth-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 65px 24px;
+    background: #f8f7f5;
+}
+
+.mc-auth-login-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 42px 40px 45px;
+    background: #fff;
+    border: 1px solid #eceae6;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
+}
+
+.mc-auth-card-brand {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 38px;
+}
+
+.mc-auth-login-card h1 {
+    margin: 0 0 10px;
+    color: #303030;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.mc-auth-subtitle {
+    margin: 0 0 32px;
+    color: #747474;
+    text-align: center;
+    font-size: 15px;
+}
+
+.mc-auth-login-card .mc-auth-form {
+    gap: 20px;
+}
+
+/* Responsive */
+
+@media (max-width: 650px) {
+    .mc-auth-header {
+        padding: 18px;
+    }
+
+    .mc-auth-brand {
+        font-size: 20px;
+    }
+
+    .mc-auth-header-note {
+        display: none;
+    }
+
+    .mc-auth-signup {
+        padding: 45px 20px 70px;
+    }
+
+    .mc-auth-form-container h1 {
+        font-size: 30px;
+    }
+
+    .mc-auth-field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .mc-auth-login {
+        padding: 35px 16px;
+    }
+
+    .mc-auth-login-card {
+        padding: 35px 22px;
+    }
+}

@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 
     # MediConnect applications
     "core.apps.CoreConfig",
-    , "accounts,apps.CoreConfig"
+    "accounts.apps.AccountsConfig",
 ]
 
 
