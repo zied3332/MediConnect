@@ -272,3 +272,14 @@
         padding: 35px 22px;
     }
 }
+/* Prevent authentication header content from overflowing */
+.mc-auth-header {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.mc-auth-header-note {
+    max-width: 45%;
+    text-align: right;
+    overflow-wrap: break-word;
+}
