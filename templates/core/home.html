@@ -1,46 +1,175 @@
 
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Find a Doctor | MediConnect{% endblock %}
+{% block title %}Find Care | MediConnect{% endblock %}
+
+{% block meta_description %}Find doctors and explore healthcare services with MediConnect.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 
 {% block content %}
 
-<section class="mc-section">
-    <div class="mc-container">
+<section class="mc-hero" id="find-doctors" aria-labelledby="mc-hero-title">
+    <div class="mc-hero-inner">
 
-        <span class="mc-badge">
-            Welcome to MediConnect
+        <!-- Heading -->
+        <div class="mc-hero-heading">
+            <h1 id="mc-hero-title">
+                Find the right doctor,<br>
+                right when you need one.
+            </h1>
+
+            <p>Ready to be seen? Start searching below.</p>
+        </div>
+
+        <!-- Search Mode Selector -->
+        <div class="mc-search-modes" role="group"
+             aria-label="Search options">
+
+            <button
+                type="button"
+                class="mc-search-mode"
+                id="mc-ai-mode"
+                aria-pressed="false"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2Z"/>
+                </svg>
+                AI Care Assistant
+            </button>
+
+            <button
+                type="button"
+                class="mc-search-mode is-active"
+                id="mc-classic-mode"
+                aria-pressed="true"
+            >
+                Classic search
+            </button>
+
+        </div>
+
+        <!-- Search Form -->
+        <form
+            class="mc-care-search"
+            method="get"
+            action="{% url 'core:home' %}"
+            role="search"
+        >
+
+            <!-- Doctor / Condition -->
+            <div class="mc-care-field mc-care-field-primary">
+                <label for="mc-search-query">Search</label>
+
+                <input
+                    id="mc-search-query"
+                    type="search"
+                    name="q"
+                    placeholder="Condition, procedure or doctor name"
+                    value="{{ request.GET.q|default:'' }}"
+                >
+            </div>
+
+            <!-- Location -->
+            <div class="mc-care-field mc-care-field-location">
+                <label for="mc-search-location">Location</label>
+
+                <input
+                    id="mc-search-location"
+                    type="text"
+                    name="location"
+                    placeholder="City or area"
+                    value="{{ request.GET.location|default:'' }}"
+                >
+            </div>
+
+            <!-- Insurance -->
+            <div class="mc-care-field mc-care-field-insurance">
+                <label for="mc-search-insurance">Add insurance</label>
+
+                <input
+                    id="mc-search-insurance"
+                    type="text"
+                    name="insurance"
+                    placeholder="Insurance carrier and plan"
+                    value="{{ request.GET.insurance|default:'' }}"
+                >
+            </div>
+
+            <!-- Submit -->
+            <button class="mc-care-submit" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="10.5" cy="10.5" r="6.5"/>
+                    <path d="M15.5 15.5L21 21"/>
+                </svg>
+                <span>Find care</span>
+            </button>
+
+        </form>
+
+        <!-- Future AI Assistant Preview -->
+        <div class="mc-ai-preview" id="mc-ai-preview" hidden>
+            <div class="mc-ai-preview-icon" aria-hidden="true">✦</div>
+            <h2>Tell us what kind of care you're looking for.</h2>
+            <p>
+                Our AI-assisted care experience is coming soon.
+                It will help you explore appropriate healthcare
+                services, but won't replace professional medical advice.
+            </p>
+            <button type="button" id="mc-back-to-search">
+                Continue with classic search
+            </button>
+        </div>
+
+        {% if request.GET.q or request.GET.location or request.GET.insurance %}
+        <p class="mc-search-notice" role="status">
+            Your search details have been captured.
+            Doctor search results will be available when the
+            discovery module is connected.
+        </p>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="mc-home-intro" id="how-it-works">
+    <div class="mc-home-intro-inner">
+
+        <span class="mc-home-section-label">
+            HOW MEDICONNECT WORKS
         </span>
 
-        <h1 class="mt-4">
-            Find the right doctor, without the hassle.
-        </h1>
+        <h2>Care, without the complications.</h2>
 
-        <p class="mb-4">
-            Search healthcare professionals, compare
-            availability, and book your next appointment.
-        </p>
+        <div class="mc-home-steps">
+            <article>
+                <span>01</span>
+                <h3>Find a doctor</h3>
+                <p>Explore healthcare professionals by specialty and location.</p>
+            </article>
 
-        <div class="mc-card">
-            <h2 class="mc-card-title">
-                Your healthcare journey starts here.
-            </h2>
+            <article>
+                <span>02</span>
+                <h3>Book an appointment</h3>
+                <p>Choose an available time that fits your schedule.</p>
+            </article>
 
-            <p>
-                Find doctors, manage appointments,
-                and access healthcare services.
-            </p>
-
-            <a href="#" class="mc-btn mc-btn-primary">
-                Find a Doctor
-            </a>
-
-            <a href="#" class="mc-btn mc-btn-outline">
-                Learn More
-            </a>
+            <article>
+                <span>03</span>
+                <h3>Manage your care</h3>
+                <p>Keep your healthcare appointments organized.</p>
+            </article>
         </div>
 
     </div>
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}" defer></script>
 {% endblock %}
