@@ -1,0 +1,59 @@
+
+<aside class="mc-dashboard-sidebar" id="dashboard-sidebar">
+    <a href="{% url 'dashboard:overview' %}" class="mc-dashboard-brand">
+        <span class="mc-dashboard-brand-icon">+</span>
+        <span>MediConnect</span>
+        <small>ADMIN</small>
+    </a>
+
+    <div class="mc-sidebar-section-label">WORKSPACE</div>
+
+    <nav class="mc-sidebar-nav" aria-label="Dashboard navigation">
+        <a href="{% url 'dashboard:overview' %}" class="mc-sidebar-link active" aria-current="page">
+            <span class="mc-sidebar-icon">▦</span>
+            Overview
+        </a>
+
+        <span class="mc-sidebar-link disabled">
+            <span class="mc-sidebar-icon">♙</span>
+            Doctors
+            <small>Soon</small>
+        </span>
+
+        <span class="mc-sidebar-link disabled">
+            <span class="mc-sidebar-icon">♧</span>
+            Patients
+            <small>Soon</small>
+        </span>
+
+        <span class="mc-sidebar-link disabled">
+            <span class="mc-sidebar-icon">▣</span>
+            Appointments
+            <small>Soon</small>
+        </span>
+
+        <span class="mc-sidebar-link disabled">
+            <span class="mc-sidebar-icon">✚</span>
+            Specialties
+            <small>Soon</small>
+        </span>
+
+        <span class="mc-sidebar-link disabled">
+            <span class="mc-sidebar-icon">☆</span>
+            Reviews
+            <small>Soon</small>
+        </span>
+    </nav>
+
+    <div class="mc-sidebar-bottom">
+        <span class="mc-sidebar-link disabled">
+            <span class="mc-sidebar-icon">⚙</span>
+            Settings
+        </span>
+
+        <a href="{% url 'core:home' %}" class="mc-sidebar-link">
+            <span class="mc-sidebar-icon">↗</span>
+            View website
+        </a>
+    </div>
+</aside>
