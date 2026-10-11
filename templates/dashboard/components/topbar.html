@@ -1,0 +1,33 @@
+
+<header class="mc-dashboard-topbar">
+    <div class="mc-topbar-left">
+        <button
+            type="button"
+            class="mc-sidebar-toggle"
+            id="dashboard-menu-toggle"
+            aria-label="Toggle dashboard menu"
+            aria-controls="dashboard-sidebar"
+            aria-expanded="false"
+        >
+            ☰
+        </button>
+
+        <div class="mc-topbar-breadcrumb">
+            <span>Administration</span>
+            <span class="mc-breadcrumb-separator">/</span>
+            <strong>{{ page_title|default:"Overview" }}</strong>
+        </div>
+    </div>
+
+    <div class="mc-topbar-right">
+        <span class="mc-demo-badge">Demo mode</span>
+
+        <div class="mc-admin-profile">
+            <span class="mc-admin-avatar">A</span>
+            <div>
+                <strong>Administrator</strong>
+                <small>Platform admin preview</small>
+            </div>
+        </div>
+    </div>
+</header>

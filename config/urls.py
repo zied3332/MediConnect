@@ -3,10 +3,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-
-    # Authentication pages
+    path("dashboard/", include("dashboard.urls")),
     path("accounts/", include("accounts.urls")),
-
-    # Homepage
     path("", include("core.urls")),
 ]

@@ -1,0 +1,34 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Dashboard | MediConnect{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/dashboard/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard/components.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="mc-dashboard">
+        {% include "dashboard/components/sidebar.html" %}
+
+        <div class="mc-dashboard-main">
+            {% include "dashboard/components/topbar.html" %}
+
+            <main class="mc-dashboard-content" id="main-content">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <script src="{% static 'js/dashboard.js' %}" defer></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
