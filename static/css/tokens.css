@@ -1,0 +1,74 @@
+
+/* =========================================================
+   MediConnect — Design Tokens
+   Version: 1.0
+   Shared across all Django applications
+   ========================================================= */
+
+:root {
+
+    /* Brand colors */
+    --mc-primary: #E8B84A;
+    --mc-primary-hover: #D9A634;
+    --mc-primary-light: #FFF3D4;
+
+    --mc-forest: #294638;
+    --mc-forest-light: #E7EFE9;
+
+    /* Backgrounds */
+    --mc-background: #F8F6EF;
+    --mc-surface: #FFFFFF;
+    --mc-surface-muted: #F3F1EA;
+
+    /* Typography colors */
+    --mc-text: #292D28;
+    --mc-text-secondary: #596057;
+    --mc-text-muted: #767C73;
+
+    /* Borders */
+    --mc-border: #E8E6DC;
+    --mc-border-strong: #D5D3C8;
+
+    /* Semantic colors */
+    --mc-success: #357653;
+    --mc-warning: #A66B18;
+    --mc-danger: #B54B3C;
+
+    /* Typography */
+    --mc-font-body: "DM Sans", Arial, sans-serif;
+    --mc-font-heading: "DM Sans", Arial, sans-serif;
+
+    --mc-text-xs: 0.75rem;
+    --mc-text-sm: 0.875rem;
+    --mc-text-md: 1rem;
+    --mc-text-lg: 1.125rem;
+    --mc-text-xl: 1.5rem;
+
+    /* Spacing */
+    --mc-space-1: 0.25rem;
+    --mc-space-2: 0.5rem;
+    --mc-space-3: 0.75rem;
+    --mc-space-4: 1rem;
+    --mc-space-5: 1.5rem;
+    --mc-space-6: 2rem;
+    --mc-space-7: 3rem;
+    --mc-space-8: 4rem;
+
+    /* Border radius */
+    --mc-radius-sm: 6px;
+    --mc-radius-md: 10px;
+    --mc-radius-lg: 16px;
+    --mc-radius-xl: 22px;
+    --mc-radius-pill: 999px;
+
+    /* Shadows */
+    --mc-shadow-sm: 0 2px 8px rgba(41, 45, 40, 0.04);
+    --mc-shadow-md: 0 8px 24px rgba(41, 45, 40, 0.07);
+
+    /* Layout */
+    --mc-container-width: 1200px;
+    --mc-header-height: 76px;
+
+    /* Transitions */
+    --mc-transition: 180ms ease;
+}

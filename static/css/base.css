@@ -1,0 +1,251 @@
+
+/* =========================================================
+   MediConnect — Global Styles
+   Shared UI foundation for all modules
+   ========================================================= */
+
+/* Global layout */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--mc-background);
+    color: var(--mc-text);
+    font-family: var(--mc-font-body);
+    font-size: var(--mc-text-md);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background: var(--mc-primary-light);
+    color: var(--mc-text);
+}
+
+/* Typography */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--mc-font-heading);
+    color: var(--mc-text);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+}
+
+p {
+    color: var(--mc-text-secondary);
+}
+
+a {
+    color: var(--mc-forest);
+    text-decoration: none;
+    transition: color var(--mc-transition);
+}
+
+a:hover {
+    color: var(--mc-text);
+}
+
+/* Layout containers */
+
+.mc-container {
+    width: min(
+        calc(100% - 2rem),
+        var(--mc-container-width)
+    );
+    margin-inline: auto;
+}
+
+.mc-section {
+    padding-block: var(--mc-space-8);
+}
+
+.mc-section-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin-bottom: var(--mc-space-4);
+}
+
+/* Buttons */
+
+.mc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--mc-space-2);
+
+    min-height: 44px;
+    padding: 0.75rem 1.25rem;
+
+    border: 1px solid transparent;
+    border-radius: var(--mc-radius-md);
+
+    font-family: inherit;
+    font-size: var(--mc-text-sm);
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        background-color var(--mc-transition),
+        border-color var(--mc-transition),
+        color var(--mc-transition);
+}
+
+.mc-btn-primary {
+    background: var(--mc-primary);
+    color: var(--mc-text);
+}
+
+.mc-btn-primary:hover {
+    background: var(--mc-primary-hover);
+    color: var(--mc-text);
+}
+
+.mc-btn-secondary {
+    background: var(--mc-forest);
+    color: #FFFFFF;
+}
+
+.mc-btn-secondary:hover {
+    background: #1E352A;
+    color: #FFFFFF;
+}
+
+.mc-btn-outline {
+    background: transparent;
+    border-color: var(--mc-border-strong);
+    color: var(--mc-text);
+}
+
+.mc-btn-outline:hover {
+    background: var(--mc-surface-muted);
+    color: var(--mc-text);
+}
+
+/* Cards */
+
+.mc-card {
+    background: var(--mc-surface);
+    border: 1px solid var(--mc-border);
+    border-radius: var(--mc-radius-lg);
+    padding: var(--mc-space-5);
+    box-shadow: var(--mc-shadow-sm);
+}
+
+.mc-card-title {
+    margin-bottom: var(--mc-space-2);
+    font-size: var(--mc-text-lg);
+    font-weight: 700;
+}
+
+/* Form elements */
+
+.mc-label {
+    display: block;
+    margin-bottom: var(--mc-space-2);
+    color: var(--mc-text);
+    font-size: var(--mc-text-sm);
+    font-weight: 600;
+}
+
+.mc-input,
+.mc-select,
+.mc-textarea {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 0.75rem 1rem;
+
+    background: var(--mc-surface);
+    border: 1px solid var(--mc-border-strong);
+    border-radius: var(--mc-radius-md);
+
+    color: var(--mc-text);
+    font-family: inherit;
+    font-size: var(--mc-text-md);
+
+    transition: border-color var(--mc-transition);
+}
+
+.mc-input::placeholder,
+.mc-textarea::placeholder {
+    color: var(--mc-text-muted);
+}
+
+.mc-input:focus,
+.mc-select:focus,
+.mc-textarea:focus {
+    outline: 2px solid var(--mc-forest);
+    outline-offset: 2px;
+    border-color: var(--mc-forest);
+}
+
+/* Shared badges */
+
+.mc-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--mc-radius-pill);
+    background: var(--mc-forest-light);
+    color: var(--mc-forest);
+    font-size: var(--mc-text-xs);
+    font-weight: 700;
+}
+
+/* Accessibility */
+
+:focus-visible {
+    outline: 3px solid var(--mc-forest);
+    outline-offset: 3px;
+}
+
+.mc-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+    .mc-section {
+        padding-block: var(--mc-space-7);
+    }
+
+    .mc-container {
+        width: calc(100% - 1.5rem);
+    }
+
+    .mc-card {
+        padding: var(--mc-space-4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}

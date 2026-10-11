@@ -3,13 +3,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ==========================================
+         MediConnect — Shared Base Template
+         ========================================== -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- SEO -->
     <meta name="description"
-          content="MediConnect — Find doctors, book appointments, and access healthcare online.">
+          content="{% block meta_description %}MediConnect — Find doctors, book appointments, and access healthcare online.{% endblock %}">
 
+    <meta name="theme-color" content="#F8F6EF">
+
+    <!-- Page Title -->
     <title>{% block title %}MediConnect{% endblock %}</title>
+
+    <!-- Google Fonts: DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <!-- Bootstrap 5 -->
     <link
@@ -17,28 +34,53 @@
         rel="stylesheet"
     >
 
-    <!-- Shared project styles (added in the next commit) -->
+    <!-- MediConnect Design System -->
+    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <!-- Page-Specific Styles -->
     {% block extra_css %}{% endblock %}
 </head>
 
 <body>
 
-    <!-- Shared navigation will be added here -->
-    <header id="site-header"></header>
+    <!-- Accessibility: Skip Navigation -->
+    <a href="#main-content" class="mc-sr-only">
+        Skip to main content
+    </a>
 
-    <!-- Page-specific content -->
+    <!-- ==========================================
+         Shared Navigation
+         ========================================== -->
+    <header id="site-header">
+        {% block navigation %}
+        <!-- Navbar component will be added in Commit 5 -->
+        {% endblock %}
+    </header>
+
+    <!-- ==========================================
+         Main Page Content
+         ========================================== -->
     <main id="main-content">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Shared footer will be added here -->
-    <footer id="site-footer"></footer>
+    <!-- ==========================================
+         Shared Footer
+         ========================================== -->
+    <footer id="site-footer">
+        {% block footer %}
+        <!-- Footer component will be added later -->
+        {% endblock %}
+    </footer>
 
     <!-- Bootstrap JavaScript -->
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
     </script>
 
+    <!-- Page-Specific Scripts -->
     {% block extra_js %}{% endblock %}
+
 </body>
 </html>
