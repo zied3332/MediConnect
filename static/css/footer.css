@@ -1,0 +1,187 @@
+
+/* ==========================================================
+   MediConnect — Shared Footer
+   ========================================================== */
+
+.mc-footer {
+    width: 100%;
+    background: #F2F0E8;
+    border-top: 1px solid #E8E6DC;
+    color: #292D28;
+}
+
+.mc-footer-container {
+    width: calc(100% - 96px);
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* Main grid */
+
+.mc-footer-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding: 75px 0 80px;
+}
+
+/* Brand */
+
+.mc-footer-brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #292D28;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    text-decoration: none;
+}
+
+.mc-footer-brand-link:hover {
+    color: #292D28;
+}
+
+.mc-footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #FFEB4D;
+    color: #292D28;
+}
+
+.mc-footer-brand p {
+    max-width: 290px;
+    margin: 24px 0 16px;
+
+    color: #62675F;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.mc-footer-tagline {
+    color: #7A7D74;
+    font-size: 13px;
+}
+
+/* Columns */
+
+.mc-footer-column h2 {
+    margin: 8px 0 24px;
+    color: #292D28;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.mc-footer-column ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mc-footer-column li {
+    margin: 0;
+    padding: 0;
+}
+
+.mc-footer-column a,
+.mc-footer-column li span {
+    color: #666B63;
+    font-size: 14px;
+    line-height: 1.5;
+    text-decoration: none;
+}
+
+.mc-footer-column a:hover {
+    color: #292D28;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.mc-footer-column li span {
+    cursor: default;
+}
+
+/* Bottom bar */
+
+.mc-footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+
+    padding: 26px 0 30px;
+    border-top: 1px solid #DCD9CF;
+}
+
+.mc-footer-bottom p {
+    margin: 0;
+    color: #777C74;
+    font-size: 13px;
+}
+
+/* Tablet */
+
+@media (max-width: 1100px) {
+    .mc-footer-main {
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 40px;
+    }
+
+    .mc-footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+    .mc-footer-container {
+        width: calc(100% - 36px);
+    }
+
+    .mc-footer-main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 38px 24px;
+        padding: 55px 0 60px;
+    }
+
+    .mc-footer-brand {
+        grid-column: 1 / -1;
+    }
+
+    .mc-footer-column h2 {
+        margin-bottom: 18px;
+    }
+
+    .mc-footer-column ul {
+        gap: 14px;
+    }
+
+    .mc-footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .mc-footer-main {
+        grid-template-columns: 1fr;
+    }
+
+    .mc-footer-brand {
+        grid-column: auto;
+    }
+}

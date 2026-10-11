@@ -1,0 +1,134 @@
+
+<nav class="mc-nav" aria-label="Main navigation">
+    <div class="mc-nav-container">
+
+        <!-- Brand -->
+        <a class="mc-nav-brand" href="{% url 'core:home' %}">
+            <span class="mc-nav-logo" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="30" height="30"
+                     fill="none">
+                    <path d="M16 5V27M5 16H27"
+                          stroke="currentColor"
+                          stroke-width="3.2"
+                          stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="mc-nav-brand-name">MediConnect</span>
+        </a>
+
+        <!-- Desktop navigation -->
+        <div class="mc-nav-desktop">
+
+            <!-- Browse -->
+            <div class="mc-nav-dropdown">
+                <button
+                    class="mc-nav-browse"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="mc-browse-menu"
+                    data-mc-dropdown
+                >
+                    Browse
+                    <svg viewBox="0 0 24 24" width="18" height="18"
+                         fill="none" aria-hidden="true">
+                        <path d="M6 9L12 15L18 9"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <div class="mc-nav-menu" id="mc-browse-menu" hidden>
+                    <span class="mc-nav-menu-label">Browse healthcare</span>
+                    <a href="{% url 'core:home' %}">
+                        Find doctors
+                    </a>
+                    <span class="mc-nav-menu-disabled">
+                        Specialties — Coming soon
+                    </span>
+                    <span class="mc-nav-menu-disabled">
+                        Clinics — Coming soon
+                    </span>
+                </div>
+            </div>
+
+            <span class="mc-nav-link mc-nav-link-disabled">
+                Help
+            </span>
+
+            <span class="mc-nav-link mc-nav-link-disabled">
+                List your practice
+            </span>
+
+            <span class="mc-nav-divider" aria-hidden="true"></span>
+
+            <!-- Login -->
+            <div class="mc-nav-dropdown">
+                <button
+                    class="mc-nav-login"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="mc-login-menu"
+                    data-mc-dropdown
+                >
+                    Log in
+                    <svg viewBox="0 0 24 24" width="18" height="18"
+                         fill="none" aria-hidden="true">
+                        <path d="M6 9L12 15L18 9"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"/>
+                    </svg>
+                </button>
+
+                <div class="mc-nav-menu mc-nav-menu-right"
+                     id="mc-login-menu" hidden>
+                    <span class="mc-nav-menu-label">Your account</span>
+                    <span class="mc-nav-menu-disabled">
+                        Patient login — Coming soon
+                    </span>
+                    <span class="mc-nav-menu-disabled">
+                        Doctor login — Coming soon
+                    </span>
+                </div>
+            </div>
+
+            <span class="mc-nav-signup mc-nav-signup-disabled">
+                Sign up
+            </span>
+
+        </div>
+
+        <!-- Mobile menu button -->
+        <button
+            class="mc-nav-mobile-toggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="mc-nav-mobile-menu"
+        >
+            <svg viewBox="0 0 24 24" width="25" height="25"
+                 fill="none" aria-hidden="true">
+                <path d="M4 7H20M4 12H20M4 17H20"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile navigation -->
+    <div class="mc-nav-mobile-menu" id="mc-nav-mobile-menu" hidden>
+        <div class="mc-nav-mobile-content">
+            <a href="{% url 'core:home' %}">Find doctors</a>
+            <span>Specialties — Coming soon</span>
+            <span>Help</span>
+            <span>List your practice</span>
+            <span>Patient login — Coming soon</span>
+            <span>Doctor login — Coming soon</span>
+            <span class="mc-nav-mobile-signup">Sign up</span>
+        </div>
+    </div>
+</nav>

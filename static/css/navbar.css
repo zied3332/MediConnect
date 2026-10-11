@@ -1,0 +1,317 @@
+
+/* ==========================================================
+   MediConnect — Navigation
+   Inspired by classic healthcare booking interfaces
+   ========================================================== */
+
+.mc-nav {
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    background: #FFFDF5;
+    border-bottom: 1px solid #F0EEE5;
+    font-family: var(--mc-font-body);
+}
+
+.mc-nav-container {
+    width: calc(100% - 96px);
+    max-width: 1700px;
+    min-height: 96px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+}
+
+/* Brand */
+
+.mc-nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+
+    color: #292D28;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    text-decoration: none;
+}
+
+.mc-nav-brand:hover {
+    color: #292D28;
+}
+
+.mc-nav-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #FFEB4D;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #292D28;
+}
+
+/* Desktop links */
+
+.mc-nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 2.5vw, 48px);
+    height: 96px;
+}
+
+.mc-nav-link,
+.mc-nav-login,
+.mc-nav-browse {
+    color: #292D28;
+    font-size: 19px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.mc-nav-link-disabled {
+    cursor: default;
+}
+
+.mc-nav-dropdown {
+    position: relative;
+}
+
+.mc-nav-browse,
+.mc-nav-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.mc-nav-browse {
+    min-height: 60px;
+    padding: 0 24px;
+    background: #EAE8E0;
+    border-radius: 5px;
+}
+
+.mc-nav-browse:hover,
+.mc-nav-browse[aria-expanded="true"] {
+    background: #E3E0D6;
+}
+
+.mc-nav-login {
+    background: transparent;
+    padding: 12px 0;
+}
+
+.mc-nav-login:hover {
+    color: var(--mc-forest);
+}
+
+.mc-nav-divider {
+    height: 30px;
+    width: 1px;
+    background: #E8E6DC;
+}
+
+/* Sign up */
+
+.mc-nav-signup {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 60px;
+    padding: 0 26px;
+
+    background: #FFEB4D;
+    border-radius: 5px;
+    color: #292D28;
+    font-size: 19px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.mc-nav-signup-disabled {
+    cursor: default;
+}
+
+/* Dropdown panels */
+
+.mc-nav-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+
+    min-width: 270px;
+    padding: 18px 14px;
+
+    background: #FFFFFF;
+    border: 1px solid #E8E6DC;
+    border-radius: 10px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+}
+
+.mc-nav-menu[hidden] {
+    display: none;
+}
+
+.mc-nav-menu-right {
+    left: auto;
+    right: 0;
+}
+
+.mc-nav-menu-label {
+    display: block;
+    padding: 5px 12px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #767C73;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.mc-nav-menu a,
+.mc-nav-menu-disabled {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #292D28;
+}
+
+.mc-nav-menu a:hover {
+    background: #F8F6EF;
+}
+
+.mc-nav-menu-disabled {
+    color: #858982;
+    cursor: default;
+}
+
+/* Mobile */
+
+.mc-nav-mobile-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    background: transparent;
+    border: 1px solid #E8E6DC;
+    border-radius: 6px;
+    color: #292D28;
+    cursor: pointer;
+}
+
+.mc-nav-mobile-menu {
+    background: #FFFDF5;
+    border-top: 1px solid #E8E6DC;
+}
+
+.mc-nav-mobile-menu[hidden] {
+    display: none;
+}
+
+.mc-nav-mobile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 24px 28px;
+}
+
+.mc-nav-mobile-content a,
+.mc-nav-mobile-content > span {
+    display: block;
+    padding: 13px 12px;
+    color: #292D28;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.mc-nav-mobile-content > span {
+    color: #767C73;
+}
+
+.mc-nav-mobile-content .mc-nav-mobile-signup {
+    margin-top: 10px;
+    padding: 14px 20px;
+    background: #FFEB4D;
+    color: #292D28;
+    border-radius: 5px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Responsive breakpoints */
+
+@media (max-width: 1250px) {
+    .mc-nav-container {
+        width: calc(100% - 48px);
+    }
+
+    .mc-nav-desktop {
+        gap: 20px;
+    }
+
+    .mc-nav-link,
+    .mc-nav-login,
+    .mc-nav-browse,
+    .mc-nav-signup {
+        font-size: 16px;
+    }
+
+    .mc-nav-brand {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 1050px) {
+    .mc-nav-desktop {
+        display: none;
+    }
+
+    .mc-nav-mobile-toggle {
+        display: flex;
+    }
+
+    .mc-nav-container {
+        min-height: 76px;
+    }
+
+    .mc-nav-logo {
+        width: 46px;
+        height: 46px;
+    }
+}
+
+@media (min-width: 1051px) {
+    .mc-nav-mobile-menu {
+        display: none !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .mc-nav-container {
+        width: calc(100% - 32px);
+    }
+
+    .mc-nav-brand {
+        font-size: 21px;
+    }
+
+    .mc-nav-logo {
+        width: 42px;
+        height: 42px;
+    }
+}
