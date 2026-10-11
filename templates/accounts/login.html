@@ -1,0 +1,97 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Log In | MediConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block navigation %}
+<div class="mc-auth-header">
+    <a href="{% url 'core:home' %}" class="mc-auth-brand">
+        <span class="mc-auth-logo" aria-hidden="true">+</span>
+        <span>MediConnect</span>
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="mc-auth-page mc-auth-login">
+    <div class="mc-auth-login-card">
+
+        <div class="mc-auth-card-brand">
+            <span class="mc-auth-logo" aria-hidden="true">+</span>
+            <span>MediConnect</span>
+        </div>
+
+        <h1>Welcome back</h1>
+        <p class="mc-auth-subtitle">
+            Log in to manage your healthcare.
+        </p>
+
+        <form id="mc-login-form" class="mc-auth-form">
+
+            <div class="mc-auth-field">
+                <label for="login-email">Email</label>
+                <input
+                    type="email"
+                    id="login-email"
+                    name="email"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="mc-auth-field">
+                <label for="login-password">Password</label>
+
+                <div class="mc-auth-password-wrapper">
+                    <input
+                        type="password"
+                        id="login-password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="mc-auth-password-toggle"
+                        data-password-toggle="login-password"
+                        aria-label="Show password"
+                    >
+                        Show
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="mc-auth-submit">
+                Continue
+            </button>
+
+            <p class="mc-auth-notice" role="status">
+                Login functionality will be available soon.
+            </p>
+
+            <p class="mc-auth-switch">
+                Don't have an account?
+                <a href="{% url 'accounts:signup' %}">
+                    Sign up
+                </a>
+            </p>
+
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/auth.js' %}" defer></script>
+{% endblock %}

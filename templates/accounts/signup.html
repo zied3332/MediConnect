@@ -1,0 +1,124 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Create an Account | MediConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block navigation %}
+<div class="mc-auth-header">
+    <a href="{% url 'core:home' %}" class="mc-auth-brand">
+        <span class="mc-auth-logo" aria-hidden="true">+</span>
+        <span>MediConnect</span>
+    </a>
+
+    <span class="mc-auth-header-note">
+        Medical provider?
+        <span>Provider registration coming soon</span>
+    </span>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="mc-auth-page mc-auth-signup">
+    <div class="mc-auth-form-container">
+
+        <h1>Create an account</h1>
+
+        <form id="mc-signup-form" class="mc-auth-form">
+
+            <div class="mc-auth-field">
+                <label for="signup-email">Email</label>
+                <input
+                    type="email"
+                    id="signup-email"
+                    name="email"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+            <div class="mc-auth-field-row">
+                <div class="mc-auth-field">
+                    <label for="signup-first-name">
+                        First name
+                    </label>
+                    <input
+                        type="text"
+                        id="signup-first-name"
+                        name="first_name"
+                        autocomplete="given-name"
+                        required
+                    >
+                </div>
+
+                <div class="mc-auth-field">
+                    <label for="signup-last-name">
+                        Last name
+                    </label>
+                    <input
+                        type="text"
+                        id="signup-last-name"
+                        name="last_name"
+                        autocomplete="family-name"
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="mc-auth-field">
+                <label for="signup-password">Password</label>
+                <input
+                    type="password"
+                    id="signup-password"
+                    name="password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                >
+            </div>
+
+            <div class="mc-auth-field">
+                <label for="signup-confirm-password">
+                    Confirm password
+                </label>
+                <input
+                    type="password"
+                    id="signup-confirm-password"
+                    name="confirm_password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                >
+            </div>
+
+            <p id="mc-signup-error" class="mc-auth-error"
+               role="alert" hidden></p>
+
+            <button type="submit" class="mc-auth-submit">
+                Create account
+            </button>
+
+            <p class="mc-auth-notice" role="status">
+                Registration will be available soon.
+            </p>
+
+            <p class="mc-auth-switch">
+                Already have an account?
+                <a href="{% url 'accounts:login' %}">Log in</a>
+            </p>
+
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/auth.js' %}" defer></script>
+{% endblock %}
