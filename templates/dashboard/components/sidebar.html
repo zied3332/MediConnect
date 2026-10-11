@@ -1,59 +1,88 @@
 
 <aside class="mc-dashboard-sidebar" id="dashboard-sidebar">
+
+    <!-- Brand -->
     <a href="{% url 'dashboard:overview' %}" class="mc-dashboard-brand">
-        <span class="mc-dashboard-brand-icon">+</span>
+        <span class="mc-dashboard-brand-icon" aria-hidden="true">+</span>
         <span>MediConnect</span>
         <small>ADMIN</small>
     </a>
 
     <div class="mc-sidebar-section-label">WORKSPACE</div>
 
+    <!-- Main navigation -->
     <nav class="mc-sidebar-nav" aria-label="Dashboard navigation">
-        <a href="{% url 'dashboard:overview' %}" class="mc-sidebar-link active" aria-current="page">
-            <span class="mc-sidebar-icon">▦</span>
-            Overview
+
+        <!-- Overview -->
+        <a
+            href="{% url 'dashboard:overview' %}"
+            class="mc-sidebar-link {% if request.resolver_match.url_name == 'overview' %}active{% endif %}"
+            {% if request.resolver_match.url_name == 'overview' %}
+                aria-current="page"
+            {% endif %}
+        >
+            <span class="mc-sidebar-icon" aria-hidden="true">▦</span>
+            <span>Overview</span>
         </a>
 
+        <!-- Doctors -->
         <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">♙</span>
-            Doctors
+            <span class="mc-sidebar-icon" aria-hidden="true">♙</span>
+            <span>Doctors</span>
             <small>Soon</small>
         </span>
 
+        <!-- Patients -->
         <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">♧</span>
-            Patients
+            <span class="mc-sidebar-icon" aria-hidden="true">♧</span>
+            <span>Patients</span>
             <small>Soon</small>
         </span>
 
+        <!-- Appointments -->
         <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">▣</span>
-            Appointments
+            <span class="mc-sidebar-icon" aria-hidden="true">▣</span>
+            <span>Appointments</span>
             <small>Soon</small>
         </span>
 
+        <!-- Specialties -->
         <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">✚</span>
-            Specialties
+            <span class="mc-sidebar-icon" aria-hidden="true">✚</span>
+            <span>Specialties</span>
             <small>Soon</small>
         </span>
 
+        <!-- Reviews -->
         <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">☆</span>
-            Reviews
+            <span class="mc-sidebar-icon" aria-hidden="true">☆</span>
+            <span>Reviews</span>
             <small>Soon</small>
         </span>
+
     </nav>
 
+    <!-- Bottom navigation -->
     <div class="mc-sidebar-bottom">
-        <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">⚙</span>
-            Settings
-        </span>
 
-        <a href="{% url 'core:home' %}" class="mc-sidebar-link">
-            <span class="mc-sidebar-icon">↗</span>
-            View website
+        <!-- Settings -->
+        <a
+            href="{% url 'dashboard:settings' %}"
+            class="mc-sidebar-link {% if request.resolver_match.url_name == 'settings' %}active{% endif %}"
+            {% if request.resolver_match.url_name == 'settings' %}
+                aria-current="page"
+            {% endif %}
+        >
+            <span class="mc-sidebar-icon" aria-hidden="true">⚙</span>
+            <span>Settings</span>
         </a>
+
+        <!-- Public website -->
+        <a href="{% url 'core:home' %}" class="mc-sidebar-link">
+            <span class="mc-sidebar-icon" aria-hidden="true">↗</span>
+            <span>View website</span>
+        </a>
+
     </div>
+
 </aside>

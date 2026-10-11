@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 
 
@@ -11,16 +12,68 @@ def overview(request):
     context = {
         "page_title": "Overview",
         "stats": [
-            {"label": "Total patients", "value": "1,248", "change": "+12.5%", "icon": "users"},
-            {"label": "Active doctors", "value": "86", "change": "+4.2%", "icon": "doctors"},
-            {"label": "Appointments", "value": "324", "change": "+8.1%", "icon": "calendar"},
-            {"label": "Pending approvals", "value": "12", "change": "Needs review", "icon": "pending"},
+            {
+                "label": "Total patients",
+                "value": "1,248",
+                "change": "+12.5%",
+                "icon": "users",
+            },
+            {
+                "label": "Active doctors",
+                "value": "86",
+                "change": "+4.2%",
+                "icon": "doctors",
+            },
+            {
+                "label": "Appointments",
+                "value": "324",
+                "change": "+8.1%",
+                "icon": "calendar",
+            },
+            {
+                "label": "Pending approvals",
+                "value": "12",
+                "change": "Needs review",
+                "icon": "pending",
+            },
         ],
         "recent_activity": [
-            {"title": "New doctor registration", "description": "A doctor submitted a verification request.", "time": "10 minutes ago"},
-            {"title": "Appointment booked", "description": "A new consultation was scheduled.", "time": "25 minutes ago"},
-            {"title": "New patient account", "description": "A patient joined MediConnect.", "time": "1 hour ago"},
+            {
+                "title": "New doctor registration",
+                "description": "A doctor submitted a verification request.",
+                "time": "10 minutes ago",
+            },
+            {
+                "title": "Appointment booked",
+                "description": "A new consultation was scheduled.",
+                "time": "25 minutes ago",
+            },
+            {
+                "title": "New patient account",
+                "description": "A patient joined MediConnect.",
+                "time": "1 hour ago",
+            },
         ],
     }
 
     return render(request, "dashboard/overview.html", context)
+
+
+def settings_page(request):
+    """
+    Display the platform settings interface.
+
+    Settings are demonstration values until backend
+    persistence and staff authorization are implemented.
+    """
+    context = {
+        "page_title": "Settings",
+        "platform": {
+            "name": "MediConnect",
+            "support_email": "support@mediconnect.example",
+            "timezone": "Africa/Tunis",
+            "language": "English",
+        },
+    }
+
+    return render(request, "dashboard/settings.html", context)

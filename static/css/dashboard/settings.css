@@ -1,0 +1,217 @@
+
+/* ==========================================
+   MediConnect Admin — Settings
+   ========================================== */
+
+.mc-settings-layout {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.mc-settings-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: sticky;
+    top: 24px;
+}
+
+.mc-settings-nav-link {
+    display: block;
+    padding: 13px 16px;
+    border-radius: 8px;
+    color: #455147;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.mc-settings-nav-link:hover {
+    background: #eff1eb;
+    color: #242824;
+}
+
+.mc-settings-nav-link.active {
+    background: #fff5b8;
+    color: #242824;
+}
+
+.mc-settings-nav-link:focus-visible {
+    outline: 2px solid #a78b00;
+    outline-offset: 2px;
+}
+
+.mc-settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+.mc-settings-card {
+    background: #ffffff;
+    border: 1px solid var(--mc-admin-border);
+    border-radius: 12px;
+    padding: 30px;
+    scroll-margin-top: 24px;
+}
+
+.mc-settings-card-heading {
+    margin-bottom: 28px;
+}
+
+.mc-settings-card-heading h2 {
+    margin: 0 0 8px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #242824;
+}
+
+.mc-settings-card-heading p {
+    margin: 0;
+    color: var(--mc-admin-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Form */
+
+.mc-settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.mc-settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.mc-settings-field label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #3a413b;
+}
+
+.mc-settings-field input,
+.mc-settings-field select {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 14px;
+    border: 1px solid #dfe4dc;
+    border-radius: 7px;
+    background: #f9faf7;
+    color: #4f5850;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.mc-settings-field input:disabled,
+.mc-settings-field select:disabled {
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+.mc-settings-field-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.mc-settings-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 22px;
+    border-top: 1px solid var(--mc-admin-border);
+}
+
+.mc-settings-footer span {
+    color: var(--mc-admin-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.mc-settings-footer button {
+    border: 0;
+    border-radius: 7px;
+    background: var(--mc-admin-yellow);
+    padding: 12px 20px;
+    color: #242824;
+    font-weight: 700;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.mc-settings-footer button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Setting options */
+
+.mc-settings-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 0;
+    border-top: 1px solid var(--mc-admin-border);
+}
+
+.mc-settings-option strong {
+    font-size: 13px;
+    color: #2e382f;
+}
+
+.mc-settings-option p {
+    margin: 7px 0 0;
+    color: var(--mc-admin-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.mc-settings-coming-soon {
+    flex-shrink: 0;
+    padding: 7px 11px;
+    background: #f3f5f0;
+    border-radius: 20px;
+    color: #58655b;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+    .mc-settings-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .mc-settings-nav {
+        flex-direction: row;
+        position: static;
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .mc-settings-card {
+        padding: 22px;
+    }
+
+    .mc-settings-field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .mc-settings-footer,
+    .mc-settings-option {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,178 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Settings | MediConnect Admin{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/settings.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">PLATFORM CONFIGURATION</span>
+        <h1>Settings</h1>
+        <p>Manage MediConnect platform preferences and configuration.</p>
+    </div>
+    <span class="mc-overview-date">Preview mode</span>
+</div>
+
+<div class="mc-settings-layout">
+
+    <!-- Section navigation -->
+    <nav class="mc-settings-nav" aria-label="Settings sections">
+        <a href="#general" class="mc-settings-nav-link active">
+            General
+        </a>
+        <a href="#notifications" class="mc-settings-nav-link">
+            Notifications
+        </a>
+        <a href="#security" class="mc-settings-nav-link">
+            Security
+        </a>
+    </nav>
+
+    <div class="mc-settings-content">
+
+        <!-- General settings -->
+        <section class="mc-settings-card" id="general">
+            <div class="mc-settings-card-heading">
+                <h2>General settings</h2>
+                <p>Basic information about your MediConnect platform.</p>
+            </div>
+
+            <div class="mc-settings-form">
+
+                <div class="mc-settings-field">
+                    <label for="platform-name">Platform name</label>
+                    <input
+                        id="platform-name"
+                        type="text"
+                        value="{{ platform.name }}"
+                        disabled
+                    >
+                </div>
+
+                <div class="mc-settings-field">
+                    <label for="support-email">Support email</label>
+                    <input
+                        id="support-email"
+                        type="email"
+                        value="{{ platform.support_email }}"
+                        disabled
+                    >
+                </div>
+
+                <div class="mc-settings-field-row">
+
+                    <div class="mc-settings-field">
+                        <label for="platform-timezone">Timezone</label>
+                        <select id="platform-timezone" disabled>
+                            <option selected>{{ platform.timezone }}</option>
+                        </select>
+                    </div>
+
+                    <div class="mc-settings-field">
+                        <label for="platform-language">Default language</label>
+                        <select id="platform-language" disabled>
+                            <option selected>{{ platform.language }}</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="mc-settings-footer">
+                    <span>
+                        Editing will be available after backend integration.
+                    </span>
+
+                    <button type="button" disabled>
+                        Save changes
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Notifications -->
+        <section class="mc-settings-card" id="notifications">
+            <div class="mc-settings-card-heading">
+                <h2>Notifications</h2>
+                <p>Configure operational alerts and platform notifications.</p>
+            </div>
+
+            <div class="mc-settings-option">
+                <div>
+                    <strong>Doctor verification alerts</strong>
+                    <p>
+                        Receive notifications when doctors request verification.
+                    </p>
+                </div>
+                <span class="mc-settings-coming-soon">Coming soon</span>
+            </div>
+
+            <div class="mc-settings-option">
+                <div>
+                    <strong>Appointment notifications</strong>
+                    <p>
+                        Monitor important appointment events.
+                    </p>
+                </div>
+                <span class="mc-settings-coming-soon">Coming soon</span>
+            </div>
+
+            <div class="mc-settings-option">
+                <div>
+                    <strong>System alerts</strong>
+                    <p>
+                        Receive important platform maintenance and security notices.
+                    </p>
+                </div>
+                <span class="mc-settings-coming-soon">Coming soon</span>
+            </div>
+        </section>
+
+        <!-- Security -->
+        <section class="mc-settings-card" id="security">
+            <div class="mc-settings-card-heading">
+                <h2>Security</h2>
+                <p>Administrative access and platform security settings.</p>
+            </div>
+
+            <div class="mc-settings-option">
+                <div>
+                    <strong>Administrator permissions</strong>
+                    <p>
+                        Manage staff roles and access to administrative tools.
+                    </p>
+                </div>
+                <span class="mc-settings-coming-soon">Coming soon</span>
+            </div>
+
+            <div class="mc-settings-option">
+                <div>
+                    <strong>Audit logs</strong>
+                    <p>
+                        Review important administrative actions and changes.
+                    </p>
+                </div>
+                <span class="mc-settings-coming-soon">Coming soon</span>
+            </div>
+
+            <div class="mc-settings-option">
+                <div>
+                    <strong>Two-factor authentication</strong>
+                    <p>
+                        Add another layer of protection for administrator accounts.
+                    </p>
+                </div>
+                <span class="mc-settings-coming-soon">Coming soon</span>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+{% endblock %}
