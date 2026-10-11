@@ -3,25 +3,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ==========================================
+    <!-- ==================================================
          MediConnect — Shared Base Template
-         ========================================== -->
+         ================================================== -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO -->
-    <meta name="description"
-          content="{% block meta_description %}MediConnect — Find doctors, book appointments, and access healthcare online.{% endblock %}">
+    <meta
+        name="description"
+        content="{% block meta_description %}MediConnect — Find doctors, book appointments, and access healthcare online.{% endblock %}"
+    >
 
-    <meta name="theme-color" content="#F8F6EF">
+    <meta name="theme-color" content="#FFFDF5">
 
     <!-- Page Title -->
     <title>{% block title %}MediConnect{% endblock %}</title>
 
     <!-- Google Fonts: DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap"
@@ -35,8 +41,20 @@
     >
 
     <!-- MediConnect Design System -->
-    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/tokens.css' %}"
+    >
+    <link
+        rel="stylesheet"
+        href="{% static 'css/base.css' %}"
+    >
+
+    <!-- Shared Navigation Styles -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/navbar.css' %}"
+    >
 
     <!-- Page-Specific Styles -->
     {% block extra_css %}{% endblock %}
@@ -44,39 +62,49 @@
 
 <body>
 
-    <!-- Accessibility: Skip Navigation -->
-    <a href="#main-content" class="mc-sr-only">
+    <!-- Accessibility: Skip to Main Content -->
+    <a href="#main-content" class="mc-sr-only mc-skip-link">
         Skip to main content
     </a>
 
-    <!-- ==========================================
+    <!-- ==================================================
          Shared Navigation
-         ========================================== -->
+         ================================================== -->
     <header id="site-header">
         {% block navigation %}
-        <!-- Navbar component will be added in Commit 5 -->
+            {% include "components/navbar.html" %}
         {% endblock %}
     </header>
 
-    <!-- ==========================================
+    <!-- ==================================================
          Main Page Content
-         ========================================== -->
-    <main id="main-content">
+         ================================================== -->
+    <main id="main-content" tabindex="-1">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- ==========================================
+    <!-- ==================================================
          Shared Footer
-         ========================================== -->
+         ================================================== -->
     <footer id="site-footer">
         {% block footer %}
-        <!-- Footer component will be added later -->
+            <!-- Shared footer component will be added later -->
         {% endblock %}
     </footer>
+
+    <!-- ==================================================
+         JavaScript
+         ================================================== -->
 
     <!-- Bootstrap JavaScript -->
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <!-- MediConnect Navigation -->
+    <script
+        src="{% static 'js/navbar.js' %}"
+        defer>
     </script>
 
     <!-- Page-Specific Scripts -->
