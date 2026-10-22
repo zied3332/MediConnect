@@ -1,38 +1,22 @@
-
 /**
- * MediConnect — Authentication UI.
- * Frontend preview only. No credentials are sent or stored.
+ * MediConnect — Auth page JS
+ *
+ * Handles password show/hide toggle only.
+ * Forms now submit normally via POST to the Django backend.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("[data-password-toggle]").forEach((button) => {
-        button.addEventListener("click", () => {
-            const inputId = button.dataset.passwordToggle;
-            const input = document.getElementById(inputId);
+    // Password show / hide toggles
+    document.querySelectorAll("[data-password-toggle]").forEach((btn) => {
+        const targetId = btn.dataset.passwordToggle;
+        const input = document.getElementById(targetId);
+        if (!input) return;
 
-            if (!input) return;
-
-            const isVisible = input.type === "text";
-
-            input.type = isVisible ? "password" : "text";
-            button.textContent = isVisible ? "Show" : "Hide";
-            button.setAttribute(
-                "aria-label",
-                isVisible ? "Show password" : "Hide password"
-            );
-        });
-    });
-
-    ["mc-login-form", "mc-signup-form"].forEach((formId) => {
-        const form = document.getElementById(formId);
-
-        if (!form) return;
-
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            // Real authentication will be implemented later.
-            // Never log or store entered passwords.
+        btn.addEventListener("click", () => {
+            const isPassword = input.type === "password";
+            input.type = isPassword ? "text" : "password";
+            btn.textContent = isPassword ? "Hide" : "Show";
+            btn.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
         });
     });
 });

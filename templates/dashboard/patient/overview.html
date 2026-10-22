@@ -1,0 +1,63 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}My Health | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">PATIENT PORTAL</span>
+        <h1>Hello, {{ request.user.first_name }}.</h1>
+        <p>Manage your health and appointments.</p>
+    </div>
+</div>
+
+<div class="mc-stats-grid">
+    {% for stat in stats %}
+    <article class="mc-stat-card">
+        <div class="mc-stat-top">
+            <span class="mc-stat-label">{{ stat.label }}</span>
+            <span class="mc-stat-icon">{{ stat.icon }}</span>
+        </div>
+        <div class="mc-stat-value">{{ stat.value }}</div>
+        <div class="mc-stat-change">{{ stat.change }}</div>
+    </article>
+    {% endfor %}
+</div>
+
+<div class="mc-dashboard-panels">
+    <section class="mc-panel">
+        <div class="mc-panel-heading">
+            <div>
+                <h2>Upcoming appointments</h2>
+                <p>Your next consultations</p>
+            </div>
+        </div>
+        <div class="mc-activity-list">
+            {% for appt in upcoming_appointments %}
+            <div class="mc-activity-item">
+                <span class="mc-activity-dot"></span>
+                <div class="mc-activity-body">
+                    <strong>{{ appt.doctor }}</strong>
+                    <p>{{ appt.specialty }}</p>
+                </div>
+                <time>{{ appt.date }}</time>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="mc-panel mc-panel-side">
+        <div class="mc-panel-heading">
+            <div>
+                <h2>Quick actions</h2>
+                <p>Manage your health</p>
+            </div>
+        </div>
+        <div class="mc-quick-info">
+            <div><span>Book appointment</span><strong>Coming soon</strong></div>
+            <div><span>View prescriptions</span><strong>Coming soon</strong></div>
+            <div><span>Message a doctor</span><strong>Coming soon</strong></div>
+        </div>
+    </section>
+</div>
+{% endblock %}

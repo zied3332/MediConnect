@@ -1,6 +1,7 @@
-
 <aside class="mc-dashboard-sidebar" id="dashboard-sidebar">
-    <a href="{% url 'dashboard:overview' %}" class="mc-dashboard-brand">
+
+    {% if dashboard_role == "admin" %}
+    <a href="{% url 'dashboard:admin_overview' %}" class="mc-dashboard-brand">
         <span class="mc-dashboard-brand-icon">+</span>
         <span>MediConnect</span>
         <small>ADMIN</small>
@@ -8,52 +9,58 @@
 
     <div class="mc-sidebar-section-label">WORKSPACE</div>
 
-    <nav class="mc-sidebar-nav" aria-label="Dashboard navigation">
-        <a href="{% url 'dashboard:overview' %}" class="mc-sidebar-link active" aria-current="page">
-            <span class="mc-sidebar-icon">▦</span>
-            Overview
+    <nav class="mc-sidebar-nav" aria-label="Admin navigation">
+        <a href="{% url 'dashboard:admin_overview' %}" class="mc-sidebar-link {% if page_title == 'Overview' %}active{% endif %}" aria-current="page">
+            <span class="mc-sidebar-icon">▦</span>Overview
         </a>
-
-        <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">♙</span>
-            Doctors
-            <small>Soon</small>
-        </span>
-
-        <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">♧</span>
-            Patients
-            <small>Soon</small>
-        </span>
-
-        <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">▣</span>
-            Appointments
-            <small>Soon</small>
-        </span>
-
-        <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">✚</span>
-            Specialties
-            <small>Soon</small>
-        </span>
-
-        <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">☆</span>
-            Reviews
-            <small>Soon</small>
-        </span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">♙</span>Doctors<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">♧</span>Patients<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">▣</span>Appointments<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">✚</span>Specialties<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">☆</span>Reviews<small>Soon</small></span>
     </nav>
 
-    <div class="mc-sidebar-bottom">
-        <span class="mc-sidebar-link disabled">
-            <span class="mc-sidebar-icon">⚙</span>
-            Settings
-        </span>
+    {% elif dashboard_role == "doctor" %}
+    <a href="{% url 'dashboard:doctor_overview' %}" class="mc-dashboard-brand">
+        <span class="mc-dashboard-brand-icon">+</span>
+        <span>MediConnect</span>
+        <small>DOCTOR</small>
+    </a>
 
-        <a href="{% url 'core:home' %}" class="mc-sidebar-link">
-            <span class="mc-sidebar-icon">↗</span>
-            View website
+    <div class="mc-sidebar-section-label">MY PRACTICE</div>
+
+    <nav class="mc-sidebar-nav" aria-label="Doctor navigation">
+        <a href="{% url 'dashboard:doctor_overview' %}" class="mc-sidebar-link {% if page_title == 'My Dashboard' %}active{% endif %}" aria-current="page">
+            <span class="mc-sidebar-icon">▦</span>Overview
         </a>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">▣</span>Appointments<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">♧</span>My Patients<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">✚</span>Prescriptions<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">☆</span>Reviews<small>Soon</small></span>
+    </nav>
+
+    {% else %}
+    <a href="{% url 'dashboard:patient_overview' %}" class="mc-dashboard-brand">
+        <span class="mc-dashboard-brand-icon">+</span>
+        <span>MediConnect</span>
+        <small>PATIENT</small>
+    </a>
+
+    <div class="mc-sidebar-section-label">MY HEALTH</div>
+
+    <nav class="mc-sidebar-nav" aria-label="Patient navigation">
+        <a href="{% url 'dashboard:patient_overview' %}" class="mc-sidebar-link {% if page_title == 'My Health' %}active{% endif %}" aria-current="page">
+            <span class="mc-sidebar-icon">▦</span>Overview
+        </a>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">▣</span>Appointments<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">♙</span>My Doctors<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">✚</span>Prescriptions<small>Soon</small></span>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">✉</span>Messages<small>Soon</small></span>
+    </nav>
+    {% endif %}
+
+    <div class="mc-sidebar-bottom">
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">⚙</span>Settings</span>
+        <a href="{% url 'core:home' %}" class="mc-sidebar-link"><span class="mc-sidebar-icon">↗</span>View website</a>
     </div>
 </aside>
