@@ -1,14 +1,12 @@
-
 """
 Django settings for MediConnect.
 
-Django version: 6.1.2
 Project: MediConnect
 Description: AI-Assisted Healthcare & Telemedicine Platform
 """
 
 from pathlib import Path
-
+import os
 
 # ==========================================================
 # BASE DIRECTORY
@@ -21,18 +19,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY & DEVELOPMENT
 # ==========================================================
 
-# Development only. Set DJANGO_SECRET_KEY in the environment.
-import os
-
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "django-insecure-mediconnect-local-development-only",
 )
 
-# Never enable DEBUG in production.
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # ==========================================================
@@ -111,18 +105,35 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 # ==========================================================
-# DATABASE
+# DATABASE — PostgreSQL
 # ==========================================================
-
-# SQLite for local development.
-# Database configuration can be updated later.
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME", "mediconnect"),
+        "USER": os.environ.get("DB_USER", "postgres"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "mahmoud"),
+        "HOST": os.environ.get("DB_HOST", "localhost"),
+        "PORT": os.environ.get("DB_PORT", "5432"),
     }
 }
+
+
+# ==========================================================
+# CUSTOM USER MODEL
+# ==========================================================
+
+AUTH_USER_MODEL = "accounts.User"
+
+
+# ==========================================================
+# AUTHENTICATION URLS
+# ==========================================================
+
+LOGIN_URL = "accounts:login"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "core:home"
 
 
 # ==========================================================
@@ -162,35 +173,31 @@ AUTH_PASSWORD_VALIDATORS = [
 # ==========================================================
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
 # ==========================================================
 # STATIC FILES
-# CSS, JavaScript, Images
 # ==========================================================
 
 STATIC_URL = "static/"
 
-# Shared static assets used by all MediConnect applications.
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
 
 # ==========================================================
-# EMAIL CONFIGURATION
+# EMAIL — Console backend for development
 # ==========================================================
 
-# During development, emails are printed in the terminal.
-MAILERS = {
-    "default": {
-        "BACKEND": "django.core.mail.backends.console.EmailBackend",
-    },
-}
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+
+# ==========================================================
+# DEFAULT PRIMARY KEY
+# ==========================================================
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
