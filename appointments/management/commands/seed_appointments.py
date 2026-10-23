@@ -58,9 +58,11 @@ class Command(BaseCommand):
 
     # ── Users ────────────────────────────────────────────────────────────
     def _user(self, username, first, last, role, **extra):
+        email = f"{username}@{DOMAIN}"
+        # Username = email so it can never clash with an existing account (e.g. "admin").
         user, _ = User.objects.update_or_create(
-            email=f"{username}@{DOMAIN}",
-            defaults={"username": username, "first_name": first, "last_name": last, "role": role,
+            email=email,
+            defaults={"username": email, "first_name": first, "last_name": last, "role": role,
                       "is_active": True, **extra},
         )
         user.set_password(PASSWORD)
