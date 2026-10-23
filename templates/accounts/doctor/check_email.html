@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Check your email | MediConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/doctor.css' %}">
+{% endblock %}
+
+{% block navigation %}
+<div class="mc-auth-header">
+    <a href="{% url 'core:home' %}" class="mc-auth-brand">
+        <span class="mc-auth-logo" aria-hidden="true">+</span>
+        <span>MediConnect</span>
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="mc-check-email-page">
+    <div class="mc-check-email-card">
+
+        <div class="mc-check-email-icon" aria-hidden="true">✉️</div>
+
+        <h1>Check your email</h1>
+
+        <p>
+            We sent a confirmation link to<br>
+            <span class="mc-email-highlight">{{ email }}</span>
+        </p>
+
+        <p>
+            Click the link in the email to confirm your address
+            and proceed to upload your verification documents.
+        </p>
+
+        <p class="mc-check-email-note">
+            Didn't receive it? Check your spam folder.
+            The link expires in 3 days.
+        </p>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}

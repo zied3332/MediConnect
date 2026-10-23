@@ -190,10 +190,44 @@ STATICFILES_DIRS = [
 
 
 # ==========================================================
-# EMAIL — Console backend for development
+# MEDIA FILES — uploaded documents
 # ==========================================================
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+
+# ==========================================================
+# EMAIL — SendGrid via SMTP
+# Set SENDGRID_API_KEY in your environment (or .env file).
+# Set DEFAULT_FROM_EMAIL to your verified sender address.
+# ==========================================================
+
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
+
+if SENDGRID_API_KEY:
+    EMAIL_BACKEND    = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_HOST       = "smtp.sendgrid.net"
+    EMAIL_PORT       = 587
+    EMAIL_USE_TLS    = True
+    EMAIL_HOST_USER  = "apikey"          # literal string — SendGrid requires this
+    EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+else:
+    # No API key set → fall back to console so dev still works.
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL",
+    "MediConnect <noreply@mediconnect.com>",
+)
+
+
+# ==========================================================
+# EMAIL CONFIRMATION TOKEN EXPIRY
+# 3 days (in seconds) — reuses Django's password reset timeout
+# ==========================================================
+
+PASSWORD_RESET_TIMEOUT = 60 * 60 * 24 * 3  # 3 days
 
 
 # ==========================================================

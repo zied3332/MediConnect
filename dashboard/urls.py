@@ -5,9 +5,17 @@ from . import views
 app_name = "dashboard"
 
 urlpatterns = [
-    path("admin/",   views.admin_overview,   name="admin_overview"),
-    path("doctor/",  views.doctor_overview,  name="doctor_overview"),
-    path("patient/", views.patient_overview, name="patient_overview"),
-    # Backward-compat: /dashboard/ → admin overview
-    path("",         views.admin_overview,   name="overview"),
+    # ── Admin ────────────────────────────────────────────
+    path("admin/",                          views.admin_overview,      name="admin_overview"),
+    path("admin/doctors/",                  views.admin_doctor_list,   name="admin_doctor_list"),
+    path("admin/doctors/<int:pk>/",         views.admin_doctor_detail, name="admin_doctor_detail"),
+
+    # ── Doctor ───────────────────────────────────────────
+    path("doctor/",                         views.doctor_overview,     name="doctor_overview"),
+
+    # ── Patient ──────────────────────────────────────────
+    path("patient/",                        views.patient_overview,    name="patient_overview"),
+
+    # Backward-compat
+    path("",                                views.admin_overview,      name="overview"),
 ]

@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Join as a Doctor | MediConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/doctor.css' %}">
+{% endblock %}
+
+{% block navigation %}
+<div class="mc-auth-header">
+    <a href="{% url 'core:home' %}" class="mc-auth-brand">
+        <span class="mc-auth-logo" aria-hidden="true">+</span>
+        <span>MediConnect</span>
+    </a>
+    <span class="mc-auth-header-note">
+        Already registered?
+        <a href="{% url 'accounts:login' %}" style="color:#303030;font-weight:600;text-decoration:underline;text-underline-offset:3px;">Log in</a>
+    </span>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="mc-doctor-signup">
+    <div class="mc-doctor-form-container">
+
+        <h1>Join as a doctor</h1>
+        <p class="mc-doctor-subtitle">
+            Create your practitioner account. You'll confirm your email
+            and upload verification documents before going live.
+        </p>
+
+        <!-- Step indicator -->
+        <div class="mc-doctor-steps" aria-label="Registration steps">
+            <div class="mc-step active">
+                <span class="mc-step-num">1</span>
+                Your details
+            </div>
+            <div class="mc-step-connector"></div>
+            <div class="mc-step">
+                <span class="mc-step-num">2</span>
+                Confirm email
+            </div>
+            <div class="mc-step-connector"></div>
+            <div class="mc-step">
+                <span class="mc-step-num">3</span>
+                Upload documents
+            </div>
+            <div class="mc-step-connector"></div>
+            <div class="mc-step">
+                <span class="mc-step-num">4</span>
+                Under review
+            </div>
+        </div>
+
+        {% if form.non_field_errors %}
+        <p class="mc-auth-error" role="alert">{{ form.non_field_errors|first }}</p>
+        {% endif %}
+
+        <form class="mc-auth-form" method="post" novalidate>
+            {% csrf_token %}
+
+            <!-- Email -->
+            <div class="mc-auth-field">
+                <label for="doctor-email">Email address</label>
+                <input
+                    type="email"
+                    id="doctor-email"
+                    name="email"
+                    value="{{ form.email.value|default:'' }}"
+                    placeholder="doctor@hospital.com"
+                    autocomplete="email"
+                    required
+                >
+                {% if form.email.errors %}<span class="mc-auth-field-error">{{ form.email.errors|first }}</span>{% endif %}
+            </div>
+
+            <!-- Name -->
+            <div class="mc-auth-field-row">
+                <div class="mc-auth-field">
+                    <label for="doctor-first-name">First name</label>
+                    <input
+                        type="text"
+                        id="doctor-first-name"
+                        name="first_name"
+                        value="{{ form.first_name.value|default:'' }}"
+                        autocomplete="given-name"
+                        required
+                    >
+                    {% if form.first_name.errors %}<span class="mc-auth-field-error">{{ form.first_name.errors|first }}</span>{% endif %}
+                </div>
+                <div class="mc-auth-field">
+                    <label for="doctor-last-name">Last name</label>
+                    <input
+                        type="text"
+                        id="doctor-last-name"
+                        name="last_name"
+                        value="{{ form.last_name.value|default:'' }}"
+                        autocomplete="family-name"
+                        required
+                    >
+                    {% if form.last_name.errors %}<span class="mc-auth-field-error">{{ form.last_name.errors|first }}</span>{% endif %}
+                </div>
+            </div>
+
+            <!-- Specialty -->
+            <div class="mc-auth-field">
+                <label for="doctor-specialty">Medical specialty</label>
+                <select id="doctor-specialty" name="specialty" required>
+                    <option value="">— Select your specialty —</option>
+                    {% for value, label in form.fields.specialty.choices %}
+                    <option value="{{ value }}" {% if form.specialty.value == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.specialty.errors %}<span class="mc-auth-field-error">{{ form.specialty.errors|first }}</span>{% endif %}
+            </div>
+
+            <!-- Password -->
+            <div class="mc-auth-field">
+                <label for="doctor-password">Password</label>
+                <div class="mc-auth-password-wrapper">
+                    <input
+                        type="password"
+                        id="doctor-password"
+                        name="password"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                    >
+                    <button type="button" class="mc-auth-password-toggle"
+                            data-password-toggle="doctor-password" aria-label="Show password">Show</button>
+                </div>
+                {% if form.password.errors %}<span class="mc-auth-field-error">{{ form.password.errors|first }}</span>{% endif %}
+            </div>
+
+            <div class="mc-auth-field">
+                <label for="doctor-confirm-password">Confirm password</label>
+                <div class="mc-auth-password-wrapper">
+                    <input
+                        type="password"
+                        id="doctor-confirm-password"
+                        name="confirm_password"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                    >
+                    <button type="button" class="mc-auth-password-toggle"
+                            data-password-toggle="doctor-confirm-password" aria-label="Show password">Show</button>
+                </div>
+                {% if form.confirm_password.errors %}<span class="mc-auth-field-error">{{ form.confirm_password.errors|first }}</span>{% endif %}
+            </div>
+
+            <button type="submit" class="mc-auth-submit">Continue →</button>
+
+            <p class="mc-auth-switch">
+                Looking to book an appointment?
+                <a href="{% url 'accounts:signup' %}">Create a patient account</a>
+            </p>
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/auth.js' %}" defer></script>
+{% endblock %}

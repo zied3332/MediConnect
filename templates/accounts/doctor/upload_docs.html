@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Upload Documents | MediConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/doctor.css' %}">
+{% endblock %}
+
+{% block navigation %}
+<div class="mc-auth-header">
+    <a href="{% url 'core:home' %}" class="mc-auth-brand">
+        <span class="mc-auth-logo" aria-hidden="true">+</span>
+        <span>MediConnect</span>
+    </a>
+    <span class="mc-auth-header-note">
+        Logged in as {{ request.user.get_full_name }}
+    </span>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="mc-upload-page">
+    <div class="mc-upload-container">
+
+        <!-- Step indicator -->
+        <div class="mc-doctor-steps" aria-label="Registration steps" style="margin-bottom:36px;">
+            <div class="mc-step done">
+                <span class="mc-step-num">✓</span>
+                Your details
+            </div>
+            <div class="mc-step-connector"></div>
+            <div class="mc-step done">
+                <span class="mc-step-num">✓</span>
+                Email confirmed
+            </div>
+            <div class="mc-step-connector"></div>
+            <div class="mc-step active">
+                <span class="mc-step-num">3</span>
+                Upload documents
+            </div>
+            <div class="mc-step-connector"></div>
+            <div class="mc-step">
+                <span class="mc-step-num">4</span>
+                Under review
+            </div>
+        </div>
+
+        {% if is_resubmit %}
+        <div class="mc-reviewer-note" role="alert">
+            <strong>📋 Our team needs more information</strong>
+            {% if reviewer_note %}
+                {{ reviewer_note }}
+            {% else %}
+                Please re-upload your documents. Make sure each file is clear and readable.
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <h1>Upload your documents</h1>
+        <p class="mc-doctor-subtitle">
+            These documents are used to verify your identity and qualifications.
+            We accept PDF, JPG, and PNG files. All documents are stored securely.
+        </p>
+
+        {% if form.non_field_errors %}
+        <p class="mc-auth-error" role="alert">{{ form.non_field_errors|first }}</p>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+
+            <!-- Medical license -->
+            <div class="mc-doc-field">
+                <label for="doc-license">Medical license / registration number</label>
+                <p class="mc-doc-hint">
+                    Your official medical license or professional registration document issued by your medical authority.
+                </p>
+                <input
+                    type="file"
+                    id="doc-license"
+                    name="medical_license"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required
+                >
+                {% if form.medical_license.errors %}
+                <span class="mc-doc-field-error">{{ form.medical_license.errors|first }}</span>
+                {% endif %}
+            </div>
+
+            <!-- Diploma -->
+            <div class="mc-doc-field">
+                <label for="doc-diploma">Diploma or specialty certificate</label>
+                <p class="mc-doc-hint">
+                    Your medical degree or specialist qualification certificate.
+                </p>
+                <input
+                    type="file"
+                    id="doc-diploma"
+                    name="diploma"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required
+                >
+                {% if form.diploma.errors %}
+                <span class="mc-doc-field-error">{{ form.diploma.errors|first }}</span>
+                {% endif %}
+            </div>
+
+            <!-- National ID -->
+            <div class="mc-doc-field">
+                <label for="doc-id">National ID or passport</label>
+                <p class="mc-doc-hint">
+                    A government-issued photo ID confirming your identity.
+                </p>
+                <input
+                    type="file"
+                    id="doc-id"
+                    name="national_id"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required
+                >
+                {% if form.national_id.errors %}
+                <span class="mc-doc-field-error">{{ form.national_id.errors|first }}</span>
+                {% endif %}
+            </div>
+
+            <!-- Selfie with ID (optional) -->
+            <div class="mc-selfie-tip">
+                <strong>💡 Tip — Selfie with your ID (optional but recommended)</strong>
+                A photo of yourself holding your ID next to your face significantly speeds up
+                the review process and reduces back-and-forth. Use your camera button below
+                or upload a photo.
+            </div>
+
+            <div class="mc-doc-field">
+                <label for="doc-selfie">
+                    Selfie holding your ID
+                    <span class="mc-doc-optional-tag">Optional</span>
+                </label>
+                <p class="mc-doc-hint">
+                    Hold your ID card or passport next to your face so both are clearly visible.
+                </p>
+                <input
+                    type="file"
+                    id="doc-selfie"
+                    name="selfie_with_id"
+                    accept=".jpg,.jpeg,.png"
+                    capture="user"
+                >
+                {% if form.selfie_with_id.errors %}
+                <span class="mc-doc-field-error">{{ form.selfie_with_id.errors|first }}</span>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="mc-auth-submit" style="margin-top:10px;">
+                Submit for review →
+            </button>
+
+        </form>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/auth.js' %}" defer></script>
+{% endblock %}

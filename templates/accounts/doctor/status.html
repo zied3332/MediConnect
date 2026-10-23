@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Application Status | MediConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/doctor.css' %}">
+{% endblock %}
+
+{% block navigation %}
+<div class="mc-auth-header">
+    <a href="{% url 'core:home' %}" class="mc-auth-brand">
+        <span class="mc-auth-logo" aria-hidden="true">+</span>
+        <span>MediConnect</span>
+    </a>
+    {% if request.user.is_authenticated %}
+    <form method="post" action="{% url 'accounts:logout' %}" style="margin:0;">
+        {% csrf_token %}
+        <button type="submit" style="background:none;border:none;color:#777;font-size:14px;cursor:pointer;font-family:inherit;">
+            Log out
+        </button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="mc-status-page">
+    <div class="mc-status-card">
+
+        <!-- ── pending_documents ────────────────────────── -->
+        {% if profile.status == "pending_documents" %}
+        <div class="mc-status-icon mc-status-icon--pending" aria-hidden="true">📄</div>
+        <h1>Documents needed</h1>
+        <span class="mc-status-badge mc-status-badge--pending_documents">Pending documents</span>
+        <p>
+            Your email is confirmed. The next step is to upload your
+            verification documents so our team can review your application.
+        </p>
+        <a href="{% url 'accounts:doctor_upload_docs' pk=user.pk %}" class="mc-status-action-btn">
+            Upload documents →
+        </a>
+
+        <!-- ── pending_review ───────────────────────────── -->
+        {% elif profile.status == "pending_review" %}
+        <div class="mc-status-icon mc-status-icon--review" aria-hidden="true">🔍</div>
+        <h1>Under review</h1>
+        <span class="mc-status-badge mc-status-badge--pending_review">Pending review</span>
+        <p>
+            Thank you, <strong>Dr. {{ user.last_name }}</strong>.
+            Your documents have been submitted and our team is reviewing them.
+        </p>
+        <p>
+            This process typically takes 1–2 business days. We'll notify you
+            by email once a decision has been made.
+        </p>
+
+        <!-- ── needs_more_info ──────────────────────────── -->
+        {% elif profile.status == "needs_more_info" %}
+        <div class="mc-status-icon mc-status-icon--info" aria-hidden="true">📋</div>
+        <h1>Additional information needed</h1>
+        <span class="mc-status-badge mc-status-badge--needs_more_info">More info required</span>
+        <p>
+            Our review team has a question or needs a clearer document.
+        </p>
+        {% if profile.reviewer_note %}
+        <div class="mc-reviewer-note" style="text-align:left;">
+            <strong>📝 Message from our team:</strong>
+            {{ profile.reviewer_note }}
+        </div>
+        {% endif %}
+        <a href="{% url 'accounts:doctor_upload_docs' pk=user.pk %}" class="mc-status-action-btn">
+            Re-upload documents →
+        </a>
+
+        <!-- ── approved ─────────────────────────────────── -->
+        {% elif profile.status == "approved" %}
+        <div class="mc-status-icon" style="background:#e8f5e9;" aria-hidden="true">✅</div>
+        <h1>You're approved!</h1>
+        <span class="mc-status-badge mc-status-badge--approved">Approved</span>
+        <p>
+            Your account has been verified. Welcome to MediConnect,
+            <strong>Dr. {{ user.last_name }}</strong>.
+        </p>
+        <a href="{% url 'dashboard:doctor_overview' %}" class="mc-status-action-btn">
+            Go to my dashboard →
+        </a>
+
+        <!-- ── rejected ─────────────────────────────────── -->
+        {% elif profile.status == "rejected" %}
+        <div class="mc-status-icon mc-status-icon--rejected" aria-hidden="true">❌</div>
+        <h1>Application not approved</h1>
+        <span class="mc-status-badge mc-status-badge--rejected">Rejected</span>
+        <p>
+            Unfortunately, we were unable to approve your application at this time.
+        </p>
+        {% if profile.rejection_reason %}
+        <div class="mc-status-rejection-reason">
+            <strong>Reason:</strong>
+            {{ profile.rejection_reason }}
+        </div>
+        {% endif %}
+        <p style="margin-top: 20px; font-size: 13px; color: #999;">
+            If you believe this decision is an error, please contact
+            <a href="mailto:support@mediconnect.com">support@mediconnect.com</a>.
+        </p>
+
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}

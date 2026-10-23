@@ -1,0 +1,444 @@
+/* ==========================================================
+   MediConnect — Doctor Registration & Status Pages
+   ========================================================== */
+
+/* ── Doctor signup form ────────────────────────────────── */
+
+.mc-doctor-signup {
+    background: #fff;
+    padding: 65px 24px 100px;
+}
+
+.mc-doctor-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.mc-doctor-form-container h1 {
+    margin: 0 0 8px;
+    color: #303030;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.mc-doctor-form-container .mc-doctor-subtitle {
+    margin: 0 0 36px;
+    color: #747474;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.mc-doctor-steps {
+    display: flex;
+    gap: 0;
+    margin-bottom: 40px;
+}
+
+.mc-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    font-size: 13px;
+    color: #999;
+    font-weight: 500;
+}
+
+.mc-step.active {
+    color: #303030;
+    font-weight: 700;
+}
+
+.mc-step.done {
+    color: #357653;
+}
+
+.mc-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #eee;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.mc-step.active .mc-step-num {
+    background: #ffeb4d;
+    color: #292929;
+}
+
+.mc-step.done .mc-step-num {
+    background: #d4edda;
+    color: #155724;
+}
+
+.mc-step-connector {
+    width: 30px;
+    height: 2px;
+    background: #e0e0e0;
+    margin: 0 4px;
+    align-self: center;
+}
+
+/* ── Specialty select ──────────────────────────────────── */
+
+.mc-auth-field select {
+    width: 100%;
+    min-height: 54px;
+    padding: 13px 15px;
+    background: #fff;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    color: #303030;
+    font: inherit;
+    font-size: 16px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+}
+
+.mc-auth-field select:focus {
+    outline: 2px solid #c6a83c;
+    outline-offset: 1px;
+}
+
+/* ── Check email page ──────────────────────────────────── */
+
+.mc-check-email-page {
+    min-height: calc(100vh - 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    background: #f8f7f5;
+}
+
+.mc-check-email-card {
+    max-width: 500px;
+    width: 100%;
+    padding: 52px 44px;
+    background: #fff;
+    border: 1px solid #eceae6;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.08);
+    text-align: center;
+}
+
+.mc-check-email-icon {
+    width: 72px;
+    height: 72px;
+    background: #fff8c2;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 28px;
+    font-size: 34px;
+}
+
+.mc-check-email-card h1 {
+    margin: 0 0 14px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #252525;
+}
+
+.mc-check-email-card p {
+    margin: 0 0 10px;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.65;
+}
+
+.mc-check-email-card .mc-email-highlight {
+    font-weight: 700;
+    color: #252525;
+}
+
+.mc-check-email-note {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0ed;
+    color: #999;
+    font-size: 13px;
+}
+
+/* ── Document upload page ──────────────────────────────── */
+
+.mc-upload-page {
+    background: #fff;
+    padding: 65px 24px 100px;
+}
+
+.mc-upload-container {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.mc-upload-container h1 {
+    margin: 0 0 8px;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #252525;
+}
+
+.mc-upload-container .mc-doctor-subtitle {
+    margin: 0 0 36px;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.mc-doc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    border: 1px solid #e8e8e4;
+    border-radius: 10px;
+    background: #fafaf8;
+    margin-bottom: 18px;
+    transition: border-color 150ms;
+}
+
+.mc-doc-field:focus-within {
+    border-color: #c6a83c;
+    background: #fffdf5;
+}
+
+.mc-doc-field label {
+    color: #303030;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.mc-doc-field .mc-doc-hint {
+    margin: 0;
+    color: #888;
+    font-size: 13px;
+}
+
+.mc-doc-field input[type="file"] {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #555;
+}
+
+.mc-doc-optional-tag {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 11px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.mc-doc-field-error {
+    color: #a12d2d;
+    font-size: 13px;
+}
+
+.mc-selfie-tip {
+    padding: 14px 18px;
+    background: #fffde7;
+    border: 1px solid #ffe082;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #5c4200;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.mc-selfie-tip strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.mc-reviewer-note {
+    padding: 16px 20px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #664d00;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.mc-reviewer-note strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* ── Status page ───────────────────────────────────────── */
+
+.mc-status-page {
+    min-height: calc(100vh - 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    background: #f8f7f5;
+}
+
+.mc-status-card {
+    max-width: 560px;
+    width: 100%;
+    padding: 52px 44px;
+    background: #fff;
+    border: 1px solid #eceae6;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.08);
+    text-align: center;
+}
+
+.mc-status-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 28px;
+    font-size: 34px;
+}
+
+.mc-status-icon--pending   { background: #e3f2fd; }
+.mc-status-icon--review    { background: #fff8e1; }
+.mc-status-icon--info      { background: #fff3e0; }
+.mc-status-icon--rejected  { background: #fce4ec; }
+
+.mc-status-card h1 {
+    margin: 0 0 14px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #252525;
+}
+
+.mc-status-card p {
+    margin: 0 0 12px;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.65;
+}
+
+.mc-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.mc-status-badge--pending_documents { background: #e3f2fd; color: #0d47a1; }
+.mc-status-badge--pending_review    { background: #fff8e1; color: #e65100; }
+.mc-status-badge--needs_more_info   { background: #fff3e0; color: #bf360c; }
+.mc-status-badge--approved          { background: #e8f5e9; color: #1b5e20; }
+.mc-status-badge--rejected          { background: #fce4ec; color: #880e4f; }
+
+.mc-status-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    min-height: 50px;
+    margin-top: 20px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 6px;
+    background: #ffeb4d;
+    color: #252525;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 150ms;
+}
+
+.mc-status-action-btn:hover {
+    background: #f5df40;
+    color: #252525;
+}
+
+.mc-status-rejection-reason {
+    margin: 20px 0 0;
+    padding: 16px 20px;
+    background: #fce4ec;
+    border: 1px solid #f48fb1;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #880e4f;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.mc-status-rejection-reason strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* ── Invalid confirmation link ─────────────────────────── */
+
+.mc-confirm-invalid-page {
+    min-height: calc(100vh - 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    background: #f8f7f5;
+}
+
+.mc-confirm-invalid-card {
+    max-width: 480px;
+    width: 100%;
+    padding: 52px 44px;
+    background: #fff;
+    border: 1px solid #eceae6;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.08);
+    text-align: center;
+}
+
+.mc-confirm-invalid-card h1 {
+    margin: 0 0 14px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #252525;
+}
+
+.mc-confirm-invalid-card p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+
+@media (max-width: 650px) {
+    .mc-doctor-form-container,
+    .mc-upload-container { max-width: 100%; }
+
+    .mc-check-email-card,
+    .mc-status-card,
+    .mc-confirm-invalid-card {
+        padding: 36px 22px;
+    }
+
+    .mc-doctor-steps { flex-wrap: wrap; gap: 10px; }
+    .mc-step-connector { display: none; }
+}

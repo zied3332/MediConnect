@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Invalid confirmation link | MediConnect{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/doctor.css' %}">
+{% endblock %}
+
+{% block navigation %}
+<div class="mc-auth-header">
+    <a href="{% url 'core:home' %}" class="mc-auth-brand">
+        <span class="mc-auth-logo" aria-hidden="true">+</span>
+        <span>MediConnect</span>
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="mc-confirm-invalid-page">
+    <div class="mc-confirm-invalid-card">
+
+        <div class="mc-check-email-icon" style="background:#fce4ec;" aria-hidden="true">⚠️</div>
+
+        <h1>This link is invalid or expired</h1>
+
+        <p>
+            The confirmation link is no longer valid.
+            This can happen if you already confirmed your email,
+            or if the link has expired (links expire after 3 days).
+        </p>
+
+        <p style="margin-top: 24px;">
+            <a href="{% url 'accounts:doctor_signup' %}" class="mc-status-action-btn">
+                Register again
+            </a>
+        </p>
+
+        <p style="margin-top:16px; font-size:13px; color:#999;">
+            If you believe this is an error, please contact
+            <a href="mailto:support@mediconnect.com">support@mediconnect.com</a>.
+        </p>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block footer %}{% endblock %}
