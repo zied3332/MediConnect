@@ -7,6 +7,8 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 
 from accounts.models import User
+from core.models import Availability, Specialty
+from .forms import AvailabilityForm, DoctorAvailabilityForm, SpecialtyForm
 
 
 # ──────────────────────────────────────────────
@@ -78,6 +80,7 @@ def admin_users(request):
         "search_query": search_query,
         "selected_role": selected_role,
         "role_choices": User.Role.choices,
+        "specialties": Specialty.objects.all(),
         "total_users": User.objects.count(),
     }
     return render(request, "dashboard/admin/users.html", context)
@@ -105,6 +108,173 @@ def update_user_role(request, user_id):
             f"{user.get_full_name() or user.email} is now a {user.get_role_display().lower()}.",
         )
     return redirect("dashboard:admin_users")
+
+
+@role_required("admin")
+def admin_specialties(request):
+    if request.method == "POST":
+        form = SpecialtyForm(request.POST)
+        if form.is_valid():
+            specialty = form.save()
+            messages.success(request, f"{specialty.name} was added.")
+            return redirect("dashboard:admin_specialties")
+    else:
+        form = SpecialtyForm()
+
+    context = {
+        "page_title": "Specialties",
+        "dashboard_role": "admin",
+        "form": form,
+        "specialties": Specialty.objects.all(),
+        "catalogue_specialties": Specialty.objects.all()[:4],
+        "has_more_specialties": Specialty.objects.count() > 4,
+        "doctors": User.objects.filter(role=User.Role.DOCTOR).select_related(
+            "main_specialty"
+        ),
+    }
+    return render(request, "dashboard/admin/specialties.html", context)
+
+
+@role_required("admin")
+def specialty_list(request):
+    return render(
+        request,
+        "dashboard/admin/specialty_list.html",
+        {
+            "page_title": "Specialties",
+            "dashboard_role": "admin",
+            "specialties": Specialty.objects.all(),
+        },
+    )
+
+
+@role_required("admin")
+def edit_specialty(request, specialty_id):
+    specialty = get_object_or_404(Specialty, pk=specialty_id)
+    if request.method == "POST":
+        form = SpecialtyForm(request.POST, instance=specialty)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"{specialty.name} was updated.")
+        else:
+            messages.error(request, "Please correct the specialty details.")
+    return redirect(request.POST.get("next") or "dashboard:specialty_list")
+
+
+@role_required("admin")
+def delete_specialty(request, specialty_id):
+    if request.method == "POST":
+        specialty = get_object_or_404(Specialty, pk=specialty_id)
+        name = specialty.name
+        specialty.delete()
+        messages.success(request, f"{name} was deleted.")
+    return redirect(request.POST.get("next") or "dashboard:specialty_list")
+
+
+@role_required("admin")
+def update_doctor_specialty(request, user_id):
+    if request.method != "POST":
+        return redirect("dashboard:admin_specialties")
+
+    doctor = get_object_or_404(User, pk=user_id, role=User.Role.DOCTOR)
+    specialty_id = request.POST.get("specialty")
+    specialty = get_object_or_404(Specialty, pk=specialty_id) if specialty_id else None
+    doctor.main_specialty = specialty
+    doctor.save(update_fields=["main_specialty"])
+    messages.success(request, f"{doctor.get_full_name() or doctor.email}'s specialty was updated.")
+    return redirect("dashboard:admin_specialties")
+
+
+@role_required("admin")
+def admin_availability(request):
+    context = {
+        "page_title": "Availability",
+        "dashboard_role": "admin",
+        "slots": Availability.objects.select_related("doctor"),
+    }
+    return render(request, "dashboard/admin/availability.html", context)
+
+
+@role_required("admin")
+def delete_availability(request, slot_id):
+    return redirect("dashboard:admin_availability")
+
+
+@role_required("doctor")
+def doctor_availability(request):
+    if request.method == "POST":
+        form = DoctorAvailabilityForm(request.POST, doctor=request.user)
+        if form.is_valid():
+            slot = form.save(commit=False)
+            slot.doctor = request.user
+            slot.full_clean()
+            slot.save()
+            messages.success(request, "Availability slot was added.")
+            return redirect("dashboard:doctor_availability")
+    else:
+        form = DoctorAvailabilityForm(doctor=request.user)
+
+    context = {
+        "page_title": "Availability",
+        "dashboard_role": "doctor",
+        "form": form,
+        "slots": request.user.availability_slots.all(),
+    }
+    return render(request, "dashboard/doctor/availability.html", context)
+
+
+@role_required("doctor")
+def edit_doctor_availability(request, slot_id):
+    slot = get_object_or_404(
+        Availability,
+        pk=slot_id,
+        doctor=request.user,
+    )
+    if request.method == "POST":
+        form = DoctorAvailabilityForm(
+            request.POST,
+            instance=slot,
+            doctor=request.user,
+        )
+        if form.is_valid():
+            updated_slot = form.save(commit=False)
+            updated_slot.doctor = request.user
+            updated_slot.full_clean()
+            updated_slot.save()
+            messages.success(request, "Availability slot was updated.")
+            return redirect("dashboard:doctor_availability")
+    else:
+        form = DoctorAvailabilityForm(instance=slot, doctor=request.user)
+
+    return render(
+        request,
+        "dashboard/doctor/availability_form.html",
+        {
+            "page_title": "Availability",
+            "dashboard_role": "doctor",
+            "form": form,
+            "slot": slot,
+        },
+    )
+
+
+@role_required("doctor")
+def delete_doctor_availability(request, slot_id):
+    if request.method == "POST":
+        slot = get_object_or_404(Availability, pk=slot_id, doctor=request.user)
+        slot.delete()
+        messages.success(request, "Availability slot was removed.")
+    return redirect("dashboard:doctor_availability")
+
+
+@role_required("doctor")
+def toggle_doctor_availability(request, slot_id):
+    if request.method == "POST":
+        slot = get_object_or_404(Availability, pk=slot_id, doctor=request.user)
+        slot.is_free = not slot.is_free
+        slot.save(update_fields=["is_free"])
+        messages.success(request, "Availability status was updated.")
+    return redirect("dashboard:doctor_availability")
 
 
 # ──────────────────────────────────────────────

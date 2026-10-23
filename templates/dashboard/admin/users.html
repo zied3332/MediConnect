@@ -62,6 +62,7 @@
                     <th scope="col">User</th>
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
+                    <th scope="col">Specialty</th>
                     <th scope="col">Status</th>
                     <th scope="col">Joined</th>
                 </tr>
@@ -96,6 +97,23 @@
                         </form>
                     </td>
                     <td>
+                        {% if user.role == "doctor" %}
+                        <form method="post" action="{% url 'dashboard:update_doctor_specialty' user.id %}" class="mc-role-form">
+                            {% csrf_token %}
+                            <label class="mc-sr-only" for="specialty-{{ user.id }}">Specialty for {{ user.email }}</label>
+                            <select id="specialty-{{ user.id }}" name="specialty" class="mc-role-select">
+                                <option value="">No specialty</option>
+                                {% for specialty in specialties %}
+                                <option value="{{ specialty.id }}" {% if user.main_specialty_id == specialty.id %}selected{% endif %}>{{ specialty.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="mc-role-save">Save</button>
+                        </form>
+                        {% else %}
+                        <span class="mc-table-muted">Not applicable</span>
+                        {% endif %}
+                    </td>
+                    <td>
                         {% if user.is_active %}
                         <span class="mc-user-status mc-user-status--active">Active</span>
                         {% else %}
@@ -106,7 +124,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5" class="mc-users-empty">No users match your filters.</td>
+                    <td colspan="6" class="mc-users-empty">No users match your filters.</td>
                 </tr>
                 {% endfor %}
             </tbody>

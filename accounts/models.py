@@ -18,6 +18,14 @@ class User(AbstractUser):
 
     email = models.EmailField(unique=True)
 
+    main_specialty = models.ForeignKey(
+        "core.Specialty",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="doctors",
+    )
+
     role = models.CharField(
         max_length=10,
         choices=Role.choices,
