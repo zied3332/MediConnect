@@ -8,6 +8,7 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("allauth.urls")),   # Google OAuth callbacks
     path("dashboard/", include("dashboard.urls")),
+    path("notifications/", include("notifications.urls")),
     path("", include("core.urls")),
 ]
 

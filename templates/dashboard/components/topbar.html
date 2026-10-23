@@ -22,6 +22,13 @@
     </div>
 
     <div class="mc-topbar-right">
+        <a href="{% url 'notifications:list' %}"
+           class="mc-bell{% if unread_notifications_count %} mc-bell--unread{% endif %}"
+           aria-label="Notifications, {{ unread_notifications_count|default:0 }} unread">
+            <span class="mc-bell-icon" aria-hidden="true">🔔</span>
+            <span class="mc-bell-count" aria-live="polite" aria-atomic="true">{% if unread_notifications_count %}{{ unread_notifications_count }}{% endif %}</span>
+        </a>
+
         <span class="mc-role-badge mc-role-badge--{{ request.user.role }}">
             {{ request.user.role|capfirst }}
         </span>

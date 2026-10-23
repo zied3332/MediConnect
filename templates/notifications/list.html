@@ -1,0 +1,56 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Notifications | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">INBOX</span>
+        <h1>Notifications</h1>
+        <p>Updates about your appointments and your account, newest first.</p>
+    </div>
+    {% if has_unread %}
+    <form method="post" action="{% url 'notifications:mark_all_read' %}">
+        {% csrf_token %}
+        <button type="submit" class="mc-users-filter-button">Mark all as read</button>
+    </form>
+    {% endif %}
+</div>
+
+{% include "components/dashboard_messages.html" %}
+
+<section class="mc-panel mc-notif-panel" aria-labelledby="notif-list-title">
+    <h2 id="notif-list-title" class="mc-sr-only">Notification list</h2>
+    {% if page_obj.object_list %}
+    <ul class="mc-notif-list">
+        {% for notification in page_obj %}
+        <li class="mc-notif-item{% if not notification.is_read %} mc-notif-item--unread{% endif %}">
+            <span class="mc-notif-type mc-notif-type--{{ notification.type }}">{{ notification.get_type_display }}</span>
+            <div class="mc-notif-body">
+                <p>
+                    {% if not notification.is_read %}<span class="mc-sr-only">Unread: </span>{% endif %}
+                    {{ notification.message }}
+                </p>
+                <time datetime="{{ notification.created_at|date:'c' }}">{{ notification.created_at|timesince }} ago</time>
+            </div>
+            <div class="mc-action-group">
+                <form method="post" action="{% url 'notifications:mark_read' notification.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="mc-role-save">
+                        {% if notification.link %}Open{% else %}Mark as read{% endif %}
+                    </button>
+                </form>
+                <form method="post" action="{% url 'notifications:delete' notification.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="mc-role-save mc-role-save--danger" aria-label="Delete notification: {{ notification.message|truncatechars:60 }}">Delete</button>
+                </form>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% include "components/pagination.html" %}
+    {% else %}
+    <p class="mc-users-empty">You have no notifications yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

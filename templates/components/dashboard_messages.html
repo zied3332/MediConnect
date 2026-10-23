@@ -1,0 +1,5 @@
+<div class="mc-users-messages mc-flash" aria-live="polite" role="status">
+    {% for message in messages %}
+    <div class="mc-users-message mc-users-message--{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
