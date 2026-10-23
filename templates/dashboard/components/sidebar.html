@@ -73,6 +73,9 @@
     {% endif %}
 
     <div class="mc-sidebar-bottom">
+        <a href="{% url 'dashboard:profile' %}" class="mc-sidebar-link {% if active_nav == 'profile' %}active{% endif %}">
+            <span class="mc-sidebar-icon">👤</span>Profile
+        </a>
         <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">⚙</span>Settings</span>
         <a href="{% url 'core:home' %}" class="mc-sidebar-link">
             <span class="mc-sidebar-icon">↗</span>View website

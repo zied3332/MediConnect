@@ -10,6 +10,11 @@ urlpatterns = [
     path("signup/", views.signup_page,  name="signup"),
     path("logout/", views.logout_view,  name="logout"),
 
+    # ── Face login API ────────────────────────────────
+    path("api/face-descriptors/", views.get_face_descriptors, name="get_face_descriptors"),
+    path("api/face-login/", views.face_login, name="face_login"),
+    path("api/enroll-face/", views.enroll_face, name="enroll_face"),
+
     # ── Doctor registration flow ──────────────────────
     path(
         "doctor/signup/",

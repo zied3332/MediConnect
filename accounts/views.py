@@ -90,7 +90,7 @@ def login_page(request):
 
         if form.is_valid():
             user = form.get_user()
-            login(request, user)
+            login(request, user, backend="django.contrib.auth.backends.ModelBackend")
             next_url = request.GET.get("next") or None
             if next_url:
                 return redirect(next_url)
@@ -123,7 +123,8 @@ def signup_page(request):
 
     if request.method == "POST" and form.is_valid():
         user = form.save()
-        login(request, user)
+        # Specify backend explicitly since we have multiple backends
+        login(request, user, backend="django.contrib.auth.backends.ModelBackend")
         messages.success(request, f"Welcome to MediConnect, {user.first_name}!")
         return redirect(user.dashboard_url)
 
@@ -176,7 +177,7 @@ def doctor_confirm_email(request, uidb64, token):
     user.save(update_fields=["is_active"])
 
     # Log the user in so they land directly on the upload page.
-    login(request, user)
+    login(request, user, backend="django.contrib.auth.backends.ModelBackend")
 
     return redirect("accounts:doctor_upload_docs", pk=user.pk)
 
@@ -246,3 +247,147 @@ def doctor_status(request):
         "profile": profile,
         "user": user,
     })
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Face Login API endpoints
+# ─────────────────────────────────────────────────────────────────────────────
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+import json
+
+
+@require_http_methods(["GET"])
+def get_face_descriptors(request):
+    """
+    Return all face descriptors for face matching in browser.
+    
+    Returns: {
+        "descriptors": [
+            {"user_id": 1, "descriptor": [0.1, 0.2, ...], "name": "John Doe"},
+            ...
+        ]
+    }
+    """
+    users_with_faces = User.objects.filter(
+        face_descriptor__isnull=False
+    ).exclude(face_descriptor="")
+    
+    descriptors = []
+    for user in users_with_faces:
+        try:
+            descriptor_data = json.loads(user.face_descriptor)
+            descriptors.append({
+                "user_id": user.id,
+                "descriptor": descriptor_data,
+                "name": user.get_full_name(),
+            })
+        except (json.JSONDecodeError, ValueError):
+            continue
+    
+    return JsonResponse({"descriptors": descriptors})
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def face_login(request):
+    """
+    Verify face match and log in user.
+    
+    Expected POST data:
+    {
+        "user_id": 123
+    }
+    
+    The frontend has already matched the face - server just verifies
+    the user exists and has face login enabled.
+    """
+    try:
+        data = json.loads(request.body)
+        user_id = data.get("user_id")
+        
+        if not user_id:
+            return JsonResponse({"success": False, "error": "User ID required"}, status=400)
+        
+        user = User.objects.get(id=user_id, is_active=True)
+        
+        # Verify user has face descriptor set up
+        if not user.face_descriptor:
+            return JsonResponse({"success": False, "error": "Face login not set up"}, status=400)
+        
+        # Log the user in
+        login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+        
+        return JsonResponse({
+            "success": True,
+            "redirect_url": user.dashboard_url
+        })
+        
+    except User.DoesNotExist:
+        return JsonResponse({"success": False, "error": "User not found"}, status=404)
+    except json.JSONDecodeError:
+        return JsonResponse({"success": False, "error": "Invalid JSON"}, status=400)
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)}, status=500)
+
+
+@login_required
+@require_http_methods(["POST"])
+def enroll_face(request):
+    """
+    Save face descriptor for current user.
+    
+    Expected POST data:
+    {
+        "descriptor": [0.1, 0.2, 0.3, ...],  // 128-dimensional array
+        "image_data": "data:image/jpeg;base64,..."  // base64 image
+    }
+    """
+    try:
+        data = json.loads(request.body)
+        descriptor = data.get("descriptor")
+        image_data = data.get("image_data")
+        
+        if not descriptor:
+            return JsonResponse({"success": False, "error": "Descriptor required"}, status=400)
+        
+        # Validate descriptor is an array of 128 numbers
+        if not isinstance(descriptor, list) or len(descriptor) != 128:
+            return JsonResponse({
+                "success": False,
+                "error": "Descriptor must be array of 128 numbers"
+            }, status=400)
+        
+        # Save descriptor as JSON
+        request.user.face_descriptor = json.dumps(descriptor)
+        
+        # Optionally save profile picture from base64
+        if image_data and image_data.startswith("data:image"):
+            from django.core.files.base import ContentFile
+            import base64
+            
+            # Extract base64 data
+            format_str, img_str = image_data.split(';base64,')
+            ext = format_str.split('/')[-1]
+            
+            # Decode and save
+            image_content = ContentFile(
+                base64.b64decode(img_str),
+                name=f"user_{request.user.id}_face.{ext}"
+            )
+            request.user.profile_picture.save(
+                f"user_{request.user.id}_face.{ext}",
+                image_content,
+                save=False
+            )
+        
+        request.user.save()
+        
+        return JsonResponse({"success": True, "message": "Face enrolled successfully"})
+        
+    except json.JSONDecodeError:
+        return JsonResponse({"success": False, "error": "Invalid JSON"}, status=400)
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)}, status=500)
