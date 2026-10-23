@@ -31,6 +31,20 @@ class User(AbstractUser):
         default=Role.PATIENT,
     )
 
+    # Profile picture for facial recognition login (optional)
+    profile_picture = models.ImageField(
+        upload_to="profile_pictures/",
+        null=True, blank=True,
+        help_text="Profile picture for face login"
+    )
+
+    # Face descriptor (128-dimensional vector stored as JSON)
+    # Generated from profile_picture using face-api.js
+    face_descriptor = models.TextField(
+        blank=True,
+        help_text="Face encoding for facial recognition login (JSON array)"
+    )
+
     # Doctors are created with is_active=False until email is confirmed.
     # Patients are active immediately.
 

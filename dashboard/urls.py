@@ -16,6 +16,9 @@ urlpatterns = [
     # ── Patient ──────────────────────────────────────────
     path("patient/",                        views.patient_overview,    name="patient_overview"),
 
+    # ── Profile (all roles) ──────────────────────────────
+    path("profile/",                        views.profile_view,        name="profile"),
+
     # Backward-compat
     path("",                                views.admin_overview,      name="overview"),
 ]

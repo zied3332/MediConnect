@@ -228,3 +228,13 @@ def patient_overview(request):
         ],
     }
     return render(request, "dashboard/patient/overview.html", context)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Profile — All roles
+# ─────────────────────────────────────────────────────────────────────────────
+
+@login_required
+def profile_view(request):
+    """User profile page with face enrollment."""
+    return render(request, "dashboard/profile.html")
