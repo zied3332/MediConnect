@@ -385,7 +385,7 @@
     height: 1px;
 }
 
-.mc-slot span {
+.mc-slot > span {
     display: inline-block;
     min-width: 72px;
     padding: 8px 12px;
@@ -399,7 +399,7 @@
     cursor: pointer;
 }
 
-.mc-slot span:hover {
+.mc-slot > span:hover {
     border-color: #242824;
 }
 

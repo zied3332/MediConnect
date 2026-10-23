@@ -1,0 +1,57 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}My appointments | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">MY HEALTH</span>
+        <h1>My appointments</h1>
+        <p>Follow your requests and upcoming consultations.</p>
+    </div>
+    <a href="{% url 'appointments:book' %}" class="mc-users-filter-button">+ Book an appointment</a>
+</div>
+
+{% include "components/dashboard_messages.html" %}
+
+<nav class="mc-tabs" aria-label="Appointment period">
+    <a class="mc-tab" href="?tab=upcoming"{% if tab == "upcoming" %} aria-current="page"{% endif %}>Upcoming ({{ upcoming_count }})</a>
+    <a class="mc-tab" href="?tab=past"{% if tab == "past" %} aria-current="page"{% endif %}>Past &amp; cancelled</a>
+</nav>
+
+<section class="mc-panel mc-users-panel">
+    <div class="mc-users-table-wrapper">
+        <table class="mc-users-table mc-appt-table">
+            <caption class="mc-sr-only">{% if tab == "upcoming" %}Upcoming appointments{% else %}Past and cancelled appointments{% endif %}</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"><span class="mc-sr-only">Actions</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in page_obj %}
+                <tr>
+                    <td><time datetime="{{ appointment.start|date:'c' }}">{{ appointment.start|date:"D j M Y, H:i" }}</time></td>
+                    <td>
+                        <strong>Dr. {{ appointment.doctor.get_full_name|default:appointment.doctor.email }}</strong>
+                        <small>{{ appointment.doctor.main_specialty|default:"General" }}</small>
+                    </td>
+                    <td>{{ appointment.get_mode_display }}</td>
+                    <td>{% include "appointments/partials/status_badge.html" %}</td>
+                    <td><a class="mc-role-save" href="{{ appointment.get_absolute_url }}" aria-label="View appointment of {{ appointment.start|date:'j M Y H:i' }}">View</a></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="mc-users-empty">
+                    {% if tab == "upcoming" %}You have no upcoming appointments. <a class="mc-link" href="{% url 'appointments:book' %}">Book one now</a>.{% else %}No past appointments yet.{% endif %}
+                </td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "components/pagination.html" %}
+</section>
+{% endblock %}

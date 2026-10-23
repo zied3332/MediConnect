@@ -1,0 +1,73 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}My appointments | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">MY PRACTICE</span>
+        <h1>Appointments</h1>
+        <p>Confirm requests and record how consultations went.</p>
+    </div>
+    <div class="mc-users-summary">
+        <span class="mc-users-summary-label">Waiting for you</span>
+        <strong>{{ pending_count }}</strong>
+    </div>
+</div>
+
+{% include "components/dashboard_messages.html" %}
+
+<section class="mc-panel mc-users-panel">
+    <form method="get" class="mc-users-filters" aria-label="Filter appointments">
+        <label class="mc-users-control">
+            <span class="mc-sr-only">{{ filter_form.when.label }}</span>
+            {{ filter_form.when }}
+        </label>
+        <label class="mc-users-control">
+            <span class="mc-sr-only">{{ filter_form.status.label }}</span>
+            {{ filter_form.status }}
+        </label>
+        <label class="mc-users-control">
+            <span class="mc-sr-only">{{ filter_form.date.label }}</span>
+            {{ filter_form.date }}
+        </label>
+        <button type="submit" class="mc-users-filter-button">Apply filters</button>
+        {% if request.GET %}<a href="{% url 'appointments:doctor_list' %}" class="mc-users-clear">Clear</a>{% endif %}
+    </form>
+
+    <div class="mc-users-table-wrapper">
+        <table class="mc-users-table mc-appt-table">
+            <caption class="mc-sr-only">My appointments</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Patient</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">No-show risk</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in page_obj %}
+                <tr>
+                    <td>
+                        <a class="mc-link" href="{{ appointment.get_absolute_url }}"><time datetime="{{ appointment.start|date:'c' }}">{{ appointment.start|date:"D j M, H:i" }}</time></a>
+                        <small>{{ appointment.get_mode_display }} · {{ appointment.duration_minutes }} min</small>
+                    </td>
+                    <td>
+                        <strong>{{ appointment.patient.get_full_name|default:appointment.patient.email }}</strong>
+                        <small>{{ appointment.reason|truncatechars:60 }}</small>
+                    </td>
+                    <td>{% include "appointments/partials/status_badge.html" %}</td>
+                    <td>{% include "appointments/partials/risk_badge.html" %}</td>
+                    <td>{% include "appointments/partials/doctor_actions.html" with next_url=request.get_full_path %}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5" class="mc-users-empty">No appointments match your filters.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "components/pagination.html" %}
+</section>
+{% endblock %}

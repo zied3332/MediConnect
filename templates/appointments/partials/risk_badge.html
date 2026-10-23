@@ -1,0 +1,20 @@
+{% if appointment.no_show_risk is not None %}
+<span class="mc-risk mc-risk--{{ appointment.risk_level }}" tabindex="0" aria-describedby="risk-tip-{{ appointment.pk }}">
+    <span><span class="mc-sr-only">No-show risk: </span>{{ appointment.risk_level|capfirst }} · {{ appointment.risk_percent }}%</span>
+    <span class="mc-tooltip" role="tooltip" id="risk-tip-{{ appointment.pk }}">AI estimate, you decide</span>
+</span>
+{% elif appointment.risk_status == "pending" %}
+<span class="mc-risk-pending" role="status">
+    <span class="mc-spinner" aria-hidden="true"></span>
+    Computing risk…
+    <a href="{{ request.get_full_path }}">Refresh</a>
+</span>
+{% else %}
+<span class="mc-risk mc-risk--failed">Risk not available</span>
+<small>The AI model could not compute this estimate (model missing or error).</small>
+<form method="post" action="{% url 'appointments:doctor_action' appointment.pk 'retry-risk' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    <button type="submit" class="mc-role-save" aria-label="Retry risk estimate for appointment {{ appointment.pk }}">Retry</button>
+</form>
+{% endif %}
