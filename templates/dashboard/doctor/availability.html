@@ -1,0 +1,58 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}My Availability | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">MY PRACTICE</span>
+        <h1>My availability</h1>
+        <p>Manage the time slots when patients can request your care.</p>
+    </div>
+</div>
+
+{% if messages %}
+<div class="mc-users-messages" aria-live="polite">
+    {% for message in messages %}<div class="mc-users-message mc-users-message--{{ message.tags }}">{{ message }}</div>{% endfor %}
+</div>
+{% endif %}
+
+<section class="mc-panel mc-management-section">
+    <div class="mc-panel-heading"><div><h2>Add availability</h2></div></div>
+    <form method="post" class="mc-availability-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="mc-users-filter-button" type="submit">Add slot</button>
+    </form>
+    {% if form.errors %}<div class="mc-management-errors">{{ form.non_field_errors }}{% for field in form %}{{ field.errors }}{% endfor %}</div>{% endif %}
+</section>
+
+<section class="mc-panel mc-management-section">
+    <div class="mc-panel-heading"><div><h2>My slots</h2><p>Only you can change these availability slots.</p></div></div>
+    <div class="mc-users-table-wrapper">
+        <table class="mc-users-table mc-management-table">
+            <thead><tr><th>Day</th><th>Hours</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+            {% for slot in slots %}
+            <tr>
+                <td>{{ slot.get_weekday_display }}</td>
+                <td>{{ slot.start_time|time:"H:i" }} – {{ slot.end_time|time:"H:i" }}</td>
+                <td>{% if slot.is_free %}Free{% else %}Unavailable{% endif %}</td>
+                <td>
+                    <div class="mc-action-group">
+                        <a class="mc-role-save" href="{% url 'dashboard:edit_doctor_availability' slot.id %}">Edit</a>
+                        <form method="post" action="{% url 'dashboard:toggle_doctor_availability' slot.id %}">
+                            {% csrf_token %}<button class="mc-role-save" type="submit">Toggle</button>
+                        </form>
+                        <form method="post" action="{% url 'dashboard:delete_doctor_availability' slot.id %}">
+                            {% csrf_token %}<button class="mc-role-save mc-role-save--danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}<tr><td colspan="4" class="mc-users-empty">You have no availability slots yet.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

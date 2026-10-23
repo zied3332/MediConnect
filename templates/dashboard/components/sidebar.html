@@ -10,17 +10,21 @@
     <div class="mc-sidebar-section-label">WORKSPACE</div>
 
     <nav class="mc-sidebar-nav" aria-label="Admin navigation">
-        <a href="{% url 'dashboard:admin_overview' %}"
-           class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}">
+        <a href="{% url 'dashboard:admin_overview' %}" class="mc-sidebar-link {% if page_title == 'Overview' %}active{% endif %}" {% if page_title == 'Overview' %}aria-current="page"{% endif %}>
             <span class="mc-sidebar-icon">▦</span>Overview
         </a>
-        <a href="{% url 'dashboard:admin_doctor_list' %}"
-           class="mc-sidebar-link {% if active_nav == 'doctors' %}active{% endif %}">
-            <span class="mc-sidebar-icon">♙</span>Doctors
+        <a href="{% url 'dashboard:admin_users' %}" class="mc-sidebar-link {% if page_title == 'Users' %}active{% endif %}" {% if page_title == 'Users' %}aria-current="page"{% endif %}>
+            <span class="mc-sidebar-icon">◎</span>Users
         </a>
+        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">♙</span>Doctors<small>Soon</small></span>
         <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">♧</span>Patients<small>Soon</small></span>
         <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">▣</span>Appointments<small>Soon</small></span>
-        <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">✚</span>Specialties<small>Soon</small></span>
+        <a href="{% url 'dashboard:admin_specialties' %}" class="mc-sidebar-link {% if page_title == 'Specialties' %}active{% endif %}" {% if page_title == 'Specialties' %}aria-current="page"{% endif %}>
+            <span class="mc-sidebar-icon">✚</span>Specialties
+        </a>
+        <a href="{% url 'dashboard:admin_availability' %}" class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}" {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
+            <span class="mc-sidebar-icon">◷</span>Availability
+        </a>
         <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">☆</span>Reviews<small>Soon</small></span>
     </nav>
 
@@ -37,6 +41,9 @@
         <a href="{% url 'dashboard:doctor_overview' %}"
            class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}">
             <span class="mc-sidebar-icon">▦</span>Overview
+        </a>
+        <a href="{% url 'dashboard:doctor_availability' %}" class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}" {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
+            <span class="mc-sidebar-icon">◷</span>Availability
         </a>
         <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">▣</span>Appointments<small>Soon</small></span>
         <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">♧</span>My Patients<small>Soon</small></span>
