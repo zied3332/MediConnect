@@ -2,9 +2,13 @@ from functools import wraps
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils import timezone
+
+from accounts.models import User
+from core.models import Availability, Specialty
+from .forms import AvailabilityForm, DoctorAvailabilityForm, SpecialtyForm
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -80,110 +84,230 @@ def admin_overview(request):
     return render(request, "dashboard/admin/overview.html", context)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Admin — Doctor applications list
-# ─────────────────────────────────────────────────────────────────────────────
-
 @role_required("admin")
-def admin_doctor_list(request):
-    from accounts.models import DoctorProfile
+def admin_users(request):
+    """Display and filter registered users for administrators."""
+    search_query = request.GET.get("q", "").strip()
+    selected_role = request.GET.get("role", "").strip()
 
-    status_filter = request.GET.get("status", "")
-    qs = DoctorProfile.objects.select_related("user").order_by("-submitted_at", "-created_at")
-    if status_filter:
-        qs = qs.filter(status=status_filter)
-
-    counts = {
-        "all":               DoctorProfile.objects.count(),
-        "pending_review":    DoctorProfile.objects.filter(status="pending_review").count(),
-        "needs_more_info":   DoctorProfile.objects.filter(status="needs_more_info").count(),
-        "approved":          DoctorProfile.objects.filter(status="approved").count(),
-        "rejected":          DoctorProfile.objects.filter(status="rejected").count(),
-        "pending_documents": DoctorProfile.objects.filter(status="pending_documents").count(),
-    }
+    users = User.objects.all().order_by("-date_joined")
+    if search_query:
+        users = users.filter(
+            Q(email__icontains=search_query)
+            | Q(first_name__icontains=search_query)
+            | Q(last_name__icontains=search_query)
+            | Q(username__icontains=search_query)
+        )
+    if selected_role in User.Role.values:
+        users = users.filter(role=selected_role)
 
     context = {
-        "page_title": "Doctor Applications",
+        "page_title": "Users",
         "dashboard_role": "admin",
-        "active_nav": "doctors",
-        "profiles": qs,
-        "status_filter": status_filter,
-        "counts": counts,
-        "status_choices": DoctorProfile.Status.choices,
+        "users": users,
+        "search_query": search_query,
+        "selected_role": selected_role,
+        "role_choices": User.Role.choices,
+        "specialties": Specialty.objects.all(),
+        "total_users": User.objects.count(),
     }
-    return render(request, "dashboard/admin/doctor_list.html", context)
+    return render(request, "dashboard/admin/users.html", context)
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Admin — Doctor application detail + review actions
-# ─────────────────────────────────────────────────────────────────────────────
 
 @role_required("admin")
-def admin_doctor_detail(request, pk):
-    from accounts.models import DoctorProfile
+def update_user_role(request, user_id):
+    """Update a user's MediConnect role from the admin user table."""
+    if request.method != "POST":
+        return redirect("dashboard:admin_users")
 
-    profile = get_object_or_404(DoctorProfile.objects.select_related("user"), pk=pk)
+    user = get_object_or_404(User, pk=user_id)
+    role = request.POST.get("role", "")
+    if role not in User.Role.values:
+        messages.error(request, "Please select a valid user role.")
+        return redirect("dashboard:admin_users")
 
+    if user.role == role:
+        messages.info(request, f"{user.get_full_name() or user.email} already has this role.")
+    else:
+        user.role = role
+        user.save(update_fields=["role"])
+        messages.success(
+            request,
+            f"{user.get_full_name() or user.email} is now a {user.get_role_display().lower()}.",
+        )
+    return redirect("dashboard:admin_users")
+
+
+@role_required("admin")
+def admin_specialties(request):
     if request.method == "POST":
-        action = request.POST.get("action")
-        now = timezone.now()
-
-        if action == "approve":
-            profile.status = DoctorProfile.Status.APPROVED
-            profile.reviewed_at = now
-            profile.rejection_reason = ""
-            profile.save(update_fields=["status", "reviewed_at", "rejection_reason"])
-            profile.user.is_active = True
-            profile.user.save(update_fields=["is_active"])
-            messages.success(
-                request,
-                f"Dr. {profile.user.get_full_name()} has been approved."
-            )
-            return redirect("dashboard:admin_doctor_list")
-
-        elif action == "reject":
-            reason = request.POST.get("rejection_reason", "").strip()
-            if not reason:
-                messages.error(request, "Please provide a rejection reason.")
-            else:
-                profile.status = DoctorProfile.Status.REJECTED
-                profile.reviewed_at = now
-                profile.rejection_reason = reason
-                profile.save(update_fields=["status", "reviewed_at", "rejection_reason"])
-                profile.user.is_active = False
-                profile.user.save(update_fields=["is_active"])
-                messages.success(
-                    request,
-                    f"Dr. {profile.user.get_full_name()}'s application has been rejected."
-                )
-                return redirect("dashboard:admin_doctor_list")
-
-        elif action == "needs_more_info":
-            note = request.POST.get("reviewer_note", "").strip()
-            if not note:
-                messages.error(request, "Please write a message for the doctor.")
-            else:
-                profile.status = DoctorProfile.Status.NEEDS_MORE_INFO
-                profile.reviewer_note = note
-                profile.save(update_fields=["status", "reviewer_note"])
-                messages.success(
-                    request,
-                    f"Dr. {profile.user.get_full_name()} has been asked for more info."
-                )
-                return redirect("dashboard:admin_doctor_list")
+        form = SpecialtyForm(request.POST)
+        if form.is_valid():
+            specialty = form.save()
+            messages.success(request, f"{specialty.name} was added.")
+            return redirect("dashboard:admin_specialties")
+    else:
+        form = SpecialtyForm()
 
     context = {
-        "page_title": "Review Application",
+        "page_title": "Specialties",
         "dashboard_role": "admin",
-        "active_nav": "doctors",
-        "profile": profile,
+        "form": form,
+        "specialties": Specialty.objects.all(),
+        "catalogue_specialties": Specialty.objects.all()[:4],
+        "has_more_specialties": Specialty.objects.count() > 4,
+        "doctors": User.objects.filter(role=User.Role.DOCTOR).select_related(
+            "main_specialty"
+        ),
     }
-    return render(request, "dashboard/admin/doctor_detail.html", context)
+    return render(request, "dashboard/admin/specialties.html", context)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Doctor dashboard (approved only)
-# ─────────────────────────────────────────────────────────────────────────────
+@role_required("admin")
+def specialty_list(request):
+    return render(
+        request,
+        "dashboard/admin/specialty_list.html",
+        {
+            "page_title": "Specialties",
+            "dashboard_role": "admin",
+            "specialties": Specialty.objects.all(),
+        },
+    )
+
+
+@role_required("admin")
+def edit_specialty(request, specialty_id):
+    specialty = get_object_or_404(Specialty, pk=specialty_id)
+    if request.method == "POST":
+        form = SpecialtyForm(request.POST, instance=specialty)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"{specialty.name} was updated.")
+        else:
+            messages.error(request, "Please correct the specialty details.")
+    return redirect(request.POST.get("next") or "dashboard:specialty_list")
+
+
+@role_required("admin")
+def delete_specialty(request, specialty_id):
+    if request.method == "POST":
+        specialty = get_object_or_404(Specialty, pk=specialty_id)
+        name = specialty.name
+        specialty.delete()
+        messages.success(request, f"{name} was deleted.")
+    return redirect(request.POST.get("next") or "dashboard:specialty_list")
+
+
+@role_required("admin")
+def update_doctor_specialty(request, user_id):
+    if request.method != "POST":
+        return redirect("dashboard:admin_specialties")
+
+    doctor = get_object_or_404(User, pk=user_id, role=User.Role.DOCTOR)
+    specialty_id = request.POST.get("specialty")
+    specialty = get_object_or_404(Specialty, pk=specialty_id) if specialty_id else None
+    doctor.main_specialty = specialty
+    doctor.save(update_fields=["main_specialty"])
+    messages.success(request, f"{doctor.get_full_name() or doctor.email}'s specialty was updated.")
+    return redirect("dashboard:admin_specialties")
+
+
+@role_required("admin")
+def admin_availability(request):
+    context = {
+        "page_title": "Availability",
+        "dashboard_role": "admin",
+        "slots": Availability.objects.select_related("doctor"),
+    }
+    return render(request, "dashboard/admin/availability.html", context)
+
+
+@role_required("admin")
+def delete_availability(request, slot_id):
+    return redirect("dashboard:admin_availability")
+
+
+@role_required("doctor")
+def doctor_availability(request):
+    if request.method == "POST":
+        form = DoctorAvailabilityForm(request.POST, doctor=request.user)
+        if form.is_valid():
+            slot = form.save(commit=False)
+            slot.doctor = request.user
+            slot.full_clean()
+            slot.save()
+            messages.success(request, "Availability slot was added.")
+            return redirect("dashboard:doctor_availability")
+    else:
+        form = DoctorAvailabilityForm(doctor=request.user)
+
+    context = {
+        "page_title": "Availability",
+        "dashboard_role": "doctor",
+        "form": form,
+        "slots": request.user.availability_slots.all(),
+    }
+    return render(request, "dashboard/doctor/availability.html", context)
+
+
+@role_required("doctor")
+def edit_doctor_availability(request, slot_id):
+    slot = get_object_or_404(
+        Availability,
+        pk=slot_id,
+        doctor=request.user,
+    )
+    if request.method == "POST":
+        form = DoctorAvailabilityForm(
+            request.POST,
+            instance=slot,
+            doctor=request.user,
+        )
+        if form.is_valid():
+            updated_slot = form.save(commit=False)
+            updated_slot.doctor = request.user
+            updated_slot.full_clean()
+            updated_slot.save()
+            messages.success(request, "Availability slot was updated.")
+            return redirect("dashboard:doctor_availability")
+    else:
+        form = DoctorAvailabilityForm(instance=slot, doctor=request.user)
+
+    return render(
+        request,
+        "dashboard/doctor/availability_form.html",
+        {
+            "page_title": "Availability",
+            "dashboard_role": "doctor",
+            "form": form,
+            "slot": slot,
+        },
+    )
+
+
+@role_required("doctor")
+def delete_doctor_availability(request, slot_id):
+    if request.method == "POST":
+        slot = get_object_or_404(Availability, pk=slot_id, doctor=request.user)
+        slot.delete()
+        messages.success(request, "Availability slot was removed.")
+    return redirect("dashboard:doctor_availability")
+
+
+@role_required("doctor")
+def toggle_doctor_availability(request, slot_id):
+    if request.method == "POST":
+        slot = get_object_or_404(Availability, pk=slot_id, doctor=request.user)
+        slot.is_free = not slot.is_free
+        slot.save(update_fields=["is_free"])
+        messages.success(request, "Availability status was updated.")
+    return redirect("dashboard:doctor_availability")
+
+
+# ──────────────────────────────────────────────
+# Doctor dashboard
+# ──────────────────────────────────────────────
 
 @approved_doctor_required
 def doctor_overview(request):

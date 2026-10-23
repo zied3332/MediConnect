@@ -1,0 +1,40 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Availability | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">ADMINISTRATION</span>
+        <h1>Doctor availability</h1>
+        <p>Create and manage the time slots doctors offer.</p>
+    </div>
+</div>
+
+{% if messages %}
+<div class="mc-users-messages" aria-live="polite">
+    {% for message in messages %}<div class="mc-users-message mc-users-message--{{ message.tags }}">{{ message }}</div>{% endfor %}
+</div>
+{% endif %}
+
+<div class="mc-readonly-notice">Read-only view. Doctors manage their own availability.</div>
+
+<section class="mc-panel mc-management-section">
+    <div class="mc-panel-heading"><div><h2>Availability slots</h2><p>Current doctor schedules.</p></div></div>
+    <div class="mc-users-table-wrapper">
+        <table class="mc-users-table mc-management-table">
+            <thead><tr><th>Doctor</th><th>Day</th><th>Hours</th><th>Status</th></tr></thead>
+            <tbody>
+            {% for slot in slots %}
+            <tr>
+                <td><strong>{{ slot.doctor.get_full_name|default:slot.doctor.email }}</strong></td>
+                <td>{{ slot.get_weekday_display }}</td>
+                <td>{{ slot.start_time|time:"H:i" }} – {{ slot.end_time|time:"H:i" }}</td>
+                <td>{% if slot.is_free %}Free{% else %}Unavailable{% endif %}</td>
+            </tr>
+            {% empty %}<tr><td colspan="4" class="mc-users-empty">No availability slots yet.</td></tr>{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
