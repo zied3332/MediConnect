@@ -1,0 +1,400 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Review Dr. {{ profile.user.get_full_name }} | MediConnect{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ── Back link ─────────────────────────────── */
+.mc-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+    color: #888;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.mc-back-link:hover { color: #333; }
+
+/* ── Detail layout ─────────────────────────── */
+.mc-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 24px;
+    align-items: start;
+}
+@media (max-width: 1100px) {
+    .mc-detail-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Info card ─────────────────────────────── */
+.mc-info-card {
+    background: #fff;
+    border: 1px solid var(--mc-admin-border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+}
+.mc-info-card h2 {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #888;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+.mc-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 0;
+    border-top: 1px solid #f3f3f0;
+    font-size: 14px;
+    gap: 16px;
+}
+.mc-info-row:first-of-type { border-top: none; }
+.mc-info-row span:first-child { color: #888; flex-shrink: 0; }
+.mc-info-row span:last-child,
+.mc-info-row a { font-weight: 600; text-align: right; }
+.mc-info-row a { color: #c6a83c; text-decoration: none; }
+.mc-info-row a:hover { text-decoration: underline; }
+
+/* ── Status pill (same as list) ────────────── */
+.mc-status-pill {
+    display: inline-block;
+    padding: 4px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.pill-pending_documents { background: #e3f2fd; color: #0d47a1; }
+.pill-pending_review    { background: #fff8e1; color: #e65100; }
+.pill-needs_more_info   { background: #fff3e0; color: #bf360c; }
+.pill-approved          { background: #e8f5e9; color: #1b5e20; }
+.pill-rejected          { background: #fce4ec; color: #880e4f; }
+
+/* ── Document preview ──────────────────────── */
+.mc-doc-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-top: 1px solid #f3f3f0;
+}
+.mc-doc-item:first-of-type { border-top: none; }
+.mc-doc-icon {
+    width: 40px;
+    height: 40px;
+    background: #f5f6f1;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+.mc-doc-info { flex: 1; min-width: 0; }
+.mc-doc-info strong { display: block; font-size: 13px; }
+.mc-doc-info span { font-size: 12px; color: #aaa; }
+.mc-doc-view-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: #f5f6f1;
+    border: 1px solid #e4e7e1;
+    color: #444;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.mc-doc-view-btn:hover { background: #eaecea; color: #222; }
+.mc-doc-missing {
+    font-size: 12px;
+    color: #bbb;
+    font-style: italic;
+}
+
+/* ── Action panel ──────────────────────────── */
+.mc-action-panel {
+    background: #fff;
+    border: 1px solid var(--mc-admin-border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: sticky;
+    top: 20px;
+}
+.mc-action-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--mc-admin-border);
+    font-size: 13px;
+    font-weight: 800;
+    color: #888;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+.mc-action-section {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f3f3f0;
+}
+.mc-action-section:last-child { border-bottom: none; }
+.mc-action-section h3 {
+    margin: 0 0 12px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.mc-action-btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 7px;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 150ms;
+}
+.mc-action-btn:hover { opacity: 0.88; }
+.mc-action-btn--approve  { background: #d4edda; color: #155724; }
+.mc-action-btn--reject   { background: #fce4ec; color: #880e4f; }
+.mc-action-btn--info     { background: #fff8e1; color: #5c4200; }
+.mc-action-textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 10px 12px;
+    border: 1px solid #dedede;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 13px;
+    color: #333;
+    resize: vertical;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+.mc-action-textarea:focus {
+    outline: 2px solid #c6a83c;
+    outline-offset: 1px;
+}
+
+/* ── Alert messages ────────────────────────── */
+.mc-alert {
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.mc-alert--success { background: #e8f5e9; color: #1b5e20; }
+.mc-alert--error   { background: #fce4ec; color: #880e4f; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'dashboard:admin_doctor_list' %}" class="mc-back-link">
+    ← Back to all applications
+</a>
+
+{% if messages %}
+{% for message in messages %}
+<div class="mc-alert mc-alert--{{ message.tags }}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<div class="mc-page-heading" style="margin-bottom: 28px;">
+    <div>
+        <span class="mc-page-eyebrow">DOCTOR REVIEW</span>
+        <h1>Dr. {{ profile.user.get_full_name }}</h1>
+        <p>{{ profile.get_specialty_display }}</p>
+    </div>
+    <span class="mc-status-pill pill-{{ profile.status }}" style="font-size:13px;padding:7px 16px;">
+        {{ profile.get_status_display }}
+    </span>
+</div>
+
+<div class="mc-detail-grid">
+
+    <!-- ── Left column: info + documents ─────── -->
+    <div>
+
+        <!-- Doctor info -->
+        <div class="mc-info-card">
+            <h2>Doctor Information</h2>
+            <div class="mc-info-row">
+                <span>Full name</span>
+                <span>Dr. {{ profile.user.get_full_name }}</span>
+            </div>
+            <div class="mc-info-row">
+                <span>Email</span>
+                <span>{{ profile.user.email }}</span>
+            </div>
+            <div class="mc-info-row">
+                <span>Specialty</span>
+                <span>{{ profile.get_specialty_display }}</span>
+            </div>
+            <div class="mc-info-row">
+                <span>Account status</span>
+                <span>{% if profile.user.is_active %}Active{% else %}Inactive{% endif %}</span>
+            </div>
+            <div class="mc-info-row">
+                <span>Registered</span>
+                <span>{{ profile.created_at|date:"M d, Y" }}</span>
+            </div>
+            <div class="mc-info-row">
+                <span>Documents submitted</span>
+                <span>
+                    {% if profile.submitted_at %}
+                        {{ profile.submitted_at|date:"M d, Y — H:i" }}
+                    {% else %}
+                        Not yet submitted
+                    {% endif %}
+                </span>
+            </div>
+            {% if profile.reviewed_at %}
+            <div class="mc-info-row">
+                <span>Last reviewed</span>
+                <span>{{ profile.reviewed_at|date:"M d, Y — H:i" }}</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Documents -->
+        <div class="mc-info-card">
+            <h2>Submitted Documents</h2>
+
+            <div class="mc-doc-item">
+                <div class="mc-doc-icon">📄</div>
+                <div class="mc-doc-info">
+                    <strong>Medical license / registration</strong>
+                    <span>Professional license document</span>
+                </div>
+                {% if profile.medical_license %}
+                    <a href="{{ profile.medical_license.url }}" target="_blank" class="mc-doc-view-btn">View ↗</a>
+                {% else %}
+                    <span class="mc-doc-missing">Not uploaded</span>
+                {% endif %}
+            </div>
+
+            <div class="mc-doc-item">
+                <div class="mc-doc-icon">🎓</div>
+                <div class="mc-doc-info">
+                    <strong>Diploma / specialty certificate</strong>
+                    <span>Medical degree or qualification</span>
+                </div>
+                {% if profile.diploma %}
+                    <a href="{{ profile.diploma.url }}" target="_blank" class="mc-doc-view-btn">View ↗</a>
+                {% else %}
+                    <span class="mc-doc-missing">Not uploaded</span>
+                {% endif %}
+            </div>
+
+            <div class="mc-doc-item">
+                <div class="mc-doc-icon">🪪</div>
+                <div class="mc-doc-info">
+                    <strong>National ID / passport</strong>
+                    <span>Government-issued identity document</span>
+                </div>
+                {% if profile.national_id %}
+                    <a href="{{ profile.national_id.url }}" target="_blank" class="mc-doc-view-btn">View ↗</a>
+                {% else %}
+                    <span class="mc-doc-missing">Not uploaded</span>
+                {% endif %}
+            </div>
+
+            <div class="mc-doc-item">
+                <div class="mc-doc-icon">🤳</div>
+                <div class="mc-doc-info">
+                    <strong>Selfie with ID</strong>
+                    <span>Optional identity verification photo</span>
+                </div>
+                {% if profile.selfie_with_id %}
+                    <a href="{{ profile.selfie_with_id.url }}" target="_blank" class="mc-doc-view-btn">View ↗</a>
+                {% else %}
+                    <span class="mc-doc-missing">Not provided</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Existing rejection reason or reviewer note -->
+        {% if profile.rejection_reason %}
+        <div class="mc-info-card" style="border-color:#f48fb1; background:#fff9fb;">
+            <h2 style="color:#880e4f;">Rejection reason on file</h2>
+            <p style="margin:0; font-size:14px; line-height:1.7; color:#555;">{{ profile.rejection_reason }}</p>
+        </div>
+        {% endif %}
+        {% if profile.reviewer_note %}
+        <div class="mc-info-card" style="border-color:#ffe082; background:#fffde7;">
+            <h2 style="color:#5c4200;">Reviewer note on file</h2>
+            <p style="margin:0; font-size:14px; line-height:1.7; color:#555;">{{ profile.reviewer_note }}</p>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- ── Right column: action panel ─────────── -->
+    <div>
+        <div class="mc-action-panel">
+            <div class="mc-action-header">Review Decision</div>
+
+            <!-- Approve -->
+            <div class="mc-action-section">
+                <h3>✅ Approve application</h3>
+                <p style="font-size:13px; color:#666; margin: 0 0 14px; line-height:1.6;">
+                    The doctor will be activated and can log in to their dashboard immediately.
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="approve">
+                    <button type="submit" class="mc-action-btn mc-action-btn--approve"
+                        onclick="return confirm('Approve Dr. {{ profile.user.get_full_name }}?')">
+                        Approve →
+                    </button>
+                </form>
+            </div>
+
+            <!-- Request more info -->
+            <div class="mc-action-section">
+                <h3>📋 Request more information</h3>
+                <p style="font-size:13px; color:#666; margin: 0 0 12px; line-height:1.6;">
+                    The doctor will see your message and be asked to re-upload documents.
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="needs_more_info">
+                    <textarea
+                        name="reviewer_note"
+                        class="mc-action-textarea"
+                        placeholder="e.g. Your medical license image is blurry. Please re-upload a clearer version."
+                    ></textarea>
+                    <button type="submit" class="mc-action-btn mc-action-btn--info">
+                        Send request →
+                    </button>
+                </form>
+            </div>
+
+            <!-- Reject -->
+            <div class="mc-action-section">
+                <h3>❌ Reject application</h3>
+                <p style="font-size:13px; color:#666; margin: 0 0 12px; line-height:1.6;">
+                    The doctor's account will be deactivated. The reason will be shown to them.
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="reject">
+                    <textarea
+                        name="rejection_reason"
+                        class="mc-action-textarea"
+                        placeholder="e.g. The provided license number could not be verified with the medical authority."
+                    ></textarea>
+                    <button type="submit" class="mc-action-btn mc-action-btn--reject"
+                        onclick="return confirm('Reject this application? This will deactivate the account.')">
+                        Reject application →
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

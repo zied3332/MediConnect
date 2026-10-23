@@ -27,10 +27,7 @@
 <div class="mc-dashboard-panels">
     <section class="mc-panel">
         <div class="mc-panel-heading">
-            <div>
-                <h2>Recent activity</h2>
-                <p>Latest platform events</p>
-            </div>
+            <div><h2>Recent activity</h2><p>Latest platform events</p></div>
         </div>
         <div class="mc-activity-list">
             {% for activity in recent_activity %}
@@ -48,16 +45,50 @@
 
     <section class="mc-panel mc-panel-side">
         <div class="mc-panel-heading">
-            <div>
-                <h2>Quick overview</h2>
-                <p>Platform management</p>
-            </div>
+            <div><h2>Quick overview</h2><p>Platform management</p></div>
         </div>
         <div class="mc-quick-info">
-            <div><span>Doctor verification</span><strong>Coming soon</strong></div>
+            <div>
+                <span>Doctor verification</span>
+                <a href="{% url 'dashboard:admin_doctor_list' %}?status=pending_review"
+                   style="font-size:11px;font-weight:700;color:#c6a83c;text-decoration:none;">
+                    Review →
+                </a>
+            </div>
             <div><span>Appointment monitoring</span><strong>Coming soon</strong></div>
             <div><span>Patient management</span><strong>Coming soon</strong></div>
         </div>
     </section>
 </div>
+
+{% if pending_doctors %}
+<section class="mc-panel" style="margin-top: 24px;">
+    <div class="mc-panel-heading">
+        <div>
+            <h2>Doctors awaiting review</h2>
+            <p>Applications submitted and pending approval</p>
+        </div>
+        <a href="{% url 'dashboard:admin_doctor_list' %}?status=pending_review"
+           style="font-size:13px;font-weight:700;color:#c6a83c;text-decoration:none;">
+            View all →
+        </a>
+    </div>
+    <div class="mc-activity-list">
+        {% for profile in pending_doctors %}
+        <div class="mc-activity-item">
+            <span class="mc-activity-dot" style="background:#5bc0de;"></span>
+            <div class="mc-activity-body">
+                <strong>Dr. {{ profile.user.get_full_name }}</strong>
+                <p>{{ profile.get_specialty_display }} — {{ profile.user.email }}</p>
+            </div>
+            <a href="{% url 'dashboard:admin_doctor_detail' pk=profile.pk %}"
+               style="font-size:11px;font-weight:700;color:#c6a83c;white-space:nowrap;text-decoration:none;">
+                Review →
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
 {% endblock %}
