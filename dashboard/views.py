@@ -1,8 +1,12 @@
 from functools import wraps
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
+
+from accounts.models import User
 
 
 # ──────────────────────────────────────────────
@@ -48,6 +52,59 @@ def admin_overview(request):
         ],
     }
     return render(request, "dashboard/admin/overview.html", context)
+
+
+@role_required("admin")
+def admin_users(request):
+    """Display and filter registered users for administrators."""
+    search_query = request.GET.get("q", "").strip()
+    selected_role = request.GET.get("role", "").strip()
+
+    users = User.objects.all().order_by("-date_joined")
+    if search_query:
+        users = users.filter(
+            Q(email__icontains=search_query)
+            | Q(first_name__icontains=search_query)
+            | Q(last_name__icontains=search_query)
+            | Q(username__icontains=search_query)
+        )
+    if selected_role in User.Role.values:
+        users = users.filter(role=selected_role)
+
+    context = {
+        "page_title": "Users",
+        "dashboard_role": "admin",
+        "users": users,
+        "search_query": search_query,
+        "selected_role": selected_role,
+        "role_choices": User.Role.choices,
+        "total_users": User.objects.count(),
+    }
+    return render(request, "dashboard/admin/users.html", context)
+
+
+@role_required("admin")
+def update_user_role(request, user_id):
+    """Update a user's MediConnect role from the admin user table."""
+    if request.method != "POST":
+        return redirect("dashboard:admin_users")
+
+    user = get_object_or_404(User, pk=user_id)
+    role = request.POST.get("role", "")
+    if role not in User.Role.values:
+        messages.error(request, "Please select a valid user role.")
+        return redirect("dashboard:admin_users")
+
+    if user.role == role:
+        messages.info(request, f"{user.get_full_name() or user.email} already has this role.")
+    else:
+        user.role = role
+        user.save(update_fields=["role"])
+        messages.success(
+            request,
+            f"{user.get_full_name() or user.email} is now a {user.get_role_display().lower()}.",
+        )
+    return redirect("dashboard:admin_users")
 
 
 # ──────────────────────────────────────────────
