@@ -20,4 +20,5 @@ urlpatterns = [
     # ── Admin ────────────────────────────────────────────
     path("admin/",                  views.admin_appointments,       name="admin_list"),
     path("admin/<int:pk>/delete/",  views.admin_delete_appointment, name="admin_delete"),
+    path("admin/ai-model/",         views.admin_ai_model,           name="admin_ai_model"),
 ]

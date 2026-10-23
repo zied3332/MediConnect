@@ -1,0 +1,151 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}AI model | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">ADMINISTRATION</span>
+        <h1>No-show prediction model</h1>
+        <p>How well the AI estimates the risk that a patient misses an appointment.</p>
+    </div>
+</div>
+
+<div class="mc-info-box">
+    <p><strong>The model only assists, the doctor decides.</strong> For each new booking it estimates the probability that the patient will not come (Low &lt; 30 %, Medium &lt; 60 %, High above). Doctors see this estimate next to the appointment; it never confirms, rejects or cancels anything on its own. The only automatic effect is an extra reminder sent 48 hours before a confirmed appointment when the risk is High.</p>
+    <p>It was trained on the public Kaggle dataset "Medical Appointment No Shows" (Brazil, 2016) using only features that MediConnect also knows: booking delay, weekday, the patient's previous appointments and no-shows, and whether a reminder was sent.</p>
+</div>
+
+{% if not metrics %}
+<section class="mc-panel">
+    <h2>Model not trained yet</h2>
+    <p>Download the dataset (see README), then run <code class="mc-code">python manage.py train_noshow_model</code>. Until then doctors see "Risk not available".</p>
+</section>
+{% else %}
+
+<div class="mc-metric-grid">
+    <article class="mc-stat-card">
+        <div class="mc-stat-top"><span class="mc-stat-label">Chosen model</span></div>
+        <div class="mc-stat-value" style="font-size:22px">{{ metrics.chosen_model }}</div>
+        <div class="mc-stat-change">Best {{ metrics.selection_metric }}</div>
+    </article>
+    <article class="mc-stat-card">
+        <div class="mc-stat-top"><span class="mc-stat-label">ROC-AUC</span></div>
+        <div class="mc-stat-value">{{ metrics.roc_auc|floatformat:3 }}</div>
+        <div class="mc-stat-change">0.5 = random, 1 = perfect</div>
+    </article>
+    <article class="mc-stat-card">
+        <div class="mc-stat-top"><span class="mc-stat-label">Inference time</span></div>
+        <div class="mc-stat-value">{{ metrics.avg_inference_ms|floatformat:1 }} ms</div>
+        <div class="mc-stat-change">Average per appointment</div>
+    </article>
+    <article class="mc-stat-card">
+        <div class="mc-stat-top"><span class="mc-stat-label">Training data</span></div>
+        <div class="mc-stat-value" style="font-size:22px">{{ metrics.dataset.rows }}</div>
+        <div class="mc-stat-change">appointments · {% widthratio metrics.dataset.no_show_rate 1 100 %} % no-shows</div>
+    </article>
+</div>
+
+<p class="mc-help">
+    Trained on {{ metrics.trained_at }} · test set: {{ metrics.dataset.test_rows }} appointments (stratified 80/20 split)
+    {% if not model_available %} · <strong>model file missing on this server</strong>{% endif %}
+</p>
+
+<div class="mc-dashboard-panels mc-management-section">
+    <section class="mc-panel mc-users-panel" aria-labelledby="report-title">
+        <div class="mc-panel-heading" style="padding:24px 24px 0"><div>
+            <h2 id="report-title">Classification report</h2>
+            <p>Measured on the test set, never seen during training.</p>
+        </div></div>
+        <div class="mc-users-table-wrapper">
+            <table class="mc-users-table">
+                <caption class="mc-sr-only">Precision, recall and F1 score per class</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Class</th>
+                        <th scope="col">Precision</th>
+                        <th scope="col">Recall</th>
+                        <th scope="col">F1 score</th>
+                        <th scope="col">Support</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in report_rows %}
+                    <tr>
+                        <th scope="row">{{ row.label }}</th>
+                        <td>{{ row.precision|floatformat:3 }}</td>
+                        <td>{{ row.recall|floatformat:3 }}</td>
+                        <td>{{ row.f1|floatformat:3 }}</td>
+                        <td>{{ row.support }}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th scope="row">Accuracy</th>
+                        <td colspan="4">{{ metrics.classification_report.accuracy|floatformat:3 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="mc-panel" aria-labelledby="confusion-title">
+        <div class="mc-panel-heading"><div>
+            <h2 id="confusion-title">Confusion matrix</h2>
+            <p>Rows: what really happened. Columns: what the model predicted.</p>
+        </div></div>
+        {% if confusion %}
+        <table class="mc-confusion">
+            <caption class="mc-sr-only">Confusion matrix of the test set</caption>
+            <thead>
+                <tr><td></td><th scope="col">Predicted show</th><th scope="col">Predicted no-show</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Real show</th>
+                    <td class="mc-confusion-hit">{{ confusion.tn }}</td>
+                    <td class="mc-confusion-miss">{{ confusion.fp }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Real no-show</th>
+                    <td class="mc-confusion-miss">{{ confusion.fn }}</td>
+                    <td class="mc-confusion-hit">{{ confusion.tp }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="mc-help" style="margin-top:14px">The model is tuned to catch most no-shows (high recall) at the cost of false alarms. That is acceptable here because a false alarm only means one extra reminder.</p>
+        {% endif %}
+    </section>
+</div>
+
+<section class="mc-panel mc-users-panel mc-management-section" aria-labelledby="candidates-title">
+    <div class="mc-panel-heading" style="padding:24px 24px 0"><div>
+        <h2 id="candidates-title">Compared models</h2>
+        <p>Both use class_weight="balanced" because only about one appointment in five is a no-show.</p>
+    </div></div>
+    <div class="mc-users-table-wrapper">
+        <table class="mc-users-table">
+            <caption class="mc-sr-only">Model comparison</caption>
+            <thead><tr><th scope="col">Model</th><th scope="col">F1 (no-show)</th><th scope="col">ROC-AUC</th><th scope="col">Chosen</th></tr></thead>
+            <tbody>
+                {% for name, values in metrics.candidates.items %}
+                <tr>
+                    <th scope="row">{{ name }}</th>
+                    <td>{{ values.f1_no_show|floatformat:3 }}</td>
+                    <td>{{ values.roc_auc|floatformat:3 }}</td>
+                    <td>{% if name == metrics.chosen_model %}<span class="mc-status mc-status--confirmed">Yes</span>{% else %}No{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="mc-panel mc-management-section" aria-labelledby="features-title">
+    <div class="mc-panel-heading"><div><h2 id="features-title">Features used</h2></div></div>
+    <ul>
+        {% for feature in metrics.features %}<li><code class="mc-code">{{ feature }}</code></li>{% endfor %}
+    </ul>
+    <p class="mc-help">The patient history only counts appointments that happened before the booking day, so the model never uses information from the future.</p>
+</section>
+{% endif %}
+{% endblock %}

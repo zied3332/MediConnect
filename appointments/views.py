@@ -385,3 +385,42 @@ def admin_delete_appointment(request, pk):
     appointment.delete()
     messages.success(request, "The appointment was deleted.")
     return redirect(_safe_next(request, reverse("appointments:admin_list")))
+
+
+@role_required("admin")
+def admin_ai_model(request):
+    from .ml.predictor import load_metrics, model_path
+
+    metrics = load_metrics()
+    report_rows, confusion = [], None
+    if metrics:
+        report = metrics.get("classification_report", {})
+        labels = {"show": "Showed up", "no_show": "No-show", "macro avg": "Macro average",
+                  "weighted avg": "Weighted average"}
+        for key, label in labels.items():
+            if key in report:
+                row = report[key]
+                report_rows.append({
+                    "label": label,
+                    "precision": row["precision"],
+                    "recall": row["recall"],
+                    "f1": row["f1-score"],
+                    "support": int(row["support"]),
+                })
+        matrix = metrics.get("confusion_matrix")
+        if matrix and len(matrix) == 2:
+            (tn, fp), (fn, tp) = matrix
+            confusion = {"tn": tn, "fp": fp, "fn": fn, "tp": tp}
+    return render(
+        request,
+        "appointments/admin/ai_model.html",
+        _context(
+            request,
+            "AI model",
+            active_nav="ai_model",
+            metrics=metrics,
+            report_rows=report_rows,
+            confusion=confusion,
+            model_available=model_path().exists(),
+        ),
+    )
