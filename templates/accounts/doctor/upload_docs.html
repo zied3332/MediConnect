@@ -6,6 +6,177 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 <link rel="stylesheet" href="{% static 'css/doctor.css' %}">
+<style>
+/* ── Camera widget ─────────────────────────────────────── */
+.mc-camera-widget {
+    border: 1px solid #e8e8e4;
+    border-radius: 10px;
+    background: #fafaf8;
+    overflow: hidden;
+}
+
+.mc-camera-preview-area {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#selfie-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    transform: scaleX(-1); /* mirror effect for front camera */
+}
+
+#selfie-canvas {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mc-camera-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: #666;
+    text-align: center;
+    padding: 20px;
+}
+
+.mc-camera-placeholder-icon {
+    font-size: 48px;
+    opacity: 0.5;
+}
+
+.mc-camera-placeholder p {
+    margin: 0;
+    font-size: 14px;
+    color: #888;
+}
+
+.mc-camera-overlay-hint {
+    display: none;
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Captured photo badge */
+.mc-captured-badge {
+    display: none;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(40,167,69,0.9);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+/* Camera controls bar */
+.mc-camera-controls {
+    display: flex;
+    gap: 10px;
+    padding: 14px;
+    background: #fff;
+    border-top: 1px solid #e8e8e4;
+    flex-wrap: wrap;
+}
+
+.mc-cam-btn {
+    flex: 1;
+    min-height: 42px;
+    min-width: 100px;
+    padding: 0 16px;
+    border-radius: 7px;
+    border: 1px solid #dedede;
+    background: #fff;
+    color: #333;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    transition: background 120ms;
+}
+.mc-cam-btn:hover { background: #f5f5f2; }
+.mc-cam-btn:disabled { opacity: 0.4; cursor: default; }
+
+.mc-cam-btn--primary {
+    background: #ffeb4d;
+    border-color: #e8d96a;
+    color: #252525;
+}
+.mc-cam-btn--primary:hover { background: #f5df40; }
+
+.mc-cam-btn--danger {
+    background: #fce4ec;
+    border-color: #f48fb1;
+    color: #880e4f;
+}
+.mc-cam-btn--danger:hover { background: #f8bbd0; }
+
+/* Status line below controls */
+.mc-camera-status {
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #888;
+    border-top: 1px solid #f0f0ed;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mc-cam-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ccc;
+    flex-shrink: 0;
+}
+.mc-cam-status-dot.active  { background: #28a745; }
+.mc-cam-status-dot.captured { background: #007bff; }
+.mc-cam-status-dot.error   { background: #dc3545; }
+
+/* No camera fallback */
+.mc-camera-fallback {
+    display: none;
+    padding: 16px;
+    background: #fff3cd;
+    border-top: 1px solid #ffc107;
+    font-size: 13px;
+    color: #664d00;
+}
+
+.mc-camera-fallback label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+</style>
 {% endblock %}
 
 {% block navigation %}
@@ -68,7 +239,7 @@
         <p class="mc-auth-error" role="alert">{{ form.non_field_errors|first }}</p>
         {% endif %}
 
-        <form method="post" enctype="multipart/form-data" novalidate>
+        <form id="mc-doc-form" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
 
             <!-- Medical license -->
@@ -77,13 +248,8 @@
                 <p class="mc-doc-hint">
                     Your official medical license or professional registration document issued by your medical authority.
                 </p>
-                <input
-                    type="file"
-                    id="doc-license"
-                    name="medical_license"
-                    accept=".pdf,.jpg,.jpeg,.png"
-                    required
-                >
+                <input type="file" id="doc-license" name="medical_license"
+                       accept=".pdf,.jpg,.jpeg,.png" required>
                 {% if form.medical_license.errors %}
                 <span class="mc-doc-field-error">{{ form.medical_license.errors|first }}</span>
                 {% endif %}
@@ -95,13 +261,8 @@
                 <p class="mc-doc-hint">
                     Your medical degree or specialist qualification certificate.
                 </p>
-                <input
-                    type="file"
-                    id="doc-diploma"
-                    name="diploma"
-                    accept=".pdf,.jpg,.jpeg,.png"
-                    required
-                >
+                <input type="file" id="doc-diploma" name="diploma"
+                       accept=".pdf,.jpg,.jpeg,.png" required>
                 {% if form.diploma.errors %}
                 <span class="mc-doc-field-error">{{ form.diploma.errors|first }}</span>
                 {% endif %}
@@ -113,47 +274,93 @@
                 <p class="mc-doc-hint">
                     A government-issued photo ID confirming your identity.
                 </p>
-                <input
-                    type="file"
-                    id="doc-id"
-                    name="national_id"
-                    accept=".pdf,.jpg,.jpeg,.png"
-                    required
-                >
+                <input type="file" id="doc-id" name="national_id"
+                       accept=".pdf,.jpg,.jpeg,.png" required>
                 {% if form.national_id.errors %}
                 <span class="mc-doc-field-error">{{ form.national_id.errors|first }}</span>
                 {% endif %}
             </div>
 
-            <!-- Selfie with ID (optional) -->
-            <div class="mc-selfie-tip">
-                <strong>💡 Tip — Selfie with your ID (optional but recommended)</strong>
-                A photo of yourself holding your ID next to your face significantly speeds up
-                the review process and reduces back-and-forth. Use your camera button below
-                or upload a photo.
-            </div>
+            <!-- ── Selfie — live camera capture ── -->
+            <div class="mc-doc-field" style="padding:0; overflow:hidden;">
 
-            <div class="mc-doc-field">
-                <label for="doc-selfie">
-                    Selfie holding your ID
-                    <span class="mc-doc-optional-tag">Optional</span>
-                </label>
-                <p class="mc-doc-hint">
-                    Hold your ID card or passport next to your face so both are clearly visible.
-                </p>
-                <input
-                    type="file"
-                    id="doc-selfie"
-                    name="selfie_with_id"
-                    accept=".jpg,.jpeg,.png"
-                    capture="user"
-                >
+                <div style="padding: 18px 24px 14px;">
+                    <label style="font-size:15px; font-weight:700; color:#303030;">
+                        Selfie holding your ID
+                        <span class="mc-doc-optional-tag">Optional</span>
+                    </label>
+                    <p class="mc-doc-hint" style="margin-top:6px;">
+                        Hold your ID card or passport next to your face so both are clearly
+                        visible. Your photo is taken live — no upload needed.
+                    </p>
+                </div>
+
+                <div class="mc-camera-widget">
+
+                    <!-- Preview area -->
+                    <div class="mc-camera-preview-area" id="camera-preview-area">
+                        <div class="mc-camera-placeholder" id="camera-placeholder">
+                            <span class="mc-camera-placeholder-icon">📷</span>
+                            <p>Camera is off.<br>Click <strong>Open camera</strong> to start.</p>
+                        </div>
+                        <video id="selfie-video" autoplay playsinline muted
+                               aria-label="Live camera feed"></video>
+                        <canvas id="selfie-canvas" aria-label="Captured photo"></canvas>
+                        <div class="mc-camera-overlay-hint" id="camera-hint">
+                            Hold your ID next to your face, then click Capture
+                        </div>
+                        <div class="mc-captured-badge" id="captured-badge">✓ Photo captured</div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="mc-camera-controls">
+                        <button type="button" class="mc-cam-btn mc-cam-btn--primary"
+                                id="btn-open-camera">
+                            📷 Open camera
+                        </button>
+                        <button type="button" class="mc-cam-btn mc-cam-btn--primary"
+                                id="btn-capture" disabled>
+                            ⊙ Capture photo
+                        </button>
+                        <button type="button" class="mc-cam-btn"
+                                id="btn-retake" disabled>
+                            ↩ Retake
+                        </button>
+                        <button type="button" class="mc-cam-btn mc-cam-btn--danger"
+                                id="btn-close-camera" disabled>
+                            ✕ Close camera
+                        </button>
+                    </div>
+
+                    <!-- Status line -->
+                    <div class="mc-camera-status">
+                        <span class="mc-cam-status-dot" id="status-dot"></span>
+                        <span id="status-text">Camera not started</span>
+                    </div>
+
+                    <!-- Fallback for browsers / devices without a camera -->
+                    <div class="mc-camera-fallback" id="camera-fallback">
+                        <label for="doc-selfie-fallback">
+                            No camera detected — upload a photo instead
+                        </label>
+                        <input type="file" id="doc-selfie-fallback"
+                               name="selfie_with_id"
+                               accept=".jpg,.jpeg,.png">
+                    </div>
+                </div>
+
+                <!-- Hidden file input that receives the captured blob -->
+                <input type="file" id="selfie-file-input" name="selfie_with_id"
+                       accept="image/*" style="display:none;" aria-hidden="true">
+
                 {% if form.selfie_with_id.errors %}
-                <span class="mc-doc-field-error">{{ form.selfie_with_id.errors|first }}</span>
+                <span class="mc-doc-field-error" style="padding:0 24px 14px; display:block;">
+                    {{ form.selfie_with_id.errors|first }}
+                </span>
                 {% endif %}
             </div>
 
-            <button type="submit" class="mc-auth-submit" style="margin-top:10px;">
+            <button type="submit" class="mc-auth-submit" style="margin-top:24px;">
                 Submit for review →
             </button>
 
@@ -167,4 +374,178 @@
 
 {% block extra_js %}
 <script src="{% static 'js/auth.js' %}" defer></script>
+<script>
+(function () {
+    "use strict";
+
+    /* ── Element refs ──────────────────────────────────── */
+    const video        = document.getElementById("selfie-video");
+    const canvas       = document.getElementById("selfie-canvas");
+    const placeholder  = document.getElementById("camera-placeholder");
+    const hint         = document.getElementById("camera-hint");
+    const badge        = document.getElementById("captured-badge");
+    const fileInput    = document.getElementById("selfie-file-input");
+    const fallback     = document.getElementById("camera-fallback");
+    const fallbackFile = document.getElementById("doc-selfie-fallback");
+    const statusDot    = document.getElementById("status-dot");
+    const statusText   = document.getElementById("status-text");
+    const btnOpen      = document.getElementById("btn-open-camera");
+    const btnCapture   = document.getElementById("btn-capture");
+    const btnRetake    = document.getElementById("btn-retake");
+    const btnClose     = document.getElementById("btn-close-camera");
+    const form         = document.getElementById("mc-doc-form");
+
+    let stream = null;
+    let captured = false;
+
+    /* ── Helpers ───────────────────────────────────────── */
+    function setStatus(msg, type) {
+        statusText.textContent = msg;
+        statusDot.className = "mc-cam-status-dot" + (type ? " " + type : "");
+    }
+
+    function stopStream() {
+        if (stream) {
+            stream.getTracks().forEach(t => t.stop());
+            stream = null;
+        }
+    }
+
+    function showPlaceholder() {
+        placeholder.style.display = "flex";
+        video.style.display = "none";
+        canvas.style.display = "none";
+        hint.style.display = "none";
+        badge.style.display = "none";
+    }
+
+    function showVideo() {
+        placeholder.style.display = "none";
+        video.style.display = "block";
+        canvas.style.display = "none";
+        hint.style.display = "block";
+        badge.style.display = "none";
+    }
+
+    function showCanvas() {
+        placeholder.style.display = "none";
+        video.style.display = "none";
+        canvas.style.display = "block";
+        hint.style.display = "none";
+        badge.style.display = "block";
+    }
+
+    /* ── Open camera ───────────────────────────────────── */
+    btnOpen.addEventListener("click", async () => {
+        btnOpen.disabled = true;
+        setStatus("Requesting camera access…");
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            setStatus("Camera not supported in this browser.", "error");
+            fallback.style.display = "block";
+            fileInput.name = "";           // disable hidden input
+            fallbackFile.name = "selfie_with_id";
+            btnOpen.disabled = false;
+            return;
+        }
+
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 960 } },
+                audio: false,
+            });
+            video.srcObject = stream;
+            await video.play();
+
+            showVideo();
+            setStatus("Camera active — hold your ID next to your face.", "active");
+            btnCapture.disabled = false;
+            btnClose.disabled = false;
+            btnOpen.disabled = true;
+            captured = false;
+        } catch (err) {
+            btnOpen.disabled = false;
+            if (err.name === "NotAllowedError") {
+                setStatus("Camera access denied. Please allow camera access and try again.", "error");
+            } else if (err.name === "NotFoundError") {
+                setStatus("No camera found. Upload a photo instead.", "error");
+                fallback.style.display = "block";
+                fileInput.name = "";
+                fallbackFile.name = "selfie_with_id";
+            } else {
+                setStatus("Could not start camera: " + err.message, "error");
+            }
+        }
+    });
+
+    /* ── Capture photo ─────────────────────────────────── */
+    btnCapture.addEventListener("click", () => {
+        if (!stream) return;
+
+        // Draw video frame to canvas at native resolution.
+        const w = video.videoWidth  || 1280;
+        const h = video.videoHeight || 960;
+        canvas.width  = w;
+        canvas.height = h;
+
+        const ctx = canvas.getContext("2d");
+        // Un-mirror the canvas so the saved image is correct (not flipped).
+        ctx.translate(w, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, 0, 0, w, h);
+
+        // Convert canvas to Blob and inject into the hidden file input.
+        canvas.toBlob(blob => {
+            if (!blob) return;
+            const file = new File([blob], "selfie.jpg", { type: "image/jpeg" });
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            fileInput.files = dt.files;
+            captured = true;
+        }, "image/jpeg", 0.92);
+
+        showCanvas();
+        setStatus("Photo captured — looks good! You can retake if needed.", "captured");
+
+        // Stop camera stream to free the device.
+        stopStream();
+        btnCapture.disabled = true;
+        btnRetake.disabled = false;
+        btnClose.disabled = true;
+    });
+
+    /* ── Retake ────────────────────────────────────────── */
+    btnRetake.addEventListener("click", async () => {
+        captured = false;
+        fileInput.value = "";
+        btnRetake.disabled = true;
+        btnOpen.disabled = false;
+        showPlaceholder();
+        setStatus("Camera not started");
+        // Automatically re-open camera.
+        btnOpen.click();
+    });
+
+    /* ── Close camera ──────────────────────────────────── */
+    btnClose.addEventListener("click", () => {
+        stopStream();
+        showPlaceholder();
+        setStatus("Camera closed");
+        btnOpen.disabled = false;
+        btnCapture.disabled = true;
+        btnClose.disabled = true;
+    });
+
+    /* ── Stop stream when navigating away ─────────────── */
+    window.addEventListener("pagehide", stopStream);
+    window.addEventListener("beforeunload", stopStream);
+
+    /* ── Form submit guard ─────────────────────────────── */
+    form.addEventListener("submit", () => {
+        // Always stop the camera before submitting.
+        stopStream();
+    });
+
+})();
+</script>
 {% endblock %}
