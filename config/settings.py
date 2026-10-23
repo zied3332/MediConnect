@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "dashboard.apps.DashboardConfig",
     "notifications.apps.NotificationsConfig",
+    "appointments.apps.AppointmentsConfig",
 ]
 
 SITE_ID = 1
