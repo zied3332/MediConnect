@@ -41,15 +41,22 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
 
     # Third-party applications
     "rest_framework",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 
     # MediConnect applications
     "core.apps.CoreConfig",
     "accounts.apps.AccountsConfig",
     "dashboard.apps.DashboardConfig",
 ]
+
+SITE_ID = 1
 
 
 # ==========================================================
@@ -62,6 +69,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -235,3 +243,53 @@ PASSWORD_RESET_TIMEOUT = 60 * 60 * 24 * 3  # 3 days
 # ==========================================================
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# ==========================================================
+# AUTHENTICATION BACKENDS
+# ==========================================================
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+
+# ==========================================================
+# ALLAUTH — Google OAuth
+# ==========================================================
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "APP": {
+            "client_id":     os.environ.get("GOOGLE_CLIENT_ID", ""),
+            "secret":        os.environ.get("GOOGLE_CLIENT_SECRET", ""),
+            "key":           "",
+        },
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
+        "FETCH_USERINFO": True,
+    }
+}
+
+# After Google login, create/update our custom User automatically.
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_LOGIN_ON_GET = True        # skip the allauth "confirm" interstitial
+ACCOUNT_EMAIL_VERIFICATION = "none"     # we handle email verification ourselves
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "username"
+ACCOUNT_EMAIL_FIELD = "email"
+SOCIALACCOUNT_ADAPTER = "accounts.adapter.MediConnectSocialAccountAdapter"
+
+# Link Google accounts to existing accounts by matching email address
+# If you create an account with user@gmail.com, then login with Google using
+# the same email, it will log you into your existing account instead of creating
+# a duplicate.
+ACCOUNT_UNIQUE_EMAIL = True              # enforce unique emails
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True  # match social login by email
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True  # auto-connect if email matches
+
+# Where allauth redirects after a successful social login.
+# Our adapter overrides this per-user, but this is the fallback.
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "core:home"
