@@ -155,7 +155,7 @@ def book_with_doctor(request, doctor_id):
         services.approved_doctors().select_related("main_specialty"), pk=doctor_id
     )
     slots = services.get_free_slots(doctor)
-    form = BookingForm(request.POST or None, slots=slots)
+    form = BookingForm(request.POST if request.method == "POST" else None, slots=slots)
 
     if request.method == "POST" and form.is_valid():
         try:
@@ -199,7 +199,7 @@ def reschedule_appointment(request, pk):
 
     slots = services.get_free_slots(appointment.doctor, exclude_appointment=appointment)
     slots = [s for s in slots if s != appointment.start]
-    form = RescheduleForm(request.POST or None, slots=slots)
+    form = RescheduleForm(request.POST if request.method == "POST" else None, slots=slots)
     if request.method == "POST" and form.is_valid():
         try:
             services.reschedule_appointment(appointment, request.user, form.cleaned_data["slot"])
