@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 
 from accounts.models import User
 from core.models import Availability, Specialty
@@ -82,6 +83,107 @@ def admin_overview(request):
         ).select_related("user").order_by("-submitted_at")[:5],
     }
     return render(request, "dashboard/admin/overview.html", context)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Admin — Doctor applications list
+# ─────────────────────────────────────────────────────────────────────────────
+
+@role_required("admin")
+def admin_doctor_list(request):
+    from accounts.models import DoctorProfile
+
+    status_filter = request.GET.get("status", "")
+    qs = DoctorProfile.objects.select_related("user").order_by("-submitted_at", "-created_at")
+    if status_filter:
+        qs = qs.filter(status=status_filter)
+
+    counts = {
+        "all":               DoctorProfile.objects.count(),
+        "pending_review":    DoctorProfile.objects.filter(status="pending_review").count(),
+        "needs_more_info":   DoctorProfile.objects.filter(status="needs_more_info").count(),
+        "approved":          DoctorProfile.objects.filter(status="approved").count(),
+        "rejected":          DoctorProfile.objects.filter(status="rejected").count(),
+        "pending_documents": DoctorProfile.objects.filter(status="pending_documents").count(),
+    }
+
+    context = {
+        "page_title": "Doctor Applications",
+        "dashboard_role": "admin",
+        "active_nav": "doctors",
+        "profiles": qs,
+        "status_filter": status_filter,
+        "counts": counts,
+        "status_choices": DoctorProfile.Status.choices,
+    }
+    return render(request, "dashboard/admin/doctor_list.html", context)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Admin — Doctor application detail + review actions
+# ─────────────────────────────────────────────────────────────────────────────
+
+@role_required("admin")
+def admin_doctor_detail(request, pk):
+    from accounts.models import DoctorProfile
+
+    profile = get_object_or_404(DoctorProfile.objects.select_related("user"), pk=pk)
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+        now = timezone.now()
+
+        if action == "approve":
+            profile.status = DoctorProfile.Status.APPROVED
+            profile.reviewed_at = now
+            profile.rejection_reason = ""
+            profile.save(update_fields=["status", "reviewed_at", "rejection_reason"])
+            profile.user.is_active = True
+            profile.user.save(update_fields=["is_active"])
+            messages.success(
+                request,
+                f"Dr. {profile.user.get_full_name()} has been approved."
+            )
+            return redirect("dashboard:admin_doctor_list")
+
+        elif action == "reject":
+            reason = request.POST.get("rejection_reason", "").strip()
+            if not reason:
+                messages.error(request, "Please provide a rejection reason.")
+            else:
+                profile.status = DoctorProfile.Status.REJECTED
+                profile.reviewed_at = now
+                profile.rejection_reason = reason
+                profile.save(update_fields=["status", "reviewed_at", "rejection_reason"])
+                profile.user.is_active = False
+                profile.user.save(update_fields=["is_active"])
+                messages.success(
+                    request,
+                    f"Dr. {profile.user.get_full_name()}'s application has been rejected."
+                )
+                return redirect("dashboard:admin_doctor_list")
+
+        elif action == "needs_more_info":
+            note = request.POST.get("reviewer_note", "").strip()
+            if not note:
+                messages.error(request, "Please write a message for the doctor.")
+            else:
+                profile.status = DoctorProfile.Status.NEEDS_MORE_INFO
+                profile.reviewer_note = note
+                profile.save(update_fields=["status", "reviewer_note"])
+                messages.success(
+                    request,
+                    f"Dr. {profile.user.get_full_name()} has been asked for more info."
+                )
+                return redirect("dashboard:admin_doctor_list")
+
+    context = {
+        "page_title": "Review Application",
+        "dashboard_role": "admin",
+        "active_nav": "doctors",
+        "profile": profile,
+    }
+    return render(request, "dashboard/admin/doctor_detail.html", context)
 
 
 @role_required("admin")
