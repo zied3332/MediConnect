@@ -38,7 +38,8 @@
     <div class="mc-sidebar-section-label">MY PRACTICE</div>
 
     <nav class="mc-sidebar-nav" aria-label="Doctor navigation">
-        <a href="{% url 'dashboard:doctor_overview' %}" class="mc-sidebar-link {% if page_title == 'My Dashboard' %}active{% endif %}" aria-current="page">
+        <a href="{% url 'dashboard:doctor_overview' %}"
+           class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}">
             <span class="mc-sidebar-icon">▦</span>Overview
         </a>
         <a href="{% url 'dashboard:doctor_availability' %}" class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}" {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
@@ -60,7 +61,8 @@
     <div class="mc-sidebar-section-label">MY HEALTH</div>
 
     <nav class="mc-sidebar-nav" aria-label="Patient navigation">
-        <a href="{% url 'dashboard:patient_overview' %}" class="mc-sidebar-link {% if page_title == 'My Health' %}active{% endif %}" aria-current="page">
+        <a href="{% url 'dashboard:patient_overview' %}"
+           class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}">
             <span class="mc-sidebar-icon">▦</span>Overview
         </a>
         <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">▣</span>Appointments<small>Soon</small></span>
@@ -72,6 +74,8 @@
 
     <div class="mc-sidebar-bottom">
         <span class="mc-sidebar-link disabled"><span class="mc-sidebar-icon">⚙</span>Settings</span>
-        <a href="{% url 'core:home' %}" class="mc-sidebar-link"><span class="mc-sidebar-icon">↗</span>View website</a>
+        <a href="{% url 'core:home' %}" class="mc-sidebar-link">
+            <span class="mc-sidebar-icon">↗</span>View website
+        </a>
     </div>
 </aside>

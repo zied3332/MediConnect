@@ -67,9 +67,9 @@
             </span>
 
             <!-- Provider registration -->
-            <span class="mc-nav-link mc-nav-link-disabled">
-                List your practice
-            </span>
+            <a href="{% url 'accounts:doctor_signup' %}" class="mc-nav-link">
+                Join as a doctor
+            </a>
 
             <span class="mc-nav-divider" aria-hidden="true"></span>
 
@@ -158,7 +158,7 @@
 
             <span>Specialties — Coming soon</span>
             <span>Help</span>
-            <span>List your practice</span>
+            <a href="{% url 'accounts:doctor_signup' %}">Join as a doctor</a>
 
             <a href="{% url 'accounts:login' %}">
                 Log in
