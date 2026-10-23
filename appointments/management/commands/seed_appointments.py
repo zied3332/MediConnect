@@ -36,7 +36,7 @@ class Command(BaseCommand):
         from config.celery import app
 
         # Run the risk task inline even when no Celery worker/Redis is running.
-        app.conf.task_always_eager = True
+        app.conf.CELERY_TASK_ALWAYS_EAGER = True  # namespaced key wins over task_always_eager
 
         with transaction.atomic():
             admin = self._user("admin", "Admin", "MediConnect", User.Role.ADMIN, is_staff=True, is_superuser=True)
