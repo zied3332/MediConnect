@@ -8,11 +8,20 @@ Description: AI-Assisted Healthcare & Telemedicine Platform
 from pathlib import Path
 import os
 
+from dotenv import load_dotenv
+
 # ==========================================================
 # BASE DIRECTORY
 # ==========================================================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load local secrets and settings from .env (never committed).
+load_dotenv(BASE_DIR / ".env")
+
+
+def env_bool(name, default=False):
+    return os.environ.get(name, str(default)).strip().lower() in ("1", "true", "yes", "on")
 
 
 # ==========================================================
@@ -20,13 +29,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ==========================================================
 
 SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    "django-insecure-mediconnect-local-development-only",
+    "SECRET_KEY",
+    os.environ.get(
+        "DJANGO_SECRET_KEY",
+        "django-insecure-mediconnect-local-development-only",
+    ),
 )
 
-DEBUG = True
+DEBUG = env_bool("DEBUG", True)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
 
 # ==========================================================
@@ -121,7 +133,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DB_NAME", "mediconnect"),
         "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "mahmoud"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", ""),
         "HOST": os.environ.get("DB_HOST", "localhost"),
         "PORT": os.environ.get("DB_PORT", "5432"),
     }

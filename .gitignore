@@ -12,3 +12,7 @@ staticfiles/
 media/
 .vscode/
 .idea/
+venv/
+
+# Appointments ML dataset (download from Kaggle, see README)
+appointments/ml/data/
