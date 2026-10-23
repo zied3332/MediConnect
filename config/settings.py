@@ -7,6 +7,7 @@ Description: AI-Assisted Healthcare & Telemedicine Platform
 
 from pathlib import Path
 import os
+import sys
 
 from dotenv import load_dotenv
 
@@ -251,6 +252,47 @@ DEFAULT_FROM_EMAIL = os.environ.get(
 # ==========================================================
 
 PASSWORD_RESET_TIMEOUT = 60 * 60 * 24 * 3  # 3 days
+
+
+# ==========================================================
+# CELERY — background tasks (no-show risk, reminders)
+# On Windows without Redis set CELERY_TASK_ALWAYS_EAGER=True in .env:
+# tasks then run directly inside the web process.
+# ==========================================================
+
+from celery.schedules import crontab  # noqa: E402
+
+RUNNING_TESTS = len(sys.argv) > 1 and sys.argv[1] == "test"
+
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
+CELERY_TASK_ALWAYS_EAGER = env_bool("CELERY_TASK_ALWAYS_EAGER", False) or RUNNING_TESTS
+CELERY_TASK_EAGER_PROPAGATES = True
+CELERY_TASK_IGNORE_RESULT = True
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+# Fail fast when Redis is down instead of blocking the booking request.
+CELERY_BROKER_CONNECTION_TIMEOUT = 2
+CELERY_TASK_PUBLISH_RETRY_POLICY = {
+    "max_retries": 1,
+    "interval_start": 0,
+    "interval_step": 0.5,
+    "interval_max": 0.5,
+}
+CELERY_BEAT_SCHEDULE = {
+    "send-appointment-reminders": {
+        "task": "appointments.tasks.send_reminders",
+        "schedule": crontab(minute=0),  # every hour
+    },
+}
+
+
+# ==========================================================
+# AI — no-show risk model (python manage.py train_noshow_model)
+# ==========================================================
+
+NOSHOW_DATASET_PATH = BASE_DIR / "appointments" / "ml" / "data" / "noshow.csv"
+NOSHOW_MODEL_PATH = BASE_DIR / "appointments" / "ml" / "model.joblib"
+NOSHOW_METRICS_PATH = BASE_DIR / "appointments" / "ml" / "metrics.json"
 
 
 # ==========================================================
