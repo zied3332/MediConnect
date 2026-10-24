@@ -1,0 +1,12 @@
+[run]
+omit =
+    venv/*
+    */migrations/*
+    manage.py
+
+[report]
+omit =
+    venv/*
+    */migrations/*
+    manage.py
+skip_empty = True

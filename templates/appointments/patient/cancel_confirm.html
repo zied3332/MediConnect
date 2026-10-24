@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Cancel appointment | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">MY APPOINTMENTS</span>
+        <h1>Cancel this appointment?</h1>
+        <p>Dr. {{ appointment.doctor.get_full_name|default:appointment.doctor.email }} · {{ appointment.start|date:"l j F Y, H:i" }}</p>
+    </div>
+</div>
+
+<section class="mc-panel" aria-labelledby="cancel-title">
+    <div class="mc-panel-heading"><div><h2 id="cancel-title">Confirmation</h2></div></div>
+    {% if appointment.can_be_changed_by_patient %}
+    <p>The doctor will be notified and the slot will be offered to other patients. This cannot be undone.</p>
+    <form method="post" class="mc-form-actions">
+        {% csrf_token %}
+        <button type="submit" class="mc-users-filter-button mc-button-danger">Yes, cancel the appointment</button>
+        <a class="mc-users-clear" href="{{ appointment.get_absolute_url }}">No, keep it</a>
+    </form>
+    {% else %}
+    <p class="mc-errors" role="alert">This appointment can no longer be cancelled online: cancelling is only possible more than 24 hours before the start, for pending or confirmed appointments.</p>
+    <p><a class="mc-link" href="{{ appointment.get_absolute_url }}">← Back to the appointment</a></p>
+    {% endif %}
+</section>
+{% endblock %}

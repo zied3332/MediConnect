@@ -1,0 +1,663 @@
+/* =========================================================
+   MediConnect — Appointments & Notifications
+   Reuses the dashboard tokens (layout.css / components.css).
+   All text/background pairs below are >= 4.5:1 contrast.
+   ========================================================= */
+
+:root {
+    --mc-appt-muted: #5c6359;
+    --mc-appt-focus: #1f5f8b;
+}
+
+/* ── Visible keyboard focus across the dashboard ───────── */
+
+.mc-dashboard a:focus-visible,
+.mc-dashboard button:focus-visible,
+.mc-dashboard input:focus-visible,
+.mc-dashboard select:focus-visible,
+.mc-dashboard textarea:focus-visible,
+.mc-dashboard summary:focus-visible,
+.mc-dashboard [tabindex]:focus-visible {
+    outline: 3px solid var(--mc-appt-focus);
+    outline-offset: 2px;
+}
+
+.mc-slot input:focus-visible + span {
+    outline: 3px solid var(--mc-appt-focus);
+    outline-offset: 2px;
+}
+
+/* ── Topbar bell ───────────────────────────────────────── */
+
+.mc-bell {
+    position: relative;
+    display: inline-grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 1px solid var(--mc-admin-border);
+    border-radius: 50%;
+    background: #fff;
+    color: var(--mc-admin-text);
+    text-decoration: none;
+}
+
+.mc-bell:hover {
+    background: #f5f6f1;
+}
+
+.mc-bell-icon {
+    font-size: 17px;
+    line-height: 1;
+}
+
+.mc-bell-count:empty {
+    display: none;
+}
+
+.mc-bell-count {
+    position: absolute;
+    top: -5px;
+    right: -6px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #a12d2d;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 20px;
+    text-align: center;
+}
+
+/* ── Flash messages & pagination ───────────────────────── */
+
+.mc-flash {
+    display: grid;
+    gap: 8px;
+    padding: 0 0 18px;
+}
+
+.mc-flash:empty {
+    display: none;
+}
+
+.mc-users-message--warning {
+    background: #fff4d6;
+    color: #6b4400;
+}
+
+.mc-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px 0 4px;
+    color: var(--mc-appt-muted);
+    font-size: 13px;
+}
+
+/* ── Notifications list ────────────────────────────────── */
+
+.mc-notif-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mc-notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 0;
+    border-top: 1px solid var(--mc-admin-border);
+}
+
+.mc-notif-item:first-child {
+    border-top: 0;
+}
+
+.mc-notif-item--unread {
+    position: relative;
+}
+
+.mc-notif-item--unread .mc-notif-body p {
+    font-weight: 700;
+}
+
+.mc-notif-item--unread::before {
+    position: absolute;
+    top: 24px;
+    left: -14px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1f5f8b;
+    content: "";
+}
+
+.mc-notif-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.mc-notif-body p {
+    margin: 0 0 4px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.mc-notif-body time {
+    color: var(--mc-appt-muted);
+    font-size: 12px;
+}
+
+.mc-notif-type {
+    flex-shrink: 0;
+    min-width: 96px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.mc-notif-type--appointment { background: #e4eef9; color: #1f4f7d; }
+.mc-notif-type--reminder    { background: #fff4d6; color: #6b4400; }
+.mc-notif-type--system      { background: #eceeea; color: #3f453e; }
+
+/* ── Status badges ─────────────────────────────────────── */
+
+.mc-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.mc-status--pending   { background: #fff4d6; color: #6b4400; }
+.mc-status--confirmed { background: #e3f3e8; color: #1f5f36; }
+.mc-status--rejected  { background: #fde8e8; color: #8f2424; }
+.mc-status--cancelled { background: #eceeea; color: #3f453e; }
+.mc-status--completed { background: #e4eef9; color: #1f4f7d; }
+.mc-status--no_show   { background: #f6e7f3; color: #74285f; }
+
+/* ── AI risk badge + tooltip ───────────────────────────── */
+
+.mc-risk {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: help;
+}
+
+.mc-risk--low     { background: #e3f3e8; color: #1f5f36; }
+.mc-risk--medium  { background: #fff4d6; color: #6b4400; }
+.mc-risk--high    { background: #fde8e8; color: #8f2424; }
+.mc-risk--none    { background: #eceeea; color: #3f453e; cursor: default; }
+.mc-risk--failed  { background: #fde8e8; color: #8f2424; cursor: default; }
+
+.mc-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    z-index: 20;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #242824;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 120ms;
+}
+
+.mc-risk:hover .mc-tooltip,
+.mc-risk:focus .mc-tooltip,
+.mc-risk:focus-within .mc-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.mc-risk-pending {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--mc-appt-muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.mc-risk-pending a {
+    color: #1f4f7d;
+}
+
+.mc-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #c9d2c6;
+    border-top-color: #1f5f8b;
+    border-radius: 50%;
+    animation: mc-spin 0.8s linear infinite;
+}
+
+@keyframes mc-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mc-spinner { animation: none; }
+}
+
+/* ── Tabs ──────────────────────────────────────────────── */
+
+.mc-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--mc-admin-border);
+}
+
+.mc-tab {
+    padding: 10px 16px;
+    border-bottom: 3px solid transparent;
+    color: var(--mc-appt-muted);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.mc-tab[aria-current="page"] {
+    border-bottom-color: #242824;
+    color: #242824;
+}
+
+/* ── Booking: steps, doctor cards, slot picker ─────────── */
+
+.mc-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 22px;
+    padding: 0;
+    list-style: none;
+    color: var(--mc-appt-muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.mc-steps li {
+    padding: 6px 12px;
+    border: 1px solid var(--mc-admin-border);
+    border-radius: 999px;
+    background: #fff;
+}
+
+.mc-steps li[aria-current="step"] {
+    border-color: #242824;
+    background: #242824;
+    color: #fff;
+}
+
+.mc-doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mc-doctor-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid var(--mc-admin-border);
+    border-radius: 12px;
+    background: #fff;
+}
+
+.mc-doctor-card h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.mc-doctor-card p {
+    margin: 0;
+    color: var(--mc-appt-muted);
+    font-size: 13px;
+}
+
+.mc-doctor-card .mc-users-filter-button {
+    margin-top: auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+.mc-slot-days {
+    display: grid;
+    gap: 16px;
+}
+
+.mc-slot-day {
+    margin: 0;
+    padding: 14px 16px 16px;
+    border: 1px solid var(--mc-admin-border);
+    border-radius: 10px;
+}
+
+.mc-slot-day legend {
+    padding: 0 6px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.mc-slot-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mc-slot {
+    position: relative;
+}
+
+.mc-slot input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.mc-slot > span {
+    display: inline-block;
+    min-width: 72px;
+    padding: 8px 12px;
+    border: 1px solid #c9d2c6;
+    border-radius: 7px;
+    background: #fff;
+    color: var(--mc-admin-text);
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+}
+
+.mc-slot > span:hover {
+    border-color: #242824;
+}
+
+.mc-slot input:checked + span {
+    border-color: #242824;
+    background: #242824;
+    color: #fff;
+}
+
+/* ── Forms ─────────────────────────────────────────────── */
+
+.mc-form {
+    display: grid;
+    gap: 18px;
+    max-width: 760px;
+}
+
+.mc-field {
+    display: grid;
+    gap: 6px;
+}
+
+.mc-field label,
+.mc-field legend {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.mc-field fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.mc-field input[type="text"],
+.mc-field input[type="date"],
+.mc-field select,
+.mc-field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #c9d2c6;
+    border-radius: 7px;
+    background: #fff;
+    color: var(--mc-admin-text);
+    font: inherit;
+    font-size: 14px;
+}
+
+.mc-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.mc-help {
+    margin: 0;
+    color: var(--mc-appt-muted);
+    font-size: 12px;
+}
+
+.mc-inline-choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.mc-inline-choices label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.mc-errors {
+    margin: 0;
+    padding: 10px 12px;
+    border-radius: 7px;
+    background: #fff0f0;
+    color: #8f2424;
+    font-size: 13px;
+    font-weight: 600;
+    list-style: none;
+}
+
+.mc-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.mc-link {
+    color: #1f4f7d;
+    font-weight: 700;
+}
+
+.mc-button-danger {
+    border-color: #8f2424;
+    background: #8f2424;
+}
+
+.mc-button-danger:hover {
+    background: #741d1d;
+}
+
+/* ── Detail page ───────────────────────────────────────── */
+
+.mc-detail-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 12px 24px;
+    margin: 0;
+}
+
+.mc-detail-grid dt {
+    color: var(--mc-appt-muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.mc-detail-grid dd {
+    margin: 0;
+    font-size: 14px;
+    white-space: pre-line;
+}
+
+.mc-reject-details summary {
+    display: inline-block;
+    cursor: pointer;
+    list-style: none;
+}
+
+.mc-reject-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.mc-reject-details[open] summary {
+    margin-bottom: 8px;
+}
+
+.mc-reject-form {
+    display: grid;
+    gap: 6px;
+    min-width: 220px;
+}
+
+.mc-reject-form textarea {
+    min-height: 60px;
+    padding: 8px;
+    border: 1px solid #c9d2c6;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 12px;
+}
+
+/* ── Tables for these modules ──────────────────────────── */
+
+.mc-appt-table td,
+.mc-appt-table th {
+    vertical-align: middle;
+}
+
+.mc-appt-table td small {
+    display: block;
+    color: var(--mc-appt-muted);
+}
+
+/* ── AI model page ─────────────────────────────────────── */
+
+.mc-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.mc-info-box {
+    margin-bottom: 24px;
+    padding: 14px 16px;
+    border: 1px solid #c8d9e8;
+    border-radius: 8px;
+    background: #eef5fb;
+    color: #23486a;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.mc-info-box p {
+    margin: 0;
+}
+
+.mc-info-box p + p {
+    margin-top: 6px;
+}
+
+.mc-confusion {
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.mc-confusion th,
+.mc-confusion td {
+    padding: 12px 16px;
+    border: 1px solid var(--mc-admin-border);
+    text-align: center;
+}
+
+.mc-confusion td {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.mc-confusion .mc-confusion-hit {
+    background: #e3f3e8;
+    color: #1f5f36;
+}
+
+.mc-confusion .mc-confusion-miss {
+    background: #fde8e8;
+    color: #8f2424;
+}
+
+code.mc-code {
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #f1f3ee;
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    .mc-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .mc-page-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .mc-metric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mc-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .mc-detail-grid dd {
+        margin-bottom: 10px;
+    }
+
+    .mc-notif-item {
+        flex-wrap: wrap;
+    }
+
+    .mc-topbar-right {
+        gap: 8px;
+    }
+}

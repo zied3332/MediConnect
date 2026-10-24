@@ -7,6 +7,9 @@ Description: AI-Assisted Healthcare & Telemedicine Platform
 
 from pathlib import Path
 import os
+import sys
+
+from dotenv import load_dotenv
 
 # ==========================================================
 # BASE DIRECTORY
@@ -14,19 +17,29 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load local secrets and settings from .env (never committed).
+load_dotenv(BASE_DIR / ".env")
+
+
+def env_bool(name, default=False):
+    return os.environ.get(name, str(default)).strip().lower() in ("1", "true", "yes", "on")
+
 
 # ==========================================================
 # SECURITY & DEVELOPMENT
 # ==========================================================
 
 SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    "django-insecure-mediconnect-local-development-only",
+    "SECRET_KEY",
+    os.environ.get(
+        "DJANGO_SECRET_KEY",
+        "django-insecure-mediconnect-local-development-only",
+    ),
 )
 
-DEBUG = True
+DEBUG = env_bool("DEBUG", True)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
 
 # ==========================================================
@@ -54,6 +67,8 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "accounts.apps.AccountsConfig",
     "dashboard.apps.DashboardConfig",
+    "notifications.apps.NotificationsConfig",
+    "appointments.apps.AppointmentsConfig",
 ]
 
 SITE_ID = 1
@@ -99,6 +114,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "notifications.context_processors.unread_notifications",
             ],
         },
     },
@@ -121,7 +137,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DB_NAME", "mediconnect"),
         "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "mahmoud"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", ""),
         "HOST": os.environ.get("DB_HOST", "localhost"),
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
@@ -236,6 +252,47 @@ DEFAULT_FROM_EMAIL = os.environ.get(
 # ==========================================================
 
 PASSWORD_RESET_TIMEOUT = 60 * 60 * 24 * 3  # 3 days
+
+
+# ==========================================================
+# CELERY — background tasks (no-show risk, reminders)
+# On Windows without Redis set CELERY_TASK_ALWAYS_EAGER=True in .env:
+# tasks then run directly inside the web process.
+# ==========================================================
+
+from celery.schedules import crontab  # noqa: E402
+
+RUNNING_TESTS = len(sys.argv) > 1 and sys.argv[1] == "test"
+
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
+CELERY_TASK_ALWAYS_EAGER = env_bool("CELERY_TASK_ALWAYS_EAGER", False) or RUNNING_TESTS
+CELERY_TASK_EAGER_PROPAGATES = True
+CELERY_TASK_IGNORE_RESULT = True
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+# Fail fast when Redis is down instead of blocking the booking request.
+CELERY_BROKER_CONNECTION_TIMEOUT = 2
+CELERY_TASK_PUBLISH_RETRY_POLICY = {
+    "max_retries": 1,
+    "interval_start": 0,
+    "interval_step": 0.5,
+    "interval_max": 0.5,
+}
+CELERY_BEAT_SCHEDULE = {
+    "send-appointment-reminders": {
+        "task": "appointments.tasks.send_reminders",
+        "schedule": crontab(minute=0),  # every hour
+    },
+}
+
+
+# ==========================================================
+# AI — no-show risk model (python manage.py train_noshow_model)
+# ==========================================================
+
+NOSHOW_DATASET_PATH = BASE_DIR / "appointments" / "ml" / "data" / "noshow.csv"
+NOSHOW_MODEL_PATH = BASE_DIR / "appointments" / "ml" / "model.joblib"
+NOSHOW_METRICS_PATH = BASE_DIR / "appointments" / "ml" / "metrics.json"
 
 
 # ==========================================================

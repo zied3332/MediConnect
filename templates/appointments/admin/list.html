@@ -1,0 +1,78 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Appointments | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">ADMINISTRATION</span>
+        <h1>All appointments</h1>
+        <p>Search every appointment on the platform.</p>
+    </div>
+    <div class="mc-users-summary">
+        <span class="mc-users-summary-label">Total</span>
+        <strong>{{ total }}</strong>
+    </div>
+</div>
+
+{% include "components/dashboard_messages.html" %}
+
+<section class="mc-panel mc-users-panel">
+    <form method="get" class="mc-users-filters" aria-label="Filter appointments">
+        {% for field in filter_form %}
+        <label class="mc-users-control">
+            <span class="mc-sr-only">{{ field.label }}</span>
+            {{ field }}
+        </label>
+        {% endfor %}
+        <button type="submit" class="mc-users-filter-button">Apply filters</button>
+        {% if request.GET %}<a href="{% url 'appointments:admin_list' %}" class="mc-users-clear">Clear</a>{% endif %}
+    </form>
+
+    <div class="mc-users-table-wrapper">
+        <table class="mc-users-table mc-appt-table">
+            <caption class="mc-sr-only">All appointments</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Patient</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">AI risk</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in page_obj %}
+                <tr>
+                    <td>
+                        <time datetime="{{ appointment.start|date:'c' }}">{{ appointment.start|date:"D j M Y, H:i" }}</time>
+                        <small>{{ appointment.get_mode_display }}</small>
+                    </td>
+                    <td>{{ appointment.patient.get_full_name|default:appointment.patient.email }}</td>
+                    <td>Dr. {{ appointment.doctor.get_full_name|default:appointment.doctor.email }}</td>
+                    <td>{% include "appointments/partials/status_badge.html" %}</td>
+                    <td>{% if appointment.no_show_risk is not None %}{{ appointment.risk_percent }}%{% else %}<span class="mc-table-muted">—</span>{% endif %}</td>
+                    <td>
+                        <div class="mc-action-group">
+                            <a class="mc-role-save" href="{{ appointment.get_absolute_url }}" aria-label="View appointment {{ appointment.pk }}">View</a>
+                            <form method="post" action="{% url 'appointments:admin_delete' appointment.pk %}"
+                                  data-delete-confirm data-delete-name="appointment of {{ appointment.start|date:'j M Y H:i' }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                <button type="submit" class="mc-role-save mc-role-save--danger" aria-label="Delete appointment {{ appointment.pk }}">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6" class="mc-users-empty">No appointments match your filters.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "components/pagination.html" %}
+</section>
+
+{% include "appointments/partials/delete_modal.html" %}
+{% endblock %}

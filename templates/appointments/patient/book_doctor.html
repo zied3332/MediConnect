@@ -1,0 +1,65 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Book an appointment | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">BOOK AN APPOINTMENT</span>
+        <h1>Find a doctor</h1>
+        <p>Choose a specialty, then one of our verified doctors.</p>
+    </div>
+</div>
+
+<ol class="mc-steps" aria-label="Booking steps">
+    <li{% if not specialty %} aria-current="step"{% endif %}>1. Specialty</li>
+    <li{% if specialty %} aria-current="step"{% endif %}>2. Doctor</li>
+    <li>3. Time &amp; details</li>
+</ol>
+
+<section class="mc-panel" aria-labelledby="specialty-title">
+    <div class="mc-panel-heading"><div><h2 id="specialty-title">Specialty</h2></div></div>
+    <form method="get" class="mc-form">
+        <div class="mc-field">
+            <label for="id_specialty">Specialty</label>
+            <select name="specialty" id="id_specialty" required>
+                <option value="">Choose a specialty</option>
+                {% for item in specialties %}
+                <option value="{{ item.pk }}"{% if specialty and specialty.pk == item.pk %} selected{% endif %}>
+                    {{ item.name }} ({{ item.doctor_count }} doctor{{ item.doctor_count|pluralize }})
+                </option>
+                {% endfor %}
+            </select>
+            {% if form.specialty.errors %}<ul class="mc-errors" role="alert">{% for e in form.specialty.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+        <div class="mc-form-actions">
+            <button type="submit" class="mc-users-filter-button">Show doctors</button>
+        </div>
+    </form>
+</section>
+
+{% if specialty %}
+<section class="mc-panel mc-management-section" aria-labelledby="doctors-title">
+    <div class="mc-panel-heading"><div>
+        <h2 id="doctors-title">{{ specialty.name }} doctors</h2>
+        <p>Only doctors verified by MediConnect are listed.</p>
+    </div></div>
+    {% if doctors %}
+    <ul class="mc-doctor-grid">
+        {% for doctor in doctors %}
+        <li>
+            <article class="mc-doctor-card">
+                <h3>Dr. {{ doctor.get_full_name|default:doctor.email }}</h3>
+                <p>{{ specialty.name }}</p>
+                <a class="mc-users-filter-button" href="{% url 'appointments:book_slot' doctor.pk %}"
+                   aria-label="See free slots of Dr. {{ doctor.get_full_name|default:doctor.email }}">See free slots</a>
+            </article>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="mc-users-empty">No approved doctor for this specialty yet.</p>
+    {% endif %}
+</section>
+{% endif %}
+{% endblock %}

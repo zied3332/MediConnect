@@ -1,0 +1,67 @@
+{
+  "trained_at": "2026-10-23T23:06:29+00:00",
+  "chosen_model": "RandomForest",
+  "selection_metric": "F1 score of the no-show class",
+  "features": [
+    "lead_days",
+    "weekday",
+    "prior_appointments",
+    "prior_no_shows",
+    "reminder_sent"
+  ],
+  "dataset": {
+    "rows": 110522,
+    "train_rows": 88417,
+    "test_rows": 22105,
+    "no_show_rate": 0.2019
+  },
+  "candidates": {
+    "LogisticRegression": {
+      "f1_no_show": 0.4032,
+      "roc_auc": 0.679
+    },
+    "RandomForest": {
+      "f1_no_show": 0.439,
+      "roc_auc": 0.7151
+    }
+  },
+  "classification_report": {
+    "show": {
+      "precision": 0.938227497983174,
+      "recall": 0.4614556172769527,
+      "f1-score": 0.6186405258558456,
+      "support": 17642.0
+    },
+    "no_show": {
+      "precision": 0.2924486148346738,
+      "recall": 0.8799014116065427,
+      "f1-score": 0.43899167179028564,
+      "support": 4463.0
+    },
+    "accuracy": 0.5459398326170549,
+    "macro avg": {
+      "precision": 0.6153380564089239,
+      "recall": 0.6706785144417478,
+      "f1-score": 0.5288160988230657,
+      "support": 22105.0
+    },
+    "weighted avg": {
+      "precision": 0.8078447268684145,
+      "recall": 0.5459398326170549,
+      "f1-score": 0.5823694181564747,
+      "support": 22105.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      8141,
+      9501
+    ],
+    [
+      536,
+      3927
+    ]
+  ],
+  "roc_auc": 0.7151,
+  "avg_inference_ms": 4.879
+}

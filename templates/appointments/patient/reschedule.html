@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Reschedule appointment | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">MY APPOINTMENTS</span>
+        <h1>Reschedule appointment</h1>
+        <p>Currently {{ appointment.start|date:"l j F Y, H:i" }} with Dr. {{ appointment.doctor.get_full_name|default:appointment.doctor.email }}. The doctor will need to confirm the new time.</p>
+    </div>
+    <a class="mc-users-clear" href="{{ appointment.get_absolute_url }}">← Back to the appointment</a>
+</div>
+
+<section class="mc-panel">
+    <form method="post" class="mc-form" novalidate>
+        {% csrf_token %}
+        {% include "appointments/partials/form_errors.html" %}
+        {% include "appointments/partials/slot_picker.html" %}
+        {% if days %}
+        <div class="mc-form-actions">
+            <button type="submit" class="mc-users-filter-button">Move my appointment</button>
+            <a class="mc-users-clear" href="{{ appointment.get_absolute_url }}">Keep the current time</a>
+        </div>
+        {% endif %}
+    </form>
+</section>
+{% endblock %}

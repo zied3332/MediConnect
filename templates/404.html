@@ -1,0 +1,29 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found | MediConnect</title>
+    <link rel="stylesheet" href="{% static 'css/tokens.css' %}">
+    <style>
+        body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px;
+               background: var(--mc-background); color: var(--mc-text); font-family: var(--mc-font-body); }
+        main { max-width: 520px; padding: 40px; border: 1px solid var(--mc-border); border-radius: 16px;
+               background: var(--mc-surface); text-align: center; }
+        .code { margin: 0; color: var(--mc-text-secondary); font-size: 14px; font-weight: 800; letter-spacing: 2px; }
+        h1 { margin: 10px 0 12px; font-size: 30px; }
+        p { color: var(--mc-text-secondary); line-height: 1.6; }
+        a { display: inline-block; margin-top: 12px; padding: 11px 20px; border-radius: 8px;
+            background: var(--mc-forest); color: #fff; font-weight: 700; text-decoration: none; }
+        a:focus-visible { outline: 3px solid #1f5f8b; outline-offset: 3px; }
+    </style>
+</head>
+<body>
+    <main>
+        <p class="code">ERROR 404</p>
+        <h1>Page not found</h1>
+        <p>This page does not exist, or you do not have access to it.</p>
+        <a href="/">Back to MediConnect</a>
+    </main>
+</body>
+</html>

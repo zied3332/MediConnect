@@ -1,0 +1,53 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Book with Dr. {{ doctor.get_full_name }} | MediConnect{% endblock %}
+
+{% block content %}
+<div class="mc-page-heading">
+    <div>
+        <span class="mc-page-eyebrow">BOOK AN APPOINTMENT</span>
+        <h1>Book with Dr. {{ doctor.get_full_name|default:doctor.email }}</h1>
+        <p>{{ doctor.main_specialty|default:"General" }} · choose a free time and tell the doctor why you are coming.</p>
+    </div>
+    <a class="mc-users-clear" href="{% url 'appointments:book' %}{% if doctor.main_specialty_id %}?specialty={{ doctor.main_specialty_id }}{% endif %}">← Choose another doctor</a>
+</div>
+
+<ol class="mc-steps" aria-label="Booking steps">
+    <li>1. Specialty</li>
+    <li>2. Doctor</li>
+    <li aria-current="step">3. Time &amp; details</li>
+</ol>
+
+<section class="mc-panel">
+    <form method="post" class="mc-form" novalidate>
+        {% csrf_token %}
+        {% include "appointments/partials/form_errors.html" %}
+        {% include "appointments/partials/slot_picker.html" %}
+
+        {% if days %}
+        <fieldset class="mc-field"{% if form.mode.errors %} aria-describedby="mode-errors"{% endif %}>
+            <legend>{{ form.mode.label }}</legend>
+            {% if form.mode.errors %}<ul class="mc-errors" id="mode-errors" role="alert">{% for e in form.mode.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+            <div class="mc-inline-choices">
+                {% for radio in form.mode %}
+                <label for="{{ radio.id_for_label }}">{{ radio.tag }} {{ radio.choice_label }}</label>
+                {% endfor %}
+            </div>
+        </fieldset>
+
+        <div class="mc-field">
+            <label for="id_reason">{{ form.reason.label }}</label>
+            <textarea name="reason" id="id_reason" rows="4" maxlength="1000" required
+                      aria-describedby="reason-help{% if form.reason.errors %} reason-errors{% endif %}">{{ form.reason.value|default:"" }}</textarea>
+            <p class="mc-help" id="reason-help">{{ form.reason.help_text }}</p>
+            {% if form.reason.errors %}<ul class="mc-errors" id="reason-errors" role="alert">{% for e in form.reason.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+
+        <div class="mc-form-actions">
+            <button type="submit" class="mc-users-filter-button">Send request</button>
+            <a class="mc-users-clear" href="{% url 'appointments:my_list' %}">Cancel</a>
+        </div>
+        {% endif %}
+    </form>
+</section>
+{% endblock %}

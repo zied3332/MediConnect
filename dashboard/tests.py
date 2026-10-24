@@ -1,3 +1,5 @@
+from datetime import date, timedelta
+
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import TestCase
@@ -142,10 +144,12 @@ class SpecialtyAvailabilityTests(TestCase):
 
     def test_doctor_can_create_and_delete_only_own_slot(self):
         self.client.force_login(self.doctor)
+        today = date.today()
+        next_tuesday = today + timedelta(days=(Availability.Weekday.TUESDAY - today.weekday()) % 7)
         response = self.client.post(
             reverse("dashboard:doctor_availability"),
             {
-                "weekday": Availability.Weekday.TUESDAY,
+                "calendar_date": next_tuesday.isoformat(),
                 "start_time": "09:00",
                 "end_time": "12:00",
                 "is_free": "on",
