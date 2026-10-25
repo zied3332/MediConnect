@@ -4,3 +4,4 @@
 ## Step 4 - docs: define prescription requirements
 ## Step 5 - docs: define medical examination requirements
 ## Step 6 - docs: plan patient and doctor permissions
+## Step 7 - docs: plan medical document security
