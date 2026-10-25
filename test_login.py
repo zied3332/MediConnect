@@ -1,49 +1,56 @@
-import os
-import django
+"""Manual login diagnostic; does not run during test discovery."""
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
-django.setup()
+def main():
+    import os
+    import django
 
-from accounts.models import User
-from django.contrib.auth import authenticate
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+    django.setup()
 
-email = "mediconnect53@gmail.com"
-password = "Test1234!"
+    from accounts.models import User
+    from django.contrib.auth import authenticate
 
-print(f"Testing login for: {email}")
-print(f"Password: {password}")
-print()
+    email = "mediconnect53@gmail.com"
+    password = "Test1234!"
 
-# Check if user exists
-try:
-    user = User.objects.get(email=email)
-    print(f"✓ User exists")
-    print(f"  Username: {user.username}")
-    print(f"  Email: {user.email}")
-    print(f"  Is active: {user.is_active}")
-    print(f"  Has usable password: {user.has_usable_password()}")
-    print(f"  Role: {user.role}")
+    print(f"Testing login for: {email}")
+    print(f"Password: {password}")
     print()
-    
-    # Test password check directly
-    correct = user.check_password(password)
-    print(f"  Password check result: {correct}")
-    print()
-    
-    # Test authentication
-    print("Testing authenticate()...")
-    auth_user = authenticate(username=email, password=password)
-    if auth_user:
-        print(f"✓ Authentication successful: {auth_user.email}")
-    else:
-        print("✗ Authentication failed")
-        
-        # Try with lowercase
-        auth_user2 = authenticate(username=email.lower(), password=password)
-        if auth_user2:
-            print(f"✓ Authentication with lowercase successful: {auth_user2.email}")
+
+    # Check if user exists
+    try:
+        user = User.objects.get(email=email)
+        print(f"✓ User exists")
+        print(f"  Username: {user.username}")
+        print(f"  Email: {user.email}")
+        print(f"  Is active: {user.is_active}")
+        print(f"  Has usable password: {user.has_usable_password()}")
+        print(f"  Role: {user.role}")
+        print()
+
+        # Test password check directly
+        correct = user.check_password(password)
+        print(f"  Password check result: {correct}")
+        print()
+
+        # Test authentication
+        print("Testing authenticate()...")
+        auth_user = authenticate(username=email, password=password)
+        if auth_user:
+            print(f"✓ Authentication successful: {auth_user.email}")
         else:
-            print("✗ Authentication with lowercase also failed")
-    
-except User.DoesNotExist:
-    print("✗ User does not exist")
+            print("✗ Authentication failed")
+
+            # Try with lowercase
+            auth_user2 = authenticate(username=email.lower(), password=password)
+            if auth_user2:
+                print(f"✓ Authentication with lowercase successful: {auth_user2.email}")
+            else:
+                print("✗ Authentication with lowercase also failed")
+
+    except User.DoesNotExist:
+        print("✗ User does not exist")
+
+
+if __name__ == "__main__":
+    main()

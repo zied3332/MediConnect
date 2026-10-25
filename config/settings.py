@@ -20,6 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load local secrets and settings from .env (never committed).
 load_dotenv(BASE_DIR / ".env")
 
+# Patient-brief generation: server-side secrets, never exposed in templates.
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-5")
+
 
 def env_bool(name, default=False):
     return os.environ.get(name, str(default)).strip().lower() in ("1", "true", "yes", "on")
@@ -69,6 +73,7 @@ INSTALLED_APPS = [
     "dashboard.apps.DashboardConfig",
     "notifications.apps.NotificationsConfig",
     "appointments.apps.AppointmentsConfig",
+    "consultations",
 ]
 
 SITE_ID = 1

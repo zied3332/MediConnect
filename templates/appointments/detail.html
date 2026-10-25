@@ -52,6 +52,16 @@
 
     <section class="mc-panel mc-panel-side" aria-labelledby="actions-title">
         <div class="mc-panel-heading"><div><h2 id="actions-title">Actions</h2></div></div>
+        {% if dashboard_role == "doctor" %}
+            {% if appointment.status == "confirmed" or appointment.status == "completed" %}
+            <p><a class="mc-role-save" href="{% url 'consultations:edit' appointment.pk %}">Rédiger / modifier la consultation</a></p>
+            {% endif %}
+        {% endif %}
+        {% if dashboard_role == "patient" or dashboard_role == "doctor" %}
+            {% if appointment.consultation %}
+            <p><a href="{% url 'consultations:detail' appointment.consultation.pk %}">Voir le compte rendu</a></p>
+            {% endif %}
+        {% endif %}
 
         {% if dashboard_role == "patient" %}
             {% if appointment.can_be_changed_by_patient %}

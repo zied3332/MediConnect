@@ -1,0 +1,9 @@
+<a href="{% url 'consultations:list' %}" class="mc-sidebar-link {% if active_nav == 'consultations' %}active{% endif %}" {% if active_nav == 'consultations' %}aria-current="page"{% endif %}>
+    {% include 'dashboard/components/nav_icon.html' with icon='consultations' %}<span>Consultations</span>
+</a>
+<a href="{% url 'consultations:inbox' %}" class="mc-sidebar-link {% if active_nav == 'consultation_messages' %}active{% endif %}" {% if active_nav == 'consultation_messages' %}aria-current="page"{% endif %}>
+    {% include 'dashboard/components/nav_icon.html' with icon='messages' %}<span>Messages</span>
+</a>
+<a href="{% url 'consultations:reviews' %}" class="mc-sidebar-link {% if active_nav == 'consultation_reviews' %}active{% endif %}" {% if active_nav == 'consultation_reviews' %}aria-current="page"{% endif %}>
+    {% include 'dashboard/components/nav_icon.html' with icon='reviews' %}<span>{% if dashboard_role == 'patient' %}Mes avis{% else %}Avis{% endif %}</span>
+</a>

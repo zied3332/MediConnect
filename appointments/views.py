@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.paginator import Paginator
 from django.db.models import Count, Q
+from django.db.models.deletion import ProtectedError
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -382,7 +383,11 @@ def admin_appointments(request):
 @require_POST
 def admin_delete_appointment(request, pk):
     appointment = get_object_or_404(Appointment, pk=pk)
-    appointment.delete()
+    try:
+        appointment.delete()
+    except ProtectedError:
+        messages.error(request, "Ce rendez-vous possède un compte rendu et ne peut pas être supprimé.")
+        return redirect("appointments:admin_list")
     messages.success(request, "The appointment was deleted.")
     return redirect(_safe_next(request, reverse("appointments:admin_list")))
 

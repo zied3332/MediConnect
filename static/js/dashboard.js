@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (toggle && sidebar) {
+        const close = sidebar.querySelector(".mc-sidebar-close");
+        if (close) close.addEventListener("click", () => {
+            closeSidebar();
+            toggle.focus();
+        });
         toggle.addEventListener("click", () => {
             const isOpen = sidebar.classList.toggle("is-open");
             toggle.setAttribute("aria-expanded", String(isOpen));
@@ -17,7 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.addEventListener("keydown", (event) => {
             if (event.key === "Escape") {
+                const wasOpen = sidebar.classList.contains("is-open");
                 closeSidebar();
+                if (wasOpen) toggle.focus();
             }
         });
 

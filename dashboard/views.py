@@ -463,4 +463,8 @@ def patient_overview(request):
 @login_required
 def profile_view(request):
     """User profile page with face enrollment."""
-    return render(request, "dashboard/profile.html")
+    return render(request, "dashboard/profile.html", {
+        "dashboard_role": request.user.role,
+        "active_nav": "profile",
+        "page_title": "Profile",
+    })
