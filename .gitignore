@@ -16,3 +16,6 @@ venv/
 
 # Appointments ML dataset (download from Kaggle, see README)
 appointments/ml/data/
+
+# Private patient medical documents
+/private_medical_files/

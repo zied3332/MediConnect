@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-
+from .storage import private_medical_storage
 
 class DossierMedical(models.Model):
     """Medical record belonging to one patient."""
@@ -111,8 +111,9 @@ class Examen(models.Model):
     )
 
     fichier = models.FileField(
-        upload_to=examen_upload_path,
-        verbose_name="Fichier",
+          upload_to=examen_upload_path,
+          storage=private_medical_storage,
+          verbose_name="Fichier",
     )
 
     date = models.DateField(
