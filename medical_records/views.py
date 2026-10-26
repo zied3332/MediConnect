@@ -1,7 +1,10 @@
 
+from pathlib import Path
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
@@ -457,3 +460,67 @@ def examination_upload(request):
             "dossier": dossier,
         },
     )
+
+
+# ============================================================
+# Secure medical examination download
+# ============================================================
+
+@login_required
+@require_http_methods(["GET"])
+def examination_download(request, pk):
+    """
+    Download a private medical examination after authorization.
+
+    Patients may download their own examinations.
+    Doctors need a completed appointment with the patient.
+
+    The file is never served using a public MEDIA_URL.
+    """
+
+    # Retrieve the examination and its associated patient.
+    examen = get_object_or_404(
+        Examen.objects.select_related("dossier__patient"),
+        pk=pk,
+    )
+
+    patient_id = examen.dossier.patient_id
+
+    # Check authorization before opening the private file.
+    if not can_access_patient_record(request.user, patient_id):
+        raise PermissionDenied(
+            "You are not authorized to download this examination."
+        )
+
+    if not examen.fichier:
+        raise Http404("Examination file not found.")
+
+    # Use a generic filename rather than exposing the
+    # internal storage path or medical examination title.
+    extension = Path(examen.fichier.name).suffix.lower()
+
+    if extension not in {".pdf", ".jpg", ".jpeg", ".png"}:
+        raise Http404("Unsupported examination file type.")
+
+    download_name = f"medical-examination-{examen.pk}{extension}"
+
+    try:
+        file_handle = examen.fichier.open("rb")
+    except (FileNotFoundError, OSError, ValueError):
+        raise Http404("Examination file not found.")
+
+    # FileResponse streams the private file to the browser.
+    response = FileResponse(
+        file_handle,
+        as_attachment=True,
+        filename=download_name,
+        content_type="application/octet-stream",
+    )
+
+    # Disable caching and browser content sniffing.
+    response["Cache-Control"] = "private, no-store, max-age=0"
+    response["Pragma"] = "no-cache"
+    response["X-Content-Type-Options"] = "nosniff"
+    response["X-Robots-Tag"] = "noindex, nofollow"
+
+    return response

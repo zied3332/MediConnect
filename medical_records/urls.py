@@ -71,4 +71,10 @@ urlpatterns = [
         views.examination_upload,
         name="examination_upload",
     ),
+
+    path(
+        "examinations/<int:pk>/download/",
+        views.examination_download,
+        name="examination_download",
+    ),
 ]
