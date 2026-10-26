@@ -1,26 +1,28 @@
-
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
 
 class PrivateMedicalStorage(FileSystemStorage):
     """
-    Store medical files outside the publicly served MEDIA_ROOT.
+    Store private medical files outside the public MEDIA_ROOT.
+
+    Files can only be accessed through authorized Django views.
     """
 
     def __init__(self, *args, **kwargs):
         private_root = settings.BASE_DIR / "private_medical_files"
 
-        super().__init__(
-            location=private_root,
-            base_url=None,
-            *args,
-            **kwargs,
-        )
+        kwargs["location"] = private_root
+
+        # An empty string prevents FileSystemStorage from
+        # falling back to settings.MEDIA_URL.
+        kwargs["base_url"] = ""
+
+        super().__init__(*args, **kwargs)
 
     def url(self, name):
         """
-        Medical files must never expose a direct public URL.
+        Never generate a public URL for a private medical file.
         """
         raise ValueError(
             "Private medical files require an authorized download view."
