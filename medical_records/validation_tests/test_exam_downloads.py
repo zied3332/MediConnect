@@ -146,7 +146,9 @@ class ExaminationDownloadTests(TestCase):
                 file_contents,
             )
 
-            response.close()
+            # Do not explicitly call response.close() here.
+            # Closing a FileResponse can emit request_finished,
+            # which may close the test database connection.
 
     # ========================================================
     # Doctor authorization
