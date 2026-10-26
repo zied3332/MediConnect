@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     "notifications.apps.NotificationsConfig",
     "appointments.apps.AppointmentsConfig",
     "consultations",
+    "medical_records",
 ]
 
 SITE_ID = 1
