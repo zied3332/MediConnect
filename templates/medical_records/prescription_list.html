@@ -1,0 +1,296 @@
+
+{% extends "base.html" %}
+
+{% block title %}My Prescriptions | MediConnect{% endblock %}
+
+{% block extra_css %}
+<style>
+    .prescriptions-page {
+        background: #fffdf5;
+        min-height: 75vh;
+        padding: 56px 20px 96px;
+        color: #252525;
+    }
+
+    .prescriptions-container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .prescriptions-eyebrow {
+        color: #756400;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+
+    .prescriptions-heading {
+        font-size: clamp(30px, 5vw, 46px);
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-bottom: 12px;
+    }
+
+    .prescriptions-subtitle {
+        color: #666;
+        line-height: 1.7;
+        max-width: 650px;
+    }
+
+    .prescriptions-list {
+        display: grid;
+        gap: 18px;
+        margin-top: 32px;
+    }
+
+    .prescription-item {
+        background: #fff;
+        border: 1px solid #e9e5d8;
+        border-radius: 18px;
+        padding: 26px;
+        box-shadow: 0 8px 28px rgba(35, 30, 0, 0.04);
+    }
+
+    .prescription-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 18px;
+    }
+
+    .prescription-item-title {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 6px;
+    }
+
+    .prescription-item-date {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .prescription-item-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 22px;
+    }
+
+    .prescription-meta-label {
+        display: block;
+        color: #666;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .prescription-meta-value {
+        font-size: 15px;
+        font-weight: 700;
+        overflow-wrap: anywhere;
+    }
+
+    .prescription-view-link {
+        display: inline-block;
+        background: #ffdb3d;
+        color: #211d00;
+        border: 1px solid #e6c52d;
+        border-radius: 12px;
+        padding: 11px 20px;
+        text-decoration: none;
+        font-weight: 800;
+    }
+
+    .prescription-view-link:hover {
+        background: #f1c900;
+        color: #211d00;
+    }
+
+    .prescription-view-link:focus-visible {
+        outline: 3px solid #705c00;
+        outline-offset: 3px;
+    }
+
+    .prescriptions-empty {
+        background: #fff;
+        border: 1px dashed #d9d2ae;
+        border-radius: 18px;
+        padding: 48px 24px;
+        margin-top: 32px;
+        text-align: center;
+    }
+
+    .prescriptions-empty h2 {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .prescriptions-empty p {
+        color: #666;
+        margin: 0;
+    }
+
+    @media (max-width: 576px) {
+        .prescriptions-page {
+            padding: 32px 16px 64px;
+        }
+
+        .prescription-item {
+            padding: 22px 18px;
+        }
+
+        .prescription-item-meta {
+            grid-template-columns: 1fr;
+        }
+
+        .prescription-view-link {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="prescriptions-page"
+         aria-labelledby="prescriptions-title">
+
+    <div class="prescriptions-container">
+
+        <header>
+            <p class="prescriptions-eyebrow">
+                MediConnect / Medical Records
+            </p>
+
+            <h1 id="prescriptions-title"
+                class="prescriptions-heading">
+                {% if request.user.role == "doctor" %}
+                    Issued Prescriptions
+                {% else %}
+                    My Prescriptions
+                {% endif %}
+            </h1>
+
+            <p class="prescriptions-subtitle">
+                {% if request.user.role == "doctor" %}
+                    Review the prescriptions issued during
+                    your patient consultations.
+                {% else %}
+                    View medications and treatment instructions
+                    prescribed by your doctors.
+                {% endif %}
+            </p>
+        </header>
+
+        {% if messages %}
+            <div class="mt-4" aria-live="polite">
+                {% for message in messages %}
+                    <div class="alert alert-success" role="status">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if ordonnances %}
+
+            <div class="prescriptions-list">
+
+                {% for ordonnance in ordonnances %}
+
+                    <article class="prescription-item">
+
+                        <div class="prescription-item-header">
+                            <div>
+                                <h2 class="prescription-item-title">
+                                    Prescription #{{ ordonnance.pk }}
+                                </h2>
+
+                                <p class="prescription-item-date">
+                                    Issued on
+                                    {{ ordonnance.date|date:"F j, Y" }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="prescription-item-meta">
+
+                            <div>
+                                <span class="prescription-meta-label">
+                                    Patient
+                                </span>
+
+                                <span class="prescription-meta-value">
+                                    {{ ordonnance.consultation.appointment.patient.get_full_name|default:ordonnance.consultation.appointment.patient.email }}
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="prescription-meta-label">
+                                    Doctor
+                                </span>
+
+                                <span class="prescription-meta-value">
+                                    {{ ordonnance.consultation.appointment.doctor.get_full_name|default:ordonnance.consultation.appointment.doctor.email }}
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="prescription-meta-label">
+                                    Consultation
+                                </span>
+
+                                <span class="prescription-meta-value">
+                                    #{{ ordonnance.consultation.pk }}
+                                </span>
+                            </div>
+
+                            <div>
+                                <span class="prescription-meta-label">
+                                    Prescription Date
+                                </span>
+
+                                <span class="prescription-meta-value">
+                                    {{ ordonnance.date|date:"F j, Y" }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <a class="prescription-view-link"
+                           href="{% url 'medical_records:prescription_detail' ordonnance.pk %}">
+                            View Prescription
+                        </a>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="prescriptions-empty">
+                <h2>No prescriptions yet</h2>
+
+                <p>
+                    {% if request.user.role == "doctor" %}
+                        Prescriptions you create during consultations
+                        will appear here.
+                    {% else %}
+                        Prescriptions from your doctors
+                        will appear here.
+                    {% endif %}
+                </p>
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}
