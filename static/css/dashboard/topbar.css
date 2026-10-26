@@ -1,0 +1,382 @@
+
+/* ==========================================================
+   MediConnect — Dashboard Topbar
+   Clean, responsive, shared across all dashboard roles
+   ========================================================== */
+
+.mc-dashboard-topbar {
+    position: relative;
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 76px;
+    min-height: 76px;
+    padding: 0 36px;
+    overflow: visible;
+    background: #ffffff;
+    border-bottom: 1px solid #e9ebe5;
+}
+
+.mc-topbar-left,
+.mc-topbar-right {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.mc-topbar-left {
+    gap: 16px;
+}
+
+.mc-topbar-right {
+    gap: 18px;
+    margin-left: auto;
+}
+
+/* Breadcrumb */
+
+.mc-topbar-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.mc-topbar-breadcrumb > span:first-child {
+    color: #858b82;
+    font-weight: 500;
+}
+
+.mc-topbar-breadcrumb svg {
+    flex-shrink: 0;
+    color: #b5b9b0;
+}
+
+.mc-topbar-breadcrumb strong {
+    color: #252b26;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Notification button */
+
+.mc-topbar-notification {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: transparent;
+    color: #41483f;
+    text-decoration: none;
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease;
+}
+
+.mc-topbar-notification:hover {
+    background: #f7f7f1;
+    border-color: #eeeee4;
+    color: #181d18;
+}
+
+.mc-topbar-notification svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.mc-topbar-notification-dot {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #e7b62f;
+    box-sizing: content-box;
+}
+
+/* Separator */
+
+.mc-topbar-divider {
+    display: block;
+    width: 1px;
+    height: 28px;
+    flex-shrink: 0;
+    background: #e8ebe5;
+}
+
+/* Account dropdown */
+
+.mc-account-menu {
+    position: relative;
+    min-width: 0;
+}
+
+.mc-account-trigger {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-height: 48px;
+    padding: 5px 8px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    list-style: none;
+    transition:
+        background 160ms ease,
+        border-color 160ms ease;
+}
+
+.mc-account-trigger::-webkit-details-marker {
+    display: none;
+}
+
+.mc-account-trigger::marker {
+    content: "";
+}
+
+.mc-account-trigger:hover,
+.mc-account-menu[open] .mc-account-trigger {
+    background: #f8f8f3;
+    border-color: #e9ebe4;
+}
+
+.mc-account-avatar {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border-radius: 50%;
+    background: #fff0b8;
+    color: #4d401b;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+}
+
+.mc-account-identity {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.mc-account-identity strong {
+    display: block;
+    max-width: 160px;
+    overflow: hidden;
+    color: #242824;
+    font-size: 12px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mc-account-identity small {
+    color: #899087;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.mc-account-chevron {
+    flex-shrink: 0;
+    margin-left: 5px;
+    color: #858b82;
+    transition: transform 160ms ease;
+}
+
+.mc-account-menu[open] .mc-account-chevron {
+    transform: rotate(180deg);
+}
+
+/* Dropdown panel */
+
+.mc-account-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    z-index: 300;
+    width: 270px;
+    padding: 8px;
+    border: 1px solid #e9ebe5;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow:
+        0 16px 40px rgba(30, 36, 29, 0.09),
+        0 3px 10px rgba(30, 36, 29, 0.03);
+}
+
+.mc-account-dropdown-header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 13px 12px;
+}
+
+.mc-account-dropdown-header strong {
+    color: #252a24;
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.mc-account-dropdown-header small {
+    color: #848b81;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.mc-account-dropdown-divider {
+    height: 1px;
+    margin: 5px 0;
+    background: #eff0eb;
+}
+
+/* Logout action */
+
+.mc-account-logout-form {
+    margin: 0;
+}
+
+.mc-account-logout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: #424a40;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        background 160ms ease,
+        color 160ms ease;
+}
+
+.mc-account-logout:hover {
+    background: #fff2ef;
+    color: #a43f34;
+}
+
+.mc-account-logout svg {
+    flex-shrink: 0;
+}
+
+/* Keyboard accessibility */
+
+.mc-topbar-notification:focus-visible,
+.mc-account-trigger:focus-visible,
+.mc-account-logout:focus-visible {
+    outline: 3px solid #d6b13b;
+    outline-offset: 3px;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+    .mc-dashboard-topbar {
+        height: 72px;
+        min-height: 72px;
+        padding: 0 20px;
+    }
+
+    .mc-topbar-left {
+        gap: 12px;
+    }
+
+    .mc-topbar-right {
+        gap: 12px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .mc-dashboard-topbar {
+        flex-wrap: nowrap;
+        height: 68px;
+        min-height: 68px;
+        padding: 0 14px;
+        gap: 10px;
+    }
+
+    .mc-topbar-left,
+    .mc-topbar-right {
+        width: auto;
+        min-width: 0;
+    }
+
+    .mc-topbar-left {
+        flex: 1;
+    }
+
+    .mc-topbar-right {
+        flex: 0 0 auto;
+        gap: 8px;
+    }
+
+    .mc-topbar-breadcrumb {
+        gap: 6px;
+        font-size: 12px;
+    }
+
+    .mc-topbar-breadcrumb > span:first-child,
+    .mc-topbar-breadcrumb svg {
+        display: none;
+    }
+
+    .mc-topbar-divider,
+    .mc-account-identity,
+    .mc-account-chevron {
+        display: none;
+    }
+
+    .mc-account-trigger {
+        padding: 3px;
+    }
+
+    .mc-account-avatar {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+    }
+
+    .mc-topbar-notification {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+    }
+
+    .mc-account-dropdown {
+        width: min(270px, calc(100vw - 28px));
+        top: calc(100% + 12px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mc-topbar-notification,
+    .mc-account-trigger,
+    .mc-account-chevron,
+    .mc-account-logout {
+        transition: none;
+    }
+}
