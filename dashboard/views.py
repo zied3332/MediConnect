@@ -11,6 +11,7 @@ from django.utils import timezone
 
 from accounts.models import User
 from appointments.models import Appointment
+from consultations.models import Message
 from core.models import Availability, Specialty
 
 from .forms import AvailabilityForm, DoctorAvailabilityForm, SpecialtyForm
@@ -399,7 +400,6 @@ def admin_specialties(request):
             )
 
             return redirect("dashboard:admin_specialties")
-
     else:
         form = SpecialtyForm()
 
@@ -565,7 +565,6 @@ def doctor_availability(request):
             )
 
             return redirect("dashboard:doctor_availability")
-
     else:
         form = DoctorAvailabilityForm(
             doctor=request.user
@@ -612,7 +611,6 @@ def edit_doctor_availability(request, slot_id):
             )
 
             return redirect("dashboard:doctor_availability")
-
     else:
         form = DoctorAvailabilityForm(
             instance=slot,
@@ -686,7 +684,6 @@ def doctor_overview(request):
         doctor=doctor
     )
 
-    # Appointments scheduled for today, excluding cancelled/rejected.
     today_appointments = (
         appointments.filter(start__date=today)
         .exclude(status__in=["cancelled", "rejected"])
@@ -694,7 +691,6 @@ def doctor_overview(request):
         .order_by("start")
     )
 
-    # Next upcoming appointment.
     next_appointment = (
         appointments.filter(start__gte=now)
         .exclude(
@@ -709,14 +705,12 @@ def doctor_overview(request):
         .first()
     )
 
-    # Unique patients associated with this doctor.
     total_patients = (
         appointments.values("patient_id")
         .distinct()
         .count()
     )
 
-    # Patients whose first appointment was within the past week.
     week_start = now - timedelta(days=7)
 
     first_appointments = (
@@ -730,17 +724,14 @@ def doctor_overview(request):
         if item["first_visit"] >= week_start
     )
 
-    # Pending appointments.
     pending_count = appointments.filter(
         status="pending"
     ).count()
 
-    # Completed consultations.
     completed_count = appointments.filter(
         status="completed"
     ).count()
 
-    # Today's appointment list.
     appointment_list = []
 
     for appt in today_appointments:
@@ -775,7 +766,6 @@ def doctor_overview(request):
         "page_title": "My Dashboard",
         "dashboard_role": "doctor",
         "active_nav": "overview",
-
         "stats": [
             {
                 "label": "Today's appointments",
@@ -802,7 +792,6 @@ def doctor_overview(request):
                 "icon": "✓",
             },
         ],
-
         "upcoming_appointments": appointment_list,
     }
 
@@ -814,11 +803,76 @@ def doctor_overview(request):
 
 
 # ============================================================
-# PATIENT — DASHBOARD
+# PATIENT — DASHBOARD (REAL POSTGRESQL DATA)
 # ============================================================
 
 @role_required("patient")
 def patient_overview(request):
+    """Display real appointments, doctors and unread messages."""
+
+    patient = request.user
+    now = timezone.now()
+
+    appointments = Appointment.objects.filter(
+        patient=patient
+    )
+
+    upcoming = (
+        appointments.filter(
+            start__gte=now,
+            status__in=["pending", "confirmed"],
+        )
+        .select_related("doctor", "doctor__main_specialty")
+        .order_by("start")
+    )
+
+    upcoming_count = upcoming.count()
+
+    doctors_seen = (
+        appointments.filter(status="completed")
+        .values("doctor_id")
+        .distinct()
+        .count()
+    )
+
+    unread_messages = (
+        Message.objects.filter(
+            consultation__appointment__patient=patient,
+            lu=False,
+        )
+        .exclude(auteur=patient)
+        .count()
+    )
+
+    upcoming_list = []
+
+    for appt in upcoming[:5]:
+        doctor = appt.doctor
+        doctor_name = (
+            doctor.get_full_name()
+            or doctor.username
+        )
+
+        specialty = getattr(
+            doctor,
+            "main_specialty",
+            None,
+        )
+
+        upcoming_list.append({
+            "doctor": f"Dr. {doctor_name}",
+            "specialty": (
+                specialty.name
+                if specialty
+                else "General medicine"
+            ),
+            "date": timezone.localtime(
+                appt.start
+            ).strftime("%b %d, %Y - %I:%M %p"),
+            "status": appt.get_status_display(),
+            "mode": appt.get_mode_display(),
+        })
+
     context = {
         "page_title": "My Health",
         "dashboard_role": "patient",
@@ -826,41 +880,27 @@ def patient_overview(request):
         "stats": [
             {
                 "label": "Upcoming appointments",
-                "value": "2",
-                "change": "Next: Tomorrow",
+                "value": upcoming_count,
+                "change": "Scheduled appointments",
                 "icon": "C",
             },
             {
                 "label": "Doctors seen",
-                "value": "4",
-                "change": "Since joining",
+                "value": doctors_seen,
+                "change": "Completed visits",
                 "icon": "D",
             },
             {
-                "label": "Prescriptions",
-                "value": "3",
-                "change": "1 renewal due",
-                "icon": "Rx",
-            },
-            {
-                "label": "Messages",
-                "value": "1",
-                "change": "Unread",
-                "icon": "✉",
+                "label": "Unread messages",
+                "value": unread_messages,
+                "change": "From healthcare providers",
+                "icon": "M",
             },
         ],
-        "upcoming_appointments": [
-            {
-                "doctor": "Dr. Amara Diallo",
-                "specialty": "Cardiology",
-                "date": "Tomorrow — 9:00 AM",
-            },
-            {
-                "doctor": "Dr. Lucas Petit",
-                "specialty": "Dermatology",
-                "date": "Nov 5 — 3:30 PM",
-            },
-        ],
+        "upcoming_appointments": upcoming_list,
+        "upcoming_count": upcoming_count,
+        "doctors_seen": doctors_seen,
+        "unread_messages": unread_messages,
     }
 
     return render(

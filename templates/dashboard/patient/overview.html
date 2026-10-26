@@ -9,16 +9,12 @@
 
 <div class="patient-home">
 
-    <!-- Welcome section -->
+    <!-- Welcome -->
     <section class="patient-welcome">
         <div class="patient-welcome-content">
-            <span class="patient-eyebrow">
-                YOUR HEALTH SPACE
-            </span>
+            <span class="patient-eyebrow">YOUR HEALTH SPACE</span>
 
-            <h1>
-                Hello, {{ request.user.first_name|default:"there" }}.
-            </h1>
+            <h1>Hello, {{ request.user.first_name|default:"there" }}.</h1>
 
             <p>
                 Your appointments, medical records and health documents,
@@ -42,20 +38,33 @@
         <div class="patient-welcome-decoration" aria-hidden="true">
             <svg viewBox="0 0 160 160" fill="none">
                 <circle cx="80" cy="80" r="62"
-                        stroke="currentColor"
-                        stroke-width="1.5" opacity=".25"/>
+                        stroke="currentColor" stroke-width="1.5"
+                        opacity=".25"/>
                 <circle cx="80" cy="80" r="43"
-                        stroke="currentColor"
-                        stroke-width="1.5" opacity=".4"/>
+                        stroke="currentColor" stroke-width="1.5"
+                        opacity=".4"/>
                 <path d="M80 52v56M52 80h56"
-                      stroke="currentColor"
-                      stroke-width="8"
+                      stroke="currentColor" stroke-width="8"
                       stroke-linecap="round"/>
             </svg>
         </div>
     </section>
 
-    <!-- Main dashboard -->
+    <!-- Real patient statistics -->
+    <div class="mc-stats-grid" style="margin: 24px 0;">
+        {% for stat in stats %}
+        <article class="mc-stat-card">
+            <div class="mc-stat-top">
+                <span class="mc-stat-label">{{ stat.label }}</span>
+                <span class="mc-stat-icon">{{ stat.icon }}</span>
+            </div>
+
+            <div class="mc-stat-value">{{ stat.value }}</div>
+            <div class="mc-stat-change">{{ stat.change }}</div>
+        </article>
+        {% endfor %}
+    </div>
+
     <div class="patient-home-grid">
 
         <!-- Upcoming appointments -->
@@ -76,30 +85,34 @@
             </div>
 
             {% for appt in upcoming_appointments %}
-                <div class="patient-appointment-row">
-                    <div class="patient-appointment-icon">
-                        <svg viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="1.8"
-                             stroke-linecap="round" stroke-linejoin="round"
-                             aria-hidden="true">
-                            <rect x="3" y="5" width="18" height="16" rx="2"/>
-                            <path d="M7 3v4M17 3v4M3 10h18"/>
-                        </svg>
-                    </div>
-
-                    <div class="patient-appointment-details">
-                        <strong>{{ appt.doctor }}</strong>
-                        <span>{{ appt.specialty }}</span>
-                    </div>
-
-                    <div class="patient-appointment-date">
-                        {{ appt.date }}
-                    </div>
+            <div class="patient-appointment-row">
+                <div class="patient-appointment-icon">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <rect x="3" y="5" width="18" height="16" rx="2"/>
+                        <path d="M7 3v4M17 3v4M3 10h18"/>
+                    </svg>
                 </div>
+
+                <div class="patient-appointment-details">
+                    <strong>{{ appt.doctor }}</strong>
+                    <span>
+                        {{ appt.specialty }} ·
+                        {{ appt.mode }} ·
+                        {{ appt.status }}
+                    </span>
+                </div>
+
+                <div class="patient-appointment-date">
+                    {{ appt.date }}
+                </div>
+            </div>
             {% empty %}
-                <div class="patient-empty">
-                    <p>You have no upcoming appointments.</p>
-                </div>
+            <div class="patient-empty">
+                <p>You have no upcoming appointments.</p>
+            </div>
             {% endfor %}
         </section>
 
