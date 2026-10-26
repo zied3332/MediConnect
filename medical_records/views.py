@@ -8,7 +8,7 @@ from django.views.decorators.http import require_http_methods
 from appointments.models import Appointment
 from consultations.models import Consultation
 
-from .forms import DossierMedicalForm, OrdonnanceForm
+from .forms import DossierMedicalForm, OrdonnanceForm, ExamenForm
 from .models import DossierMedical, Ordonnance, Examen
 
 
@@ -93,10 +93,12 @@ def my_medical_record(request):
 
         if form.is_valid():
             form.save()
+
             messages.success(
                 request,
                 "Your medical record has been updated successfully.",
             )
+
             return redirect("medical_records:my_record")
     else:
         form = DossierMedicalForm(instance=dossier)
@@ -132,7 +134,9 @@ def patient_medical_record(request, patient_id):
     return render(
         request,
         "medical_records/patient_record.html",
-        {"dossier": dossier},
+        {
+            "dossier": dossier,
+        },
     )
 
 
@@ -168,7 +172,9 @@ def prescription_list(request):
     return render(
         request,
         "medical_records/prescription_list.html",
-        {"ordonnances": ordonnances},
+        {
+            "ordonnances": ordonnances,
+        },
     )
 
 
@@ -355,7 +361,9 @@ def prescription_delete(request, pk):
     return render(
         request,
         "medical_records/prescription_confirm_delete.html",
-        {"ordonnance": ordonnance},
+        {
+            "ordonnance": ordonnance,
+        },
     )
 
 
@@ -393,5 +401,59 @@ def examination_list(request, patient_id):
         {
             "dossier": dossier,
             "examens": examens,
+        },
+    )
+
+
+# ============================================================
+# Upload medical examination
+# ============================================================
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def examination_upload(request):
+    """
+    Allow authenticated patients to upload examination files
+    to their own medical records.
+    """
+
+    if request.user.role != "patient":
+        raise PermissionDenied(
+            "Only patients can upload medical examinations."
+        )
+
+    dossier, _ = DossierMedical.objects.get_or_create(
+        patient=request.user
+    )
+
+    if request.method == "POST":
+        form = ExamenForm(
+            request.POST,
+            request.FILES,
+        )
+
+        if form.is_valid():
+            examen = form.save(commit=False)
+            examen.dossier = dossier
+            examen.save()
+
+            messages.success(
+                request,
+                "Your medical examination was uploaded successfully.",
+            )
+
+            return redirect(
+                "medical_records:examination_list",
+                patient_id=request.user.pk,
+            )
+    else:
+        form = ExamenForm()
+
+    return render(
+        request,
+        "medical_records/examination_upload.html",
+        {
+            "form": form,
+            "dossier": dossier,
         },
     )

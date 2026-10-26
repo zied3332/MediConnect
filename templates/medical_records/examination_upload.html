@@ -1,0 +1,270 @@
+
+{% extends "base.html" %}
+
+{% block title %}Upload Examination | MediConnect{% endblock %}
+
+{% block content %}
+
+<style>
+    .upload-page {
+        background: #fffdf5;
+        min-height: 80vh;
+        padding: 56px 20px 90px;
+    }
+
+    .upload-container {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .upload-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #78652e;
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+    .upload-back:hover {
+        color: #45380f;
+    }
+
+    .upload-heading {
+        margin-bottom: 28px;
+    }
+
+    .upload-heading h1 {
+        font-size: clamp(30px, 5vw, 42px);
+        font-weight: 800;
+        letter-spacing: -1.2px;
+        color: #27261e;
+    }
+
+    .upload-heading p {
+        color: #777568;
+        line-height: 1.7;
+    }
+
+    .upload-card {
+        background: #ffffff;
+        border: 1px solid #ebe5d7;
+        border-radius: 22px;
+        padding: 36px;
+    }
+
+    .upload-field {
+        margin-bottom: 26px;
+    }
+
+    .upload-field label {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 9px;
+        color: #343229;
+    }
+
+    .upload-field .form-control {
+        border: 1px solid #e5dfd1;
+        border-radius: 12px;
+        padding: 13px 15px;
+        background: #fffefa;
+        color: #292820;
+    }
+
+    .upload-field .form-control:focus {
+        border-color: #d4a72e;
+        box-shadow: 0 0 0 3px rgba(244, 211, 94, 0.2);
+    }
+
+    .upload-help {
+        margin-top: 9px;
+        color: #777568;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .upload-errors {
+        margin-top: 8px;
+        color: #a52d2d;
+        font-size: 13px;
+    }
+
+    .upload-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .upload-submit {
+        background: #f4d35e;
+        color: #28251b;
+        border: none;
+        padding: 14px 26px;
+        border-radius: 12px;
+        font-weight: 800;
+        cursor: pointer;
+    }
+
+    .upload-submit:hover {
+        background: #e9c64d;
+    }
+
+    .upload-submit:focus-visible,
+    .upload-back:focus-visible {
+        outline: 3px solid #8a6813;
+        outline-offset: 3px;
+    }
+
+    .upload-cancel {
+        color: #777568;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 12px;
+    }
+
+    .upload-note {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+        padding: 18px;
+        background: #fff5d8;
+        border-radius: 14px;
+        color: #67562b;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+        .upload-page {
+            padding: 32px 16px 60px;
+        }
+
+        .upload-card {
+            padding: 24px 20px;
+        }
+
+        .upload-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .upload-submit {
+            width: 100%;
+        }
+
+        .upload-cancel {
+            text-align: center;
+        }
+    }
+</style>
+
+<main class="upload-page">
+    <div class="upload-container">
+
+        <a
+            href="{% url 'medical_records:examination_list' patient_id=request.user.pk %}"
+            class="upload-back"
+        >
+            &larr; Back to examinations
+        </a>
+
+        <header class="upload-heading">
+            <h1>Upload Examination</h1>
+            <p>
+                Add a medical report, laboratory result, or
+                examination image to your personal medical record.
+            </p>
+        </header>
+
+        <section class="upload-card" aria-label="Examination upload form">
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="upload-errors" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="upload-field">
+                    <label for="{{ form.titre.id_for_label }}">
+                        Examination title
+                    </label>
+
+                    {{ form.titre }}
+
+                    {% if form.titre.errors %}
+                        <div class="upload-errors" role="alert">
+                            {{ form.titre.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="upload-field">
+                    <label for="{{ form.date.id_for_label }}">
+                        Examination date
+                    </label>
+
+                    {{ form.date }}
+
+                    {% if form.date.errors %}
+                        <div class="upload-errors" role="alert">
+                            {{ form.date.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="upload-field">
+                    <label for="{{ form.fichier.id_for_label }}">
+                        Medical document
+                    </label>
+
+                    {{ form.fichier }}
+
+                    <p class="upload-help">
+                        Accepted formats: PDF, JPG, JPEG, PNG.
+                        Maximum file size: 10 MB.
+                    </p>
+
+                    {% if form.fichier.errors %}
+                        <div class="upload-errors" role="alert">
+                            {{ form.fichier.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="upload-actions">
+                    <button type="submit" class="upload-submit">
+                        Upload examination
+                    </button>
+
+                    <a
+                        class="upload-cancel"
+                        href="{% url 'medical_records:examination_list' patient_id=request.user.pk %}"
+                    >
+                        Cancel
+                    </a>
+                </div>
+
+            </form>
+
+        </section>
+
+        <div class="upload-note">
+            <span aria-hidden="true">&#128274;</span>
+            <span>
+                Your document is stored outside the public media
+                directory. Only authorized users will be able to
+                access it through the secure download feature.
+            </span>
+        </div>
+
+    </div>
+</main>
+
+{% endblock %}

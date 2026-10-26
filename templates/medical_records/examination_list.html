@@ -61,6 +61,44 @@
         flex-shrink: 0;
     }
 
+    /* Upload examination action */
+
+    .exam-upload-action {
+        margin-bottom: 24px;
+    }
+
+    .exam-upload-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #f4d35e;
+        color: #28251b;
+        padding: 13px 22px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: background 0.2s ease;
+    }
+
+    .exam-upload-button:hover {
+        background: #e9c64d;
+        color: #28251b;
+    }
+
+    .exam-upload-button:focus-visible {
+        outline: 3px solid #8a6813;
+        outline-offset: 3px;
+    }
+
+    .exam-upload-plus {
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    /* Patient information */
+
     .exam-patient {
         background: #ffffff;
         border: 1px solid #ece7d8;
@@ -83,18 +121,22 @@
         justify-content: center;
         font-weight: 800;
         font-size: 20px;
+        flex-shrink: 0;
     }
 
     .exam-patient-name {
         font-size: 16px;
         font-weight: 700;
         margin-bottom: 4px;
+        overflow-wrap: anywhere;
     }
 
     .exam-patient-label {
         color: #777568;
         font-size: 13px;
     }
+
+    /* Statistics */
 
     .exam-stats {
         display: grid;
@@ -121,6 +163,8 @@
         font-weight: 800;
         letter-spacing: -1px;
     }
+
+    /* Examination documents */
 
     .exam-panel {
         background: #ffffff;
@@ -154,6 +198,12 @@
         color: #795b0c;
     }
 
+    /* Search */
+
+    .exam-search-container {
+        width: 100%;
+    }
+
     .exam-search {
         width: 100%;
         padding: 14px 18px;
@@ -171,6 +221,8 @@
         box-shadow: 0 0 0 3px rgba(244, 211, 94, 0.35);
     }
 
+    /* Examination items */
+
     .exam-item {
         padding: 20px 26px;
         display: flex;
@@ -181,6 +233,10 @@
 
     .exam-item:last-child {
         border-bottom: none;
+    }
+
+    .exam-item[hidden] {
+        display: none;
     }
 
     .exam-file-icon {
@@ -205,6 +261,7 @@
         font-weight: 700;
         margin: 0 0 6px;
         overflow-wrap: anywhere;
+        font-size: 15px;
     }
 
     .exam-item-meta {
@@ -229,6 +286,8 @@
         font-size: 12px;
         font-weight: 600;
     }
+
+    /* Empty state */
 
     .exam-empty {
         padding: 72px 24px;
@@ -269,6 +328,8 @@
         color: #777568;
     }
 
+    /* Responsive */
+
     @media (max-width: 640px) {
         .exam-page {
             padding: 28px 0 50px;
@@ -278,10 +339,18 @@
             padding: 0 16px;
         }
 
+        .exam-header {
+            align-items: flex-start;
+        }
+
         .exam-header-icon {
             width: 56px;
             height: 56px;
             font-size: 24px;
+        }
+
+        .exam-upload-button {
+            width: 100%;
         }
 
         .exam-stats {
@@ -309,15 +378,23 @@
         .exam-file-type {
             margin-left: 60px;
         }
+
+        .exam-footer-note {
+            align-items: flex-start;
+        }
     }
 </style>
 
 <main class="exam-page">
     <div class="exam-container">
 
+        <!-- Breadcrumb -->
+
         <div class="exam-breadcrumb">
             Medical Records / Examinations
         </div>
+
+        <!-- Page header -->
 
         <header class="exam-header">
             <div>
@@ -333,6 +410,24 @@
             </div>
         </header>
 
+        <!-- Upload button: patient owner only -->
+
+        {% if request.user.role == "patient" and request.user.pk == dossier.patient_id %}
+            <div class="exam-upload-action">
+                <a
+                    href="{% url 'medical_records:examination_upload' %}"
+                    class="exam-upload-button"
+                >
+                    <span class="exam-upload-plus" aria-hidden="true">
+                        +
+                    </span>
+                    Upload examination
+                </a>
+            </div>
+        {% endif %}
+
+        <!-- Patient information -->
+
         <section class="exam-patient" aria-label="Patient information">
             <div class="exam-avatar" aria-hidden="true">
                 {{ dossier.patient.first_name|first|upper|default:"P" }}
@@ -342,11 +437,14 @@
                 <div class="exam-patient-name">
                     {{ dossier.patient.get_full_name|default:dossier.patient.email }}
                 </div>
+
                 <div class="exam-patient-label">
                     Patient medical documents
                 </div>
             </div>
         </section>
+
+        <!-- Statistics -->
 
         <section class="exam-stats" aria-label="Examination statistics">
 
@@ -354,6 +452,7 @@
                 <div class="exam-stat-label">
                     Total examinations
                 </div>
+
                 <div class="exam-stat-value">
                     {{ examens|length }}
                 </div>
@@ -363,6 +462,7 @@
                 <div class="exam-stat-label">
                     Latest examination
                 </div>
+
                 <div class="exam-stat-value">
                     {% if examens %}
                         {{ examens.0.date|date:"d M Y" }}
@@ -374,11 +474,19 @@
 
         </section>
 
-        <section class="exam-panel" aria-labelledby="exam-documents-heading">
+        <!-- Examination documents -->
+
+        <section
+            class="exam-panel"
+            aria-labelledby="exam-documents-heading"
+        >
 
             <div class="exam-panel-header">
                 <div>
-                    <h2 class="exam-panel-title" id="exam-documents-heading">
+                    <h2
+                        class="exam-panel-title"
+                        id="exam-documents-heading"
+                    >
                         Examination Documents
                     </h2>
                 </div>
@@ -388,10 +496,14 @@
                 </span>
 
                 {% if examens %}
-                    <div style="width:100%">
-                        <label for="examSearch" class="visually-hidden">
+                    <div class="exam-search-container">
+                        <label
+                            for="examSearch"
+                            class="visually-hidden"
+                        >
                             Search examination documents
                         </label>
+
                         <input
                             type="search"
                             id="examSearch"
@@ -412,7 +524,10 @@
                             class="exam-item"
                             data-exam-title="{{ examen.titre|lower }}"
                         >
-                            <div class="exam-file-icon" aria-hidden="true">
+                            <div
+                                class="exam-file-icon"
+                                aria-hidden="true"
+                            >
                                 &#128196;
                             </div>
 
@@ -438,6 +553,8 @@
                     {% endfor %}
                 </div>
 
+                <!-- Search empty state -->
+
                 <div
                     id="examNoResults"
                     class="exam-empty"
@@ -453,6 +570,8 @@
 
             {% else %}
 
+                <!-- No examinations -->
+
                 <div class="exam-empty">
                     <div class="exam-empty-icon" aria-hidden="true">
                         &#128196;
@@ -465,16 +584,37 @@
                         here once they have been added to this
                         patient's medical record.
                     </p>
+
+                    {% if request.user.role == "patient" and request.user.pk == dossier.patient_id %}
+                        <div style="margin-top: 24px;">
+                            <a
+                                href="{% url 'medical_records:examination_upload' %}"
+                                class="exam-upload-button"
+                            >
+                                <span
+                                    class="exam-upload-plus"
+                                    aria-hidden="true"
+                                >
+                                    +
+                                </span>
+                                Upload your first examination
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
 
             {% endif %}
 
         </section>
 
+        <!-- Security note -->
+
         <div class="exam-footer-note">
             <span aria-hidden="true">&#128274;</span>
-            Medical documents are stored privately and
-            require authorization to access.
+            <span>
+                Medical documents are stored privately and
+                require authorization to access.
+            </span>
         </div>
 
     </div>
