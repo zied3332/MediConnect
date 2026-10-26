@@ -1,0 +1,302 @@
+
+/* ==========================================================
+   MediConnect — Premium Dashboard Sidebar
+   ========================================================== */
+
+.mc-dashboard-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: var(--mc-admin-sidebar-width, 256px);
+    padding: 0;
+    background: #fafbf9;
+    border-right: 1px solid #e5e8e3;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #dfe3dc transparent;
+}
+
+/* Header */
+
+.mc-sidebar-header {
+    padding: 28px 20px 25px;
+    border-bottom: 1px solid #e9ece7;
+}
+
+.mc-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: fit-content;
+    color: #232923;
+    text-decoration: none;
+}
+
+.mc-sidebar-brand-mark {
+    display: grid;
+    place-items: center;
+    width: 33px;
+    height: 33px;
+    flex: 0 0 33px;
+    border: 1px solid #e1e5dd;
+    border-radius: 10px;
+    background: #fff;
+    color: #313a31;
+}
+
+.mc-sidebar-brand-mark svg {
+    width: 18px;
+    height: 18px;
+}
+
+.mc-sidebar-brand-name {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+}
+
+.mc-sidebar-workspace {
+    margin-top: 9px;
+    margin-left: 44px;
+    color: #939b91;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+/* Navigation area */
+
+.mc-sidebar-navigation {
+    padding: 23px 12px 20px;
+    flex: 0 0 auto;
+}
+
+.mc-sidebar-group-label,
+.mc-sidebar-bottom-label {
+    padding: 0 13px;
+    margin-bottom: 13px;
+    color: #969d95;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+.mc-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 43px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: transparent;
+    box-shadow: none;
+    color: #646d63;
+    font-size: 13px;
+    font-weight: 550;
+    line-height: 1.4;
+    text-decoration: none;
+    transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        color 150ms ease;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-link:hover:not(.disabled) {
+    background: #f0f2ee;
+    color: #242b24;
+}
+
+/* Selected navigation item:
+   subtle, neutral, no yellow fill or green stripe */
+
+.mc-dashboard-sidebar .mc-sidebar-link.active {
+    background: #ffffff;
+    border-color: #dfe4dc;
+    box-shadow: 0 1px 2px rgba(30, 38, 30, 0.025);
+    color: #242a24;
+    font-weight: 700;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-link.active::before {
+    display: none;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-link.active .mc-sidebar-icon {
+    color: #343d33;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 19px;
+    height: 19px;
+    flex: 0 0 19px;
+    color: #747d72;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-icon svg {
+    display: block;
+    width: 19px;
+    height: 19px;
+    stroke-width: 1.7;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-link:hover .mc-sidebar-icon {
+    color: #394439;
+}
+
+/* Disabled navigation */
+
+.mc-dashboard-sidebar .mc-sidebar-link.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-link small {
+    margin-left: auto;
+    color: #9ba39a;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+/* Bottom area */
+
+.mc-dashboard-sidebar .mc-sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto;
+    padding: 18px 12px 15px;
+    border-top: 1px solid #e9ece7;
+}
+
+.mc-sidebar-bottom-label {
+    margin-bottom: 9px;
+}
+
+.mc-sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 18px 12px 0;
+    padding-top: 15px;
+    border-top: 1px solid #e9ece7;
+    color: #a1a9a0;
+    font-size: 10px;
+}
+
+.mc-sidebar-footer-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #a6b6a4;
+}
+
+/* Focus states */
+
+.mc-dashboard-sidebar a:focus-visible,
+.mc-dashboard-sidebar button:focus-visible {
+    outline: 2px solid #9aab98;
+    outline-offset: 2px;
+}
+
+/* Mobile sidebar */
+
+@media (max-width: 900px) {
+    .mc-dashboard-sidebar {
+        width: 270px;
+        max-width: calc(100vw - 40px);
+        z-index: 200;
+    }
+
+    .mc-sidebar-header {
+        padding-top: 12px;
+    }
+
+    .mc-dashboard-sidebar .mc-sidebar-close:not([hidden]) {
+        display: grid;
+        place-items: center;
+        align-self: flex-end;
+        width: 36px;
+        min-height: 36px;
+        margin: 12px 14px 0;
+        border: 1px solid #e3e8e1;
+        border-radius: 9px;
+        background: #fff;
+        color: #3e463d;
+        font-size: 23px;
+        cursor: pointer;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mc-dashboard-sidebar .mc-sidebar-link {
+        transition: none;
+    }
+}
+
+/* ==========================================================
+   MediConnect Sidebar — Brand refinements
+   ========================================================== */
+
+/* Wordmark without icon */
+
+.mc-sidebar-brand {
+    gap: 0;
+}
+
+.mc-sidebar-brand-name {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    color: #232923;
+}
+
+.mc-sidebar-workspace {
+    margin-left: 0;
+    margin-top: 6px;
+}
+
+/* Hover: soft yellow */
+
+.mc-dashboard-sidebar .mc-sidebar-link:hover:not(.disabled) {
+    background: #fff9d6;
+    border-color: transparent;
+    color: #242824;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-link:hover:not(.disabled) .mc-sidebar-icon {
+    color: #242824;
+}
+
+/* Active: website yellow */
+
+.mc-dashboard-sidebar .mc-sidebar-link.active,
+.mc-dashboard-sidebar .mc-sidebar-link.active:hover {
+    background: #ffeb4d;
+    border-color: #ffeb4d;
+    box-shadow: none;
+    color: #242824;
+    font-weight: 700;
+}
+
+.mc-dashboard-sidebar .mc-sidebar-link.active .mc-sidebar-icon {
+    color: #242824;
+}
+
+/* Disabled items stay neutral */
+
+.mc-dashboard-sidebar .mc-sidebar-link.disabled,
+.mc-dashboard-sidebar .mc-sidebar-link.disabled:hover {
+    background: transparent;
+    border-color: transparent;
+    color: #646d63;
+}

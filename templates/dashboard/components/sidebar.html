@@ -1,95 +1,241 @@
+
 <aside class="mc-dashboard-sidebar" id="dashboard-sidebar">
-    <button type="button" class="mc-sidebar-close" aria-label="Fermer le menu" hidden>×</button>
 
-    {% if dashboard_role == "admin" %}
-    <a href="{% url 'dashboard:admin_overview' %}" class="mc-dashboard-brand">
-        <span class="mc-dashboard-brand-icon">+</span>
-        <span>MediConnect</span>
-        <small>ADMIN</small>
-    </a>
+    <!-- Mobile close -->
+    <button
+        type="button"
+        class="mc-sidebar-close"
+        aria-label="Close navigation"
+        hidden
+    >
+        ×
+    </button>
 
-    <div class="mc-sidebar-section-label">WORKSPACE</div>
+    <!-- Brand -->
+    <div class="mc-sidebar-header">
 
-    <nav class="mc-sidebar-nav" aria-label="Admin navigation">
-        <a href="{% url 'dashboard:admin_overview' %}" class="mc-sidebar-link {% if page_title == 'Overview' %}active{% endif %}" {% if page_title == 'Overview' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='overview' %}Overview
-        </a>
-        <a href="{% url 'dashboard:admin_users' %}" class="mc-sidebar-link {% if page_title == 'Users' %}active{% endif %}" {% if page_title == 'Users' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='users' %}Users
-        </a>
-        <a href="{% url 'dashboard:admin_doctor_list' %}" class="mc-sidebar-link {% if active_nav == 'doctors' %}active{% endif %}" {% if active_nav == 'doctors' %}aria-current="page"{% endif %}>{% include 'dashboard/components/nav_icon.html' with icon='users' %}Doctors</a>
-        <span class="mc-sidebar-link disabled">{% include 'dashboard/components/nav_icon.html' with icon='users' %}Patients<small>Soon</small></span>
-        <a href="{% url 'appointments:admin_list' %}" class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}" {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}Appointments
-        </a>
-        <a href="{% url 'appointments:admin_ai_model' %}" class="mc-sidebar-link {% if active_nav == 'ai_model' %}active{% endif %}" {% if active_nav == 'ai_model' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='ai' %}AI model
-        </a>
-        <a href="{% url 'dashboard:admin_specialties' %}" class="mc-sidebar-link {% if page_title == 'Specialties' %}active{% endif %}" {% if page_title == 'Specialties' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}Specialties
-        </a>
-        <a href="{% url 'dashboard:admin_availability' %}" class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}" {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='availability' %}Availability
-        </a>
-        <a href="{% url 'consultations:reviews' %}" class="mc-sidebar-link {% if active_nav == 'consultation_reviews' %}active{% endif %}">{% include 'dashboard/components/nav_icon.html' with icon='reviews' %}Avis</a>
-    </nav>
+        {% if dashboard_role == "admin" %}
+            <a href="{% url 'dashboard:admin_overview' %}"
+               class="mc-sidebar-brand">
+             
+                <span class="mc-sidebar-brand-name">MediConnect</span>
+            </a>
 
-    {% elif dashboard_role == "doctor" %}
-    <a href="{% url 'dashboard:doctor_overview' %}" class="mc-dashboard-brand">
-        <span class="mc-dashboard-brand-icon">+</span>
-        <span>MediConnect</span>
-        <small>DOCTOR</small>
-    </a>
+        {% elif dashboard_role == "doctor" %}
+            <a href="{% url 'dashboard:doctor_overview' %}"
+               class="mc-sidebar-brand">
+                <span class="mc-sidebar-brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3v18M3 12h18"/>
+                    </svg>
+                </span>
+                <span class="mc-sidebar-brand-name">MediConnect</span>
+            </a>
 
-    <div class="mc-sidebar-section-label">MY PRACTICE</div>
+        {% else %}
+            <a href="{% url 'dashboard:patient_overview' %}"
+               class="mc-sidebar-brand">
+                <span class="mc-sidebar-brand-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3v18M3 12h18"/>
+                    </svg>
+                </span>
+                <span class="mc-sidebar-brand-name">MediConnect</span>
+            </a>
+        {% endif %}
 
-    <nav class="mc-sidebar-nav" aria-label="Doctor navigation">
-        <a href="{% url 'dashboard:doctor_overview' %}"
-           class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}">
-            {% include 'dashboard/components/nav_icon.html' with icon='overview' %}Overview
-        </a>
-        <a href="{% url 'dashboard:doctor_availability' %}" class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}" {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='availability' %}Availability
-        </a>
-        <a href="{% url 'appointments:doctor_list' %}" class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}" {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}Appointments
-        </a>
-        <span class="mc-sidebar-link disabled">{% include 'dashboard/components/nav_icon.html' with icon='users' %}My Patients<small>Soon</small></span>
-        <span class="mc-sidebar-link disabled">{% include 'dashboard/components/nav_icon.html' with icon='specialties' %}Prescriptions<small>Soon</small></span>
-        {% include 'dashboard/components/care_links.html' %}
-    </nav>
+        <div class="mc-sidebar-workspace">
+            {% if dashboard_role == "admin" %}
+                Administration workspace
+            {% elif dashboard_role == "doctor" %}
+                Doctor workspace
+            {% else %}
+                Patient workspace
+            {% endif %}
+        </div>
+    </div>
 
-    {% else %}
-    <a href="{% url 'dashboard:patient_overview' %}" class="mc-dashboard-brand">
-        <span class="mc-dashboard-brand-icon">+</span>
-        <span>MediConnect</span>
-        <small>PATIENT</small>
-    </a>
+    <!-- Navigation -->
+    <div class="mc-sidebar-navigation">
 
-    <div class="mc-sidebar-section-label">MY HEALTH</div>
+        <div class="mc-sidebar-group-label">MENU</div>
 
-    <nav class="mc-sidebar-nav" aria-label="Patient navigation">
-        <a href="{% url 'dashboard:patient_overview' %}"
-           class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}">
-            {% include 'dashboard/components/nav_icon.html' with icon='overview' %}Overview
-        </a>
-        <a href="{% url 'appointments:my_list' %}" class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}" {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
-            {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}Appointments
-        </a>
-        <span class="mc-sidebar-link disabled">{% include 'dashboard/components/nav_icon.html' with icon='users' %}My Doctors<small>Soon</small></span>
-        <span class="mc-sidebar-link disabled">{% include 'dashboard/components/nav_icon.html' with icon='specialties' %}Prescriptions<small>Soon</small></span>
+        {% if dashboard_role == "admin" %}
 
-        {% include 'dashboard/components/care_links.html' %}
-    </nav>
-    {% endif %}
+        <nav class="mc-sidebar-nav" aria-label="Admin navigation">
 
+            <a href="{% url 'dashboard:admin_overview' %}"
+               class="mc-sidebar-link {% if page_title == 'Overview' %}active{% endif %}"
+               {% if page_title == 'Overview' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='overview' %}
+                <span>Overview</span>
+            </a>
+
+            <a href="{% url 'dashboard:admin_users' %}"
+               class="mc-sidebar-link {% if page_title == 'Users' %}active{% endif %}"
+               {% if page_title == 'Users' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='users' %}
+                <span>Users</span>
+            </a>
+
+            <a href="{% url 'dashboard:admin_doctor_list' %}"
+               class="mc-sidebar-link {% if active_nav == 'doctors' %}active{% endif %}"
+               {% if active_nav == 'doctors' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='users' %}
+                <span>Doctors</span>
+            </a>
+
+            <span class="mc-sidebar-link disabled">
+                {% include 'dashboard/components/nav_icon.html' with icon='users' %}
+                <span>Patients</span>
+                <small>Soon</small>
+            </span>
+
+            <a href="{% url 'appointments:admin_list' %}"
+               class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}"
+               {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
+                <span>Appointments</span>
+            </a>
+
+            <a href="{% url 'appointments:admin_ai_model' %}"
+               class="mc-sidebar-link {% if active_nav == 'ai_model' %}active{% endif %}"
+               {% if active_nav == 'ai_model' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='ai' %}
+                <span>AI model</span>
+            </a>
+
+            <a href="{% url 'dashboard:admin_specialties' %}"
+               class="mc-sidebar-link {% if page_title == 'Specialties' %}active{% endif %}"
+               {% if page_title == 'Specialties' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
+                <span>Specialties</span>
+            </a>
+
+            <a href="{% url 'dashboard:admin_availability' %}"
+               class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}"
+               {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='availability' %}
+                <span>Availability</span>
+            </a>
+
+            <a href="{% url 'consultations:reviews' %}"
+               class="mc-sidebar-link {% if active_nav == 'consultation_reviews' %}active{% endif %}"
+               {% if active_nav == 'consultation_reviews' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='reviews' %}
+                <span>Reviews</span>
+            </a>
+
+        </nav>
+
+        {% elif dashboard_role == "doctor" %}
+
+        <nav class="mc-sidebar-nav" aria-label="Doctor navigation">
+
+            <a href="{% url 'dashboard:doctor_overview' %}"
+               class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}"
+               {% if active_nav == 'overview' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='overview' %}
+                <span>Overview</span>
+            </a>
+
+            <a href="{% url 'dashboard:doctor_availability' %}"
+               class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}"
+               {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='availability' %}
+                <span>Availability</span>
+            </a>
+
+            <a href="{% url 'appointments:doctor_list' %}"
+               class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}"
+               {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
+                <span>Appointments</span>
+            </a>
+
+            <span class="mc-sidebar-link disabled">
+                {% include 'dashboard/components/nav_icon.html' with icon='users' %}
+                <span>My Patients</span>
+                <small>Soon</small>
+            </span>
+
+            <span class="mc-sidebar-link disabled">
+                {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
+                <span>Prescriptions</span>
+                <small>Soon</small>
+            </span>
+
+            {% include 'dashboard/components/care_links.html' %}
+
+        </nav>
+
+        {% else %}
+
+        <nav class="mc-sidebar-nav" aria-label="Patient navigation">
+
+            <a href="{% url 'dashboard:patient_overview' %}"
+               class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}"
+               {% if active_nav == 'overview' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='overview' %}
+                <span>Overview</span>
+            </a>
+
+            <a href="{% url 'appointments:my_list' %}"
+               class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}"
+               {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
+                {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
+                <span>Appointments</span>
+            </a>
+
+            <span class="mc-sidebar-link disabled">
+                {% include 'dashboard/components/nav_icon.html' with icon='users' %}
+                <span>My Doctors</span>
+                <small>Soon</small>
+            </span>
+
+            <span class="mc-sidebar-link disabled">
+                {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
+                <span>Prescriptions</span>
+                <small>Soon</small>
+            </span>
+
+            {% include 'dashboard/components/care_links.html' %}
+
+        </nav>
+
+        {% endif %}
+    </div>
+
+    <!-- Bottom navigation -->
     <div class="mc-sidebar-bottom">
-        <a href="{% url 'dashboard:profile' %}" class="mc-sidebar-link {% if active_nav == 'profile' %}active{% endif %}">
-            {% include 'dashboard/components/nav_icon.html' with icon='users' %}Profile
+
+        <div class="mc-sidebar-bottom-label">ACCOUNT</div>
+
+        <a href="{% url 'dashboard:profile' %}"
+           class="mc-sidebar-link {% if active_nav == 'profile' %}active{% endif %}"
+           {% if active_nav == 'profile' %}aria-current="page"{% endif %}>
+            {% include 'dashboard/components/nav_icon.html' with icon='users' %}
+            <span>Profile</span>
         </a>
-        <span class="mc-sidebar-link disabled">{% include 'dashboard/components/nav_icon.html' with icon='settings' %}Settings</span>
+
+        <span class="mc-sidebar-link disabled">
+            {% include 'dashboard/components/nav_icon.html' with icon='settings' %}
+            <span>Settings</span>
+            <small>Soon</small>
+        </span>
+
         <a href="{% url 'core:home' %}" class="mc-sidebar-link">
-            {% include 'dashboard/components/nav_icon.html' with icon='website' %}View website
+            {% include 'dashboard/components/nav_icon.html' with icon='website' %}
+            <span>View website</span>
         </a>
+
+        <div class="mc-sidebar-footer">
+            <span class="mc-sidebar-footer-dot"></span>
+            <span>MediConnect Platform</span>
+        </div>
     </div>
 </aside>
