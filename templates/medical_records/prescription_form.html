@@ -1,0 +1,313 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    {% if is_edit %}Edit Prescription{% else %}New Prescription{% endif %} | MediConnect
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .prescription-page {
+        min-height: 75vh;
+        padding: 56px 20px 96px;
+        background: #fffdf5;
+        color: #252525;
+    }
+
+    .prescription-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .prescription-eyebrow {
+        color: #756400;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+
+    .prescription-title {
+        font-size: clamp(30px, 5vw, 46px);
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-bottom: 12px;
+    }
+
+    .prescription-subtitle {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .prescription-card {
+        background: #fff;
+        border: 1px solid #e9e5d8;
+        border-radius: 20px;
+        padding: 32px;
+        margin-top: 28px;
+        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
+    }
+
+    .prescription-info {
+        background: #fff9dc;
+        border: 1px solid #eee0a0;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 32px;
+    }
+
+    .prescription-info-title {
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .prescription-info p {
+        margin-bottom: 6px;
+        color: #454545;
+    }
+
+    .prescription-section {
+        margin-bottom: 28px;
+    }
+
+    .prescription-section h2 {
+        font-size: 19px;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .prescription-help {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 14px;
+    }
+
+    .prescription-page .form-control {
+        width: 100%;
+        border: 1px solid #d9d6ca;
+        border-radius: 12px;
+        padding: 14px 16px;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .prescription-page .form-control:focus {
+        border-color: #8c7600;
+        box-shadow: 0 0 0 3px rgba(255, 210, 0, 0.25);
+    }
+
+    .prescription-page .form-control:focus-visible,
+    .prescription-button:focus-visible,
+    .prescription-cancel:focus-visible {
+        outline: 3px solid #705c00;
+        outline-offset: 3px;
+    }
+
+    .prescription-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 14px;
+        padding-top: 24px;
+        border-top: 1px solid #eee9da;
+    }
+
+    .prescription-button {
+        background: #ffdb3d;
+        color: #211d00;
+        border: 1px solid #e6c52d;
+        border-radius: 12px;
+        padding: 13px 24px;
+        font-weight: 800;
+        cursor: pointer;
+    }
+
+    .prescription-button:hover {
+        background: #f1c900;
+    }
+
+    .prescription-cancel {
+        color: #333;
+        text-decoration: none;
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 1px solid #d9d6ca;
+        font-weight: 700;
+    }
+
+    .prescription-cancel:hover {
+        background: #f7f5ed;
+    }
+
+    .prescription-error {
+        color: #a12525;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    @media (max-width: 576px) {
+        .prescription-page {
+            padding: 32px 16px 64px;
+        }
+
+        .prescription-card {
+            padding: 22px 18px;
+        }
+
+        .prescription-actions {
+            flex-direction: column-reverse;
+            align-items: stretch;
+        }
+
+        .prescription-button,
+        .prescription-cancel {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="prescription-page"
+         aria-labelledby="prescription-page-title">
+
+    <div class="prescription-container">
+
+        <header>
+            <p class="prescription-eyebrow">
+                Doctor Portal / Prescriptions
+            </p>
+
+            <h1 id="prescription-page-title"
+                class="prescription-title">
+                {% if is_edit %}
+                    Edit Prescription
+                {% else %}
+                    Create Prescription
+                {% endif %}
+            </h1>
+
+            <p class="prescription-subtitle">
+                {% if is_edit %}
+                    Update the medication and instructions for this prescription.
+                {% else %}
+                    Create a prescription for your patient's consultation.
+                {% endif %}
+            </p>
+        </header>
+
+        <div class="prescription-card">
+
+            <div class="prescription-info">
+                <h2 class="prescription-info-title">
+                    Consultation Information
+                </h2>
+
+                <p>
+                    <strong>Consultation:</strong>
+                    #{{ consultation.pk }}
+                </p>
+
+                <p>
+                    <strong>Patient:</strong>
+                    {{ consultation.appointment.patient.get_full_name|default:consultation.appointment.patient.email }}
+                </p>
+
+                <p>
+                    <strong>Appointment:</strong>
+                    {{ consultation.appointment.start|date:"F j, Y \a\t H:i" }}
+                </p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="prescription-section">
+
+                    <h2>Medications</h2>
+
+                    <p class="prescription-help" id="medications-help">
+                        Include medication names, dosages, frequency,
+                        and treatment duration.
+                    </p>
+
+                    <label for="{{ form.medicaments.id_for_label }}"
+                           class="form-label fw-bold">
+                        Medications and Dosage
+                    </label>
+
+                    {{ form.medicaments }}
+
+                    {% for error in form.medicaments.errors %}
+                        <p class="prescription-error" role="alert">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
+                <div class="prescription-section">
+
+                    <h2>Additional Instructions</h2>
+
+                    <p class="prescription-help">
+                        Include any precautions, follow-up instructions,
+                        or other guidance for the patient.
+                    </p>
+
+                    <label for="{{ form.instructions.id_for_label }}"
+                           class="form-label fw-bold">
+                        Instructions
+                    </label>
+
+                    {{ form.instructions }}
+
+                    {% for error in form.instructions.errors %}
+                        <p class="prescription-error" role="alert">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
+                <div class="prescription-actions">
+
+                    {% if is_edit %}
+                        <a href="{% url 'medical_records:prescription_detail' ordonnance.pk %}"
+                           class="prescription-cancel">
+                            Cancel
+                        </a>
+                    {% else %}
+                        <a href="{% url 'consultations:detail' consultation.pk %}"
+                           class="prescription-cancel">
+                            Cancel
+                        </a>
+                    {% endif %}
+
+                    <button type="submit"
+                            class="prescription-button">
+                        {% if is_edit %}
+                            Save Changes
+                        {% else %}
+                            Create Prescription
+                        {% endif %}
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
