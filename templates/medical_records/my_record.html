@@ -1,0 +1,284 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Medical Record | MediConnect{% endblock %}
+
+{% block meta_description %}
+Manage your personal medical history and allergies securely with MediConnect.
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .medical-record-page {
+        background: #fffdf5;
+        min-height: 75vh;
+        padding: 56px 20px 96px;
+        color: #252525;
+    }
+
+    .medical-record-container {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    .medical-record-eyebrow {
+        color: #756400;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+
+    .medical-record-heading {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-bottom: 12px;
+    }
+
+    .medical-record-subtitle {
+        color: #666;
+        font-size: 16px;
+        max-width: 650px;
+        line-height: 1.7;
+    }
+
+    .medical-record-card {
+        background: #fff;
+        border: 1px solid #e9e5d8;
+        border-radius: 20px;
+        padding: 32px;
+        margin-top: 32px;
+        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
+    }
+
+    .medical-record-section {
+        margin-bottom: 30px;
+    }
+
+    .medical-record-section:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .medical-record-section-title {
+        font-size: 19px;
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+
+    .medical-record-section-description {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 16px;
+    }
+
+    .medical-record-page .form-label {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .medical-record-page .form-control {
+        border: 1px solid #d9d6ca;
+        border-radius: 12px;
+        padding: 14px 16px;
+        font-size: 15px;
+        line-height: 1.6;
+        background: #fff;
+    }
+
+    .medical-record-page .form-control:focus {
+        border-color: #8c7600;
+        box-shadow: 0 0 0 3px rgba(255, 210, 0, 0.25);
+    }
+
+    .medical-record-page .form-control:focus-visible,
+    .medical-record-save:focus-visible {
+        outline: 3px solid #705c00;
+        outline-offset: 3px;
+    }
+
+    .medical-record-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        border-top: 1px solid #eee9da;
+        padding-top: 24px;
+        margin-top: 32px;
+    }
+
+    .medical-record-save {
+        background: #ffdb3d;
+        color: #211d00;
+        border: 1px solid #e6c52d;
+        border-radius: 12px;
+        padding: 13px 24px;
+        font-weight: 800;
+        transition: background 0.2s ease;
+    }
+
+    .medical-record-save:hover {
+        background: #f1c900;
+    }
+
+    .medical-record-note {
+        color: #666;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .medical-record-error {
+        color: #a12525;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    @media (max-width: 576px) {
+        .medical-record-page {
+            padding: 32px 16px 64px;
+        }
+
+        .medical-record-card {
+            padding: 22px 18px;
+            border-radius: 16px;
+        }
+
+        .medical-record-actions {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .medical-record-save {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="medical-record-page"
+         aria-labelledby="medical-record-title">
+
+    <div class="medical-record-container">
+
+        <header>
+            <p class="medical-record-eyebrow">
+                Patient Portal / Medical Records
+            </p>
+
+            <h1 id="medical-record-title"
+                class="medical-record-heading">
+                My Medical Record
+            </h1>
+
+            <p class="medical-record-subtitle">
+                Keep your medical history and allergies up to date
+                to help your healthcare providers understand your needs.
+            </p>
+        </header>
+
+        {% if messages %}
+            <div class="mt-4" aria-live="polite">
+                {% for message in messages %}
+                    <div class="alert alert-success" role="status">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="medical-record-card">
+
+            <form method="post"
+                  action="{% url 'medical_records:my_record' %}">
+
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <div class="medical-record-section">
+
+                    <h2 class="medical-record-section-title">
+                        Medical History
+                    </h2>
+
+                    <p class="medical-record-section-description">
+                        Include previous medical conditions, chronic
+                        illnesses, surgeries, or other relevant history.
+                    </p>
+
+                    <label for="{{ form.antecedents.id_for_label }}"
+                           class="form-label">
+                        Medical History
+                    </label>
+
+                    {{ form.antecedents }}
+
+                    {% for error in form.antecedents.errors %}
+                        <p class="medical-record-error" role="alert">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
+                <div class="medical-record-section">
+
+                    <h2 class="medical-record-section-title">
+                        Allergies
+                    </h2>
+
+                    <p class="medical-record-section-description">
+                        List any known medication, food, or
+                        environmental allergies.
+                    </p>
+
+                    <label for="{{ form.allergies.id_for_label }}"
+                           class="form-label">
+                        Known Allergies
+                    </label>
+
+                    {{ form.allergies }}
+
+                    {% for error in form.allergies.errors %}
+                        <p class="medical-record-error" role="alert">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+
+                </div>
+
+                <div class="medical-record-actions">
+
+                    <p class="medical-record-note">
+                        Last updated:
+                        {% if dossier.updated_at %}
+                            {{ dossier.updated_at|date:"F j, Y \a\t H:i" }}
+                        {% else %}
+                            Not yet updated
+                        {% endif %}
+                    </p>
+
+                    <button type="submit"
+                            class="medical-record-save">
+                        Save Medical Record
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

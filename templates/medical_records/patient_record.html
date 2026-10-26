@@ -1,0 +1,179 @@
+
+{% extends "base.html" %}
+
+{% block title %}Patient Medical Record | MediConnect{% endblock %}
+
+{% block extra_css %}
+<style>
+    .doctor-record-page {
+        min-height: 75vh;
+        padding: 56px 20px 96px;
+        background: #fffdf5;
+        color: #252525;
+    }
+
+    .doctor-record-container {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    .doctor-record-eyebrow {
+        color: #756400;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+
+    .doctor-record-heading {
+        font-size: clamp(30px, 5vw, 46px);
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-bottom: 12px;
+    }
+
+    .doctor-record-subtitle {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .doctor-record-card {
+        background: #fff;
+        border: 1px solid #e9e5d8;
+        border-radius: 20px;
+        padding: 32px;
+        margin-top: 28px;
+        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
+    }
+
+    .doctor-record-section + .doctor-record-section {
+        border-top: 1px solid #eee9da;
+        padding-top: 28px;
+        margin-top: 28px;
+    }
+
+    .doctor-record-section h2 {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 16px;
+    }
+
+    .doctor-record-value {
+        padding: 20px;
+        background: #fffdf5;
+        border: 1px solid #eee9da;
+        border-radius: 12px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+    }
+
+    .doctor-record-muted {
+        color: #666;
+        font-style: italic;
+    }
+
+    .doctor-record-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 28px;
+        color: #555;
+        font-size: 14px;
+        margin-top: 24px;
+    }
+
+    @media (max-width: 576px) {
+        .doctor-record-page {
+            padding: 32px 16px 64px;
+        }
+
+        .doctor-record-card {
+            padding: 22px 18px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="doctor-record-page"
+         aria-labelledby="doctor-record-title">
+
+    <div class="doctor-record-container">
+
+        <header>
+            <p class="doctor-record-eyebrow">
+                Doctor Portal / Medical Records
+            </p>
+
+            <h1 id="doctor-record-title"
+                class="doctor-record-heading">
+                Patient Medical Record
+            </h1>
+
+            <p class="doctor-record-subtitle">
+                Medical information for
+                <strong>
+                    {{ dossier.patient.get_full_name|default:dossier.patient.email }}
+                </strong>
+            </p>
+        </header>
+
+        <div class="doctor-record-card">
+
+            <section class="doctor-record-section"
+                     aria-labelledby="medical-history-heading">
+
+                <h2 id="medical-history-heading">
+                    Medical History
+                </h2>
+
+                <div class="doctor-record-value">
+                    {% if dossier.antecedents %}
+                        {{ dossier.antecedents|linebreaksbr }}
+                    {% else %}
+                        <span class="doctor-record-muted">
+                            No medical history recorded.
+                        </span>
+                    {% endif %}
+                </div>
+
+            </section>
+
+            <section class="doctor-record-section"
+                     aria-labelledby="allergies-heading">
+
+                <h2 id="allergies-heading">
+                    Known Allergies
+                </h2>
+
+                <div class="doctor-record-value">
+                    {% if dossier.allergies %}
+                        {{ dossier.allergies|linebreaksbr }}
+                    {% else %}
+                        <span class="doctor-record-muted">
+                            No allergies recorded.
+                        </span>
+                    {% endif %}
+                </div>
+
+            </section>
+
+            <div class="doctor-record-meta">
+                <span>
+                    Record created:
+                    {{ dossier.created_at|date:"F j, Y" }}
+                </span>
+
+                <span>
+                    Last updated:
+                    {{ dossier.updated_at|date:"F j, Y \a\t H:i" }}
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
