@@ -9,7 +9,7 @@ from appointments.models import Appointment
 from consultations.models import Consultation
 
 from .forms import DossierMedicalForm, OrdonnanceForm
-from .models import DossierMedical, Ordonnance
+from .models import DossierMedical, Ordonnance, Examen
 
 
 # ============================================================
@@ -356,4 +356,42 @@ def prescription_delete(request, pk):
         request,
         "medical_records/prescription_confirm_delete.html",
         {"ordonnance": ordonnance},
+    )
+
+
+# ============================================================
+# Medical examination list
+# ============================================================
+
+@login_required
+@require_http_methods(["GET"])
+def examination_list(request, patient_id):
+    """
+    List examinations belonging to a patient.
+
+    Patients can view their own examinations.
+    Doctors need a completed appointment with the patient.
+    """
+
+    if not can_access_patient_record(request.user, patient_id):
+        raise PermissionDenied(
+            "You are not authorized to view these examinations."
+        )
+
+    dossier = get_object_or_404(
+        DossierMedical.objects.select_related("patient"),
+        patient_id=patient_id,
+    )
+
+    examens = Examen.objects.filter(
+        dossier=dossier
+    ).order_by("-date", "-id")
+
+    return render(
+        request,
+        "medical_records/examination_list.html",
+        {
+            "dossier": dossier,
+            "examens": examens,
+        },
     )

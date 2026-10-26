@@ -44,4 +44,11 @@ urlpatterns = [
         views.prescription_delete,
         name="prescription_delete",
     ),
+
+    # Medical examinations
+    path(
+        "patients/<int:patient_id>/examinations/",
+        views.examination_list,
+        name="examination_list",
+    ),
 ]
