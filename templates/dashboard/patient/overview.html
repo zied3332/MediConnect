@@ -1,65 +1,228 @@
+
 {% extends "dashboard/base.html" %}
+{% load static %}
 
 {% block title %}My Health | MediConnect{% endblock %}
 
 {% block content %}
 {% include "components/dashboard_messages.html" %}
 
-<div class="mc-page-heading">
-    <div>
-        <span class="mc-page-eyebrow">PATIENT PORTAL</span>
-        <h1>Hello, {{ request.user.first_name }}.</h1>
-        <p>Manage your health and appointments.</p>
-    </div>
-</div>
+<div class="patient-home">
 
-<div class="mc-stats-grid">
-    {% for stat in stats %}
-    <article class="mc-stat-card">
-        <div class="mc-stat-top">
-            <span class="mc-stat-label">{{ stat.label }}</span>
-            <span class="mc-stat-icon">{{ stat.icon }}</span>
-        </div>
-        <div class="mc-stat-value">{{ stat.value }}</div>
-        <div class="mc-stat-change">{{ stat.change }}</div>
-    </article>
-    {% endfor %}
-</div>
+    <!-- Welcome section -->
+    <section class="patient-welcome">
+        <div class="patient-welcome-content">
+            <span class="patient-eyebrow">
+                YOUR HEALTH SPACE
+            </span>
 
-<div class="mc-dashboard-panels">
-    <section class="mc-panel">
-        <div class="mc-panel-heading">
-            <div>
-                <h2>Upcoming appointments</h2>
-                <p>Your next consultations</p>
+            <h1>
+                Hello, {{ request.user.first_name|default:"there" }}.
+            </h1>
+
+            <p>
+                Your appointments, medical records and health documents,
+                organized in one place.
+            </p>
+
+            <div class="patient-welcome-actions">
+                <a href="{% url 'appointments:my_list' %}"
+                   class="patient-btn patient-btn-primary">
+                    My appointments
+                    <span aria-hidden="true">→</span>
+                </a>
+
+                <a href="{% url 'medical_records:my_record' %}"
+                   class="patient-btn patient-btn-secondary">
+                    Medical record
+                </a>
             </div>
         </div>
-        <div class="mc-activity-list">
-            {% for appt in upcoming_appointments %}
-            <div class="mc-activity-item">
-                <span class="mc-activity-dot"></span>
-                <div class="mc-activity-body">
-                    <strong>{{ appt.doctor }}</strong>
-                    <p>{{ appt.specialty }}</p>
+
+        <div class="patient-welcome-decoration" aria-hidden="true">
+            <svg viewBox="0 0 160 160" fill="none">
+                <circle cx="80" cy="80" r="62"
+                        stroke="currentColor"
+                        stroke-width="1.5" opacity=".25"/>
+                <circle cx="80" cy="80" r="43"
+                        stroke="currentColor"
+                        stroke-width="1.5" opacity=".4"/>
+                <path d="M80 52v56M52 80h56"
+                      stroke="currentColor"
+                      stroke-width="8"
+                      stroke-linecap="round"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Main dashboard -->
+    <div class="patient-home-grid">
+
+        <!-- Upcoming appointments -->
+        <section class="patient-home-card patient-appointments">
+            <div class="patient-card-header">
+                <div>
+                    <span class="patient-card-eyebrow">
+                        YOUR SCHEDULE
+                    </span>
+                    <h2>Upcoming appointments</h2>
+                    <p>Stay on top of your next consultations.</p>
                 </div>
-                <time>{{ appt.date }}</time>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
 
-    <section class="mc-panel mc-panel-side">
-        <div class="mc-panel-heading">
-            <div>
-                <h2>Quick actions</h2>
-                <p>Manage your health</p>
+                <a href="{% url 'appointments:my_list' %}"
+                   class="patient-text-link">
+                    View all →
+                </a>
             </div>
-        </div>
-        <div class="mc-quick-info">
-            <div><span>Book appointment</span><strong>Coming soon</strong></div>
-            <div><span>View prescriptions</span><strong>Coming soon</strong></div>
-            <div><span>Messages</span><a href="{% url 'consultations:inbox' %}">Ouvrir →</a></div><div><span>Comptes rendus</span><a href="{% url 'consultations:list' %}">Consulter →</a></div>
-        </div>
-    </section>
+
+            {% for appt in upcoming_appointments %}
+                <div class="patient-appointment-row">
+                    <div class="patient-appointment-icon">
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true">
+                            <rect x="3" y="5" width="18" height="16" rx="2"/>
+                            <path d="M7 3v4M17 3v4M3 10h18"/>
+                        </svg>
+                    </div>
+
+                    <div class="patient-appointment-details">
+                        <strong>{{ appt.doctor }}</strong>
+                        <span>{{ appt.specialty }}</span>
+                    </div>
+
+                    <div class="patient-appointment-date">
+                        {{ appt.date }}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="patient-empty">
+                    <p>You have no upcoming appointments.</p>
+                </div>
+            {% endfor %}
+        </section>
+
+        <!-- Medical record -->
+        <a href="{% url 'medical_records:my_record' %}"
+           class="patient-feature-card">
+            <span class="patient-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                    <path d="M15 3v5h5M9 13h6M12 10v6"/>
+                </svg>
+            </span>
+
+            <div class="patient-feature-content">
+                <h2>Medical record</h2>
+                <p>
+                    View your medical history, allergies,
+                    and personal health information.
+                </p>
+            </div>
+
+            <span class="patient-feature-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <!-- Prescriptions -->
+        <a href="{% url 'medical_records:prescription_list' %}"
+           class="patient-feature-card">
+            <span class="patient-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                    <path d="M15 3v5h5M8 12h8M8 16h5"/>
+                </svg>
+            </span>
+
+            <div class="patient-feature-content">
+                <h2>Prescriptions</h2>
+                <p>
+                    Access prescriptions and instructions
+                    from your doctors.
+                </p>
+            </div>
+
+            <span class="patient-feature-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <!-- Examinations -->
+        <a href="{% url 'medical_records:examination_list' patient_id=request.user.pk %}"
+           class="patient-feature-card">
+            <span class="patient-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M4 5a2 2 0 0 1 2-2h5l2 3h5a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/>
+                    <path d="M12 11v6M9 14h6"/>
+                </svg>
+            </span>
+
+            <div class="patient-feature-content">
+                <h2>Medical examinations</h2>
+                <p>
+                    Upload and securely access your
+                    examination reports and documents.
+                </p>
+            </div>
+
+            <span class="patient-feature-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <!-- Consultations -->
+        <a href="{% url 'consultations:list' %}"
+           class="patient-feature-card">
+            <span class="patient-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                    <path d="M15 3v5h5M8 12h8M8 16h8"/>
+                </svg>
+            </span>
+
+            <div class="patient-feature-content">
+                <h2>Consultations</h2>
+                <p>
+                    Review previous consultations,
+                    diagnoses and medical notes.
+                </p>
+            </div>
+
+            <span class="patient-feature-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <!-- Messages -->
+        <a href="{% url 'consultations:inbox' %}"
+           class="patient-feature-card">
+            <span class="patient-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.7"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/>
+                    <path d="m3 7 9 7 9-7"/>
+                </svg>
+            </span>
+
+            <div class="patient-feature-content">
+                <h2>Messages</h2>
+                <p>
+                    View your conversations and
+                    messages from healthcare providers.
+                </p>
+            </div>
+
+            <span class="patient-feature-arrow" aria-hidden="true">↗</span>
+        </a>
+
+    </div>
 </div>
 {% endblock %}
