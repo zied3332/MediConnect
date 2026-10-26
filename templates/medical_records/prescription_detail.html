@@ -1,0 +1,285 @@
+
+{% extends "base.html" %}
+
+{% block title %}Prescription #{{ ordonnance.pk }} | MediConnect{% endblock %}
+
+{% block extra_css %}
+<style>
+    .rx-page {
+        min-height: 75vh;
+        padding: 56px 20px 96px;
+        background: #fffdf5;
+        color: #252525;
+    }
+
+    .rx-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .rx-eyebrow {
+        color: #756400;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+
+    .rx-title {
+        font-size: clamp(30px, 5vw, 46px);
+        font-weight: 800;
+        letter-spacing: -1.5px;
+        margin-bottom: 12px;
+    }
+
+    .rx-subtitle {
+        color: #666;
+        line-height: 1.7;
+    }
+
+    .rx-card {
+        background: #fff;
+        border: 1px solid #e9e5d8;
+        border-radius: 20px;
+        padding: 32px;
+        margin-top: 28px;
+        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
+    }
+
+    .rx-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        padding: 22px;
+        border-radius: 14px;
+        background: #fff9dc;
+        border: 1px solid #eee0a0;
+    }
+
+    .rx-meta-label {
+        display: block;
+        color: #62571d;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .rx-meta-value {
+        font-weight: 700;
+        overflow-wrap: anywhere;
+    }
+
+    .rx-section {
+        margin-top: 32px;
+    }
+
+    .rx-section h2 {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 16px;
+    }
+
+    .rx-content {
+        background: #fffdf5;
+        border: 1px solid #eee9da;
+        border-radius: 12px;
+        padding: 20px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+    }
+
+    .rx-muted {
+        color: #666;
+        font-style: italic;
+    }
+
+    .rx-actions {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #eee9da;
+    }
+
+    .rx-action-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .rx-button {
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 800;
+        border: 1px solid #d9d6ca;
+        color: #252525;
+        background: #fff;
+    }
+
+    .rx-button:hover {
+        background: #f7f5ed;
+        color: #252525;
+    }
+
+    .rx-button-primary {
+        background: #ffdb3d;
+        border-color: #e6c52d;
+        color: #211d00;
+    }
+
+    .rx-button-primary:hover {
+        background: #f1c900;
+    }
+
+    .rx-button-danger {
+        color: #a12525;
+        border-color: #d9a5a5;
+    }
+
+    .rx-button-danger:hover {
+        background: #fff0f0;
+        color: #861818;
+    }
+
+    .rx-button:focus-visible {
+        outline: 3px solid #705c00;
+        outline-offset: 3px;
+    }
+
+    @media (max-width: 576px) {
+        .rx-page {
+            padding: 32px 16px 64px;
+        }
+
+        .rx-card {
+            padding: 22px 18px;
+        }
+
+        .rx-meta {
+            grid-template-columns: 1fr;
+        }
+
+        .rx-actions,
+        .rx-action-group {
+            flex-direction: column;
+        }
+
+        .rx-button {
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="rx-page" aria-labelledby="rx-title">
+    <div class="rx-container">
+
+        <header>
+            <p class="rx-eyebrow">
+                MediConnect / Prescriptions
+            </p>
+
+            <h1 class="rx-title" id="rx-title">
+                Prescription #{{ ordonnance.pk }}
+            </h1>
+
+            <p class="rx-subtitle">
+                Prescription details and treatment instructions.
+            </p>
+        </header>
+
+        {% if messages %}
+            <div class="mt-4" aria-live="polite">
+                {% for message in messages %}
+                    <div class="alert alert-success" role="status">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <article class="rx-card">
+
+            <div class="rx-meta">
+                <div>
+                    <span class="rx-meta-label">Patient</span>
+                    <span class="rx-meta-value">
+                        {{ ordonnance.consultation.appointment.patient.get_full_name|default:ordonnance.consultation.appointment.patient.email }}
+                    </span>
+                </div>
+
+                <div>
+                    <span class="rx-meta-label">Doctor</span>
+                    <span class="rx-meta-value">
+                        {{ ordonnance.consultation.appointment.doctor.get_full_name|default:ordonnance.consultation.appointment.doctor.email }}
+                    </span>
+                </div>
+
+                <div>
+                    <span class="rx-meta-label">Prescription Date</span>
+                    <span class="rx-meta-value">
+                        {{ ordonnance.date|date:"F j, Y" }}
+                    </span>
+                </div>
+
+                <div>
+                    <span class="rx-meta-label">Consultation</span>
+                    <span class="rx-meta-value">
+                        #{{ ordonnance.consultation.pk }}
+                    </span>
+                </div>
+            </div>
+
+            <section class="rx-section" aria-labelledby="rx-medications">
+                <h2 id="rx-medications">Medications</h2>
+
+                <div class="rx-content">
+                    {{ ordonnance.medicaments|linebreaksbr }}
+                </div>
+            </section>
+
+            <section class="rx-section" aria-labelledby="rx-instructions">
+                <h2 id="rx-instructions">Additional Instructions</h2>
+
+                <div class="rx-content">
+                    {% if ordonnance.instructions %}
+                        {{ ordonnance.instructions|linebreaksbr }}
+                    {% else %}
+                        <span class="rx-muted">
+                            No additional instructions provided.
+                        </span>
+                    {% endif %}
+                </div>
+            </section>
+
+            <nav class="rx-actions" aria-label="Prescription actions">
+                <a href="{% url 'medical_records:prescription_list' %}"
+                   class="rx-button">
+                    Back to Prescriptions
+                </a>
+
+                {% if can_manage %}
+                    <div class="rx-action-group">
+                        <a href="{% url 'medical_records:prescription_edit' ordonnance.pk %}"
+                           class="rx-button rx-button-primary">
+                            Edit Prescription
+                        </a>
+
+                        <a href="{% url 'medical_records:prescription_delete' ordonnance.pk %}"
+                           class="rx-button rx-button-danger">
+                            Delete Prescription
+                        </a>
+                    </div>
+                {% endif %}
+            </nav>
+
+        </article>
+    </div>
+</section>
+{% endblock %}
