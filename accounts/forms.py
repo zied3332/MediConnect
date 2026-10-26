@@ -55,6 +55,14 @@ class LoginForm(forms.Form):
 # ── Patient signup ────────────────────────────────────────────────────────────
 
 class SignupForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={
+        "autocomplete": "given-name",
+        "id": "signup-first-name",
+    }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={
+        "autocomplete": "family-name",
+        "id": "signup-last-name",
+    }))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
             "autocomplete": "new-password",
@@ -80,19 +88,11 @@ class SignupForm(forms.ModelForm):
                 "autocomplete": "email",
                 "id": "signup-email",
             }),
-            "first_name": forms.TextInput(attrs={
-                "autocomplete": "given-name",
-                "id": "signup-first-name",
-            }),
-            "last_name": forms.TextInput(attrs={
-                "autocomplete": "family-name",
-                "id": "signup-last-name",
-            }),
         }
 
     def clean_email(self):
         email = self.cleaned_data["email"].lower().strip()
-        if User.objects.filter(email=email).exists():
+        if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(
                 "An account with this email already exists."
             )

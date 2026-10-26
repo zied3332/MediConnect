@@ -70,7 +70,7 @@
                     required
                 >
                 {% if form.email.errors %}
-                <span class="mc-auth-field-error">{{ form.email.errors|first }}</span>
+                <span class="mc-auth-field-error" role="alert">{{ form.email.errors|first }}</span>
                 {% endif %}
             </div>
 
@@ -86,7 +86,7 @@
                         required
                     >
                     {% if form.first_name.errors %}
-                    <span class="mc-auth-field-error">{{ form.first_name.errors|first }}</span>
+                    <span class="mc-auth-field-error" role="alert">{{ form.first_name.errors|first }}</span>
                     {% endif %}
                 </div>
 
@@ -101,7 +101,7 @@
                         required
                     >
                     {% if form.last_name.errors %}
-                    <span class="mc-auth-field-error">{{ form.last_name.errors|first }}</span>
+                    <span class="mc-auth-field-error" role="alert">{{ form.last_name.errors|first }}</span>
                     {% endif %}
                 </div>
             </div>
@@ -117,7 +117,7 @@
                     required
                 >
                 {% if form.password.errors %}
-                <span class="mc-auth-field-error">{{ form.password.errors|first }}</span>
+                <span class="mc-auth-field-error" role="alert">{{ form.password.errors|first }}</span>
                 {% endif %}
             </div>
 
@@ -132,7 +132,7 @@
                     required
                 >
                 {% if form.confirm_password.errors %}
-                <span class="mc-auth-field-error">{{ form.confirm_password.errors|first }}</span>
+                <span class="mc-auth-field-error" role="alert">{{ form.confirm_password.errors|first }}</span>
                 {% endif %}
             </div>
 

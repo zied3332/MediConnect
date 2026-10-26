@@ -116,6 +116,11 @@
     outline-offset: 1px;
 }
 
+.mc-auth-field-error {
+    color: #a12d2d;
+    font-size: 13px;
+}
+
 .mc-auth-field-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
