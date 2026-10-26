@@ -1,4 +1,3 @@
-
 import tempfile
 from datetime import date
 from io import BytesIO
@@ -92,9 +91,25 @@ class ExaminationUploadTests(TestCase):
             {
                 "titre": "Blood Test",
                 "date": "2026-10-20",
-                "fichier": file or self.make_png(),
+                "fichier": file if file is not None else self.make_png(),
             },
         )
+
+    def assert_no_saved_examination_files(self):
+        """Verify no examination files were saved to private storage."""
+        self.assertEqual(Examen.objects.count(), 0)
+
+        saved_files = [
+            path
+            for path in Path(self.temp_directory.name).rglob("*")
+            if path.is_file()
+        ]
+
+        self.assertEqual(saved_files, [])
+
+    # ============================================================
+    # Authentication and authorization
+    # ============================================================
 
     def test_anonymous_user_must_login(self):
         response = self.client.get(self.upload_url)
@@ -123,6 +138,10 @@ class ExaminationUploadTests(TestCase):
 
         self.assertEqual(response.status_code, 403)
         self.assertEqual(Examen.objects.count(), 0)
+
+    # ============================================================
+    # Successful uploads
+    # ============================================================
 
     def test_patient_can_upload_valid_png(self):
         self.client.force_login(self.patient)
@@ -197,6 +216,10 @@ class ExaminationUploadTests(TestCase):
             self.other_patient.pk,
         )
 
+    # ============================================================
+    # Invalid upload validation
+    # ============================================================
+
     def test_invalid_extension_is_rejected(self):
         self.client.force_login(self.patient)
 
@@ -238,6 +261,67 @@ class ExaminationUploadTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Examen.objects.count(), 0)
+
+    # ============================================================
+    # Rejected uploads must not save files
+    # ============================================================
+
+    def test_fake_pdf_does_not_save_file(self):
+        """A fake PDF must not create a record or save a file."""
+        self.client.force_login(self.patient)
+
+        fake_pdf = SimpleUploadedFile(
+            "fake.pdf",
+            b"This is not a real PDF",
+            content_type="application/pdf",
+        )
+
+        response = self.upload(fake_pdf)
+
+        self.assertEqual(response.status_code, 200)
+        self.assert_no_saved_examination_files()
+
+    def test_oversized_file_does_not_save_file(self):
+        """Files larger than 10 MB must not be stored."""
+        self.client.force_login(self.patient)
+
+        oversized_file = SimpleUploadedFile(
+            "large.pdf",
+            b"A" * (10 * 1024 * 1024 + 1),
+            content_type="application/pdf",
+        )
+
+        response = self.upload(oversized_file)
+
+        self.assertEqual(response.status_code, 200)
+        self.assert_no_saved_examination_files()
+
+    def test_mismatched_image_does_not_save_file(self):
+        """A JPEG disguised as PNG must not be stored."""
+        self.client.force_login(self.patient)
+
+        buffer = BytesIO()
+
+        Image.new(
+            "RGB",
+            (10, 10),
+            color="white",
+        ).save(buffer, format="JPEG")
+
+        mismatched_file = SimpleUploadedFile(
+            "scan.png",
+            buffer.getvalue(),
+            content_type="image/png",
+        )
+
+        response = self.upload(mismatched_file)
+
+        self.assertEqual(response.status_code, 200)
+        self.assert_no_saved_examination_files()
+
+    # ============================================================
+    # HTTP method restrictions
+    # ============================================================
 
     def test_upload_requires_post(self):
         self.client.force_login(self.patient)
