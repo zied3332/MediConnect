@@ -1,0 +1,516 @@
+
+{% extends "base.html" %}
+
+{% block title %}Medical Examinations | MediConnect{% endblock %}
+
+{% block content %}
+
+<style>
+    .exam-page {
+        background: #fffdf5;
+        min-height: 80vh;
+        padding: 48px 0 80px;
+        color: #282820;
+    }
+
+    .exam-container {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    .exam-breadcrumb {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #8a7b4e;
+        margin-bottom: 22px;
+    }
+
+    .exam-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        margin-bottom: 32px;
+    }
+
+    .exam-header h1 {
+        font-size: clamp(30px, 4vw, 44px);
+        font-weight: 750;
+        letter-spacing: -1.5px;
+        margin: 0 0 10px;
+    }
+
+    .exam-header p {
+        color: #777568;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .exam-header-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        background: #f4d35e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        flex-shrink: 0;
+    }
+
+    .exam-patient {
+        background: #ffffff;
+        border: 1px solid #ece7d8;
+        border-radius: 18px;
+        padding: 22px 26px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .exam-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: #fff0bd;
+        color: #7d5e0d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 20px;
+    }
+
+    .exam-patient-name {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .exam-patient-label {
+        color: #777568;
+        font-size: 13px;
+    }
+
+    .exam-stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 28px;
+    }
+
+    .exam-stat {
+        background: #ffffff;
+        border: 1px solid #ece7d8;
+        border-radius: 18px;
+        padding: 24px;
+    }
+
+    .exam-stat-label {
+        font-size: 13px;
+        color: #777568;
+        margin-bottom: 10px;
+    }
+
+    .exam-stat-value {
+        font-size: 27px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .exam-panel {
+        background: #ffffff;
+        border: 1px solid #ece7d8;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .exam-panel-header {
+        padding: 26px;
+        border-bottom: 1px solid #f0ece1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .exam-panel-title {
+        font-size: 19px;
+        font-weight: 750;
+        margin: 0;
+    }
+
+    .exam-count {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 7px 12px;
+        border-radius: 100px;
+        background: #fff3cb;
+        color: #795b0c;
+    }
+
+    .exam-search {
+        width: 100%;
+        padding: 14px 18px;
+        border: 1px solid #e9e4d7;
+        border-radius: 12px;
+        outline: none;
+        font-size: 14px;
+        background: #fffdf8;
+        color: #292820;
+        margin-top: 18px;
+    }
+
+    .exam-search:focus-visible {
+        border-color: #b68b19;
+        box-shadow: 0 0 0 3px rgba(244, 211, 94, 0.35);
+    }
+
+    .exam-item {
+        padding: 20px 26px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border-bottom: 1px solid #f2eee5;
+    }
+
+    .exam-item:last-child {
+        border-bottom: none;
+    }
+
+    .exam-file-icon {
+        width: 48px;
+        height: 48px;
+        background: #fff3cb;
+        color: #8a6813;
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 21px;
+    }
+
+    .exam-item-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .exam-item-title {
+        font-weight: 700;
+        margin: 0 0 6px;
+        overflow-wrap: anywhere;
+    }
+
+    .exam-item-meta {
+        color: #797568;
+        font-size: 13px;
+    }
+
+    .exam-file-type {
+        font-size: 11px;
+        font-weight: 800;
+        padding: 6px 10px;
+        border-radius: 7px;
+        background: #f6f4ee;
+        color: #666256;
+    }
+
+    .exam-private-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        color: #726a54;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .exam-empty {
+        padding: 72px 24px;
+        text-align: center;
+    }
+
+    .exam-empty-icon {
+        width: 76px;
+        height: 76px;
+        border-radius: 22px;
+        background: #fff3cb;
+        margin: 0 auto 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+    }
+
+    .exam-empty h2 {
+        font-size: 22px;
+        font-weight: 750;
+        margin-bottom: 10px;
+    }
+
+    .exam-empty p {
+        max-width: 400px;
+        margin: 0 auto;
+        color: #777568;
+        line-height: 1.7;
+    }
+
+    .exam-footer-note {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 22px;
+        font-size: 13px;
+        color: #777568;
+    }
+
+    @media (max-width: 640px) {
+        .exam-page {
+            padding: 28px 0 50px;
+        }
+
+        .exam-container {
+            padding: 0 16px;
+        }
+
+        .exam-header-icon {
+            width: 56px;
+            height: 56px;
+            font-size: 24px;
+        }
+
+        .exam-stats {
+            gap: 10px;
+        }
+
+        .exam-stat {
+            padding: 18px;
+        }
+
+        .exam-stat-value {
+            font-size: 21px;
+        }
+
+        .exam-item {
+            padding: 18px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .exam-panel-header {
+            padding: 20px;
+        }
+
+        .exam-file-type {
+            margin-left: 60px;
+        }
+    }
+</style>
+
+<main class="exam-page">
+    <div class="exam-container">
+
+        <div class="exam-breadcrumb">
+            Medical Records / Examinations
+        </div>
+
+        <header class="exam-header">
+            <div>
+                <h1>Medical Examinations</h1>
+                <p>
+                    Your health documents, organized securely
+                    in one place.
+                </p>
+            </div>
+
+            <div class="exam-header-icon" aria-hidden="true">
+                &#128193;
+            </div>
+        </header>
+
+        <section class="exam-patient" aria-label="Patient information">
+            <div class="exam-avatar" aria-hidden="true">
+                {{ dossier.patient.first_name|first|upper|default:"P" }}
+            </div>
+
+            <div>
+                <div class="exam-patient-name">
+                    {{ dossier.patient.get_full_name|default:dossier.patient.email }}
+                </div>
+                <div class="exam-patient-label">
+                    Patient medical documents
+                </div>
+            </div>
+        </section>
+
+        <section class="exam-stats" aria-label="Examination statistics">
+
+            <div class="exam-stat">
+                <div class="exam-stat-label">
+                    Total examinations
+                </div>
+                <div class="exam-stat-value">
+                    {{ examens|length }}
+                </div>
+            </div>
+
+            <div class="exam-stat">
+                <div class="exam-stat-label">
+                    Latest examination
+                </div>
+                <div class="exam-stat-value">
+                    {% if examens %}
+                        {{ examens.0.date|date:"d M Y" }}
+                    {% else %}
+                        —
+                    {% endif %}
+                </div>
+            </div>
+
+        </section>
+
+        <section class="exam-panel" aria-labelledby="exam-documents-heading">
+
+            <div class="exam-panel-header">
+                <div>
+                    <h2 class="exam-panel-title" id="exam-documents-heading">
+                        Examination Documents
+                    </h2>
+                </div>
+
+                <span class="exam-count">
+                    {{ examens|length }} files
+                </span>
+
+                {% if examens %}
+                    <div style="width:100%">
+                        <label for="examSearch" class="visually-hidden">
+                            Search examination documents
+                        </label>
+                        <input
+                            type="search"
+                            id="examSearch"
+                            class="exam-search"
+                            placeholder="Search examinations by title..."
+                            autocomplete="off"
+                        >
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if examens %}
+
+                <div id="examList">
+                    {% for examen in examens %}
+
+                        <article
+                            class="exam-item"
+                            data-exam-title="{{ examen.titre|lower }}"
+                        >
+                            <div class="exam-file-icon" aria-hidden="true">
+                                &#128196;
+                            </div>
+
+                            <div class="exam-item-info">
+                                <h3 class="exam-item-title">
+                                    {{ examen.titre }}
+                                </h3>
+
+                                <div class="exam-item-meta">
+                                    {{ examen.date|date:"d M Y" }}
+                                </div>
+                            </div>
+
+                            <span class="exam-file-type">
+                                {{ examen.fichier.name|slice:"-4:"|upper }}
+                            </span>
+
+                            <span class="exam-private-label">
+                                &#128274; Private
+                            </span>
+                        </article>
+
+                    {% endfor %}
+                </div>
+
+                <div
+                    id="examNoResults"
+                    class="exam-empty"
+                    style="display:none"
+                    role="status"
+                    aria-live="polite"
+                >
+                    <h2>No matching examinations</h2>
+                    <p>
+                        Try searching for a different document title.
+                    </p>
+                </div>
+
+            {% else %}
+
+                <div class="exam-empty">
+                    <div class="exam-empty-icon" aria-hidden="true">
+                        &#128196;
+                    </div>
+
+                    <h2>No examinations yet</h2>
+
+                    <p>
+                        Medical examination documents will appear
+                        here once they have been added to this
+                        patient's medical record.
+                    </p>
+                </div>
+
+            {% endif %}
+
+        </section>
+
+        <div class="exam-footer-note">
+            <span aria-hidden="true">&#128274;</span>
+            Medical documents are stored privately and
+            require authorization to access.
+        </div>
+
+    </div>
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const search = document.getElementById("examSearch");
+    const items = document.querySelectorAll(".exam-item");
+    const noResults = document.getElementById("examNoResults");
+
+    if (!search) {
+        return;
+    }
+
+    search.addEventListener("input", function () {
+        const query = search.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        items.forEach(function (item) {
+            const title = item.dataset.examTitle || "";
+            const matches = title.includes(query);
+
+            item.hidden = !matches;
+
+            if (matches) {
+                visibleCount++;
+            }
+        });
+
+        if (noResults) {
+            noResults.style.display =
+                visibleCount === 0 ? "block" : "none";
+        }
+    });
+});
+</script>
+
+{% endblock %}
