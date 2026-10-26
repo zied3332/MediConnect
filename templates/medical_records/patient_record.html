@@ -1,132 +1,450 @@
 
-{% extends "base.html" %}
+{% extends "dashboard/base.html" %}
 
 {% block title %}Patient Medical Record | MediConnect{% endblock %}
 
 {% block extra_css %}
 <style>
-    .doctor-record-page {
-        min-height: 75vh;
-        padding: 56px 20px 96px;
-        background: #fffdf5;
-        color: #252525;
-    }
+    /* ==========================================
+       MEDICONNECT — DOCTOR PATIENT RECORD
+       ========================================== */
 
-    .doctor-record-container {
-        max-width: 960px;
+    .doctor-record-page {
+        width: 100%;
+        max-width: 1100px;
         margin: 0 auto;
+        color: #252923;
     }
 
     .doctor-record-eyebrow {
-        color: #756400;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
+        display: block;
         margin-bottom: 12px;
+        color: #8c8150;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+    }
+
+    .doctor-record-header {
+        margin-bottom: 28px;
     }
 
     .doctor-record-heading {
-        font-size: clamp(30px, 5vw, 46px);
+        margin: 0 0 11px;
+        color: #252923;
+        font-size: clamp(28px, 3vw, 38px);
         font-weight: 800;
-        letter-spacing: -1.5px;
-        margin-bottom: 12px;
+        letter-spacing: -1.2px;
+        line-height: 1.2;
     }
 
     .doctor-record-subtitle {
-        color: #666;
-        font-size: 16px;
+        max-width: 650px;
+        margin: 0;
+        color: #858c82;
+        font-size: 14px;
         line-height: 1.7;
     }
 
-    .doctor-record-card {
+    /* Navigation */
+
+    .doctor-record-navigation {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 24px;
+    }
+
+    .doctor-record-nav-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 42px;
+        padding: 10px 16px;
+        border: 1px solid #e5e8e0;
+        border-radius: 9px;
         background: #fff;
-        border: 1px solid #e9e5d8;
-        border-radius: 20px;
-        padding: 32px;
-        margin-top: 28px;
-        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
+        color: #4e584c;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background .15s ease, border-color .15s ease;
     }
 
-    .doctor-record-section + .doctor-record-section {
-        border-top: 1px solid #eee9da;
-        padding-top: 28px;
-        margin-top: 28px;
+    .doctor-record-nav-link:hover {
+        border-color: #e7d47c;
+        background: #fff9dc;
+        color: #252923;
     }
 
-    .doctor-record-section h2 {
+    .doctor-record-nav-link svg {
+        width: 17px;
+        height: 17px;
+        flex-shrink: 0;
+    }
+
+    /* Patient identity */
+
+    .doctor-record-patient {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+        padding: 22px 25px;
+        border: 1px solid #e8ebe5;
+        border-radius: 14px;
+        background: #fff;
+    }
+
+    .doctor-record-avatar {
+        display: grid;
+        place-items: center;
+        width: 52px;
+        height: 52px;
+        flex: 0 0 52px;
+        border-radius: 14px;
+        background: #fff5c7;
+        color: #655628;
         font-size: 20px;
         font-weight: 800;
-        margin-bottom: 16px;
+    }
+
+    .doctor-record-patient-name {
+        margin: 0 0 6px;
+        color: #252923;
+        font-size: 17px;
+        font-weight: 800;
+        overflow-wrap: anywhere;
+    }
+
+    .doctor-record-patient-label {
+        margin: 0;
+        color: #899087;
+        font-size: 12px;
+    }
+
+    /* Main card */
+
+    .doctor-record-card {
+        overflow: hidden;
+        border: 1px solid #e8ebe5;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 3px 15px rgba(30, 38, 30, .025);
+    }
+
+    .doctor-record-card-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 25px 30px;
+        border-bottom: 1px solid #eef0ea;
+    }
+
+    .doctor-record-card-icon {
+        display: grid;
+        place-items: center;
+        width: 45px;
+        height: 45px;
+        flex: 0 0 45px;
+        border-radius: 12px;
+        background: #fff7d4;
+        color: #6b5e30;
+    }
+
+    .doctor-record-card-icon svg {
+        width: 23px;
+        height: 23px;
+    }
+
+    .doctor-record-card-header h2 {
+        margin: 0 0 5px;
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .doctor-record-card-header p {
+        margin: 0;
+        color: #899087;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .doctor-record-body {
+        padding: 30px;
+    }
+
+    /* Medical sections */
+
+    .doctor-record-section + .doctor-record-section {
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #eef0ea;
+    }
+
+    .doctor-record-section-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 11px;
+    }
+
+    .doctor-record-section-heading svg {
+        width: 19px;
+        height: 19px;
+        color: #81703c;
+        flex-shrink: 0;
+    }
+
+    .doctor-record-section h3 {
+        margin: 0;
+        color: #252923;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .doctor-record-section-description {
+        margin: 0 0 16px;
+        color: #899087;
+        font-size: 12px;
+        line-height: 1.7;
     }
 
     .doctor-record-value {
-        padding: 20px;
-        background: #fffdf5;
-        border: 1px solid #eee9da;
-        border-radius: 12px;
+        min-height: 75px;
+        padding: 19px 20px;
+        border: 1px solid #e9ece6;
+        border-radius: 11px;
+        background: #fafbf8;
+        color: #40483d;
+        font-size: 13px;
         line-height: 1.8;
         overflow-wrap: anywhere;
     }
 
     .doctor-record-muted {
-        color: #666;
+        color: #939b90;
         font-style: italic;
     }
+
+    /* Record metadata */
 
     .doctor-record-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px 28px;
-        color: #555;
-        font-size: 14px;
-        margin-top: 24px;
+        align-items: center;
+        gap: 12px 30px;
+        margin-top: 30px;
+        padding-top: 24px;
+        border-top: 1px solid #eef0ea;
     }
 
-    @media (max-width: 576px) {
-        .doctor-record-page {
-            padding: 32px 16px 64px;
+    .doctor-record-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #858c82;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .doctor-record-meta-item svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+    }
+
+    .doctor-record-meta-item strong {
+        color: #4e584c;
+        font-weight: 700;
+    }
+
+    /* Privacy information */
+
+    .doctor-record-security {
+        display: flex;
+        align-items: flex-start;
+        gap: 11px;
+        margin-top: 22px;
+        padding: 17px 19px;
+        border: 1px solid #f1e8bb;
+        border-radius: 12px;
+        background: #fffaf0;
+        color: #756a46;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .doctor-record-security svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+
+    .doctor-record-page a:focus-visible {
+        outline: 3px solid #b69826;
+        outline-offset: 3px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 700px) {
+        .doctor-record-card-header {
+            padding: 21px;
         }
 
-        .doctor-record-card {
-            padding: 22px 18px;
+        .doctor-record-body {
+            padding: 21px;
+        }
+
+        .doctor-record-patient {
+            padding: 19px;
+        }
+
+        .doctor-record-navigation {
+            flex-direction: column;
+        }
+
+        .doctor-record-nav-link {
+            width: 100%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .doctor-record-nav-link {
+            transition: none;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
+
 <section class="doctor-record-page"
          aria-labelledby="doctor-record-title">
 
-    <div class="doctor-record-container">
+    <!-- Page header -->
 
-        <header>
-            <p class="doctor-record-eyebrow">
-                Doctor Portal / Medical Records
+    <header class="doctor-record-header">
+        <span class="doctor-record-eyebrow">
+            DOCTOR PORTAL / MEDICAL RECORDS
+        </span>
+
+        <h1 id="doctor-record-title"
+            class="doctor-record-heading">
+            Patient Medical Record
+        </h1>
+
+        <p class="doctor-record-subtitle">
+            Review the patient's medical history and known allergies
+            to support informed clinical decisions.
+        </p>
+
+        <nav class="doctor-record-navigation"
+             aria-label="Patient medical record navigation">
+
+            <a href="{% url 'medical_records:examination_list' patient_id=dossier.patient_id %}"
+               class="doctor-record-nav-link">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                    <path d="M15 3v5h5M8 13h8M8 17h5"/>
+                </svg>
+                View examinations
+            </a>
+
+            <a href="{% url 'medical_records:prescription_list' %}"
+               class="doctor-record-nav-link">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                    <path d="M15 3v5h5M8 12h8M8 16h5"/>
+                </svg>
+                Prescriptions
+            </a>
+
+        </nav>
+    </header>
+
+    <!-- Patient identity -->
+
+    <section class="doctor-record-patient"
+             aria-label="Patient identity">
+
+        <div class="doctor-record-avatar"
+             aria-hidden="true">
+            {{ dossier.patient.first_name|first|upper|default:"P" }}
+        </div>
+
+        <div>
+            <h2 class="doctor-record-patient-name">
+                {{ dossier.patient.get_full_name|default:dossier.patient.email }}
+            </h2>
+
+            <p class="doctor-record-patient-label">
+                Patient medical information · Read-only access
             </p>
+        </div>
 
-            <h1 id="doctor-record-title"
-                class="doctor-record-heading">
-                Patient Medical Record
-            </h1>
+    </section>
 
-            <p class="doctor-record-subtitle">
-                Medical information for
-                <strong>
-                    {{ dossier.patient.get_full_name|default:dossier.patient.email }}
-                </strong>
-            </p>
-        </header>
+    <!-- Medical record -->
 
-        <div class="doctor-record-card">
+    <article class="doctor-record-card">
+
+        <div class="doctor-record-card-header">
+
+            <div class="doctor-record-card-icon"
+                 aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                    <path d="M15 3v5h5M8 13h8M8 17h5"/>
+                </svg>
+            </div>
+
+            <div>
+                <h2>Health information</h2>
+                <p>
+                    Information provided in the patient's medical record.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="doctor-record-body">
+
+            <!-- Medical history -->
 
             <section class="doctor-record-section"
                      aria-labelledby="medical-history-heading">
 
-                <h2 id="medical-history-heading">
-                    Medical History
-                </h2>
+                <div class="doctor-record-section-heading">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                        <path d="M15 3v5h5M8 13h8"/>
+                    </svg>
+
+                    <h3 id="medical-history-heading">
+                        Medical history
+                    </h3>
+                </div>
+
+                <p class="doctor-record-section-description">
+                    Previous medical conditions, surgeries,
+                    chronic illnesses, and relevant health history.
+                </p>
 
                 <div class="doctor-record-value">
                     {% if dossier.antecedents %}
@@ -140,12 +458,29 @@
 
             </section>
 
+            <!-- Allergies -->
+
             <section class="doctor-record-section"
                      aria-labelledby="allergies-heading">
 
-                <h2 id="allergies-heading">
-                    Known Allergies
-                </h2>
+                <div class="doctor-record-section-heading">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M12 3 2 20h20L12 3Z"/>
+                        <path d="M12 9v5M12 17h.01"/>
+                    </svg>
+
+                    <h3 id="allergies-heading">
+                        Known allergies
+                    </h3>
+                </div>
+
+                <p class="doctor-record-section-description">
+                    Medication, food, and environmental allergies
+                    recorded by the patient.
+                </p>
 
                 <div class="doctor-record-value">
                     {% if dossier.allergies %}
@@ -159,21 +494,69 @@
 
             </section>
 
-            <div class="doctor-record-meta">
-                <span>
-                    Record created:
-                    {{ dossier.created_at|date:"F j, Y" }}
-                </span>
+            <!-- Metadata -->
 
-                <span>
-                    Last updated:
-                    {{ dossier.updated_at|date:"F j, Y \a\t H:i" }}
-                </span>
+            <div class="doctor-record-meta">
+
+                <div class="doctor-record-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+
+                    <span>
+                        Record created:
+                        <strong>
+                            {{ dossier.created_at|date:"F j, Y" }}
+                        </strong>
+                    </span>
+                </div>
+
+                <div class="doctor-record-meta-item">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M12 7v5l3 2"/>
+                    </svg>
+
+                    <span>
+                        Last updated:
+                        <strong>
+                            {{ dossier.updated_at|date:"F j, Y \a\t H:i" }}
+                        </strong>
+                    </span>
+                </div>
+
             </div>
 
         </div>
 
+    </article>
+
+    <!-- Security note -->
+
+    <div class="doctor-record-security">
+
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+            <rect x="5" y="10" width="14" height="11" rx="2"/>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+
+        <span>
+            This medical record contains private patient information.
+            Access is restricted to authorized healthcare providers.
+        </span>
+
     </div>
 
 </section>
+
 {% endblock %}

@@ -112,6 +112,9 @@ def my_medical_record(request):
         {
             "dossier": dossier,
             "form": form,
+            "dashboard_role": "patient",
+            "page_title": "Medical Record",
+            "active_nav": "medical_record",
         },
     )
 
@@ -139,6 +142,9 @@ def patient_medical_record(request, patient_id):
         "medical_records/patient_record.html",
         {
             "dossier": dossier,
+            "dashboard_role": "doctor",
+            "page_title": "Patient Medical Record",
+            "active_nav": "medical_records",
         },
     )
 
@@ -177,6 +183,9 @@ def prescription_list(request):
         "medical_records/prescription_list.html",
         {
             "ordonnances": ordonnances,
+            "dashboard_role": request.user.role,
+            "page_title": "Prescriptions",
+            "active_nav": "prescriptions",
         },
     )
 
@@ -212,6 +221,9 @@ def prescription_detail(request, pk):
                 request.user,
                 ordonnance.consultation,
             ),
+            "dashboard_role": request.user.role,
+            "page_title": "Prescription Details",
+            "active_nav": "prescriptions",
         },
     )
 
@@ -266,6 +278,9 @@ def prescription_create(request, consultation_id):
             "form": form,
             "consultation": consultation,
             "is_edit": False,
+            "dashboard_role": "doctor",
+            "page_title": "Prescription",
+            "active_nav": "prescriptions",
         },
     )
 
@@ -323,6 +338,9 @@ def prescription_edit(request, pk):
             "consultation": ordonnance.consultation,
             "ordonnance": ordonnance,
             "is_edit": True,
+            "dashboard_role": "doctor",
+            "page_title": "Prescription",
+            "active_nav": "prescriptions",
         },
     )
 
@@ -366,6 +384,9 @@ def prescription_delete(request, pk):
         "medical_records/prescription_confirm_delete.html",
         {
             "ordonnance": ordonnance,
+            "dashboard_role": "doctor",
+            "page_title": "Delete Prescription",
+            "active_nav": "prescriptions",
         },
     )
 
@@ -404,6 +425,9 @@ def examination_list(request, patient_id):
         {
             "dossier": dossier,
             "examens": examens,
+            "dashboard_role": request.user.role,
+            "page_title": "Medical Examinations",
+            "active_nav": "medical_examinations",
         },
     )
 
@@ -458,6 +482,9 @@ def examination_upload(request):
         {
             "form": form,
             "dossier": dossier,
+            "dashboard_role": "patient",
+            "page_title": "Upload Examination",
+            "active_nav": "medical_examinations",
         },
     )
 

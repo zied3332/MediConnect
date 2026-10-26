@@ -1,285 +1,685 @@
 
-{% extends "base.html" %}
+{% extends "dashboard/base.html" %}
 
 {% block title %}Prescription #{{ ordonnance.pk }} | MediConnect{% endblock %}
 
 {% block extra_css %}
 <style>
-    .rx-page {
-        min-height: 75vh;
-        padding: 56px 20px 96px;
-        background: #fffdf5;
-        color: #252525;
-    }
+    /* ==========================================
+       MEDICONNECT — PRESCRIPTION DETAILS
+       ========================================== */
 
-    .rx-container {
-        max-width: 900px;
+    .rx-detail-page {
+        width: 100%;
+        max-width: 1050px;
         margin: 0 auto;
+        color: #252923;
     }
 
-    .rx-eyebrow {
-        color: #756400;
+    .rx-detail-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 25px;
+        color: #7b8379;
         font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .rx-detail-back:hover {
+        color: #252923;
+    }
+
+    .rx-detail-back svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .rx-detail-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 28px;
+    }
+
+    .rx-detail-eyebrow {
+        display: block;
+        margin-bottom: 12px;
+        color: #8c8150;
+        font-size: 10px;
         font-weight: 800;
-        letter-spacing: 1.5px;
+        letter-spacing: 1.4px;
         text-transform: uppercase;
-        margin-bottom: 12px;
     }
 
-    .rx-title {
-        font-size: clamp(30px, 5vw, 46px);
+    .rx-detail-title {
+        margin: 0 0 11px;
+        color: #252923;
+        font-size: clamp(28px, 3vw, 38px);
         font-weight: 800;
-        letter-spacing: -1.5px;
-        margin-bottom: 12px;
+        letter-spacing: -1.2px;
+        line-height: 1.2;
     }
 
-    .rx-subtitle {
-        color: #666;
+    .rx-detail-subtitle {
+        margin: 0;
+        color: #858c82;
+        font-size: 14px;
         line-height: 1.7;
     }
 
-    .rx-card {
-        background: #fff;
-        border: 1px solid #e9e5d8;
-        border-radius: 20px;
-        padding: 32px;
-        margin-top: 28px;
-        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
+    .rx-detail-icon {
+        display: grid;
+        place-items: center;
+        width: 52px;
+        height: 52px;
+        flex: 0 0 52px;
+        border-radius: 14px;
+        background: #fff5c7;
+        color: #74622c;
     }
 
-    .rx-meta {
+    .rx-detail-icon svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Main card */
+
+    .rx-detail-card {
+        overflow: hidden;
+        border: 1px solid #e8ebe5;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 3px 15px rgba(30, 38, 30, .025);
+    }
+
+    .rx-detail-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding: 24px 28px;
+        border-bottom: 1px solid #eef0ea;
+    }
+
+    .rx-detail-card-identity {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+    }
+
+    .rx-detail-card-icon {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        flex: 0 0 44px;
+        border-radius: 11px;
+        background: #fff7d4;
+        color: #74622c;
+    }
+
+    .rx-detail-card-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .rx-detail-card-heading {
+        margin: 0 0 5px;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .rx-detail-card-description {
+        margin: 0;
+        color: #899087;
+        font-size: 12px;
+    }
+
+    .rx-detail-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        border: 1px solid #eee6c5;
+        border-radius: 8px;
+        background: #fff9e5;
+        color: #786a39;
+        font-size: 11px;
+        font-weight: 750;
+    }
+
+    .rx-detail-body {
+        padding: 28px;
+    }
+
+    /* Metadata */
+
+    .rx-detail-meta {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 20px;
-        padding: 22px;
-        border-radius: 14px;
-        background: #fff9dc;
-        border: 1px solid #eee0a0;
-    }
-
-    .rx-meta-label {
-        display: block;
-        color: #62571d;
-        font-size: 13px;
-        font-weight: 700;
-        margin-bottom: 5px;
-    }
-
-    .rx-meta-value {
-        font-weight: 700;
-        overflow-wrap: anywhere;
-    }
-
-    .rx-section {
-        margin-top: 32px;
-    }
-
-    .rx-section h2 {
-        font-size: 20px;
-        font-weight: 800;
-        margin-bottom: 16px;
-    }
-
-    .rx-content {
-        background: #fffdf5;
-        border: 1px solid #eee9da;
+        gap: 23px 28px;
+        padding: 24px;
+        border: 1px solid #e9ece6;
         border-radius: 12px;
-        padding: 20px;
-        line-height: 1.8;
+        background: #fafbf8;
+    }
+
+    .rx-detail-meta-label {
+        display: block;
+        margin-bottom: 7px;
+        color: #929a90;
+        font-size: 11px;
+        font-weight: 650;
+    }
+
+    .rx-detail-meta-value {
+        display: block;
+        color: #384036;
+        font-size: 13px;
+        font-weight: 750;
+        line-height: 1.6;
         overflow-wrap: anywhere;
     }
 
-    .rx-muted {
-        color: #666;
+    /* Prescription content */
+
+    .rx-detail-section {
+        margin-top: 30px;
+    }
+
+    .rx-detail-section + .rx-detail-section {
+        padding-top: 28px;
+        border-top: 1px solid #eef0ea;
+    }
+
+    .rx-detail-section-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 11px;
+    }
+
+    .rx-detail-section-heading svg {
+        width: 19px;
+        height: 19px;
+        flex-shrink: 0;
+        color: #81703c;
+    }
+
+    .rx-detail-section h2 {
+        margin: 0;
+        color: #252923;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .rx-detail-section-description {
+        margin: 0 0 16px;
+        color: #899087;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .rx-detail-content {
+        min-height: 75px;
+        padding: 19px 20px;
+        border: 1px solid #e9ece6;
+        border-radius: 11px;
+        background: #fafbf8;
+        color: #40483d;
+        font-size: 13px;
+        line-height: 1.85;
+        overflow-wrap: anywhere;
+    }
+
+    .rx-detail-muted {
+        color: #939b90;
         font-style: italic;
     }
 
-    .rx-actions {
+    /* Actions */
+
+    .rx-detail-actions {
         display: flex;
+        align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 15px;
         margin-top: 32px;
-        padding-top: 24px;
-        border-top: 1px solid #eee9da;
+        padding-top: 25px;
+        border-top: 1px solid #eef0ea;
     }
 
-    .rx-action-group {
+    .rx-detail-action-group {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 10px;
     }
 
-    .rx-button {
-        display: inline-block;
-        padding: 12px 20px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 800;
-        border: 1px solid #d9d6ca;
-        color: #252525;
+    .rx-detail-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 43px;
+        padding: 11px 17px;
+        border: 1px solid #e3e7e0;
+        border-radius: 9px;
         background: #fff;
+        color: #4e584c;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 750;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background .15s ease, border-color .15s ease;
     }
 
-    .rx-button:hover {
-        background: #f7f5ed;
-        color: #252525;
+    .rx-detail-button:hover {
+        border-color: #e7d47c;
+        background: #fff9dc;
+        color: #252923;
     }
 
-    .rx-button-primary {
-        background: #ffdb3d;
-        border-color: #e6c52d;
-        color: #211d00;
+    .rx-detail-button svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
     }
 
-    .rx-button-primary:hover {
-        background: #f1c900;
+    .rx-detail-button--primary {
+        border-color: #ffeb4d;
+        background: #ffeb4d;
+        color: #252923;
     }
 
-    .rx-button-danger {
-        color: #a12525;
-        border-color: #d9a5a5;
+    .rx-detail-button--primary:hover {
+        border-color: #f3d92f;
+        background: #f3d92f;
     }
 
-    .rx-button-danger:hover {
-        background: #fff0f0;
-        color: #861818;
+    .rx-detail-button--danger {
+        border-color: #efceca;
+        background: #fff;
+        color: #a33b32;
     }
 
-    .rx-button:focus-visible {
-        outline: 3px solid #705c00;
+    .rx-detail-button--danger:hover {
+        border-color: #e6b6b0;
+        background: #fff5f4;
+        color: #8f3028;
+    }
+
+    /* Security note */
+
+    .rx-detail-security {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 20px;
+        color: #858c82;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .rx-detail-security svg {
+        width: 17px;
+        height: 17px;
+        flex-shrink: 0;
+    }
+
+    /* Messages */
+
+    .rx-detail-alert {
+        margin-bottom: 22px;
+        padding: 13px 16px;
+        border: 1px solid #cde6d0;
+        border-radius: 10px;
+        background: #f1faf2;
+        color: #276337;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .rx-detail-alert--error {
+        border-color: #f0c8c5;
+        background: #fff5f4;
+        color: #a33b32;
+    }
+
+    .rx-detail-page a:focus-visible {
+        outline: 3px solid #b69826;
         outline-offset: 3px;
     }
 
-    @media (max-width: 576px) {
-        .rx-page {
-            padding: 32px 16px 64px;
+    /* Responsive */
+
+    @media (max-width: 700px) {
+        .rx-detail-icon {
+            display: none;
         }
 
-        .rx-card {
-            padding: 22px 18px;
+        .rx-detail-card-header,
+        .rx-detail-body {
+            padding: 20px;
         }
 
-        .rx-meta {
+        .rx-detail-meta {
             grid-template-columns: 1fr;
+            gap: 19px;
+            padding: 20px;
         }
 
-        .rx-actions,
-        .rx-action-group {
+        .rx-detail-actions,
+        .rx-detail-action-group {
             flex-direction: column;
+            align-items: stretch;
         }
 
-        .rx-button {
-            text-align: center;
+        .rx-detail-button {
+            width: 100%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .rx-detail-button {
+            transition: none;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<section class="rx-page" aria-labelledby="rx-title">
-    <div class="rx-container">
 
-        <header>
-            <p class="rx-eyebrow">
-                MediConnect / Prescriptions
-            </p>
+<section class="rx-detail-page"
+         aria-labelledby="rx-detail-title">
 
-            <h1 class="rx-title" id="rx-title">
+    <!-- Back navigation -->
+
+    <a href="{% url 'medical_records:prescription_list' %}"
+       class="rx-detail-back">
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+            <path d="m15 18-6-6 6-6"/>
+        </svg>
+        Back to prescriptions
+    </a>
+
+    <!-- Page heading -->
+
+    <header class="rx-detail-header">
+        <div>
+            <span class="rx-detail-eyebrow">
+                {% if request.user.role == "doctor" %}
+                    DOCTOR PORTAL / PRESCRIPTIONS
+                {% else %}
+                    PATIENT PORTAL / PRESCRIPTIONS
+                {% endif %}
+            </span>
+
+            <h1 id="rx-detail-title"
+                class="rx-detail-title">
                 Prescription #{{ ordonnance.pk }}
             </h1>
 
-            <p class="rx-subtitle">
-                Prescription details and treatment instructions.
+            <p class="rx-detail-subtitle">
+                Prescription details, medications, and treatment
+                instructions.
             </p>
-        </header>
+        </div>
 
-        {% if messages %}
-            <div class="mt-4" aria-live="polite">
-                {% for message in messages %}
-                    <div class="alert alert-success" role="status">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
+        <div class="rx-detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                <path d="M15 3v5h5M8 12h8M8 16h5"/>
+            </svg>
+        </div>
+    </header>
 
-        <article class="rx-card">
+    <!-- Django messages -->
 
-            <div class="rx-meta">
+    {% if messages %}
+        <div aria-live="polite">
+            {% for message in messages %}
+                <div class="rx-detail-alert {% if message.tags == 'error' %}rx-detail-alert--error{% endif %}"
+                     role="status">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Prescription card -->
+
+    <article class="rx-detail-card">
+
+        <div class="rx-detail-card-header">
+
+            <div class="rx-detail-card-identity">
+                <div class="rx-detail-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                        <path d="M15 3v5h5M8 12h8"/>
+                    </svg>
+                </div>
+
                 <div>
-                    <span class="rx-meta-label">Patient</span>
-                    <span class="rx-meta-value">
+                    <h2 class="rx-detail-card-heading">
+                        Medical prescription
+                    </h2>
+
+                    <p class="rx-detail-card-description">
+                        Issued {{ ordonnance.date|date:"F j, Y" }}
+                    </p>
+                </div>
+            </div>
+
+            <span class="rx-detail-badge">
+                Prescription #{{ ordonnance.pk }}
+            </span>
+
+        </div>
+
+        <div class="rx-detail-body">
+
+            <!-- Prescription metadata -->
+
+            <div class="rx-detail-meta">
+
+                <div>
+                    <span class="rx-detail-meta-label">
+                        Patient
+                    </span>
+
+                    <span class="rx-detail-meta-value">
                         {{ ordonnance.consultation.appointment.patient.get_full_name|default:ordonnance.consultation.appointment.patient.email }}
                     </span>
                 </div>
 
                 <div>
-                    <span class="rx-meta-label">Doctor</span>
-                    <span class="rx-meta-value">
+                    <span class="rx-detail-meta-label">
+                        Doctor
+                    </span>
+
+                    <span class="rx-detail-meta-value">
                         {{ ordonnance.consultation.appointment.doctor.get_full_name|default:ordonnance.consultation.appointment.doctor.email }}
                     </span>
                 </div>
 
                 <div>
-                    <span class="rx-meta-label">Prescription Date</span>
-                    <span class="rx-meta-value">
+                    <span class="rx-detail-meta-label">
+                        Prescription date
+                    </span>
+
+                    <span class="rx-detail-meta-value">
                         {{ ordonnance.date|date:"F j, Y" }}
                     </span>
                 </div>
 
                 <div>
-                    <span class="rx-meta-label">Consultation</span>
-                    <span class="rx-meta-value">
+                    <span class="rx-detail-meta-label">
+                        Consultation
+                    </span>
+
+                    <span class="rx-detail-meta-value">
                         #{{ ordonnance.consultation.pk }}
                     </span>
                 </div>
+
             </div>
 
-            <section class="rx-section" aria-labelledby="rx-medications">
-                <h2 id="rx-medications">Medications</h2>
+            <!-- Medications -->
 
-                <div class="rx-content">
-                    {{ ordonnance.medicaments|linebreaksbr }}
+            <section class="rx-detail-section"
+                     aria-labelledby="rx-medications">
+
+                <div class="rx-detail-section-heading">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <rect x="3" y="8" width="18" height="9" rx="4.5"/>
+                        <path d="m9 8 6 9"/>
+                    </svg>
+
+                    <h2 id="rx-medications">
+                        Medications
+                    </h2>
                 </div>
+
+                <p class="rx-detail-section-description">
+                    Medications prescribed during the consultation.
+                </p>
+
+                <div class="rx-detail-content">
+                    {% if ordonnance.medicaments %}
+                        {{ ordonnance.medicaments|linebreaksbr }}
+                    {% else %}
+                        <span class="rx-detail-muted">
+                            No medications recorded.
+                        </span>
+                    {% endif %}
+                </div>
+
             </section>
 
-            <section class="rx-section" aria-labelledby="rx-instructions">
-                <h2 id="rx-instructions">Additional Instructions</h2>
+            <!-- Additional instructions -->
 
-                <div class="rx-content">
+            <section class="rx-detail-section"
+                     aria-labelledby="rx-instructions">
+
+                <div class="rx-detail-section-heading">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                        <path d="M15 3v5h5M8 13h8M8 17h5"/>
+                    </svg>
+
+                    <h2 id="rx-instructions">
+                        Additional instructions
+                    </h2>
+                </div>
+
+                <p class="rx-detail-section-description">
+                    Treatment guidance and additional notes from
+                    the prescribing doctor.
+                </p>
+
+                <div class="rx-detail-content">
                     {% if ordonnance.instructions %}
                         {{ ordonnance.instructions|linebreaksbr }}
                     {% else %}
-                        <span class="rx-muted">
+                        <span class="rx-detail-muted">
                             No additional instructions provided.
                         </span>
                     {% endif %}
                 </div>
+
             </section>
 
-            <nav class="rx-actions" aria-label="Prescription actions">
+            <!-- Actions -->
+
+            <nav class="rx-detail-actions"
+                 aria-label="Prescription actions">
+
                 <a href="{% url 'medical_records:prescription_list' %}"
-                   class="rx-button">
-                    Back to Prescriptions
+                   class="rx-detail-button">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="m15 18-6-6 6-6"/>
+                    </svg>
+                    Back to prescriptions
                 </a>
 
                 {% if can_manage %}
-                    <div class="rx-action-group">
+                    <div class="rx-detail-action-group">
+
                         <a href="{% url 'medical_records:prescription_edit' ordonnance.pk %}"
-                           class="rx-button rx-button-primary">
-                            Edit Prescription
+                           class="rx-detail-button rx-detail-button--primary">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <path d="m16 4 4 4-11 11-5 1 1-5L16 4Z"/>
+                                <path d="m14 6 4 4"/>
+                            </svg>
+                            Edit prescription
                         </a>
 
                         <a href="{% url 'medical_records:prescription_delete' ordonnance.pk %}"
-                           class="rx-button rx-button-danger">
-                            Delete Prescription
+                           class="rx-detail-button rx-detail-button--danger">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13"/>
+                                <path d="M10 11v5M14 11v5"/>
+                            </svg>
+                            Delete prescription
                         </a>
+
                     </div>
                 {% endif %}
+
             </nav>
 
-        </article>
+        </div>
+
+    </article>
+
+    <!-- Privacy note -->
+
+    <div class="rx-detail-security">
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+            <rect x="5" y="10" width="14" height="11" rx="2"/>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+
+        <span>
+            This prescription contains private medical information
+            and is accessible only to authorized users.
+        </span>
     </div>
+
 </section>
+
 {% endblock %}

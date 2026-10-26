@@ -1,238 +1,279 @@
 
-{% extends "base.html" %}
+{% extends "dashboard/base.html" %}
+{% load static %}
 
 {% block title %}Medical Examinations | MediConnect{% endblock %}
 
-{% block content %}
-
+{% block extra_css %}
 <style>
+    /* ==========================================
+       MEDICONNECT — MEDICAL EXAMINATIONS
+       ========================================== */
+
     .exam-page {
-        background: #fffdf5;
-        min-height: 80vh;
-        padding: 48px 0 80px;
-        color: #282820;
-    }
-
-    .exam-container {
-        max-width: 1120px;
+        max-width: 1160px;
         margin: 0 auto;
-        padding: 0 24px;
-    }
-
-    .exam-breadcrumb {
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        color: #8a7b4e;
-        margin-bottom: 22px;
+        color: #252923;
     }
 
     .exam-header {
         display: flex;
+        align-items: flex-start;
         justify-content: space-between;
-        align-items: center;
         gap: 24px;
-        margin-bottom: 32px;
+        margin-bottom: 28px;
+    }
+
+    .exam-eyebrow {
+        display: block;
+        margin-bottom: 12px;
+        color: #8c8150;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
     }
 
     .exam-header h1 {
-        font-size: clamp(30px, 4vw, 44px);
-        font-weight: 750;
-        letter-spacing: -1.5px;
         margin: 0 0 10px;
+        font-size: clamp(28px, 3vw, 38px);
+        font-weight: 800;
+        letter-spacing: -1.2px;
+        line-height: 1.2;
     }
 
     .exam-header p {
-        color: #777568;
+        max-width: 570px;
         margin: 0;
-        line-height: 1.6;
+        color: #858c82;
+        font-size: 14px;
+        line-height: 1.7;
     }
 
-    .exam-header-icon {
-        width: 72px;
-        height: 72px;
-        border-radius: 20px;
-        background: #f4d35e;
+    .exam-header-actions {
         display: flex;
         align-items: center;
-        justify-content: center;
-        font-size: 30px;
-        flex-shrink: 0;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
-    /* Upload action */
-
-    .exam-upload-action {
-        margin-bottom: 24px;
-    }
-
-    .exam-upload-button {
+    .exam-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        background: #f4d35e;
-        color: #28251b;
-        padding: 13px 22px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 800;
+        gap: 9px;
+        min-height: 43px;
+        padding: 10px 17px;
+        border: 1px solid #e2e6df;
+        border-radius: 10px;
+        background: #fff;
+        color: #333b31;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 700;
         text-decoration: none;
-        transition: background 0.2s ease;
+        white-space: nowrap;
+        transition: background .15s ease, border-color .15s ease;
     }
 
-    .exam-upload-button:hover {
-        background: #e9c64d;
-        color: #28251b;
+    .exam-button:hover {
+        background: #fff9d6;
+        border-color: #e8d67f;
+        color: #252923;
     }
 
-    .exam-upload-button:focus-visible {
-        outline: 3px solid #8a6813;
-        outline-offset: 3px;
+    .exam-button--primary {
+        background: #ffeb4d;
+        border-color: #ffeb4d;
+        color: #252923;
     }
 
-    .exam-upload-plus {
-        font-size: 20px;
-        line-height: 1;
+    .exam-button--primary:hover {
+        background: #f3d92f;
+        border-color: #f3d92f;
     }
 
-    /* Patient information */
-
-    .exam-patient {
-        background: #ffffff;
-        border: 1px solid #ece7d8;
-        border-radius: 18px;
-        padding: 22px 26px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 24px;
-    }
-
-    .exam-avatar {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        background: #fff0bd;
-        color: #7d5e0d;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        font-size: 20px;
+    .exam-button svg {
+        width: 17px;
+        height: 17px;
         flex-shrink: 0;
     }
 
+    /* Patient identity */
+
+    .exam-patient {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 22px;
+        padding: 19px 23px;
+        border: 1px solid #e8ebe5;
+        border-radius: 14px;
+        background: #fff;
+    }
+
+    .exam-avatar {
+        display: grid;
+        place-items: center;
+        width: 45px;
+        height: 45px;
+        flex: 0 0 45px;
+        border-radius: 12px;
+        background: #fff5c7;
+        color: #554c27;
+        font-size: 17px;
+        font-weight: 800;
+    }
+
     .exam-patient-name {
-        font-size: 16px;
-        font-weight: 700;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: 750;
         overflow-wrap: anywhere;
     }
 
     .exam-patient-label {
-        color: #777568;
-        font-size: 13px;
+        color: #8a9188;
+        font-size: 12px;
     }
 
-    /* Statistics */
+    /* Summary */
 
-    .exam-stats {
+    .exam-summary {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
-        margin-bottom: 28px;
+        margin-bottom: 23px;
     }
 
-    .exam-stat {
-        background: #ffffff;
-        border: 1px solid #ece7d8;
-        border-radius: 18px;
-        padding: 24px;
+    .exam-summary-card {
+        padding: 23px 25px;
+        border: 1px solid #e8ebe5;
+        border-radius: 14px;
+        background: #fff;
     }
 
-    .exam-stat-label {
-        font-size: 13px;
-        color: #777568;
-        margin-bottom: 10px;
+    .exam-summary-label {
+        margin-bottom: 12px;
+        color: #858c82;
+        font-size: 12px;
+        font-weight: 600;
     }
 
-    .exam-stat-value {
-        font-size: 27px;
+    .exam-summary-value {
+        color: #252923;
+        font-size: 26px;
         font-weight: 800;
-        letter-spacing: -1px;
+        letter-spacing: -0.8px;
     }
 
-    /* Examination panel */
+    /* Document panel */
 
     .exam-panel {
-        background: #ffffff;
-        border: 1px solid #ece7d8;
-        border-radius: 20px;
         overflow: hidden;
+        border: 1px solid #e8ebe5;
+        border-radius: 16px;
+        background: #fff;
     }
 
     .exam-panel-header {
-        padding: 26px;
-        border-bottom: 1px solid #f0ece1;
+        padding: 25px 27px;
+        border-bottom: 1px solid #eef0ea;
+    }
+
+    .exam-panel-heading {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
         flex-wrap: wrap;
+        gap: 14px;
     }
 
     .exam-panel-title {
-        font-size: 19px;
-        font-weight: 750;
         margin: 0;
+        font-size: 18px;
+        font-weight: 750;
+        letter-spacing: -0.4px;
+    }
+
+    .exam-panel-subtitle {
+        margin: 7px 0 0;
+        color: #8a9188;
+        font-size: 12px;
+        line-height: 1.6;
     }
 
     .exam-count {
-        font-size: 12px;
-        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
         padding: 7px 12px;
-        border-radius: 100px;
-        background: #fff3cb;
-        color: #795b0c;
+        border-radius: 8px;
+        background: #fff7d4;
+        color: #75642e;
+        font-size: 11px;
+        font-weight: 750;
     }
 
     /* Search */
 
-    .exam-search-container {
-        width: 100%;
+    .exam-search-wrap {
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .exam-search-wrap svg {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        width: 18px;
+        height: 18px;
+        transform: translateY(-50%);
+        color: #9aa197;
+        pointer-events: none;
     }
 
     .exam-search {
         width: 100%;
-        padding: 14px 18px;
-        border: 1px solid #e9e4d7;
-        border-radius: 12px;
+        min-height: 44px;
+        padding: 11px 16px 11px 44px;
+        border: 1px solid #e2e6df;
+        border-radius: 10px;
         outline: none;
-        font-size: 14px;
-        background: #fffdf8;
-        color: #292820;
-        margin-top: 18px;
+        background: #fbfcfa;
+        color: #252923;
+        font-family: inherit;
+        font-size: 13px;
     }
 
-    .exam-search:focus-visible {
-        border-color: #b68b19;
-        box-shadow: 0 0 0 3px rgba(244, 211, 94, 0.35);
+    .exam-search:focus {
+        border-color: #d3b63f;
+        box-shadow: 0 0 0 3px rgba(255,235,77,.18);
     }
 
-    /* Examination items */
+    .exam-search-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /* Examination rows */
 
     .exam-item {
-        padding: 20px 26px;
         display: flex;
         align-items: center;
-        gap: 16px;
-        border-bottom: 1px solid #f2eee5;
+        gap: 17px;
+        padding: 20px 27px;
+        border-bottom: 1px solid #f0f2ed;
     }
 
     .exam-item:last-child {
-        border-bottom: none;
+        border-bottom: 0;
     }
 
     .exam-item[hidden] {
@@ -240,16 +281,19 @@
     }
 
     .exam-file-icon {
-        width: 48px;
-        height: 48px;
-        background: #fff3cb;
-        color: #8a6813;
-        border-radius: 13px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        font-size: 21px;
+        display: grid;
+        place-items: center;
+        width: 45px;
+        height: 45px;
+        flex: 0 0 45px;
+        border-radius: 11px;
+        background: #fff8db;
+        color: #766633;
+    }
+
+    .exam-file-icon svg {
+        width: 22px;
+        height: 22px;
     }
 
     .exam-item-info {
@@ -258,424 +302,509 @@
     }
 
     .exam-item-title {
-        font-weight: 700;
         margin: 0 0 6px;
+        color: #252923;
+        font-size: 13px;
+        font-weight: 750;
         overflow-wrap: anywhere;
-        font-size: 15px;
     }
 
     .exam-item-meta {
-        color: #797568;
-        font-size: 13px;
+        color: #899087;
+        font-size: 12px;
     }
 
     .exam-file-type {
-        font-size: 11px;
-        font-weight: 800;
-        padding: 6px 10px;
+        padding: 6px 9px;
+        border: 1px solid #e9ece6;
         border-radius: 7px;
-        background: #f6f4ee;
-        color: #666256;
+        background: #f8f9f6;
+        color: #717a70;
+        font-size: 10px;
+        font-weight: 750;
     }
 
     .exam-private-label {
         display: inline-flex;
         align-items: center;
-        gap: 7px;
-        color: #726a54;
-        font-size: 12px;
+        gap: 6px;
+        color: #7d857b;
+        font-size: 11px;
         font-weight: 600;
     }
 
-    /* Secure download button */
+    .exam-private-label svg {
+        width: 14px;
+        height: 14px;
+    }
 
     .exam-download-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
-        padding: 10px 16px;
-        border-radius: 10px;
-        background: #f4d35e;
-        color: #28251b;
-        font-size: 13px;
-        font-weight: 800;
+        min-height: 39px;
+        padding: 9px 13px;
+        border: 1px solid #e3e7e0;
+        border-radius: 9px;
+        background: #fff;
+        color: #333b31;
+        font-size: 12px;
+        font-weight: 700;
         text-decoration: none;
         white-space: nowrap;
-        transition: background 0.2s ease;
     }
 
     .exam-download-button:hover {
-        background: #e9c64d;
-        color: #28251b;
+        background: #fff9d6;
+        border-color: #e8d67f;
+        color: #252923;
     }
 
-    .exam-download-button:focus-visible {
-        outline: 3px solid #8a6813;
-        outline-offset: 3px;
+    .exam-download-button svg {
+        width: 16px;
+        height: 16px;
     }
 
     /* Empty states */
 
     .exam-empty {
-        padding: 72px 24px;
+        padding: 65px 25px;
         text-align: center;
     }
 
     .exam-empty-icon {
-        width: 76px;
-        height: 76px;
-        border-radius: 22px;
-        background: #fff3cb;
-        margin: 0 auto 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 32px;
+        display: grid;
+        place-items: center;
+        width: 62px;
+        height: 62px;
+        margin: 0 auto 20px;
+        border-radius: 17px;
+        background: #fff8db;
+        color: #766633;
+    }
+
+    .exam-empty-icon svg {
+        width: 29px;
+        height: 29px;
     }
 
     .exam-empty h2 {
-        font-size: 22px;
+        margin: 0 0 10px;
+        font-size: 18px;
         font-weight: 750;
-        margin-bottom: 10px;
     }
 
     .exam-empty p {
-        max-width: 400px;
+        max-width: 420px;
         margin: 0 auto;
-        color: #777568;
+        color: #899087;
+        font-size: 13px;
         line-height: 1.7;
     }
 
     .exam-empty-action {
-        margin-top: 24px;
+        margin-top: 22px;
     }
 
-    .exam-footer-note {
+    .exam-no-results {
+        display: none;
+    }
+
+    .exam-security-note {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 9px;
-        margin-top: 22px;
-        font-size: 13px;
-        color: #777568;
+        margin-top: 20px;
+        color: #858c82;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .exam-security-note svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+    }
+
+    .exam-page a:focus-visible {
+        outline: 3px solid #b69826;
+        outline-offset: 3px;
     }
 
     /* Responsive */
 
-    @media (max-width: 640px) {
-        .exam-page {
-            padding: 28px 0 50px;
-        }
-
-        .exam-container {
-            padding: 0 16px;
-        }
-
+    @media (max-width: 900px) {
         .exam-header {
-            align-items: flex-start;
+            flex-direction: column;
         }
+    }
 
-        .exam-header-icon {
-            width: 56px;
-            height: 56px;
-            font-size: 24px;
-        }
-
-        .exam-upload-button {
+    @media (max-width: 640px) {
+        .exam-header-actions {
             width: 100%;
         }
 
-        .exam-stats {
+        .exam-header-actions .exam-button {
+            flex: 1;
+        }
+
+        .exam-summary {
             gap: 10px;
         }
 
-        .exam-stat {
+        .exam-summary-card {
             padding: 18px;
         }
 
-        .exam-stat-value {
+        .exam-summary-value {
             font-size: 21px;
-        }
-
-        .exam-item {
-            padding: 18px;
-            gap: 12px;
-            flex-wrap: wrap;
         }
 
         .exam-panel-header {
             padding: 20px;
         }
 
-        .exam-file-type {
-            margin-left: 60px;
+        .exam-item {
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 18px;
+        }
+
+        .exam-item-info {
+            flex-basis: calc(100% - 60px);
         }
 
         .exam-download-button {
             width: 100%;
         }
 
-        .exam-footer-note {
-            align-items: flex-start;
+        .exam-private-label {
+            margin-left: auto;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .exam-button,
+        .exam-search {
+            transition: none;
         }
     }
 </style>
+{% endblock %}
 
-<main class="exam-page">
-    <div class="exam-container">
+{% block content %}
 
-        <!-- Breadcrumb -->
+<section class="exam-page" aria-labelledby="exam-page-title">
 
-        <div class="exam-breadcrumb">
-            Medical Records / Examinations
+    <!-- Page header -->
+
+    <header class="exam-header">
+        <div>
+            <span class="exam-eyebrow">
+                MEDICAL RECORDS / EXAMINATIONS
+            </span>
+
+            <h1 id="exam-page-title">
+                Medical Examinations
+            </h1>
+
+            <p>
+                Your medical documents, organized and securely
+                accessible in one place.
+            </p>
         </div>
 
-        <!-- Page header -->
+        <div class="exam-header-actions">
 
-        <header class="exam-header">
-            <div>
-                <h1>Medical Examinations</h1>
-                <p>
-                    Your health documents, organized securely
-                    in one place.
-                </p>
-            </div>
+            {% if request.user.role == "patient" %}
+                <a href="{% url 'medical_records:my_record' %}"
+                   class="exam-button">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="m15 18-6-6 6-6"/>
+                    </svg>
+                    Medical record
+                </a>
+            {% else %}
+                <a href="{% url 'medical_records:patient_record' patient_id=dossier.patient_id %}"
+                   class="exam-button">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="m15 18-6-6 6-6"/>
+                    </svg>
+                    Patient record
+                </a>
+            {% endif %}
 
-            <div class="exam-header-icon" aria-hidden="true">
-                &#128193;
-            </div>
-        </header>
-
-        <!-- Upload button: patient owner only -->
-
-        {% if request.user.role == "patient" and request.user.pk == dossier.patient_id %}
-            <div class="exam-upload-action">
-                <a
-                    href="{% url 'medical_records:examination_upload' %}"
-                    class="exam-upload-button"
-                >
-                    <span class="exam-upload-plus" aria-hidden="true">
-                        +
-                    </span>
+            {% if request.user.role == "patient" and request.user.pk == dossier.patient_id %}
+                <a href="{% url 'medical_records:examination_upload' %}"
+                   class="exam-button exam-button--primary">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
                     Upload examination
                 </a>
-            </div>
-        {% endif %}
+            {% endif %}
 
-        <!-- Patient information -->
+        </div>
+    </header>
 
-        <section class="exam-patient" aria-label="Patient information">
-            <div class="exam-avatar" aria-hidden="true">
-                {{ dossier.patient.first_name|first|upper|default:"P" }}
-            </div>
+    <!-- Patient information -->
 
-            <div>
-                <div class="exam-patient-name">
-                    {{ dossier.patient.get_full_name|default:dossier.patient.email }}
-                </div>
+    <section class="exam-patient" aria-label="Patient information">
 
-                <div class="exam-patient-label">
-                    Patient medical documents
-                </div>
-            </div>
-        </section>
+        <div class="exam-avatar" aria-hidden="true">
+            {{ dossier.patient.first_name|first|upper|default:"P" }}
+        </div>
 
-        <!-- Statistics -->
-
-        <section class="exam-stats" aria-label="Examination statistics">
-
-            <div class="exam-stat">
-                <div class="exam-stat-label">
-                    Total examinations
-                </div>
-
-                <div class="exam-stat-value">
-                    {{ examens|length }}
-                </div>
+        <div>
+            <div class="exam-patient-name">
+                {{ dossier.patient.get_full_name|default:dossier.patient.email }}
             </div>
 
-            <div class="exam-stat">
-                <div class="exam-stat-label">
-                    Latest examination
-                </div>
+            <div class="exam-patient-label">
+                Private medical documents
+            </div>
+        </div>
 
-                <div class="exam-stat-value">
-                    {% if examens %}
-                        {{ examens.0.date|date:"d M Y" }}
-                    {% else %}
-                        —
-                    {% endif %}
-                </div>
+    </section>
+
+    <!-- Examination summary -->
+
+    <section class="exam-summary" aria-label="Examination summary">
+
+        <article class="exam-summary-card">
+            <div class="exam-summary-label">
+                Total examinations
             </div>
 
-        </section>
+            <div class="exam-summary-value">
+                {{ examens|length }}
+            </div>
+        </article>
 
-        <!-- Examination documents -->
+        <article class="exam-summary-card">
+            <div class="exam-summary-label">
+                Latest examination
+            </div>
 
-        <section
-            class="exam-panel"
-            aria-labelledby="exam-documents-heading"
-        >
+            <div class="exam-summary-value">
+                {% if examens %}
+                    {{ examens.0.date|date:"d M Y" }}
+                {% else %}
+                    —
+                {% endif %}
+            </div>
+        </article>
 
-            <div class="exam-panel-header">
+    </section>
+
+    <!-- Documents -->
+
+    <section class="exam-panel"
+             aria-labelledby="exam-documents-heading">
+
+        <div class="exam-panel-header">
+
+            <div class="exam-panel-heading">
                 <div>
-                    <h2
-                        class="exam-panel-title"
-                        id="exam-documents-heading"
-                    >
-                        Examination Documents
+                    <h2 class="exam-panel-title"
+                        id="exam-documents-heading">
+                        Examination documents
                     </h2>
+
+                    <p class="exam-panel-subtitle">
+                        Browse and download your medical reports.
+                    </p>
                 </div>
 
                 <span class="exam-count">
                     {{ examens|length }} files
                 </span>
-
-                {% if examens %}
-                    <div class="exam-search-container">
-                        <label
-                            for="examSearch"
-                            class="visually-hidden"
-                        >
-                            Search examination documents
-                        </label>
-
-                        <input
-                            type="search"
-                            id="examSearch"
-                            class="exam-search"
-                            placeholder="Search examinations by title..."
-                            autocomplete="off"
-                        >
-                    </div>
-                {% endif %}
             </div>
 
             {% if examens %}
+                <div class="exam-search-wrap">
+                    <label for="examSearch"
+                           class="exam-search-label">
+                        Search examination documents
+                    </label>
 
-                <div id="examList">
-                    {% for examen in examens %}
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <circle cx="11" cy="11" r="7"/>
+                        <path d="m20 20-4-4"/>
+                    </svg>
 
-                        <article
-                            class="exam-item"
-                            data-exam-title="{{ examen.titre|lower }}"
-                        >
-                            <div
-                                class="exam-file-icon"
-                                aria-hidden="true"
-                            >
-                                &#128196;
-                            </div>
-
-                            <div class="exam-item-info">
-                                <h3 class="exam-item-title">
-                                    {{ examen.titre }}
-                                </h3>
-
-                                <div class="exam-item-meta">
-                                    {{ examen.date|date:"d M Y" }}
-                                </div>
-                            </div>
-
-                            <span class="exam-file-type">
-                                {{ examen.fichier.name|slice:"-4:"|upper }}
-                            </span>
-
-                            <span class="exam-private-label">
-                                &#128274; Private
-                            </span>
-
-                            <!-- Authorized download -->
-
-                            <a
-                                href="{% url 'medical_records:examination_download' pk=examen.pk %}"
-                                class="exam-download-button"
-                                aria-label="Download {{ examen.titre }}"
-                            >
-                                <span aria-hidden="true">
-                                    &#8595;
-                                </span>
-                                Download
-                            </a>
-
-                        </article>
-
-                    {% endfor %}
+                    <input
+                        type="search"
+                        id="examSearch"
+                        class="exam-search"
+                        placeholder="Search examinations by title..."
+                        autocomplete="off"
+                    >
                 </div>
-
-                <!-- Search empty state -->
-
-                <div
-                    id="examNoResults"
-                    class="exam-empty"
-                    style="display:none"
-                    role="status"
-                    aria-live="polite"
-                >
-                    <h2>No matching examinations</h2>
-
-                    <p>
-                        Try searching for a different document title.
-                    </p>
-                </div>
-
-            {% else %}
-
-                <!-- No examinations -->
-
-                <div class="exam-empty">
-                    <div class="exam-empty-icon" aria-hidden="true">
-                        &#128196;
-                    </div>
-
-                    <h2>No examinations yet</h2>
-
-                    <p>
-                        Medical examination documents will appear
-                        here once they have been added to this
-                        patient's medical record.
-                    </p>
-
-                    {% if request.user.role == "patient" and request.user.pk == dossier.patient_id %}
-                        <div class="exam-empty-action">
-                            <a
-                                href="{% url 'medical_records:examination_upload' %}"
-                                class="exam-upload-button"
-                            >
-                                <span
-                                    class="exam-upload-plus"
-                                    aria-hidden="true"
-                                >
-                                    +
-                                </span>
-                                Upload your first examination
-                            </a>
-                        </div>
-                    {% endif %}
-                </div>
-
             {% endif %}
 
-        </section>
-
-        <!-- Security note -->
-
-        <div class="exam-footer-note">
-            <span aria-hidden="true">&#128274;</span>
-
-            <span>
-                Medical documents are stored privately and
-                require authorization to access.
-            </span>
         </div>
 
-    </div>
-</main>
+        {% if examens %}
 
+            <div id="examList">
+
+                {% for examen in examens %}
+
+                    <article class="exam-item"
+                             data-exam-title="{{ examen.titre|lower }}">
+
+                        <div class="exam-file-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.7"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                                <path d="M15 3v5h5M8 13h8M8 17h5"/>
+                            </svg>
+                        </div>
+
+                        <div class="exam-item-info">
+                            <h3 class="exam-item-title">
+                                {{ examen.titre }}
+                            </h3>
+
+                            <div class="exam-item-meta">
+                                {{ examen.date|date:"d M Y" }}
+                            </div>
+                        </div>
+
+                        <span class="exam-file-type">
+                            {{ examen.fichier.name|slice:"-4:"|upper }}
+                        </span>
+
+                        <span class="exam-private-label">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <rect x="5" y="10" width="14" height="11" rx="2"/>
+                                <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+                            </svg>
+                            Private
+                        </span>
+
+                        <a href="{% url 'medical_records:examination_download' pk=examen.pk %}"
+                           class="exam-download-button"
+                           aria-label="Download {{ examen.titre }}">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <path d="M12 3v12m-4-4 4 4 4-4"/>
+                                <path d="M5 17v3h14v-3"/>
+                            </svg>
+                            Download
+                        </a>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+            <!-- No search results -->
+
+            <div id="examNoResults"
+                 class="exam-empty exam-no-results"
+                 role="status"
+                 aria-live="polite">
+
+                <h2>No matching examinations</h2>
+
+                <p>
+                    Try searching for a different document title.
+                </p>
+
+            </div>
+
+        {% else %}
+
+            <!-- Empty state -->
+
+            <div class="exam-empty">
+
+                <div class="exam-empty-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.7"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                        <path d="M15 3v5h5M8 13h8"/>
+                    </svg>
+                </div>
+
+                <h2>No examinations yet</h2>
+
+                <p>
+                    Medical examination documents will appear here
+                    once they have been added to this patient's
+                    medical record.
+                </p>
+
+                {% if request.user.role == "patient" and request.user.pk == dossier.patient_id %}
+                    <div class="exam-empty-action">
+                        <a href="{% url 'medical_records:examination_upload' %}"
+                           class="exam-button exam-button--primary">
+                            Upload your first examination
+                        </a>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+    <!-- Security note -->
+
+    <div class="exam-security-note">
+
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+            <rect x="5" y="10" width="14" height="11" rx="2"/>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+
+        <span>
+            Medical documents are stored privately and
+            require authorization to access.
+        </span>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const search = document.getElementById("examSearch");
-    const items = document.querySelectorAll(".exam-item");
+    const items = document.querySelectorAll("#examList .exam-item");
     const noResults = document.getElementById("examNoResults");
 
     if (!search) {
@@ -704,5 +833,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
 {% endblock %}

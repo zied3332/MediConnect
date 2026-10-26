@@ -1,5 +1,5 @@
 
-{% extends "base.html" %}
+{% extends "dashboard/base.html" %}
 
 {% block title %}
     {% if is_edit %}Edit Prescription{% else %}New Prescription{% endif %} | MediConnect
@@ -7,307 +7,677 @@
 
 {% block extra_css %}
 <style>
-    .prescription-page {
-        min-height: 75vh;
-        padding: 56px 20px 96px;
-        background: #fffdf5;
-        color: #252525;
-    }
+    /* ==========================================
+       MEDICONNECT — PRESCRIPTION FORM
+       ========================================== */
 
-    .prescription-container {
-        max-width: 900px;
+    .rx-form-page {
+        width: 100%;
+        max-width: 980px;
         margin: 0 auto;
+        color: #252923;
     }
 
-    .prescription-eyebrow {
-        color: #756400;
+    .rx-form-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 25px;
+        color: #7b8379;
         font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        margin-bottom: 12px;
+        font-weight: 700;
+        text-decoration: none;
     }
 
-    .prescription-title {
-        font-size: clamp(30px, 5vw, 46px);
-        font-weight: 800;
-        letter-spacing: -1.5px;
-        margin-bottom: 12px;
+    .rx-form-back:hover {
+        color: #252923;
     }
 
-    .prescription-subtitle {
-        color: #666;
-        font-size: 16px;
-        line-height: 1.7;
+    .rx-form-back svg {
+        width: 17px;
+        height: 17px;
     }
 
-    .prescription-card {
-        background: #fff;
-        border: 1px solid #e9e5d8;
-        border-radius: 20px;
-        padding: 32px;
-        margin-top: 28px;
-        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
-    }
-
-    .prescription-info {
-        background: #fff9dc;
-        border: 1px solid #eee0a0;
-        border-radius: 14px;
-        padding: 20px;
-        margin-bottom: 32px;
-    }
-
-    .prescription-info-title {
-        font-weight: 800;
-        margin-bottom: 12px;
-    }
-
-    .prescription-info p {
-        margin-bottom: 6px;
-        color: #454545;
-    }
-
-    .prescription-section {
+    .rx-form-header {
         margin-bottom: 28px;
     }
 
-    .prescription-section h2 {
-        font-size: 19px;
+    .rx-form-eyebrow {
+        display: block;
+        margin-bottom: 12px;
+        color: #8c8150;
+        font-size: 10px;
         font-weight: 800;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+    }
+
+    .rx-form-title {
+        margin: 0 0 11px;
+        color: #252923;
+        font-size: clamp(28px, 3vw, 38px);
+        font-weight: 800;
+        letter-spacing: -1.2px;
+        line-height: 1.2;
+    }
+
+    .rx-form-subtitle {
+        max-width: 650px;
+        margin: 0;
+        color: #858c82;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* Main card */
+
+    .rx-form-card {
+        overflow: hidden;
+        border: 1px solid #e8ebe5;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 3px 15px rgba(30, 38, 30, .025);
+    }
+
+    .rx-form-card-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 25px 30px;
+        border-bottom: 1px solid #eef0ea;
+    }
+
+    .rx-form-card-icon {
+        display: grid;
+        place-items: center;
+        width: 45px;
+        height: 45px;
+        flex: 0 0 45px;
+        border-radius: 12px;
+        background: #fff7d4;
+        color: #74622c;
+    }
+
+    .rx-form-card-icon svg {
+        width: 23px;
+        height: 23px;
+    }
+
+    .rx-form-card-header h2 {
+        margin: 0 0 5px;
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+    .rx-form-card-header p {
+        margin: 0;
+        color: #899087;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .rx-form-body {
+        padding: 30px;
+    }
+
+    /* Consultation information */
+
+    .rx-consultation-info {
+        margin-bottom: 30px;
+        padding: 23px;
+        border: 1px solid #eee6c5;
+        border-radius: 12px;
+        background: #fffaf0;
+    }
+
+    .rx-consultation-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .rx-consultation-heading svg {
+        width: 19px;
+        height: 19px;
+        color: #81703c;
+    }
+
+    .rx-consultation-heading h3 {
+        margin: 0;
+        color: #51472c;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .rx-consultation-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 19px 25px;
+    }
+
+    .rx-consultation-label {
+        display: block;
+        margin-bottom: 6px;
+        color: #938762;
+        font-size: 11px;
+        font-weight: 650;
+    }
+
+    .rx-consultation-value {
+        display: block;
+        color: #51472c;
+        font-size: 13px;
+        font-weight: 750;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    /* Form fields */
+
+    .rx-form-section {
+        margin-bottom: 30px;
+    }
+
+    .rx-form-section + .rx-form-section {
+        padding-top: 28px;
+        border-top: 1px solid #eef0ea;
+    }
+
+    .rx-form-section-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         margin-bottom: 10px;
     }
 
-    .prescription-help {
-        color: #666;
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 14px;
+    .rx-form-section-heading svg {
+        width: 19px;
+        height: 19px;
+        flex-shrink: 0;
+        color: #81703c;
     }
 
-    .prescription-page .form-control {
+    .rx-form-section h3 {
+        margin: 0;
+        color: #252923;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .rx-form-help {
+        margin: 0 0 17px;
+        color: #899087;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .rx-form-label {
+        display: block;
+        margin-bottom: 10px;
+        color: #394037;
+        font-size: 13px;
+        font-weight: 750;
+    }
+
+    .rx-form-section textarea,
+    .rx-form-section input,
+    .rx-form-section select {
+        display: block;
         width: 100%;
-        border: 1px solid #d9d6ca;
-        border-radius: 12px;
-        padding: 14px 16px;
-        font-size: 15px;
+        min-height: 46px;
+        padding: 13px 15px;
+        border: 1px solid #dfe4dc;
+        border-radius: 10px;
+        outline: none;
+        background: #fff;
+        color: #252923;
+        font-family: inherit;
+        font-size: 13px;
+        line-height: 1.75;
+        transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .rx-form-section textarea {
+        min-height: 145px;
+        resize: vertical;
+    }
+
+    .rx-form-section textarea:focus,
+    .rx-form-section input:focus,
+    .rx-form-section select:focus {
+        border-color: #d3b63f;
+        box-shadow: 0 0 0 3px rgba(255, 235, 77, .18);
+    }
+
+    .rx-form-section textarea::placeholder,
+    .rx-form-section input::placeholder {
+        color: #a0a79e;
+    }
+
+    /* Errors */
+
+    .rx-form-error {
+        margin: 9px 0 0;
+        color: #a33b32;
+        font-size: 12px;
         line-height: 1.6;
     }
 
-    .prescription-page .form-control:focus {
-        border-color: #8c7600;
-        box-shadow: 0 0 0 3px rgba(255, 210, 0, 0.25);
+    .rx-form-alert {
+        margin-bottom: 23px;
+        padding: 14px 16px;
+        border: 1px solid #f0c8c5;
+        border-radius: 10px;
+        background: #fff5f4;
+        color: #a33b32;
+        font-size: 13px;
+        line-height: 1.7;
     }
 
-    .prescription-page .form-control:focus-visible,
-    .prescription-button:focus-visible,
-    .prescription-cancel:focus-visible {
-        outline: 3px solid #705c00;
+    /* Actions */
+
+    .rx-form-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 11px;
+        margin-top: 33px;
+        padding-top: 25px;
+        border-top: 1px solid #eef0ea;
+    }
+
+    .rx-form-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 44px;
+        padding: 11px 19px;
+        border: 1px solid #ffeb4d;
+        border-radius: 9px;
+        background: #ffeb4d;
+        color: #252923;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background .15s ease;
+    }
+
+    .rx-form-button:hover {
+        border-color: #f3d92f;
+        background: #f3d92f;
+    }
+
+    .rx-form-button svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .rx-form-cancel {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 11px 19px;
+        border: 1px solid #e3e7e0;
+        border-radius: 9px;
+        background: #fff;
+        color: #687065;
+        font-size: 12px;
+        font-weight: 750;
+        text-decoration: none;
+    }
+
+    .rx-form-cancel:hover {
+        background: #f7f8f5;
+        color: #252923;
+    }
+
+    .rx-form-page a:focus-visible,
+    .rx-form-button:focus-visible {
+        outline: 3px solid #b69826;
         outline-offset: 3px;
     }
 
-    .prescription-actions {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 14px;
-        padding-top: 24px;
-        border-top: 1px solid #eee9da;
-    }
+    /* Responsive */
 
-    .prescription-button {
-        background: #ffdb3d;
-        color: #211d00;
-        border: 1px solid #e6c52d;
-        border-radius: 12px;
-        padding: 13px 24px;
-        font-weight: 800;
-        cursor: pointer;
-    }
-
-    .prescription-button:hover {
-        background: #f1c900;
-    }
-
-    .prescription-cancel {
-        color: #333;
-        text-decoration: none;
-        padding: 12px 18px;
-        border-radius: 12px;
-        border: 1px solid #d9d6ca;
-        font-weight: 700;
-    }
-
-    .prescription-cancel:hover {
-        background: #f7f5ed;
-    }
-
-    .prescription-error {
-        color: #a12525;
-        font-size: 14px;
-        margin-top: 8px;
-    }
-
-    @media (max-width: 576px) {
-        .prescription-page {
-            padding: 32px 16px 64px;
+    @media (max-width: 700px) {
+        .rx-form-card-header {
+            padding: 21px;
         }
 
-        .prescription-card {
-            padding: 22px 18px;
+        .rx-form-body {
+            padding: 21px;
         }
 
-        .prescription-actions {
+        .rx-consultation-info {
+            padding: 19px;
+        }
+
+        .rx-consultation-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .rx-form-actions {
             flex-direction: column-reverse;
             align-items: stretch;
         }
 
-        .prescription-button,
-        .prescription-cancel {
+        .rx-form-button,
+        .rx-form-cancel {
             width: 100%;
-            text-align: center;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .rx-form-button,
+        .rx-form-section textarea,
+        .rx-form-section input,
+        .rx-form-section select {
+            transition: none;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<section class="prescription-page"
-         aria-labelledby="prescription-page-title">
 
-    <div class="prescription-container">
+<section class="rx-form-page"
+         aria-labelledby="rx-form-title">
 
-        <header>
-            <p class="prescription-eyebrow">
-                Doctor Portal / Prescriptions
-            </p>
+    <!-- Back navigation -->
 
-            <h1 id="prescription-page-title"
-                class="prescription-title">
-                {% if is_edit %}
-                    Edit Prescription
-                {% else %}
-                    Create Prescription
-                {% endif %}
-            </h1>
+    {% if is_edit %}
+        <a href="{% url 'medical_records:prescription_detail' ordonnance.pk %}"
+           class="rx-form-back">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <path d="m15 18-6-6 6-6"/>
+            </svg>
+            Back to prescription
+        </a>
+    {% else %}
+        <a href="{% url 'consultations:detail' consultation.pk %}"
+           class="rx-form-back">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+                <path d="m15 18-6-6 6-6"/>
+            </svg>
+            Back to consultation
+        </a>
+    {% endif %}
 
-            <p class="prescription-subtitle">
-                {% if is_edit %}
-                    Update the medication and instructions for this prescription.
-                {% else %}
-                    Create a prescription for your patient's consultation.
-                {% endif %}
-            </p>
-        </header>
+    <!-- Heading -->
 
-        <div class="prescription-card">
+    <header class="rx-form-header">
 
-            <div class="prescription-info">
-                <h2 class="prescription-info-title">
-                    Consultation Information
+        <span class="rx-form-eyebrow">
+            DOCTOR PORTAL / PRESCRIPTIONS
+        </span>
+
+        <h1 id="rx-form-title"
+            class="rx-form-title">
+            {% if is_edit %}
+                Edit Prescription
+            {% else %}
+                Create Prescription
+            {% endif %}
+        </h1>
+
+        <p class="rx-form-subtitle">
+            {% if is_edit %}
+                Update the medications and treatment instructions
+                for this prescription.
+            {% else %}
+                Create a prescription for your patient's consultation.
+            {% endif %}
+        </p>
+
+    </header>
+
+    <!-- Main form card -->
+
+    <article class="rx-form-card">
+
+        <div class="rx-form-card-header">
+
+            <div class="rx-form-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
+                    <path d="M15 3v5h5M8 12h8M8 16h5"/>
+                </svg>
+            </div>
+
+            <div>
+                <h2>
+                    {% if is_edit %}
+                        Update prescription
+                    {% else %}
+                        Prescription details
+                    {% endif %}
                 </h2>
 
                 <p>
-                    <strong>Consultation:</strong>
-                    #{{ consultation.pk }}
-                </p>
-
-                <p>
-                    <strong>Patient:</strong>
-                    {{ consultation.appointment.patient.get_full_name|default:consultation.appointment.patient.email }}
-                </p>
-
-                <p>
-                    <strong>Appointment:</strong>
-                    {{ consultation.appointment.start|date:"F j, Y \a\t H:i" }}
+                    Complete the medication information and instructions.
                 </p>
             </div>
+
+        </div>
+
+        <div class="rx-form-body">
+
+            <!-- Consultation information -->
+
+            <section class="rx-consultation-info"
+                     aria-labelledby="rx-consultation-heading">
+
+                <div class="rx-consultation-heading">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true">
+                        <rect x="3" y="5" width="18" height="16" rx="2"/>
+                        <path d="M7 3v4M17 3v4M3 10h18"/>
+                    </svg>
+
+                    <h3 id="rx-consultation-heading">
+                        Consultation information
+                    </h3>
+                </div>
+
+                <div class="rx-consultation-grid">
+
+                    <div>
+                        <span class="rx-consultation-label">
+                            Consultation
+                        </span>
+
+                        <span class="rx-consultation-value">
+                            #{{ consultation.pk }}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="rx-consultation-label">
+                            Patient
+                        </span>
+
+                        <span class="rx-consultation-value">
+                            {{ consultation.appointment.patient.get_full_name|default:consultation.appointment.patient.email }}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="rx-consultation-label">
+                            Appointment date
+                        </span>
+
+                        <span class="rx-consultation-value">
+                            {{ consultation.appointment.start|date:"F j, Y \a\t H:i" }}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="rx-consultation-label">
+                            Prescription action
+                        </span>
+
+                        <span class="rx-consultation-value">
+                            {% if is_edit %}
+                                Editing existing prescription
+                            {% else %}
+                                Creating new prescription
+                            {% endif %}
+                        </span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Prescription form -->
 
             <form method="post">
                 {% csrf_token %}
 
                 {% if form.non_field_errors %}
-                    <div class="alert alert-danger" role="alert">
+                    <div class="rx-form-alert" role="alert">
                         {{ form.non_field_errors }}
                     </div>
                 {% endif %}
 
-                <div class="prescription-section">
+                <!-- Medications -->
 
-                    <h2>Medications</h2>
+                <section class="rx-form-section"
+                         aria-labelledby="rx-medications-heading">
 
-                    <p class="prescription-help" id="medications-help">
-                        Include medication names, dosages, frequency,
-                        and treatment duration.
+                    <div class="rx-form-section-heading">
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round"
+                             stroke-linejoin="round"
+                             aria-hidden="true">
+                            <rect x="3" y="8" width="18" height="9" rx="4.5"/>
+                            <path d="m9 8 6 9"/>
+                        </svg>
+
+                        <h3 id="rx-medications-heading">
+                            Medications
+                        </h3>
+                    </div>
+
+                    <p class="rx-form-help" id="medications-help">
+                        Include medication names, dosages,
+                        frequency, and treatment duration.
                     </p>
 
-                    <label for="{{ form.medicaments.id_for_label }}"
-                           class="form-label fw-bold">
-                        Medications and Dosage
+                    <label class="rx-form-label"
+                           for="{{ form.medicaments.id_for_label }}">
+                        Medications and dosage
                     </label>
 
                     {{ form.medicaments }}
 
                     {% for error in form.medicaments.errors %}
-                        <p class="prescription-error" role="alert">
+                        <p class="rx-form-error" role="alert">
                             {{ error }}
                         </p>
                     {% endfor %}
 
-                </div>
+                </section>
 
-                <div class="prescription-section">
+                <!-- Instructions -->
 
-                    <h2>Additional Instructions</h2>
+                <section class="rx-form-section"
+                         aria-labelledby="rx-instructions-heading">
 
-                    <p class="prescription-help">
-                        Include any precautions, follow-up instructions,
+                    <div class="rx-form-section-heading">
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round"
+                             stroke-linejoin="round"
+                             aria-hidden="true">
+                            <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1 1-1V4a1 1 0 0 1 1-1h3z"/>
+                            <path d="M15 3v5h5M8 13h8M8 17h5"/>
+                        </svg>
+
+                        <h3 id="rx-instructions-heading">
+                            Additional instructions
+                        </h3>
+                    </div>
+
+                    <p class="rx-form-help">
+                        Include precautions, follow-up instructions,
                         or other guidance for the patient.
                     </p>
 
-                    <label for="{{ form.instructions.id_for_label }}"
-                           class="form-label fw-bold">
+                    <label class="rx-form-label"
+                           for="{{ form.instructions.id_for_label }}">
                         Instructions
                     </label>
 
                     {{ form.instructions }}
 
                     {% for error in form.instructions.errors %}
-                        <p class="prescription-error" role="alert">
+                        <p class="rx-form-error" role="alert">
                             {{ error }}
                         </p>
                     {% endfor %}
 
-                </div>
+                </section>
 
-                <div class="prescription-actions">
+                <!-- Actions -->
+
+                <div class="rx-form-actions">
 
                     {% if is_edit %}
                         <a href="{% url 'medical_records:prescription_detail' ordonnance.pk %}"
-                           class="prescription-cancel">
+                           class="rx-form-cancel">
                             Cancel
                         </a>
                     {% else %}
                         <a href="{% url 'consultations:detail' consultation.pk %}"
-                           class="prescription-cancel">
+                           class="rx-form-cancel">
                             Cancel
                         </a>
                     {% endif %}
 
                     <button type="submit"
-                            class="prescription-button">
+                            class="rx-form-button">
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round"
+                             stroke-linejoin="round"
+                             aria-hidden="true">
+                            <path d="M5 4h12l3 3v13H4V4h1z"/>
+                            <path d="M8 4v6h8V4M8 20v-7h8v7"/>
+                        </svg>
+
                         {% if is_edit %}
-                            Save Changes
+                            Save changes
                         {% else %}
-                            Create Prescription
+                            Create prescription
                         {% endif %}
                     </button>
 
                 </div>
+
             </form>
 
         </div>
-    </div>
+
+    </article>
+
 </section>
+
 {% endblock %}

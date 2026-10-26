@@ -1,131 +1,251 @@
 
-{% extends "base.html" %}
+{% extends "dashboard/base.html" %}
 
 {% block title %}Delete Prescription | MediConnect{% endblock %}
 
 {% block extra_css %}
 <style>
+    /* ==========================================
+       MEDICONNECT — DELETE PRESCRIPTION
+       ========================================== */
+
     .delete-rx-page {
-        min-height: 75vh;
-        background: #fffdf5;
-        padding: 72px 20px 100px;
-        color: #252525;
+        width: 100%;
+        max-width: 760px;
+        margin: 0 auto;
+        color: #252923;
     }
 
-    .delete-rx-container {
-        max-width: 680px;
-        margin: 0 auto;
+    .delete-rx-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 26px;
+        color: #7b8379;
+        font-size: 12px;
+        font-weight: 700;
+        text-decoration: none;
     }
+
+    .delete-rx-back:hover {
+        color: #252923;
+    }
+
+    .delete-rx-back svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    /* Confirmation card */
 
     .delete-rx-card {
+        overflow: hidden;
+        border: 1px solid #e8ebe5;
+        border-radius: 16px;
         background: #fff;
-        border: 1px solid #e9e5d8;
-        border-radius: 20px;
-        padding: 36px;
-        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
+        box-shadow: 0 3px 15px rgba(30, 38, 30, .025);
+    }
+
+    .delete-rx-card-body {
+        padding: 34px;
+    }
+
+    .delete-rx-icon {
+        display: grid;
+        place-items: center;
+        width: 58px;
+        height: 58px;
+        margin-bottom: 23px;
+        border: 1px solid #f1d1cb;
+        border-radius: 16px;
+        background: #fff2ef;
+        color: #ad4b40;
+    }
+
+    .delete-rx-icon svg {
+        width: 28px;
+        height: 28px;
     }
 
     .delete-rx-eyebrow {
-        color: #8c5b00;
-        font-size: 12px;
+        display: block;
+        margin-bottom: 11px;
+        color: #8c8150;
+        font-size: 10px;
         font-weight: 800;
         letter-spacing: 1.4px;
         text-transform: uppercase;
-        margin-bottom: 14px;
     }
 
     .delete-rx-title {
-        font-size: clamp(28px, 4vw, 38px);
+        margin: 0 0 13px;
+        color: #252923;
+        font-size: clamp(27px, 3vw, 35px);
         font-weight: 800;
-        letter-spacing: -1px;
-        margin-bottom: 16px;
+        letter-spacing: -1.1px;
+        line-height: 1.2;
     }
 
     .delete-rx-description {
-        color: #555;
-        line-height: 1.7;
-        margin-bottom: 24px;
+        max-width: 590px;
+        margin: 0 0 28px;
+        color: #858c82;
+        font-size: 14px;
+        line-height: 1.75;
     }
+
+    /* Prescription summary */
 
     .delete-rx-summary {
-        background: #fff9dc;
-        border: 1px solid #eee0a0;
+        padding: 23px;
+        border: 1px solid #e9ece6;
         border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 28px;
+        background: #fafbf8;
     }
 
-    .delete-rx-summary p {
-        margin-bottom: 8px;
+    .delete-rx-summary-heading {
+        margin: 0 0 19px;
+        color: #394037;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .delete-rx-summary-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px 24px;
+    }
+
+    .delete-rx-meta-label {
+        display: block;
+        margin-bottom: 7px;
+        color: #929a90;
+        font-size: 11px;
+        font-weight: 650;
+    }
+
+    .delete-rx-meta-value {
+        display: block;
+        color: #384036;
+        font-size: 13px;
+        font-weight: 750;
+        line-height: 1.6;
         overflow-wrap: anywhere;
     }
 
-    .delete-rx-summary p:last-child {
-        margin-bottom: 0;
-    }
+    /* Warning */
 
     .delete-rx-warning {
-        color: #912525;
-        font-weight: 700;
-        margin-bottom: 24px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-top: 24px;
+        padding: 17px 19px;
+        border: 1px solid #f1d1cb;
+        border-radius: 11px;
+        background: #fff7f5;
+        color: #99473e;
+        font-size: 12px;
+        line-height: 1.7;
     }
+
+    .delete-rx-warning svg {
+        width: 19px;
+        height: 19px;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+
+    .delete-rx-warning strong {
+        display: block;
+        margin-bottom: 3px;
+        color: #923e35;
+        font-size: 13px;
+    }
+
+    /* Actions */
 
     .delete-rx-actions {
         display: flex;
-        flex-wrap: wrap;
+        align-items: center;
         justify-content: flex-end;
-        gap: 12px;
+        flex-wrap: wrap;
+        gap: 11px;
+        margin-top: 29px;
+        padding-top: 25px;
+        border-top: 1px solid #eef0ea;
     }
 
     .delete-rx-cancel,
     .delete-rx-confirm {
-        display: inline-block;
-        padding: 13px 22px;
-        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 44px;
+        padding: 11px 19px;
+        border-radius: 9px;
+        font-family: inherit;
+        font-size: 12px;
         font-weight: 800;
         text-decoration: none;
-        text-align: center;
+        transition: background .15s ease, border-color .15s ease;
     }
 
     .delete-rx-cancel {
-        color: #252525;
+        border: 1px solid #e3e7e0;
         background: #fff;
-        border: 1px solid #d9d6ca;
+        color: #687065;
+    }
+
+    .delete-rx-cancel:hover {
+        background: #f7f8f5;
+        color: #252923;
     }
 
     .delete-rx-confirm {
+        border: 1px solid #a94037;
+        background: #a94037;
         color: #fff;
-        background: #a12525;
-        border: 1px solid #8c2020;
         cursor: pointer;
     }
 
     .delete-rx-confirm:hover {
-        background: #861818;
+        border-color: #92352d;
+        background: #92352d;
     }
 
-    .delete-rx-cancel:hover {
-        background: #f7f5ed;
-        color: #252525;
+    .delete-rx-confirm svg {
+        width: 16px;
+        height: 16px;
     }
 
     .delete-rx-cancel:focus-visible,
-    .delete-rx-confirm:focus-visible {
-        outline: 3px solid #705c00;
+    .delete-rx-confirm:focus-visible,
+    .delete-rx-back:focus-visible {
+        outline: 3px solid #b69826;
         outline-offset: 3px;
     }
 
-    @media (max-width: 576px) {
-        .delete-rx-page {
-            padding: 36px 16px 64px;
+    /* Responsive */
+
+    @media (max-width: 640px) {
+        .delete-rx-card-body {
+            padding: 23px;
         }
 
-        .delete-rx-card {
-            padding: 24px 20px;
+        .delete-rx-summary {
+            padding: 19px;
+        }
+
+        .delete-rx-summary-grid {
+            grid-template-columns: 1fr;
+            gap: 17px;
         }
 
         .delete-rx-actions {
             flex-direction: column-reverse;
+            align-items: stretch;
         }
 
         .delete-rx-cancel,
@@ -133,20 +253,58 @@
             width: 100%;
         }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+        .delete-rx-cancel,
+        .delete-rx-confirm {
+            transition: none;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
+
 <section class="delete-rx-page"
          aria-labelledby="delete-rx-title">
 
-    <div class="delete-rx-container">
+    <!-- Back navigation -->
 
-        <div class="delete-rx-card">
+    <a href="{% url 'medical_records:prescription_detail' ordonnance.pk %}"
+       class="delete-rx-back">
 
-            <p class="delete-rx-eyebrow">
-                Doctor Portal / Prescriptions
-            </p>
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+            <path d="m15 18-6-6 6-6"/>
+        </svg>
+
+        Back to prescription
+    </a>
+
+    <!-- Confirmation card -->
+
+    <article class="delete-rx-card">
+
+        <div class="delete-rx-card-body">
+
+            <!-- Warning icon -->
+
+            <div class="delete-rx-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13"/>
+                    <path d="M10 11v5M14 11v5"/>
+                </svg>
+            </div>
+
+            <!-- Heading -->
+
+            <span class="delete-rx-eyebrow">
+                DOCTOR PORTAL / PRESCRIPTIONS
+            </span>
 
             <h1 class="delete-rx-title"
                 id="delete-rx-title">
@@ -156,28 +314,88 @@
             <p class="delete-rx-description">
                 You are about to delete this prescription
                 from the patient's medical information.
+                Please review the details before confirming.
             </p>
 
-            <div class="delete-rx-summary">
-                <p>
-                    <strong>Prescription:</strong>
-                    #{{ ordonnance.pk }}
-                </p>
+            <!-- Prescription information -->
 
-                <p>
-                    <strong>Patient:</strong>
-                    {{ ordonnance.consultation.appointment.patient.get_full_name|default:ordonnance.consultation.appointment.patient.email }}
-                </p>
+            <section class="delete-rx-summary"
+                     aria-labelledby="delete-rx-summary-title">
 
-                <p>
-                    <strong>Date:</strong>
-                    {{ ordonnance.date|date:"F j, Y" }}
-                </p>
+                <h2 class="delete-rx-summary-heading"
+                    id="delete-rx-summary-title">
+                    Prescription information
+                </h2>
+
+                <div class="delete-rx-summary-grid">
+
+                    <div>
+                        <span class="delete-rx-meta-label">
+                            Prescription
+                        </span>
+
+                        <span class="delete-rx-meta-value">
+                            #{{ ordonnance.pk }}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="delete-rx-meta-label">
+                            Prescription date
+                        </span>
+
+                        <span class="delete-rx-meta-value">
+                            {{ ordonnance.date|date:"F j, Y" }}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="delete-rx-meta-label">
+                            Patient
+                        </span>
+
+                        <span class="delete-rx-meta-value">
+                            {{ ordonnance.consultation.appointment.patient.get_full_name|default:ordonnance.consultation.appointment.patient.email }}
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="delete-rx-meta-label">
+                            Consultation
+                        </span>
+
+                        <span class="delete-rx-meta-value">
+                            #{{ ordonnance.consultation.pk }}
+                        </span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Warning -->
+
+            <div class="delete-rx-warning" role="alert">
+
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <path d="M12 3 2 20h20L12 3Z"/>
+                    <path d="M12 9v5M12 17h.01"/>
+                </svg>
+
+                <div>
+                    <strong>Permanent deletion</strong>
+
+                    This action cannot be undone.
+                    The prescription will be removed from
+                    the patient's medical records.
+                </div>
+
             </div>
 
-            <p class="delete-rx-warning" role="alert">
-                Warning: This action permanently deletes the prescription.
-            </p>
+            <!-- Confirmation form -->
 
             <form method="post"
                   action="{% url 'medical_records:prescription_delete' ordonnance.pk %}">
@@ -185,6 +403,7 @@
                 {% csrf_token %}
 
                 <div class="delete-rx-actions">
+
                     <a href="{% url 'medical_records:prescription_detail' ordonnance.pk %}"
                        class="delete-rx-cancel">
                         Cancel
@@ -192,15 +411,26 @@
 
                     <button type="submit"
                             class="delete-rx-confirm">
-                        Yes, Delete Prescription
+
+                        <svg viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="1.8"
+                             stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true">
+                            <path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13"/>
+                            <path d="M10 11v5M14 11v5"/>
+                        </svg>
+
+                        Yes, delete prescription
                     </button>
+
                 </div>
 
             </form>
 
         </div>
 
-    </div>
+    </article>
 
 </section>
+
 {% endblock %}
