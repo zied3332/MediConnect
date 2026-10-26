@@ -1,0 +1,206 @@
+
+{% extends "base.html" %}
+
+{% block title %}Delete Prescription | MediConnect{% endblock %}
+
+{% block extra_css %}
+<style>
+    .delete-rx-page {
+        min-height: 75vh;
+        background: #fffdf5;
+        padding: 72px 20px 100px;
+        color: #252525;
+    }
+
+    .delete-rx-container {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .delete-rx-card {
+        background: #fff;
+        border: 1px solid #e9e5d8;
+        border-radius: 20px;
+        padding: 36px;
+        box-shadow: 0 12px 36px rgba(35, 30, 0, 0.04);
+    }
+
+    .delete-rx-eyebrow {
+        color: #8c5b00;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+    }
+
+    .delete-rx-title {
+        font-size: clamp(28px, 4vw, 38px);
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+    }
+
+    .delete-rx-description {
+        color: #555;
+        line-height: 1.7;
+        margin-bottom: 24px;
+    }
+
+    .delete-rx-summary {
+        background: #fff9dc;
+        border: 1px solid #eee0a0;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 28px;
+    }
+
+    .delete-rx-summary p {
+        margin-bottom: 8px;
+        overflow-wrap: anywhere;
+    }
+
+    .delete-rx-summary p:last-child {
+        margin-bottom: 0;
+    }
+
+    .delete-rx-warning {
+        color: #912525;
+        font-weight: 700;
+        margin-bottom: 24px;
+    }
+
+    .delete-rx-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    .delete-rx-cancel,
+    .delete-rx-confirm {
+        display: inline-block;
+        padding: 13px 22px;
+        border-radius: 12px;
+        font-weight: 800;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .delete-rx-cancel {
+        color: #252525;
+        background: #fff;
+        border: 1px solid #d9d6ca;
+    }
+
+    .delete-rx-confirm {
+        color: #fff;
+        background: #a12525;
+        border: 1px solid #8c2020;
+        cursor: pointer;
+    }
+
+    .delete-rx-confirm:hover {
+        background: #861818;
+    }
+
+    .delete-rx-cancel:hover {
+        background: #f7f5ed;
+        color: #252525;
+    }
+
+    .delete-rx-cancel:focus-visible,
+    .delete-rx-confirm:focus-visible {
+        outline: 3px solid #705c00;
+        outline-offset: 3px;
+    }
+
+    @media (max-width: 576px) {
+        .delete-rx-page {
+            padding: 36px 16px 64px;
+        }
+
+        .delete-rx-card {
+            padding: 24px 20px;
+        }
+
+        .delete-rx-actions {
+            flex-direction: column-reverse;
+        }
+
+        .delete-rx-cancel,
+        .delete-rx-confirm {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="delete-rx-page"
+         aria-labelledby="delete-rx-title">
+
+    <div class="delete-rx-container">
+
+        <div class="delete-rx-card">
+
+            <p class="delete-rx-eyebrow">
+                Doctor Portal / Prescriptions
+            </p>
+
+            <h1 class="delete-rx-title"
+                id="delete-rx-title">
+                Delete Prescription?
+            </h1>
+
+            <p class="delete-rx-description">
+                You are about to delete this prescription
+                from the patient's medical information.
+            </p>
+
+            <div class="delete-rx-summary">
+                <p>
+                    <strong>Prescription:</strong>
+                    #{{ ordonnance.pk }}
+                </p>
+
+                <p>
+                    <strong>Patient:</strong>
+                    {{ ordonnance.consultation.appointment.patient.get_full_name|default:ordonnance.consultation.appointment.patient.email }}
+                </p>
+
+                <p>
+                    <strong>Date:</strong>
+                    {{ ordonnance.date|date:"F j, Y" }}
+                </p>
+            </div>
+
+            <p class="delete-rx-warning" role="alert">
+                Warning: This action permanently deletes the prescription.
+            </p>
+
+            <form method="post"
+                  action="{% url 'medical_records:prescription_delete' ordonnance.pk %}">
+
+                {% csrf_token %}
+
+                <div class="delete-rx-actions">
+                    <a href="{% url 'medical_records:prescription_detail' ordonnance.pk %}"
+                       class="delete-rx-cancel">
+                        Cancel
+                    </a>
+
+                    <button type="submit"
+                            class="delete-rx-confirm">
+                        Yes, Delete Prescription
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
