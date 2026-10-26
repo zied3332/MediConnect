@@ -1,0 +1,124 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+
+<div style="max-width: 1200px; margin: 0 auto;">
+
+    <div style="margin-bottom: 32px;">
+        <p style="font-size: 12px; letter-spacing: 2px; color: #888;">
+            DOCTOR PORTAL
+        </p>
+
+        <h1 style="font-size: 32px; margin: 12px 0;">
+            My Patients
+        </h1>
+
+        <p style="color: #777;">
+            View patients associated with your appointments
+            and access their medical records when authorized.
+        </p>
+    </div>
+
+    <div style="
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 16px;
+        overflow-x: auto;
+    ">
+
+        <table style="
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        ">
+
+            <thead style="background: #fafaf7;">
+                <tr>
+                    <th style="padding: 20px;">Patient</th>
+                    <th style="padding: 20px;">Appointments</th>
+                    <th style="padding: 20px;">Last appointment</th>
+                    <th style="padding: 20px;">Medical record</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for patient in patients %}
+
+                <tr style="border-top: 1px solid #eee;">
+
+                    <td style="padding: 20px;">
+                        <strong>
+                            {{ patient.patient__first_name }}
+                            {{ patient.patient__last_name }}
+                        </strong>
+
+                        <div style="font-size: 13px; color: #888;">
+                            {{ patient.patient__email }}
+                        </div>
+                    </td>
+
+                    <td style="padding: 20px;">
+                        {{ patient.appointment_count }}
+                    </td>
+
+                    <td style="padding: 20px;">
+                        {{ patient.last_appointment|date:"M d, Y" }}
+                    </td>
+
+                    <td style="padding: 20px;">
+
+                        {% if patient.completed_count > 0 %}
+
+                        <a
+                            href="{% url 'medical_records:patient_record' patient.patient_id %}"
+                            style="
+                                display: inline-block;
+                                background: #ffeb4d;
+                                padding: 10px 16px;
+                                border-radius: 8px;
+                                color: #222;
+                                font-weight: 600;
+                                text-decoration: none;
+                            "
+                        >
+                            View Medical Record
+                        </a>
+
+                        {% else %}
+
+                        <span style="color: #999;">
+                            Not available
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="4" style="
+                        padding: 60px;
+                        text-align: center;
+                        color: #888;
+                    ">
+                        No patients yet.
+                        Patients will appear here when they
+                        have appointments with you.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

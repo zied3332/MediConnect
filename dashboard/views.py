@@ -10,7 +10,8 @@ from django.utils import timezone
 from accounts.models import User
 from core.models import Availability, Specialty
 from .forms import AvailabilityForm, DoctorAvailabilityForm, SpecialtyForm
-
+from django.db.models import Count, Max, Q
+from appointments.models import Appointment
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Decorators
@@ -468,3 +469,47 @@ def profile_view(request):
         "active_nav": "profile",
         "page_title": "Profile",
     })
+
+@approved_doctor_required
+def doctor_patients(request):
+    """List patients who have appointments with the logged-in doctor."""
+
+    appointments = Appointment.objects.filter(
+        doctor=request.user
+    )
+
+    patient_data = (
+        appointments
+        .values(
+            "patient_id",
+            "patient__first_name",
+            "patient__last_name",
+            "patient__username",
+            "patient__email",
+        )
+        .annotate(
+            appointment_count=Count("id"),
+            last_appointment=Max("start"),
+            completed_count=Count(
+                "id",
+                filter=Q(status="completed")
+            ),
+        )
+        .order_by(
+            "patient__first_name",
+            "patient__last_name"
+        )
+    )
+
+    context = {
+        "page_title": "My Patients",
+        "dashboard_role": "doctor",
+        "active_nav": "patients",
+        "patients": patient_data,
+    }
+
+    return render(
+        request,
+        "dashboard/doctor/patients.html",
+        context
+    )

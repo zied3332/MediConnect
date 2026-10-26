@@ -1,185 +1,842 @@
+
 {% extends "dashboard/base.html" %}
 {% load static %}
 
-{% block title %}Profile | MediConnect{% endblock %}
+{% block title %}My Profile | MediConnect{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ============================================
+       MEDICONNECT — DASHBOARD PROFILE
+       ============================================ */
+
+    .profile-page {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        color: #252923;
+    }
+
+    .profile-page *,
+    .profile-page *::before,
+    .profile-page *::after {
+        box-sizing: border-box;
+    }
+
+    /* Header */
+
+    .profile-header {
+        margin-bottom: 28px;
+    }
+
+    .profile-eyebrow {
+        display: block;
+        margin-bottom: 10px;
+        color: #8b9287;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+    }
+
+    .profile-title {
+        margin: 0 0 9px;
+        color: #252923;
+        font-size: clamp(29px, 3vw, 38px);
+        font-weight: 800;
+        letter-spacing: -1.2px;
+        line-height: 1.2;
+    }
+
+    .profile-subtitle {
+        margin: 0;
+        color: #858c82;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* Profile summary */
+
+    .profile-summary {
+        display: flex;
+        align-items: center;
+        gap: 19px;
+        margin-bottom: 22px;
+        padding: 25px 28px;
+        border: 1px solid #e8ebe5;
+        border-radius: 15px;
+        background: #fff;
+    }
+
+    .profile-avatar {
+        display: grid;
+        place-items: center;
+        width: 66px;
+        height: 66px;
+        flex: 0 0 66px;
+        overflow: hidden;
+        border-radius: 50%;
+        background: #ffed9a;
+        color: #4d421b;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .profile-summary-details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .profile-summary-name {
+        margin: 0 0 6px;
+        color: #252923;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -.4px;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-summary-email {
+        margin: 0;
+        color: #858c82;
+        font-size: 13px;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-role-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 12px;
+        border: 1px solid #e9e6d4;
+        border-radius: 100px;
+        background: #fff9dc;
+        color: #70622e;
+        font-size: 11px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .profile-role-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #d4b438;
+    }
+
+    /* Cards */
+
+    .profile-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: start;
+        gap: 22px;
+    }
+
+    .profile-card {
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid #e8ebe5;
+        border-radius: 15px;
+        background: #fff;
+    }
+
+    .profile-card-header {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        padding: 24px 25px;
+        border-bottom: 1px solid #eef0ea;
+    }
+
+    .profile-card-icon {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        flex: 0 0 42px;
+        border-radius: 11px;
+        background: #fff7d4;
+        color: #756529;
+    }
+
+    .profile-card-icon svg {
+        width: 21px;
+        height: 21px;
+    }
+
+    .profile-card-heading {
+        min-width: 0;
+    }
+
+    .profile-card-heading h2 {
+        margin: 0 0 5px;
+        color: #252923;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+    .profile-card-heading p {
+        margin: 0;
+        color: #929a90;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .profile-card-body {
+        padding: 25px;
+    }
+
+    /* Account details */
+
+    .profile-detail {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 16px 0;
+        border-bottom: 1px solid #eef0ea;
+    }
+
+    .profile-detail:first-child {
+        padding-top: 0;
+    }
+
+    .profile-detail:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .profile-detail-label {
+        color: #858c82;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .profile-detail-value {
+        max-width: 68%;
+        color: #394037;
+        font-size: 12px;
+        font-weight: 750;
+        text-align: right;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    /* Security */
+
+    .profile-security-status {
+        display: flex;
+        align-items: flex-start;
+        gap: 13px;
+        padding: 17px;
+        border: 1px solid #eee6c5;
+        border-radius: 11px;
+        background: #fffaf0;
+    }
+
+    .profile-security-status.enabled {
+        border-color: #d9e8d9;
+        background: #f3faf3;
+    }
+
+    .profile-security-status-icon {
+        display: grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+        border-radius: 10px;
+        background: #fff0be;
+        color: #82702e;
+    }
+
+    .profile-security-status.enabled .profile-security-status-icon {
+        background: #e1f1e1;
+        color: #47764b;
+    }
+
+    .profile-security-status-icon svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .profile-security-status h3 {
+        margin: 0 0 5px;
+        color: #4b432b;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .profile-security-status.enabled h3 {
+        color: #3b6940;
+    }
+
+    .profile-security-status p {
+        margin: 0;
+        color: #8d8262;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .profile-security-status.enabled p {
+        color: #648168;
+    }
+
+    .profile-security-actions {
+        margin-top: 20px;
+    }
+
+    .profile-action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 44px;
+        padding: 11px 18px;
+        border: 1px solid #ffeb4d;
+        border-radius: 9px;
+        background: #ffeb4d;
+        color: #252923;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background .15s ease;
+    }
+
+    .profile-action-btn:hover {
+        background: #f3d92f;
+    }
+
+    .profile-action-btn svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .profile-security-note {
+        margin: 13px 0 0;
+        color: #9aa198;
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+    /* Modal */
+
+    .face-login-modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        inset: 0;
+        align-items: center;
+        justify-content: center;
+        overflow-y: auto;
+        padding: 22px;
+        background: rgba(25, 31, 25, .72);
+    }
+
+    .face-login-modal.active {
+        display: flex;
+    }
+
+    .face-login-modal-content {
+        position: relative;
+        width: 100%;
+        max-width: 520px;
+        max-height: calc(100vh - 44px);
+        overflow-y: auto;
+        padding: 30px;
+        border: 1px solid #e8ebe5;
+        border-radius: 17px;
+        background: #fff;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, .16);
+        text-align: center;
+    }
+
+    .face-login-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: grid;
+        place-items: center;
+        width: 35px;
+        height: 35px;
+        border: 1px solid #e8ebe5;
+        border-radius: 9px;
+        background: #fff;
+        color: #727b70;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .face-login-close:hover {
+        background: #f7f8f5;
+        color: #252923;
+    }
+
+    .face-login-modal-icon {
+        display: grid;
+        place-items: center;
+        width: 51px;
+        height: 51px;
+        margin: 0 auto 15px;
+        border-radius: 13px;
+        background: #fff7d4;
+        color: #756529;
+    }
+
+    .face-login-modal-icon svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .face-login-modal-content h2 {
+        margin: 0 0 9px;
+        color: #252923;
+        font-size: 23px;
+        font-weight: 800;
+        letter-spacing: -.5px;
+    }
+
+    .face-login-modal-description {
+        margin: 0 0 23px;
+        color: #858c82;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .face-login-video-container {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 16px;
+        border-radius: 12px;
+        background: #202420;
+        aspect-ratio: 4 / 3;
+    }
+
+    #faceEnrollVideo {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scaleX(-1);
+    }
+
+    #faceEnrollCanvas {
+        display: none;
+    }
+
+    .face-login-status {
+        margin: 0;
+        padding: 12px 14px;
+        border-radius: 9px;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .face-login-status.info {
+        background: #fff8dc;
+        color: #78692d;
+    }
+
+    .face-login-status.success {
+        background: #edf8ee;
+        color: #3f7945;
+    }
+
+    .face-login-status.error {
+        background: #fff0ed;
+        color: #a94338;
+    }
+
+    .face-login-capture {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    .profile-page button:focus-visible,
+    .face-login-modal button:focus-visible {
+        outline: 3px solid #b69826;
+        outline-offset: 3px;
+    }
+
+    /* Responsive */
+
+    @media (max-width: 900px) {
+        .profile-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .profile-summary {
+            flex-wrap: wrap;
+            padding: 21px;
+        }
+
+        .profile-role-badge {
+            margin-left: 85px;
+        }
+
+        .profile-card-header,
+        .profile-card-body {
+            padding: 20px;
+        }
+
+        .profile-detail {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .profile-detail-value {
+            max-width: 100%;
+            text-align: left;
+        }
+
+        .profile-action-btn {
+            width: 100%;
+        }
+
+        .face-login-modal-content {
+            padding: 24px 18px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .profile-action-btn {
+            transition: none;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="mc-page-heading">
-    <div>
-        <span class="mc-page-eyebrow">PROFILE</span>
-        <h1>Your Profile</h1>
-        <p>Manage your account settings and security options.</p>
-    </div>
-</div>
 
-<div class="mc-dashboard-panels">
-    <section class="mc-panel">
-        <div class="mc-panel-heading">
-            <div>
-                <h2>Face Login</h2>
-                <p>Set up facial recognition for quick and secure login</p>
-            </div>
-        </div>
+<section class="profile-page"
+         aria-labelledby="profile-page-title">
 
-        <div style="padding: 24px;">
-            {% if user.face_descriptor %}
-            <div style="background: #e8f5e9; color: #2e7d32; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
-                <strong>✓ Face login enabled</strong>
-                <p style="margin: 8px 0 0 0; font-size: 14px;">You can now log in using your face on the login page.</p>
-            </div>
-            
+    <!-- Page heading -->
+
+    <header class="profile-header">
+        <span class="profile-eyebrow">
+            ACCOUNT SETTINGS
+        </span>
+
+        <h1 class="profile-title"
+            id="profile-page-title">
+            My Profile
+        </h1>
+
+        <p class="profile-subtitle">
+            Manage your personal information and account security.
+        </p>
+    </header>
+
+    <!-- Account summary -->
+
+    <section class="profile-summary"
+             aria-label="Account summary">
+
+        <div class="profile-avatar">
             {% if user.profile_picture %}
-            <img src="{{ user.profile_picture.url }}" alt="Profile" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 16px;">
-            {% endif %}
-            
-            <button id="updateFaceBtn" class="mc-auth-submit" style="max-width: 200px;">
-                Update Face Data
-            </button>
+                <img src="{{ user.profile_picture.url }}"
+                     alt="Profile picture">
             {% else %}
-            <div style="background: #fff3e0; color: #e65100; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
-                <strong>⚠ Face login not set up</strong>
-                <p style="margin: 8px 0 0 0; font-size: 14px;">Enable face recognition to log in without typing your password.</p>
-            </div>
-            
-            <button id="enrollFaceBtn" class="mc-auth-submit" style="max-width: 200px;">
-                Set Up Face Login
-            </button>
+                {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
             {% endif %}
         </div>
-    </section>
 
-    <section class="mc-panel mc-panel-side">
-        <div class="mc-panel-heading">
-            <div>
-                <h2>Account Information</h2>
-            </div>
+        <div class="profile-summary-details">
+            <h2 class="profile-summary-name">
+                {{ user.get_full_name|default:user.username }}
+            </h2>
+
+            <p class="profile-summary-email">
+                {{ user.email }}
+            </p>
         </div>
 
-        <div class="mc-quick-info">
-            <div>
-                <span>Name</span>
-                <strong>{{ user.get_full_name }}</strong>
-            </div>
-            <div>
-                <span>Email</span>
-                <strong>{{ user.email }}</strong>
-            </div>
-            <div>
-                <span>Role</span>
-                <strong>{{ user.get_role_display }}</strong>
-            </div>
-        </div>
-    </section>
-</div>
+        <span class="profile-role-badge">
+            <span class="profile-role-dot"></span>
+            {{ user.get_role_display }}
+        </span>
 
-<!-- Face Enrollment Modal -->
-<div id="faceEnrollModal" class="face-login-modal">
+    </section>
+
+    <!-- Main grid -->
+
+    <div class="profile-grid">
+
+        <!-- Personal information -->
+
+        <section class="profile-card"
+                 aria-labelledby="profile-info-heading">
+
+            <div class="profile-card-header">
+
+                <div class="profile-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4"/>
+                        <path d="M4 21v-2a8 8 0 0 1 16 0v2"/>
+                    </svg>
+                </div>
+
+                <div class="profile-card-heading">
+                    <h2 id="profile-info-heading">
+                        Personal Information
+                    </h2>
+                    <p>Your account details</p>
+                </div>
+
+            </div>
+
+            <div class="profile-card-body">
+
+                <div class="profile-detail">
+                    <span class="profile-detail-label">
+                        Full name
+                    </span>
+
+                    <strong class="profile-detail-value">
+                        {{ user.get_full_name|default:user.username }}
+                    </strong>
+                </div>
+
+                <div class="profile-detail">
+                    <span class="profile-detail-label">
+                        Email address
+                    </span>
+
+                    <strong class="profile-detail-value">
+                        {{ user.email }}
+                    </strong>
+                </div>
+
+                <div class="profile-detail">
+                    <span class="profile-detail-label">
+                        Username
+                    </span>
+
+                    <strong class="profile-detail-value">
+                        {{ user.username }}
+                    </strong>
+                </div>
+
+                <div class="profile-detail">
+                    <span class="profile-detail-label">
+                        Account role
+                    </span>
+
+                    <strong class="profile-detail-value">
+                        {{ user.get_role_display }}
+                    </strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Security and face login -->
+
+        <section class="profile-card"
+                 aria-labelledby="profile-security-heading">
+
+            <div class="profile-card-header">
+
+                <div class="profile-card-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3 4 7v5c0 5 3 8 8 10 5-2 8-5 8-10V7l-8-4Z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </div>
+
+                <div class="profile-card-heading">
+                    <h2 id="profile-security-heading">
+                        Security &amp; Login
+                    </h2>
+                    <p>Manage your authentication options</p>
+                </div>
+
+            </div>
+
+            <div class="profile-card-body">
+
+                {% if user.face_descriptor %}
+
+                    <div class="profile-security-status enabled">
+
+                        <div class="profile-security-status-icon"
+                             aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="m5 12 4 4L19 6"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <h3>Face login enabled</h3>
+                            <p>
+                                Facial recognition is configured
+                                for your account.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="profile-security-actions">
+                        <button type="button"
+                                id="updateFaceBtn"
+                                class="profile-action-btn">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <path d="M4 8V5h3M20 16v3h-3"/>
+                                <path d="M5 10a7 7 0 0 1 12-4M19 14a7 7 0 0 1-12 4"/>
+                            </svg>
+
+                            Update Face Data
+                        </button>
+                    </div>
+
+                {% else %}
+
+                    <div class="profile-security-status">
+
+                        <div class="profile-security-status-icon"
+                             aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3"/>
+                                <circle cx="12" cy="11" r="3"/>
+                                <path d="M8 17c1-2 7-2 8 0"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <h3>Face login not configured</h3>
+                            <p>
+                                Set up facial recognition to enable
+                                an additional sign-in method.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="profile-security-actions">
+                        <button type="button"
+                                id="enrollFaceBtn"
+                                class="profile-action-btn">
+                            <svg viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 aria-hidden="true">
+                                <path d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3"/>
+                                <circle cx="12" cy="11" r="3"/>
+                                <path d="M8 17c1-2 7-2 8 0"/>
+                            </svg>
+
+                            Set Up Face Login
+                        </button>
+                    </div>
+
+                {% endif %}
+
+                <p class="profile-security-note">
+                    Face recognition requires access to your device camera.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</section>
+
+<!-- ============================================
+     FACE ENROLLMENT MODAL
+     Keep IDs unchanged for face-enroll.js
+     ============================================ -->
+
+<div id="faceEnrollModal"
+     class="face-login-modal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="face-enroll-title"
+     aria-hidden="true">
+
     <div class="face-login-modal-content">
-        <button id="closeFaceEnrollModal" class="face-login-close" aria-label="Close">&times;</button>
-        <h2>Set Up Face Login</h2>
-        <p style="color: #666; margin-bottom: 24px;">Position your face in the center and click Capture</p>
-        <div class="face-login-video-container">
-            <video id="faceEnrollVideo" autoplay muted playsinline></video>
-            <canvas id="faceEnrollCanvas" style="display: none;"></canvas>
+
+        <button type="button"
+                id="closeFaceEnrollModal"
+                class="face-login-close"
+                aria-label="Close face enrollment">
+            &times;
+        </button>
+
+        <div class="face-login-modal-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3"/>
+                <circle cx="12" cy="11" r="3"/>
+                <path d="M8 17c1-2 7-2 8 0"/>
+            </svg>
         </div>
-        <p id="faceEnrollStatus" class="face-login-status info">Look at the camera</p>
-        <button id="captureFaceBtn" class="mc-auth-submit" style="margin-top: 16px;">
+
+        <h2 id="face-enroll-title">
+            Set Up Face Login
+        </h2>
+
+        <p class="face-login-modal-description">
+            Position your face in the center of the camera
+            and select Capture Face.
+        </p>
+
+        <div class="face-login-video-container">
+            <video id="faceEnrollVideo"
+                   autoplay
+                   muted
+                   playsinline></video>
+
+            <canvas id="faceEnrollCanvas"></canvas>
+        </div>
+
+        <p id="faceEnrollStatus"
+           class="face-login-status info"
+           role="status"
+           aria-live="polite">
+            Look at the camera
+        </p>
+
+        <button type="button"
+                id="captureFaceBtn"
+                class="profile-action-btn face-login-capture">
             Capture Face
         </button>
+
     </div>
+
 </div>
 
-<style>
-.face-login-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    align-items: center;
-    justify-content: center;
-}
-
-.face-login-modal.active {
-    display: flex;
-}
-
-.face-login-modal-content {
-    background: white;
-    border-radius: 12px;
-    padding: 32px;
-    max-width: 640px;
-    width: 90%;
-    position: relative;
-    text-align: center;
-}
-
-.face-login-close {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    font-size: 32px;
-    font-weight: bold;
-    color: #999;
-    background: none;
-    border: none;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0;
-    width: 32px;
-    height: 32px;
-}
-
-.face-login-close:hover {
-    color: #333;
-}
-
-.face-login-modal-content h2 {
-    margin: 0 0 8px 0;
-    color: #333;
-    font-size: 24px;
-}
-
-.face-login-video-container {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #000;
-    margin-bottom: 16px;
-}
-
-#faceEnrollVideo {
-    width: 100%;
-    height: auto;
-    display: block;
-    transform: scaleX(-1);
-}
-
-.face-login-status {
-    font-size: 16px;
-    padding: 12px;
-    border-radius: 6px;
-    margin: 0;
-}
-
-.face-login-status.info {
-    background: #e3f2fd;
-    color: #1976d2;
-}
-
-.face-login-status.success {
-    background: #e8f5e9;
-    color: #388e3c;
-}
-
-.face-login-status.error {
-    background: #ffebee;
-    color: #d32f2f;
-}
-</style>
 {% endblock %}
 
 {% block extra_js %}

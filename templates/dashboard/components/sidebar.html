@@ -96,12 +96,6 @@
                     <span>Doctors</span>
                 </a>
 
-                <span class="mc-sidebar-link disabled">
-                    {% include 'dashboard/components/nav_icon.html' with icon='users' %}
-                    <span>Patients</span>
-                    <small>Soon</small>
-                </span>
-
                 <a href="{% url 'appointments:admin_list' %}"
                    class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}"
                    {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
@@ -165,11 +159,13 @@
                     <span>Appointments</span>
                 </a>
 
-                <span class="mc-sidebar-link disabled">
+                <!-- My Patients - Enabled -->
+                <a href="{% url 'dashboard:doctor_patients' %}"
+                   class="mc-sidebar-link {% if active_nav == 'patients' %}active{% endif %}"
+                   {% if active_nav == 'patients' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='users' %}
                     <span>My Patients</span>
-                    <small>Soon</small>
-                </span>
+                </a>
 
                 <!-- Medical records module -->
                 <div class="mc-sidebar-group-label">
