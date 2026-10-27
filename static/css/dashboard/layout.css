@@ -97,7 +97,7 @@ input {
 
 .mc-sidebar-section-label {
     padding: 0 14px 15px;
-    color: #9a9f99;
+    color: var(--mc-page-muted);
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.3px;
@@ -133,14 +133,14 @@ input {
 }
 
 .mc-sidebar-link.disabled {
-    opacity: 0.65;
+    opacity: 1;
     cursor: default;
 }
 
 .mc-sidebar-link small {
     margin-left: auto;
     font-size: 10px;
-    color: #a0a59e;
+    color: var(--mc-page-muted);
 }
 
 .mc-sidebar-icon {

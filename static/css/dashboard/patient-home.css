@@ -32,7 +32,7 @@
 
 .patient-eyebrow,
 .patient-card-eyebrow {
-    color: #8c8150;
+    color: var(--mc-page-muted-gold);
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.4px;
@@ -50,7 +50,7 @@
 .patient-welcome p {
     max-width: 480px;
     margin: 0;
-    color: #777663;
+    color: var(--mc-page-muted-gold);
     font-size: 14px;
     line-height: 1.75;
 }
@@ -156,7 +156,7 @@
 
 .patient-card-header p {
     margin: 0;
-    color: #8b9289;
+    color: var(--mc-page-muted);
     font-size: 12px;
 }
 
@@ -213,20 +213,20 @@
 }
 
 .patient-appointment-details span {
-    color: #92988f;
+    color: var(--mc-page-muted);
     font-size: 12px;
 }
 
 .patient-appointment-date {
     margin-left: auto;
-    color: #6c7469;
+    color: var(--mc-page-muted);
     font-size: 12px;
     text-align: right;
 }
 
 .patient-empty {
     padding: 25px 0;
-    color: #92988f;
+    color: var(--mc-page-muted);
     font-size: 13px;
 }
 
@@ -280,7 +280,7 @@
 .patient-feature-content p {
     max-width: 370px;
     margin: 0;
-    color: #899087;
+    color: var(--mc-page-muted);
     font-size: 12px;
     line-height: 1.75;
 }
@@ -289,7 +289,7 @@
     position: absolute;
     top: 28px;
     right: 27px;
-    color: #9ba396;
+    color: var(--mc-page-muted);
     font-size: 19px;
     transition: transform 160ms;
 }

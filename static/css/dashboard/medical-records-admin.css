@@ -41,12 +41,12 @@
 }
 
 .mr-breadcrumb a {
-    color: #6e777b;
+    color: var(--mc-page-muted);
     font-weight: 600;
 }
 
 .mr-breadcrumb a:hover {
-    color: #b58900;
+    color: var(--mc-page-muted-gold);
 }
 
 .mr-page-header {
@@ -62,7 +62,7 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.3px;
-    color: #919a9d;
+    color: var(--mc-page-muted);
 }
 
 .mr-eyebrow {
@@ -224,7 +224,7 @@
 }
 
 .mr-empty-text {
-    color: #a0a8aa;
+    color: var(--mc-page-muted);
     font-style: italic;
 }
 
@@ -252,7 +252,7 @@
     font-size: 10px;
     letter-spacing: 1px;
     font-weight: 800;
-    color: #9aa3a5;
+    color: var(--mc-page-muted);
 }
 
 .mr-record-meta strong {
@@ -327,7 +327,7 @@
 }
 
 .mr-table th {
-    color: #7a8588;
+    color: var(--mc-page-muted);
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.5px;
@@ -418,7 +418,7 @@
 }
 
 .mr-table-actions a:hover {
-    color: #b38700;
+    color: var(--mc-page-muted-gold);
 }
 
 .mr-table-actions .mr-delete-link {

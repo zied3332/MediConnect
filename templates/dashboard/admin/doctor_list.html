@@ -59,7 +59,7 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.8px;
-    color: #888;
+    color: var(--mc-page-muted);
     border-bottom: 1px solid var(--mc-admin-border);
     background: #fafaf8;
     text-transform: uppercase;
@@ -74,7 +74,7 @@
 
 .mc-doctor-cell { display: flex; flex-direction: column; gap: 3px; }
 .mc-doctor-cell strong { font-size: 14px; }
-.mc-doctor-cell span { color: #888; font-size: 12px; }
+.mc-doctor-cell span { color: var(--mc-page-muted); font-size: 12px; }
 
 .mc-status-pill {
     display: inline-block;
@@ -84,7 +84,7 @@
     font-weight: 700;
 }
 .pill-pending_documents { background: #e3f2fd; color: #0d47a1; }
-.pill-pending_review    { background: #fff8e1; color: #e65100; }
+.pill-pending_review    { background: #fff8e1; color: #a13a00; }
 .pill-needs_more_info   { background: #fff3e0; color: #bf360c; }
 .pill-approved          { background: #e8f5e9; color: #1b5e20; }
 .pill-rejected          { background: #fce4ec; color: #880e4f; }
@@ -106,7 +106,7 @@
 .mc-empty-state {
     padding: 60px 20px;
     text-align: center;
-    color: #aaa;
+    color: var(--mc-page-muted);
 }
 .mc-empty-state p { font-size: 15px; margin: 0; }
 </style>
@@ -195,7 +195,7 @@
                     {% if profile.submitted_at %}
                         {{ profile.submitted_at|date:"M d, Y" }}
                     {% else %}
-                        <span style="color:#bbb;">—</span>
+                        <span style="color: var(--mc-page-muted);">—</span>
                     {% endif %}
                 </td>
                 <td>

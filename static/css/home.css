@@ -132,7 +132,7 @@
 
 .mc-care-field label {
     margin-bottom: 5px;
-    color: #777777;
+    color: var(--mc-page-muted);
     font-size: 14px;
     font-weight: 500;
 }
@@ -151,7 +151,7 @@
 }
 
 .mc-care-field input::placeholder {
-    color: #777777;
+    color: var(--mc-page-muted);
     opacity: 1;
 }
 

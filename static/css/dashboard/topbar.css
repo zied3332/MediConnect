@@ -47,13 +47,13 @@
 }
 
 .mc-topbar-breadcrumb > span:first-child {
-    color: #858b82;
+    color: var(--mc-page-muted);
     font-weight: 500;
 }
 
 .mc-topbar-breadcrumb svg {
     flex-shrink: 0;
-    color: #b5b9b0;
+    color: var(--mc-page-muted);
 }
 
 .mc-topbar-breadcrumb strong {
@@ -187,7 +187,7 @@
 }
 
 .mc-account-identity small {
-    color: #899087;
+    color: var(--mc-page-muted);
     font-size: 11px;
     font-weight: 500;
 }
@@ -195,7 +195,7 @@
 .mc-account-chevron {
     flex-shrink: 0;
     margin-left: 5px;
-    color: #858b82;
+    color: var(--mc-page-muted);
     transition: transform 160ms ease;
 }
 
@@ -234,7 +234,7 @@
 }
 
 .mc-account-dropdown-header small {
-    color: #848b81;
+    color: var(--mc-page-muted);
     font-size: 11px;
     overflow-wrap: anywhere;
 }

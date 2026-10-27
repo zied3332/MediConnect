@@ -7,6 +7,8 @@
 }
 
 :root {
+    --mc-page-muted: #596057;
+    --mc-page-muted-gold: #6b5720;
     --mc-accessible-focus: #1f5f8b;
     --mc-control-border: #7a8079;
 }

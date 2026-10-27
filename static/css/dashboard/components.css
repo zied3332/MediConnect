@@ -19,7 +19,7 @@
 }
 
 .mc-breadcrumb-separator {
-    color: #b7bcb4;
+    color: var(--mc-page-muted);
 }
 
 .mc-demo-badge,

@@ -35,7 +35,7 @@
 .mr-page .mr-header p {
     margin: 0;
     font-size: 14px;
-    color: #7a8584;
+    color: var(--mc-page-muted);
 }
 
 /* CONTENT CARDS */
@@ -143,7 +143,7 @@
 
 .mr-page .table th {
     padding: 16px 18px;
-    color: #77817e;
+    color: var(--mc-page-muted);
     font-size: 11px;
     font-weight: 750;
     letter-spacing: 0.8px;
@@ -185,7 +185,7 @@
 
 .mr-page .table .text-muted {
     font-size: 12px;
-    color: #939e99;
+    color: var(--mc-page-muted);
     margin-top: 4px;
 }
 
@@ -219,7 +219,7 @@
 }
 
 .mr-page dl.row dt {
-    color: #788582;
+    color: var(--mc-page-muted);
     font-weight: 600;
 }
 
@@ -270,7 +270,7 @@
 
 .mr-page .form-control:disabled {
     background: #f4f5f1;
-    color: #7d8984;
+    color: var(--mc-page-muted);
     cursor: not-allowed;
 }
 
@@ -290,7 +290,7 @@
 
 .mr-page .form-text {
     margin-top: 8px;
-    color: #8a9591;
+    color: var(--mc-page-muted);
     font-size: 12px;
 }
 

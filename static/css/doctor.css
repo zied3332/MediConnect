@@ -24,7 +24,7 @@
 
 .mc-doctor-form-container .mc-doctor-subtitle {
     margin: 0 0 36px;
-    color: #747474;
+    color: var(--mc-page-muted);
     font-size: 15px;
     line-height: 1.6;
 }
@@ -41,7 +41,7 @@
     gap: 10px;
     flex: 1;
     font-size: 13px;
-    color: #999;
+    color: var(--mc-page-muted);
     font-weight: 500;
 }
 
@@ -165,7 +165,7 @@
     margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid #f0f0ed;
-    color: #999;
+    color: var(--mc-page-muted);
     font-size: 13px;
 }
 
@@ -221,7 +221,7 @@
 
 .mc-doc-field .mc-doc-hint {
     margin: 0;
-    color: #888;
+    color: var(--mc-page-muted);
     font-size: 13px;
 }
 
@@ -345,7 +345,7 @@
 }
 
 .mc-status-badge--pending_documents { background: #e3f2fd; color: #0d47a1; }
-.mc-status-badge--pending_review    { background: #fff8e1; color: #e65100; }
+.mc-status-badge--pending_review    { background: #fff8e1; color: #a13a00; }
 .mc-status-badge--needs_more_info   { background: #fff3e0; color: #bf360c; }
 .mc-status-badge--approved          { background: #e8f5e9; color: #1b5e20; }
 .mc-status-badge--rejected          { background: #fce4ec; color: #880e4f; }
