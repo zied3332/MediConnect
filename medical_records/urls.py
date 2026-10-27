@@ -82,7 +82,7 @@ urlpatterns = [
     ),
 
     # ========================================================
-    # Website Admin — Medical Records CRUD
+    # Website Admin — Medical Records CRUD (Phase 1)
     # ========================================================
 
     path(
@@ -147,5 +147,45 @@ urlpatterns = [
         "management/prescriptions/<int:pk>/delete/",
         admin_views.admin_prescription_delete,
         name="admin_prescription_delete",
+    ),
+
+    # ========================================================
+    # Website Admin — Medical Examinations CRUD (Phase 3)
+    # ========================================================
+
+    path(
+        "management/examinations/",
+        admin_views.admin_examination_list,
+        name="admin_examination_list",
+    ),
+
+    path(
+        "management/examinations/new/",
+        admin_views.admin_examination_create,
+        name="admin_examination_create",
+    ),
+
+    path(
+        "management/examinations/<int:pk>/",
+        admin_views.admin_examination_detail,
+        name="admin_examination_detail",
+    ),
+
+    path(
+        "management/examinations/<int:pk>/edit/",
+        admin_views.admin_examination_update,
+        name="admin_examination_update",
+    ),
+
+    path(
+        "management/examinations/<int:pk>/delete/",
+        admin_views.admin_examination_delete,
+        name="admin_examination_delete",
+    ),
+
+    path(
+        "management/examinations/<int:pk>/download/",
+        admin_views.admin_examination_download,
+        name="admin_examination_download",
     ),
 ]

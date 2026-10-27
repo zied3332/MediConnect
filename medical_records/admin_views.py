@@ -1,17 +1,22 @@
 
 from functools import wraps
+from pathlib import Path
 
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.db.models import ProtectedError
-from django.http import HttpResponseForbidden
+from django.http import (
+    FileResponse,
+    Http404,
+    HttpResponseForbidden,
+)
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
 from accounts.models import User
 
-from .admin_forms import AdminOrdonnanceForm
-from .models import DossierMedical, Ordonnance
+from .admin_forms import AdminOrdonnanceForm, AdminExamenForm
+from .models import DossierMedical, Ordonnance, Examen
 
 
 # ============================================================
@@ -19,9 +24,7 @@ from .models import DossierMedical, Ordonnance
 # ============================================================
 
 def website_admin_required(view_func):
-    """
-    Restrict access to authenticated website administrators.
-    """
+    """Restrict access to authenticated website administrators."""
 
     @wraps(view_func)
     @login_required(login_url="accounts:login")
@@ -39,9 +42,7 @@ def website_admin_required(view_func):
 # ============================================================
 
 def eligible_patients():
-    """
-    Return all registered patients.
-    """
+    """Return all registered patients."""
 
     return User.objects.filter(
         role="patient"
@@ -53,9 +54,7 @@ def eligible_patients():
 
 
 def medical_records():
-    """
-    Return all medical records belonging to patients.
-    """
+    """Return all medical records belonging to patients."""
 
     return DossierMedical.objects.filter(
         patient__role="patient"
@@ -76,9 +75,7 @@ def get_medical_record(pk):
 # ============================================================
 
 class AdminMedicalRecordForm(forms.ModelForm):
-    """
-    Website Admin form for creating and editing medical records.
-    """
+    """Admin form for creating and editing medical records."""
 
     class Meta:
         model = DossierMedical
@@ -91,11 +88,8 @@ class AdminMedicalRecordForm(forms.ModelForm):
 
         widgets = {
             "patient": forms.Select(
-                attrs={
-                    "class": "form-control",
-                }
+                attrs={"class": "form-control"}
             ),
-
             "antecedents": forms.Textarea(
                 attrs={
                     "class": "form-control",
@@ -105,7 +99,6 @@ class AdminMedicalRecordForm(forms.ModelForm):
                     ),
                 }
             ),
-
             "allergies": forms.Textarea(
                 attrs={
                     "class": "form-control",
@@ -121,14 +114,11 @@ class AdminMedicalRecordForm(forms.ModelForm):
         patients = eligible_patients()
 
         if self.instance.pk:
-            # Prevent reassignment of an existing medical record.
             patients = patients.filter(
                 pk=self.instance.patient_id
             )
             self.fields["patient"].disabled = True
-
         else:
-            # One medical record per patient.
             patients = patients.filter(
                 dossier_medical__isnull=True
             )
@@ -141,10 +131,6 @@ class AdminMedicalRecordForm(forms.ModelForm):
 # ============================================================
 
 def admin_context(**kwargs):
-    """
-    Shared dashboard context for medical record pages.
-    """
-
     return {
         "dashboard_role": "admin",
         "page_title": "Medical Records",
@@ -154,10 +140,6 @@ def admin_context(**kwargs):
 
 
 def admin_prescription_context(**kwargs):
-    """
-    Shared dashboard context for prescription pages.
-    """
-
     return {
         "dashboard_role": "admin",
         "page_title": "Prescriptions",
@@ -166,8 +148,17 @@ def admin_prescription_context(**kwargs):
     }
 
 
+def admin_examination_context(**kwargs):
+    return {
+        "dashboard_role": "admin",
+        "page_title": "Medical Examinations",
+        "active_nav": "admin_examinations",
+        **kwargs,
+    }
+
+
 # ============================================================
-# MEDICAL RECORDS — LIST
+# PHASE 1 — MEDICAL RECORDS CRUD
 # ============================================================
 
 @website_admin_required
@@ -182,10 +173,6 @@ def admin_record_list(request):
     )
 
 
-# ============================================================
-# MEDICAL RECORDS — DETAIL
-# ============================================================
-
 @website_admin_required
 @require_http_methods(["GET"])
 def admin_record_detail(request, pk):
@@ -197,10 +184,6 @@ def admin_record_detail(request, pk):
         admin_context(record=record),
     )
 
-
-# ============================================================
-# MEDICAL RECORDS — CREATE
-# ============================================================
 
 @website_admin_required
 @require_http_methods(["GET", "POST"])
@@ -226,10 +209,6 @@ def admin_record_create(request):
         ),
     )
 
-
-# ============================================================
-# MEDICAL RECORDS — UPDATE
-# ============================================================
 
 @website_admin_required
 @require_http_methods(["GET", "POST"])
@@ -259,10 +238,6 @@ def admin_record_update(request, pk):
     )
 
 
-# ============================================================
-# MEDICAL RECORDS — DELETE
-# ============================================================
-
 @website_admin_required
 @require_http_methods(["GET", "POST"])
 def admin_record_delete(request, pk):
@@ -271,7 +246,6 @@ def admin_record_delete(request, pk):
     if request.method == "POST":
         try:
             record.delete()
-
         except ProtectedError:
             return HttpResponseForbidden(
                 "Cannot delete this medical record because "
@@ -290,14 +264,10 @@ def admin_record_delete(request, pk):
 
 
 # ============================================================
-# PRESCRIPTIONS — QUERYSETS
+# PHASE 2 — PRESCRIPTIONS QUERYSETS
 # ============================================================
 
 def admin_prescriptions():
-    """
-    Return prescriptions with consultation and appointment data.
-    """
-
     return Ordonnance.objects.select_related(
         "consultation__appointment__patient",
         "consultation__appointment__doctor",
@@ -312,7 +282,7 @@ def get_admin_prescription(pk):
 
 
 # ============================================================
-# PRESCRIPTIONS — LIST
+# PHASE 2 — PRESCRIPTIONS CRUD
 # ============================================================
 
 @website_admin_required
@@ -332,10 +302,6 @@ def admin_prescription_list(request):
     )
 
 
-# ============================================================
-# PRESCRIPTIONS — DETAIL
-# ============================================================
-
 @website_admin_required
 @require_http_methods(["GET"])
 def admin_prescription_detail(request, pk):
@@ -349,10 +315,6 @@ def admin_prescription_detail(request, pk):
         ),
     )
 
-
-# ============================================================
-# PRESCRIPTIONS — CREATE
-# ============================================================
 
 @website_admin_required
 @require_http_methods(["GET", "POST"])
@@ -378,10 +340,6 @@ def admin_prescription_create(request):
         ),
     )
 
-
-# ============================================================
-# PRESCRIPTIONS — UPDATE
-# ============================================================
 
 @website_admin_required
 @require_http_methods(["GET", "POST"])
@@ -412,10 +370,6 @@ def admin_prescription_update(request, pk):
     )
 
 
-# ============================================================
-# PRESCRIPTIONS — DELETE
-# ============================================================
-
 @website_admin_required
 @require_http_methods(["GET", "POST"])
 def admin_prescription_delete(request, pk):
@@ -424,7 +378,6 @@ def admin_prescription_delete(request, pk):
     if request.method == "POST":
         try:
             prescription.delete()
-
         except ProtectedError:
             return HttpResponseForbidden(
                 "Cannot delete this prescription because "
@@ -442,3 +395,179 @@ def admin_prescription_delete(request, pk):
             prescription=prescription,
         ),
     )
+
+
+# ============================================================
+# PHASE 3 — MEDICAL EXAMINATIONS QUERYSETS
+# ============================================================
+
+def admin_examinations():
+    return Examen.objects.select_related(
+        "dossier__patient"
+    )
+
+
+def get_admin_examination(pk):
+    return get_object_or_404(
+        admin_examinations(),
+        pk=pk,
+    )
+
+
+# ============================================================
+# PHASE 3 — MEDICAL EXAMINATIONS CRUD
+# ============================================================
+
+@website_admin_required
+@require_http_methods(["GET"])
+def admin_examination_list(request):
+    examinations = admin_examinations().order_by(
+        "-date",
+        "-pk",
+    )
+
+    return render(
+        request,
+        "medical_records/admin/examinations.html",
+        admin_examination_context(
+            examinations=examinations,
+        ),
+    )
+
+
+@website_admin_required
+@require_http_methods(["GET"])
+def admin_examination_detail(request, pk):
+    examination = get_admin_examination(pk)
+
+    return render(
+        request,
+        "medical_records/admin/examination_detail.html",
+        admin_examination_context(
+            examination=examination,
+        ),
+    )
+
+
+@website_admin_required
+@require_http_methods(["GET", "POST"])
+def admin_examination_create(request):
+    form = AdminExamenForm(
+        request.POST or None,
+        request.FILES or None,
+    )
+
+    if request.method == "POST" and form.is_valid():
+        examination = form.save()
+
+        return redirect(
+            "medical_records:admin_examination_detail",
+            pk=examination.pk,
+        )
+
+    return render(
+        request,
+        "medical_records/admin/examination_form.html",
+        admin_examination_context(
+            form=form,
+            action="Create",
+        ),
+    )
+
+
+@website_admin_required
+@require_http_methods(["GET", "POST"])
+def admin_examination_update(request, pk):
+    examination = get_admin_examination(pk)
+
+    form = AdminExamenForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=examination,
+    )
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+
+        return redirect(
+            "medical_records:admin_examination_detail",
+            pk=examination.pk,
+        )
+
+    return render(
+        request,
+        "medical_records/admin/examination_form.html",
+        admin_examination_context(
+            form=form,
+            action="Update",
+            examination=examination,
+        ),
+    )
+
+
+@website_admin_required
+@require_http_methods(["GET", "POST"])
+def admin_examination_delete(request, pk):
+    examination = get_admin_examination(pk)
+
+    if request.method == "POST":
+        try:
+            examination.delete()
+        except ProtectedError:
+            return HttpResponseForbidden(
+                "Cannot delete this examination because "
+                "it contains protected related data."
+            )
+
+        return redirect(
+            "medical_records:admin_examination_list"
+        )
+
+    return render(
+        request,
+        "medical_records/admin/examination_confirm_delete.html",
+        admin_examination_context(
+            examination=examination,
+        ),
+    )
+
+
+# ============================================================
+# PHASE 3 — SECURE ADMIN EXAMINATION DOWNLOAD
+# ============================================================
+
+@website_admin_required
+@require_http_methods(["GET"])
+def admin_examination_download(request, pk):
+    examination = get_admin_examination(pk)
+
+    if not examination.fichier:
+        raise Http404("Examination file not found.")
+
+    extension = Path(
+        examination.fichier.name
+    ).suffix.lower()
+
+    if extension not in {".pdf", ".jpg", ".jpeg", ".png"}:
+        raise Http404("Unsupported examination file type.")
+
+    try:
+        file_handle = examination.fichier.open("rb")
+    except (FileNotFoundError, OSError, ValueError):
+        raise Http404("Examination file not found.")
+
+    response = FileResponse(
+        file_handle,
+        as_attachment=True,
+        filename=(
+            f"medical-examination-{examination.pk}{extension}"
+        ),
+        content_type="application/octet-stream",
+    )
+
+    response["Cache-Control"] = "private, no-store, max-age=0"
+    response["Pragma"] = "no-cache"
+    response["X-Content-Type-Options"] = "nosniff"
+    response["X-Robots-Tag"] = "noindex, nofollow"
+
+    return response
