@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const updateCount = () => {
             counter.textContent = `${composer.value.length} / 4 000 caractères`;
         };
-        composer.setAttribute("aria-describedby", "message-counter");
+        const descriptions = new Set((composer.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean));
+        descriptions.add("message-counter");
+        composer.setAttribute("aria-describedby", [...descriptions].join(" "));
         composer.addEventListener("input", updateCount);
         updateCount();
     }
