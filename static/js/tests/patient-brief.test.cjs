@@ -2,7 +2,7 @@ const {test} = require('node:test');
 const assert = require('node:assert/strict');
 const {environment} = require('./interaction-fixture.cjs');
 
-async function fixture(inline = true) {
+async function fixture(inline = true, open = true) {
     const f = environment(); const status = f.node(), error = f.node(), panel = f.node(), holder = f.node();
     const opener = f.node(), close = f.node(); panel.hidden = true; opener.dataset.briefOpen = '/brief/';
     f.document.selectors.set('[data-brief-status]', status);
@@ -39,7 +39,7 @@ async function fixture(inline = true) {
     f.context.fetch = async url => ({ok: true, text: async () => 'fragment',
         json: async () => String(url).includes('generate') ? {status_url: '/status/'} : {status: 'ready'}});
     f.run('patient-brief.js'); await f.ready();
-    if (inline) { opener.focus(); await opener.fire('click'); }
+    if (inline && open) { opener.focus(); await opener.fire('click'); }
     return {...f, roots, status, error, panel, opener, close, latest: () => roots.at(-1)};
 }
 
@@ -80,4 +80,25 @@ test('closing an inline brief restores its opener and discards pending updates',
     assert.equal(f.panel.hidden, true);
     assert.equal(f.latest(), before);
     assert.equal(f.status.textContent, '');
+});
+
+test('publication completion does not steal focus when the user has left the brief', async () => {
+    const f = await fixture(); const normalFetch = f.context.fetch; let release;
+    f.context.fetch = url => String(url).includes('publish') ? new Promise(resolve => {
+        release = () => resolve({ok: true, json: async () => ({})});
+    }) : normalFetch(url);
+    const before = f.latest(); before.save.focus(); const pending = before.publish.fire('submit');
+    const elsewhere = f.node(); elsewhere.focus(); release(); await pending;
+    assert.equal(f.document.activeElement, elsewhere);
+    assert.match(f.status.textContent, /publiée/);
+});
+
+test('an old opening failure cannot overwrite feedback after closing and reopening', async () => {
+    const f = await fixture(true, false); const normalFetch = f.context.fetch; let reject;
+    f.context.fetch = () => new Promise((_, fail) => { reject = fail; });
+    const first = f.opener.fire('click'); await f.close.fire('click');
+    f.context.fetch = normalFetch; await f.opener.fire('click');
+    reject(new Error('old request')); await first;
+    assert.equal(f.error.textContent, '');
+    assert.match(f.status.textContent, /ouvert/);
 });

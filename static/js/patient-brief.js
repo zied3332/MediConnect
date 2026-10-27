@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (status) status.textContent = failed ? '' : message;
         if (error) error.textContent = failed ? message : '';
     };
-    const focusResult = root => (root.querySelector('#brief-review-result') || root.querySelector('[data-brief-heading]'))?.focus();
+    const focusResult = root => (root.querySelector('#brief-review-result') ||
+        (panel && !panel.hidden ? panel.querySelector('#care-brief-title') : root.querySelector('[data-brief-heading]')))?.focus();
     let dispose = () => {}, opener = null, briefUrl = '', inlineVersion = 0;
     async function fragment(url) {
         const target = new URL(url, location.origin);
@@ -119,8 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
             holder.textContent = '';
             panel.hidden = false;
             announce('Ouverture de votre atelier de préparation…');
+            const version = inlineVersion + 1;
             try {await loadInline();}
-            catch {if (!panel.hidden) announce('La fiche ne peut pas être ouverte. Vérifiez votre connexion et réessayez.', true);}
+            catch {if (!panel.hidden && version === inlineVersion) announce('La fiche ne peut pas être ouverte. Vérifiez votre connexion et réessayez.', true);}
         }));
         panel.querySelector('[data-brief-close]').addEventListener('click',collapse);
     }

@@ -10,10 +10,10 @@ async function fixture() {
     f.document.selectors.set('[data-live-search]', [form]);
     f.document.selectors.set('[data-live-results]', results);
     f.document.selectors.set('[data-live-status]', status);
-    let release;
-    f.context.fetch = () => new Promise(resolve => { release = () => resolve({ok: true, text: async () => 'results'}); });
+    const requests = [];
+    f.context.fetch = () => new Promise(resolve => { requests.push((html = 'results') => resolve({ok: true, text: async () => html})); });
     f.run('consultation-search.js'); await f.ready();
-    return {...f, form, results, status, input, count, release: () => release()};
+    return {...f, form, results, status, input, count, requests, release: () => requests.at(-1)()};
 }
 
 test('filtering leaves focus in the input and announces the count', async () => {
@@ -42,4 +42,19 @@ test('a pagination response does not steal focus after the user moves elsewhere'
     await f.results.fire('click', {target: link, button: 0});
     f.input.focus(); f.release(); await new Promise(resolve => setImmediate(resolve));
     assert.equal(f.document.activeElement, f.input);
+});
+
+test('out-of-order filtering responses cannot replace the latest results', async () => {
+    const f = await fixture(); f.input.focus();
+    await f.form.fire('input', {target: f.input}); const first = f.timers.at(-1)();
+    await f.form.fire('input', {target: f.input}); const second = f.timers.at(-1)();
+    f.requests[1]('new results'); await second;
+    f.requests[0]('old results'); await first;
+    assert.equal(f.results.innerHTML, 'new results'); assert.equal(f.document.activeElement, f.input);
+});
+
+test('modified pagination clicks retain normal browser navigation', async () => {
+    const f = await fixture(); const link = f.node(); link.closest = () => link;
+    const event = await f.results.fire('click', {target: link, button: 0, ctrlKey: true});
+    assert.notEqual(event.defaultPrevented, true); assert.equal(f.requests.length, 0);
 });
