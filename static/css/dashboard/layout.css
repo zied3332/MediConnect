@@ -202,7 +202,7 @@ input {
 .mc-sidebar-icon svg { display: block; width: 20px; height: 20px; }
 .mc-sidebar-link.active { box-shadow: inset 3px 0 #176a60; font-weight: 700; }
 .mc-sidebar-link.active .mc-sidebar-icon { color: #176a60; }
-.mc-sidebar-link:focus-visible, .mc-sidebar-close:focus-visible, .mc-sidebar-toggle:focus-visible { outline: 3px solid #176a60; outline-offset: 2px; }
+.mc-sidebar-link:focus-visible, .mc-sidebar-close:focus-visible, .mc-sidebar-toggle:focus-visible { outline: 3px solid var(--mc-accessible-focus); outline-offset: 2px; }
 .mc-sidebar-bottom { display: flex; flex-direction: column; gap: 5px; margin-top: auto; padding-top: 16px; }
 .mc-sidebar-close { display: none; }
 @media (max-width: 900px) {

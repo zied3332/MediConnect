@@ -228,9 +228,8 @@
         width: 100%;
         min-height: 46px;
         padding: 13px 15px;
-        border: 1px solid #dfe4dc;
+        border: 1px solid var(--mc-control-border);
         border-radius: 10px;
-        outline: none;
         background: #fff;
         color: #252923;
         font-family: inherit;
@@ -247,8 +246,11 @@
     .rx-form-section textarea:focus,
     .rx-form-section input:focus,
     .rx-form-section select:focus {
-        border-color: #d3b63f;
-        box-shadow: 0 0 0 3px rgba(255, 235, 77, .18);
+        border-color: var(--mc-accessible-focus);
+        box-shadow: none;
+
+        outline: 3px solid var(--mc-accessible-focus);
+        outline-offset: 2px;
     }
 
     .rx-form-section textarea::placeholder,
@@ -339,7 +341,7 @@
 
     .rx-form-page a:focus-visible,
     .rx-form-button:focus-visible {
-        outline: 3px solid #b69826;
+        outline: 3px solid var(--mc-accessible-focus);
         outline-offset: 3px;
     }
 

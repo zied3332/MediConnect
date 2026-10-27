@@ -236,9 +236,8 @@
         width: 100%;
         min-height: 44px;
         padding: 11px 16px 11px 44px;
-        border: 1px solid #e2e6df;
+        border: 1px solid var(--mc-control-border);
         border-radius: 10px;
-        outline: none;
         background: #fbfcfa;
         color: #252923;
         font-family: inherit;
@@ -246,8 +245,11 @@
     }
 
     .exam-search:focus {
-        border-color: #d3b63f;
-        box-shadow: 0 0 0 3px rgba(255,235,77,.18);
+        border-color: var(--mc-accessible-focus);
+        box-shadow: none;
+
+        outline: 3px solid var(--mc-accessible-focus);
+        outline-offset: 2px;
     }
 
     .exam-search-label {
@@ -431,7 +433,7 @@
     }
 
     .exam-page a:focus-visible {
-        outline: 3px solid #b69826;
+        outline: 3px solid var(--mc-accessible-focus);
         outline-offset: 3px;
     }
 

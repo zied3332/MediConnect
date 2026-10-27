@@ -141,8 +141,7 @@
     width: 100%;
     min-width: 0;
     padding: 2px 0;
-    border: 0;
-    outline: none;
+    border: 1px solid var(--mc-control-border);
     background: transparent;
     color: #333333;
     font-family: inherit;
@@ -156,7 +155,7 @@
 }
 
 .mc-care-field:focus-within {
-    outline: 2px solid #D7B044;
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: -2px;
     border-radius: 4px;
 }

@@ -144,9 +144,8 @@
         width: 100%;
         min-height: 46px;
         padding: 12px 14px;
-        border: 1px solid #dfe4dc;
+        border: 1px solid var(--mc-control-border);
         border-radius: 10px;
-        outline: none;
         background: #fff;
         color: #252923;
         font-family: inherit;
@@ -176,14 +175,17 @@
     .upload-field input:hover,
     .upload-field select:hover,
     .upload-field textarea:hover {
-        border-color: #cbd2c6;
+        border-color: var(--mc-control-border);
     }
 
     .upload-field input:focus,
     .upload-field select:focus,
     .upload-field textarea:focus {
-        border-color: #d3b63f;
-        box-shadow: 0 0 0 3px rgba(255, 235, 77, .18);
+        border-color: var(--mc-accessible-focus);
+        box-shadow: none;
+
+        outline: 3px solid var(--mc-accessible-focus);
+        outline-offset: 2px;
     }
 
     .upload-field input::placeholder {
@@ -300,7 +302,7 @@
 
     .upload-page a:focus-visible,
     .upload-submit:focus-visible {
-        outline: 3px solid #b69826;
+        outline: 3px solid var(--mc-accessible-focus);
         outline-offset: 3px;
     }
 

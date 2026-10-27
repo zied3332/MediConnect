@@ -300,7 +300,7 @@
 }
 
 .patient-home a:focus-visible {
-    outline: 3px solid #d9b63a;
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 3px;
 }
 

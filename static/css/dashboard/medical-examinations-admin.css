@@ -252,20 +252,22 @@
     width: 100%;
     min-height: 46px;
     padding: 12px 14px;
-    border: 1px solid #dce3de;
+    border: 1px solid var(--mc-control-border);
     border-radius: 10px;
     background: #ffffff;
     color: #24383a;
     font: inherit;
     font-size: 14px;
     box-sizing: border-box;
-    outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .mr-page .form-control:focus {
-    border-color: #e3c941;
-    box-shadow: 0 0 0 4px rgba(255, 230, 83, 0.2);
+    border-color: var(--mc-accessible-focus);
+    box-shadow: none;
+
+    outline: 3px solid var(--mc-accessible-focus);
+    outline-offset: 2px;
 }
 
 .mr-page .form-control:disabled {

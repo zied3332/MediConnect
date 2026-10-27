@@ -286,7 +286,7 @@
 .mc-topbar-notification:focus-visible,
 .mc-account-trigger:focus-visible,
 .mc-account-logout:focus-visible {
-    outline: 3px solid #d6b13b;
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 3px;
 }
 

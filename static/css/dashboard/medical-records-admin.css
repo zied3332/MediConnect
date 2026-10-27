@@ -363,7 +363,7 @@
     display: block;
     width: 100%;
     padding: 12px 14px;
-    border: 1px solid #dce1e2;
+    border: 1px solid var(--mc-control-border);
     border-radius: 9px;
     background: #fff;
     font: inherit;
@@ -379,9 +379,11 @@
 .mr-field input:focus,
 .mr-field select:focus,
 .mr-field textarea:focus {
-    outline: none;
-    border-color: #d9ad1b;
-    box-shadow: 0 0 0 3px rgba(243, 188, 11, 0.12);
+    border-color: var(--mc-accessible-focus);
+    box-shadow: none;
+
+    outline: 3px solid var(--mc-accessible-focus);
+    outline-offset: 2px;
 }
 
 .mr-field-error {

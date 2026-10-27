@@ -319,19 +319,21 @@
     width: 100%;
     min-height: 44px;
     padding: 10px 13px;
-    border: 1px solid var(--mc-admin-border);
+    border: 1px solid var(--mc-control-border);
     border-radius: 7px;
     background: #fff;
     color: var(--mc-admin-text);
     font-size: 13px;
-    outline: none;
     transition: border-color 150ms, box-shadow 150ms;
 }
 
 .mc-users-filters input:focus,
 .mc-users-filters select:focus {
-    border-color: #aeb9a8;
-    box-shadow: 0 0 0 3px rgba(174, 185, 168, 0.2);
+    border-color: var(--mc-accessible-focus);
+    box-shadow: none;
+
+    outline: 3px solid var(--mc-accessible-focus);
+    outline-offset: 2px;
 }
 
 .mc-users-filters select {
@@ -501,7 +503,7 @@
 .mc-role-select {
     min-height: 36px;
     padding: 7px 28px 7px 10px;
-    border: 1px solid var(--mc-admin-border);
+    border: 1px solid var(--mc-control-border);
     border-radius: 6px;
     background: #fff;
     color: var(--mc-admin-text);
@@ -510,8 +512,8 @@
 }
 
 .mc-role-select:focus {
-    border-color: #aeb9a8;
-    outline: 3px solid rgba(174, 185, 168, 0.2);
+    border-color: var(--mc-accessible-focus);
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 1px;
 }
 
@@ -600,7 +602,7 @@
 .mc-availability-form select {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid var(--mc-admin-border);
+    border: 1px solid var(--mc-control-border);
     border-radius: 7px;
     background: #fff;
     color: var(--mc-admin-text);
@@ -915,7 +917,7 @@
 .mc-modal-edit-form textarea {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid var(--mc-admin-border);
+    border: 1px solid var(--mc-control-border);
     border-radius: 7px;
     font: inherit;
 }

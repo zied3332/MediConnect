@@ -18,12 +18,12 @@
 .mc-dashboard textarea:focus-visible,
 .mc-dashboard summary:focus-visible,
 .mc-dashboard [tabindex]:focus-visible {
-    outline: 3px solid var(--mc-appt-focus);
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 2px;
 }
 
 .mc-slot input:focus-visible + span {
-    outline: 3px solid var(--mc-appt-focus);
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 2px;
 }
 
@@ -407,7 +407,7 @@
 }
 
 .mc-slot input:checked + span {
-    border-color: #242824;
+    border-color: var(--mc-control-border);
     background: #242824;
     color: #fff;
 }
@@ -443,7 +443,7 @@
 .mc-field textarea {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid #c9d2c6;
+    border: 1px solid var(--mc-control-border);
     border-radius: 7px;
     background: #fff;
     color: var(--mc-admin-text);
@@ -551,7 +551,7 @@
 .mc-reject-form textarea {
     min-height: 60px;
     padding: 8px;
-    border: 1px solid #c9d2c6;
+    border: 1px solid var(--mc-control-border);
     border-radius: 6px;
     font: inherit;
     font-size: 12px;

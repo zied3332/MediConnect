@@ -104,7 +104,7 @@
     min-height: 54px;
     padding: 13px 15px;
     background: #fff;
-    border: 1px solid #dedede;
+    border: 1px solid var(--mc-control-border);
     border-radius: 4px;
     color: #303030;
     font: inherit;
@@ -112,7 +112,7 @@
 }
 
 .mc-auth-field input:focus {
-    outline: 2px solid #c6a83c;
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 1px;
 }
 

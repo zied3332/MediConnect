@@ -64,3 +64,20 @@ class PageAccessibilityTests(SimpleTestCase):
             with self.subTest(path=path, selector=selector):
                 self.assertGreaterEqual(self.contrast(self.declaration(path, selector, "color"),
                     self.declaration(path, parent, "background")), 4.5)
+
+    def test_page_control_boundaries_and_focus_use_contrasting_tokens(self):
+        for path, selector in (
+            ("static/css/auth.css", ".mc-auth-field input"),
+            ("static/css/doctor.css", ".mc-auth-field select"),
+            ("static/css/dashboard/medical-examinations-admin.css", ".mr-page .form-control"),
+            ("static/css/dashboard/medical-records-admin.css", ".mr-field textarea"),
+            ("templates/medical_records/my_record.html", ".medical-record-form textarea"),
+            ("templates/medical_records/prescription_form.html", ".rx-form-section textarea"),
+        ):
+            with self.subTest(path=path, selector=selector):
+                border = self.declaration(path, selector, "border")
+                self.assertIn("var(--mc-control-border)", border)
+                self.assertGreaterEqual(self.contrast("var(--mc-control-border)", "#fff"), 3)
+                outline = self.declaration(path, selector + ":focus", "outline")
+                self.assertIn("var(--mc-accessible-focus)", outline)
+                self.assertGreaterEqual(self.contrast("var(--mc-accessible-focus)", "#fff"), 3)
