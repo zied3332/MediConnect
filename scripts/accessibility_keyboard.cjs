@@ -42,5 +42,11 @@ const dir=path.resolve('docs/accessibility/reports',run);fs.mkdirSync(dir,{recur
  await check('Patient brief panel updates','doctor','/consultations/1/',async p=>{
   await tabTo(p,'[data-brief-open]');await p.keyboard.press('Enter');await p.waitForTimeout(1000);const expanded=await p.locator('[data-brief-open]').first().getAttribute('aria-expanded'),content=await p.locator('#care-brief-content').textContent(),after=await focus(p);await tabTo(p,'[data-brief-close]');await p.keyboard.press('Space');const restored=await focus(p);return {result:expanded==='true'&&content.trim().length>0&&await p.locator('[data-brief-open]').first().evaluate(e=>e===document.activeElement)?'pass':'fail',expanded,content:content.slice(0,250),after,restored,generation:'External AI generation not invoked'};
  });
+ await check('Scrollable appointment table','doctor','/appointments/doctor/',async p=>{
+  await p.setViewportSize({width:320,height:900});await tabTo(p,'.mc-users-table-wrapper');const before=await p.locator('.mc-users-table-wrapper').evaluate(e=>e.scrollLeft),observed=await focus(p);await p.keyboard.press('ArrowRight');await p.waitForTimeout(250);const after=await p.locator('.mc-users-table-wrapper').evaluate(e=>e.scrollLeft);return {result:after>before&&observed.focusVisible?'pass':'fail',before,after,observed};
+ });
+ await check('Users table actions at 320px','admin','/dashboard/admin/users/',async p=>{
+  await p.setViewportSize({width:320,height:900});await tabTo(p,'button[aria-label="Save specialty for audit-doctor@example.invalid"]');const observed=await focus(p),scroll=await p.locator('.mc-users-table-wrapper').evaluate(e=>e.scrollLeft);return {result:observed.rect.left>=0&&observed.rect.right<=320&&scroll>0&&observed.focusVisible?'pass':'fail',observed,scroll};
+ });
  fs.writeFileSync(path.join(dir,'keyboard.json'),JSON.stringify({browser:browser.version(),date:new Date().toISOString(),results},null,2));await browser.close();
 })().catch(e=>{console.error(e);process.exitCode=1});

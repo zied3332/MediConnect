@@ -8,7 +8,7 @@ const run = process.env.AUDIT_RUN || 'baseline';
 const reports = path.join(out, 'reports', run);
 fs.mkdirSync(reports, {recursive:true});
 fs.mkdirSync(path.join(out,'screenshots',run), {recursive:true});
-const save = (name, data) => fs.writeFileSync(path.join(reports,name+'.json'), JSON.stringify(data,null,2));
+const save = (name, data) => {for(let attempt=0;;attempt++){try{return fs.writeFileSync(path.join(reports,name+'.json'), JSON.stringify(data,null,2));}catch(e){if(attempt===3)throw e;Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,300)}}};
 const routes = [
  ['home','public','/'], ['login','public','/accounts/login/'],
  ['patient-registration','public','/accounts/signup/'], ['doctor-registration','public','/accounts/doctor/signup/'],
@@ -34,7 +34,7 @@ const routes = [
   if(sessions[role]) await contexts[role].addCookies([{name:'sessionid',value:sessions[role],url:base}]);
  }
  const summary=[];
- for(const [name,role,route] of routes){
+ for(const [name,role,route] of routes.filter(r=>!process.env.AUDIT_PAGE||r[0]===process.env.AUDIT_PAGE)){
   const page=await contexts[role].newPage(); const errors=[];
   page.on('pageerror', e=>errors.push(e.message));
   try{
@@ -52,9 +52,10 @@ const routes = [
   }catch(e){summary.push({name,role,route,status:'not verified',error:e.message});console.log(name,e.message)}
   await page.close();
  }
- save('summary',{date:new Date().toISOString(),browser:browser.version(),axe:require('../.audit-tools/node_modules/axe-core/package.json').version,viewport:{width:1280,height:900},pages:summary});
+ const old=process.env.AUDIT_PAGE&&fs.existsSync(path.join(reports,'summary.json'))?JSON.parse(fs.readFileSync(path.join(reports,'summary.json'))).pages.filter(p=>p.name!==process.env.AUDIT_PAGE):[];
+ save('summary',{date:new Date().toISOString(),browser:browser.version(),axe:require('../.audit-tools/node_modules/axe-core/package.json').version,viewport:{width:1280,height:900},pages:[...old,...summary]});
  const responsive=[];
- for(const name of ['home','login','patient-registration','doctor-registration','patient-dashboard','examinations','booking-slots','availability','users','record-management']){
+ for(const name of (process.env.AUDIT_PAGE?[]:['home','login','patient-registration','doctor-registration','patient-dashboard','examinations','booking-slots','availability','users','record-management'])){
   const [,role,route]=routes.find(r=>r[0]===name);
   for(const mode of ['320px','200percent-text','400percent-equivalent','text-spacing']){
    const page=await contexts[role].newPage();
@@ -70,6 +71,6 @@ const routes = [
    await page.close();
   }
  }
- save('responsive',responsive);
+ if(!process.env.AUDIT_PAGE) save('responsive',responsive);
  await browser.close();
 })().catch(e=>{console.error(e);process.exitCode=1});
