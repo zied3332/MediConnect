@@ -1,0 +1,419 @@
+{
+  "date": "2026-10-27T10:08:40.528Z",
+  "browser": "156.0.8078.48",
+  "axe": "4.14.0",
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "pages": [
+    {
+      "name": "home",
+      "role": "public",
+      "route": "/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 41,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "Find Care | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "login",
+      "role": "public",
+      "route": "/accounts/login/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 39,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "Log In | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "patient-registration",
+      "role": "public",
+      "route": "/accounts/signup/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 33,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "Create an Account | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "doctor-registration",
+      "role": "public",
+      "route": "/accounts/doctor/signup/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 45,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "Join as a Doctor | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "doctor-search",
+      "role": "public",
+      "route": "/?q=Audit",
+      "status": "loaded",
+      "violations": [],
+      "passes": 41,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "Find Care | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "patient-dashboard",
+      "role": "patient",
+      "route": "/dashboard/patient/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 35,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "My Health | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "medical-record",
+      "role": "patient",
+      "route": "/medical-records/my/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 34,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "My Medical Record | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "prescriptions",
+      "role": "patient",
+      "route": "/medical-records/prescriptions/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 30,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "Prescriptions | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "examinations",
+      "role": "patient",
+      "route": "/medical-records/patients/1/examinations/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 38,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "Medical Examinations | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "booking",
+      "role": "patient",
+      "route": "/appointments/book/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 36,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "Book an appointment | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "booking-slots",
+      "role": "patient",
+      "route": "/appointments/book/doctor/2/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 36,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "Book with Dr. Audit Doctor | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "doctor-dashboard",
+      "role": "doctor",
+      "route": "/dashboard/doctor/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 31,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "Doctor Dashboard | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "patients",
+      "role": "doctor",
+      "route": "/dashboard/doctor/patients/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 36,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "My Patients | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "availability",
+      "role": "doctor",
+      "route": "/dashboard/doctor/availability/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 40,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "My Availability | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "consultations",
+      "role": "doctor",
+      "route": "/consultations/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 41,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "My Consultations | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "admin-dashboard",
+      "role": "admin",
+      "route": "/dashboard/admin/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 32,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "Admin Overview | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "users",
+      "role": "admin",
+      "route": "/dashboard/admin/users/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 41,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "Users | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "specialties",
+      "role": "admin",
+      "route": "/dashboard/admin/specialties/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 42,
+      "incomplete": 2,
+      "errors": [],
+      "semantics": {
+        "title": "Specialties | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "record-management",
+      "role": "admin",
+      "route": "/medical-records/management/records/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 36,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "Medical Records | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "profile",
+      "role": "patient",
+      "route": "/dashboard/profile/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 32,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "My Profile | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "doctor-appointments",
+      "role": "doctor",
+      "route": "/appointments/doctor/?tab=past",
+      "status": "loaded",
+      "violations": [],
+      "passes": 45,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "My appointments | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "patient-brief",
+      "role": "doctor",
+      "route": "/consultations/1/fiche/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 40,
+      "incomplete": 1,
+      "errors": [],
+      "semantics": {
+        "title": "Prepare Patient Brief - Consultation #1 | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "doctor-appointments-past",
+      "role": "doctor",
+      "route": "/appointments/doctor/?when=past",
+      "status": "loaded",
+      "violations": [],
+      "passes": 45,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "My appointments | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    },
+    {
+      "name": "examination-management",
+      "role": "admin",
+      "route": "/medical-records/management/examinations/",
+      "status": "loaded",
+      "violations": [],
+      "passes": 36,
+      "incomplete": 0,
+      "errors": [],
+      "semantics": {
+        "title": "Medical Examinations | MediConnect",
+        "lang": "en",
+        "main": 1,
+        "h1": 1,
+        "images": []
+      }
+    }
+  ]
+}

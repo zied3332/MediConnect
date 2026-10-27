@@ -11,7 +11,7 @@ const path = require('node:path');
   const chrome=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',args:['--remote-debugging-port=9229']});
   try{
    const result=await lighthouse('http://127.0.0.1:8765'+route,{port:9229,onlyCategories:['accessibility'],output:['json','html'],logLevel:'error',formFactor:'desktop',screenEmulation:{mobile:false,width:1280,height:900,deviceScaleFactor:1,disabled:false},extraHeaders:sessions[role]?{Cookie:'sessionid='+sessions[role]}:undefined});
-   const redact=text=>Object.values(sessions).reduce((value,cookie)=>value.replaceAll(cookie,'[redacted synthetic session]'),text);
+   const redact=text=>Object.values(sessions).reduce((value,cookie)=>value.replaceAll(cookie,'[redacted synthetic session]'),text).replace(/[ \t]+$/gm,'');
    fs.writeFileSync(path.join(dir,name+'-lighthouse.json'),redact(result.report[0]));fs.writeFileSync(path.join(dir,name+'-lighthouse.html'),redact(result.report[1]));
    summary.push({name,route,role,score:result.lhr.categories.accessibility.score,finalUrl:result.lhr.finalDisplayedUrl,runtimeError:result.lhr.runtimeError,warnings:result.lhr.runWarnings});
    console.log(name,summary.at(-1));

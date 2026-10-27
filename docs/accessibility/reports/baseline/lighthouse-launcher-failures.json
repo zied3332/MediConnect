@@ -1,0 +1,27 @@
+[
+  {
+    "name": "home",
+    "route": "/",
+    "error": "Failed to fetch browser webSocket URL from http://127.0.0.1:60005/json/version: fetch failed"
+  },
+  {
+    "name": "login",
+    "route": "/accounts/login/",
+    "error": "Failed to fetch browser webSocket URL from http://127.0.0.1:60011/json/version: fetch failed"
+  },
+  {
+    "name": "patient-dashboard",
+    "route": "/dashboard/patient/",
+    "error": "Failed to fetch browser webSocket URL from http://127.0.0.1:60015/json/version: fetch failed"
+  },
+  {
+    "name": "doctor-dashboard",
+    "route": "/dashboard/doctor/",
+    "error": "Failed to fetch browser webSocket URL from http://127.0.0.1:60027/json/version: fetch failed"
+  },
+  {
+    "name": "admin-dashboard",
+    "route": "/dashboard/admin/",
+    "error": "Failed to fetch browser webSocket URL from http://127.0.0.1:60031/json/version: fetch failed"
+  }
+]

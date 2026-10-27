@@ -1,0 +1,42 @@
+[
+  {
+    "name": "home",
+    "route": "/",
+    "role": "public",
+    "score": 1,
+    "finalUrl": "http://127.0.0.1:8765/",
+    "warnings": []
+  },
+  {
+    "name": "login",
+    "route": "/accounts/login/",
+    "role": "public",
+    "score": 1,
+    "finalUrl": "http://127.0.0.1:8765/accounts/login/",
+    "warnings": []
+  },
+  {
+    "name": "patient-dashboard",
+    "route": "/dashboard/patient/",
+    "role": "patient",
+    "score": 1,
+    "finalUrl": "http://127.0.0.1:8765/dashboard/patient/",
+    "warnings": []
+  },
+  {
+    "name": "doctor-dashboard",
+    "route": "/dashboard/doctor/",
+    "role": "doctor",
+    "score": 1,
+    "finalUrl": "http://127.0.0.1:8765/dashboard/doctor/",
+    "warnings": []
+  },
+  {
+    "name": "admin-dashboard",
+    "route": "/dashboard/admin/",
+    "role": "admin",
+    "score": 1,
+    "finalUrl": "http://127.0.0.1:8765/dashboard/admin/",
+    "warnings": []
+  }
+]
