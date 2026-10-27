@@ -72,7 +72,7 @@
                 Atelier IA
             </span>
 
-            <h2 id="care-brief-title">
+            <h2 id="care-brief-title" tabindex="-1">
                 Votre fiche patient, ici même
             </h2>
         </div>
@@ -86,6 +86,7 @@
         </button>
     </div>
 
+    {% include "consultations/brief_announcements.html" %}
     <div id="care-brief-content"></div>
 </section>
 {% endif %}

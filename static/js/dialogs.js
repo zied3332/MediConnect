@@ -88,5 +88,5 @@
         if (current && !current.modal.contains(event.target)) focusFirst();
     });
 
-    window.MediConnectDialog = {open, close};
+    window.MediConnectDialog = {open, close, isActive: () => Boolean(current)};
 })();

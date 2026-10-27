@@ -407,7 +407,10 @@
         margin-top: 22px;
     }
 
-    .exam-no-results {
+    .exam-filter-status { padding: 0 25px; color: #586c66; font-size: 13px; }
+    .exam-filter-status:empty { margin: 0; padding: 0; }
+
+    .exam-no-results[hidden] {
         display: none;
     }
 
@@ -660,6 +663,8 @@
 
         {% if examens %}
 
+            <p id="examFilterStatus" class="exam-filter-status" role="status" aria-live="polite" aria-atomic="true"></p>
+
             <div id="examList">
 
                 {% for examen in examens %}
@@ -727,8 +732,7 @@
 
             <div id="examNoResults"
                  class="exam-empty exam-no-results"
-                 role="status"
-                 aria-live="polite">
+                 hidden>
 
                 <h2>No matching examinations</h2>
 
@@ -801,36 +805,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const search = document.getElementById("examSearch");
-    const items = document.querySelectorAll("#examList .exam-item");
-    const noResults = document.getElementById("examNoResults");
-
-    if (!search) {
-        return;
-    }
-
-    search.addEventListener("input", function () {
-        const query = search.value.trim().toLowerCase();
-        let visibleCount = 0;
-
-        items.forEach(function (item) {
-            const title = item.dataset.examTitle || "";
-            const matches = title.includes(query);
-
-            item.hidden = !matches;
-
-            if (matches) {
-                visibleCount++;
-            }
-        });
-
-        if (noResults) {
-            noResults.style.display =
-                visibleCount === 0 ? "block" : "none";
-        }
-    });
-});
-</script>
+<script src="{% static 'js/examination-filter.js' %}" defer></script>
 {% endblock %}

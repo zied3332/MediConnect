@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             return url;
         };
-        const load = async (url) => {
+        const load = async (url, fromPagination = false) => {
             cancel();
             const requestId = sequence;
             controller = new AbortController();
@@ -35,8 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!response.ok || response.redirected) throw new Error();
                 const html = await response.text();
                 if (requestId !== sequence) return;
+                const focusResults = results.contains(document.activeElement) ||
+                    (fromPagination && document.activeElement === document.body);
                 results.innerHTML = html;
-                status.textContent = results.querySelector("[data-live-count]")?.textContent.trim() || "Résultats actualisés.";
+                const count = results.querySelector("[data-live-count]");
+                // Focusing the count already announces it; avoid a second live announcement.
+                status.textContent = focusResults && count ? "" : count?.textContent.trim() || "Résultats actualisés.";
+                if (focusResults) count?.focus();
                 window.history.replaceState(null, "", url.pathname + url.search);
             } catch (error) {
                 if (error.name !== "AbortError" && requestId === sequence) {
@@ -71,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const link = event.target.closest(".care-pagination a");
             if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
             event.preventDefault();
-            load(new URL(link.href));
+            load(new URL(link.href), true);
         });
         window.addEventListener("pagehide", cancel);
     });
