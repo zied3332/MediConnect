@@ -43,18 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
         trigger.addEventListener("click", () => {
             const modal = document.getElementById(trigger.dataset.modalTarget);
             if (!modal) return;
-            modal.classList.add("is-open");
-            modal.setAttribute("aria-hidden", "false");
-            modal.querySelector("input, textarea, button").focus();
+            window.MediConnectDialog.open(modal, {opener: trigger});
         });
     });
 
-    document.querySelectorAll("[data-modal-close]").forEach((trigger) => {
+    document.querySelectorAll("[data-modal-close], [data-delete-cancel]").forEach((trigger) => {
         trigger.addEventListener("click", () => {
             const modal = trigger.closest(".mc-modal");
             if (!modal) return;
-            modal.classList.remove("is-open");
-            modal.setAttribute("aria-hidden", "true");
+            window.MediConnectDialog.close(modal);
         });
     });
 
@@ -69,9 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
             pendingDeleteForm = form;
             deleteTitle.textContent = `Delete “${form.dataset.deleteName}”?`;
-            deleteModal.classList.add("is-open");
-            deleteModal.setAttribute("aria-hidden", "false");
-            deleteModal.querySelector("[data-delete-cancel]").focus();
+            window.MediConnectDialog.open(deleteModal, {
+                opener: event.submitter || document.activeElement,
+                initialFocus: deleteModal.querySelector("[data-delete-cancel]"),
+            });
         });
     });
 
@@ -82,12 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
             pendingDeleteForm.submit();
         });
 
-        deleteModal.querySelectorAll("[data-delete-cancel], [data-modal-close]").forEach((trigger) => {
-            trigger.addEventListener("click", () => {
-                pendingDeleteForm = null;
-                deleteModal.classList.remove("is-open");
-                deleteModal.setAttribute("aria-hidden", "true");
-            });
+        deleteModal.addEventListener("mc:dialog-close", () => {
+            pendingDeleteForm = null;
         });
     }
 });

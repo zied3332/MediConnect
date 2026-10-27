@@ -75,7 +75,7 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 1.5px;
-    color: #879087;
+    color: var(--mc-admin-muted);
 }
 
 .mc-page-heading h1 {
@@ -211,7 +211,7 @@
 }
 
 .mc-activity-item time {
-    color: #9da39b;
+    color: var(--mc-admin-muted);
     font-size: 11px;
     white-space: nowrap;
 }
@@ -231,7 +231,7 @@
 
 .mc-quick-info strong {
     font-size: 11px;
-    color: #9b9f98;
+    color: var(--mc-admin-muted);
 }
 
 /* ── User management ─────────────────────────── */

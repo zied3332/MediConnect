@@ -34,13 +34,13 @@
             </form>
         </div>
     </article>
-    <div class="mc-modal" id="specialty-modal-{{ specialty.id }}" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="specialty-title-{{ specialty.id }}">
+    <div class="mc-modal" id="specialty-modal-{{ specialty.id }}" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="specialty-title-{{ specialty.id }}" aria-describedby="specialty-description-text-{{ specialty.id }}">
         <div class="mc-modal-backdrop" data-modal-close></div>
         <div class="mc-modal-card">
             <button type="button" class="mc-modal-close" data-modal-close aria-label="Close specialty details">×</button>
             <span class="mc-page-eyebrow">SPECIALTY</span>
             <h2 id="specialty-title-{{ specialty.id }}">{{ specialty.name }}</h2>
-            <p class="mc-modal-description">{{ specialty.description|default:"No description provided." }}</p>
+            <p class="mc-modal-description" id="specialty-description-text-{{ specialty.id }}">{{ specialty.description|default:"No description provided." }}</p>
             <div class="mc-modal-actions">
                 <form method="post" action="{% url 'dashboard:delete_specialty' specialty.id %}" data-delete-confirm data-delete-name="{{ specialty.name }}">
                     {% csrf_token %}<input type="hidden" name="next" value="dashboard:specialty_list">
@@ -62,13 +62,13 @@
     {% endfor %}
 </section>
 
-<div class="mc-modal" id="delete-confirmation-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="delete-confirmation-title">
+<div class="mc-modal" id="delete-confirmation-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="delete-confirmation-title" aria-describedby="delete-confirmation-description">
     <div class="mc-modal-backdrop" data-modal-close></div>
     <div class="mc-modal-card mc-confirmation-card">
         <span class="mc-confirmation-icon">!</span>
         <span class="mc-page-eyebrow">DELETE SPECIALTY</span>
         <h2 id="delete-confirmation-title">Delete this specialty?</h2>
-        <p class="mc-modal-description">This action cannot be undone. Doctors assigned to this specialty will no longer have it assigned.</p>
+        <p class="mc-modal-description" id="delete-confirmation-description">This action cannot be undone. Doctors assigned to this specialty will no longer have it assigned.</p>
         <form id="delete-confirmation-form" class="mc-confirmation-actions">
             <button type="button" class="mc-users-clear" data-delete-cancel>Cancel</button>
             <button type="submit" class="mc-role-save mc-role-save--danger">🗑 Delete specialty</button>

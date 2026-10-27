@@ -7,6 +7,12 @@
 
 let modelsLoaded = false;
 let faceDescriptors = [];
+let loginSession = 0;
+
+function faceLoginActive(session) {
+    return session === loginSession &&
+        document.getElementById('faceLoginModal')?.classList.contains('active');
+}
 
 // Initialize face-api models
 async function loadFaceModels() {
@@ -82,15 +88,19 @@ async function openFaceLoginModal() {
         return;
     }
     
-    modal.classList.add('active');
+    if (modal.classList.contains('active')) return;
+    window.MediConnectDialog.open(modal);
+    const session = ++loginSession;
     
     try {
         // Load models and descriptors
         showFaceLoginStatus('Loading face recognition models...', 'info');
         await loadFaceModels();
+        if (!faceLoginActive(session)) return;
         
         showFaceLoginStatus('Loading registered faces...', 'info');
         await fetchFaceDescriptors();
+        if (!faceLoginActive(session)) return;
         
         if (faceDescriptors.length === 0) {
             showFaceLoginStatus('No faces registered yet. Please sign up first.', 'error');
@@ -99,18 +109,19 @@ async function openFaceLoginModal() {
         
         // Start camera
         showFaceLoginStatus('Starting camera...', 'info');
-        await startFaceLoginCamera();
+        await startFaceLoginCamera(session);
+        if (!faceLoginActive(session)) return;
         
         showFaceLoginStatus('Look at the camera', 'success');
         
     } catch (error) {
         console.error('Face login error:', error);
-        showFaceLoginStatus(error.message, 'error');
+        if (faceLoginActive(session)) showFaceLoginStatus(error.message, 'error');
     }
 }
 
 // Start camera for face login
-async function startFaceLoginCamera() {
+async function startFaceLoginCamera(session) {
     const video = document.getElementById('faceLoginVideo');
     if (!video) {
         throw new Error('Video element not found');
@@ -120,12 +131,16 @@ async function startFaceLoginCamera() {
         const stream = await navigator.mediaDevices.getUserMedia({
             video: { facingMode: 'user', width: 640, height: 480 }
         });
+        if (!faceLoginActive(session)) {
+            stream.getTracks().forEach(track => track.stop());
+            return;
+        }
         
         video.srcObject = stream;
         await video.play();
         
         // Start face detection loop
-        detectAndMatchFace(video);
+        detectAndMatchFace(video, session);
         
     } catch (error) {
         throw new Error('Camera access denied. Please allow camera access.');
@@ -133,22 +148,20 @@ async function startFaceLoginCamera() {
 }
 
 // Continuously detect and match faces
-async function detectAndMatchFace(video) {
-    const modal = document.getElementById('faceLoginModal');
-    
+async function detectAndMatchFace(video, session) {
     // Check if modal is still active
-    if (!modal || !modal.classList.contains('active')) {
-        stopFaceLoginCamera();
+    if (!faceLoginActive(session)) {
         return;
     }
     
     try {
         const descriptor = await getFaceDescriptorFromVideo(video);
+        if (!faceLoginActive(session)) return;
         const match = findMatchingUser(descriptor);
         
         if (match) {
             showFaceLoginStatus(`Recognized: ${match.user.name}`, 'success');
-            await performFaceLogin(match.user.user_id);
+            await performFaceLogin(match.user.user_id, session);
             return; // Stop detection after successful login
         }
     } catch (error) {
@@ -159,11 +172,11 @@ async function detectAndMatchFace(video) {
     }
     
     // Continue detection
-    setTimeout(() => detectAndMatchFace(video), 1000);
+    setTimeout(() => detectAndMatchFace(video, session), 1000);
 }
 
 // Perform login with matched user
-async function performFaceLogin(userId) {
+async function performFaceLogin(userId, session) {
     try {
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
         
@@ -177,10 +190,12 @@ async function performFaceLogin(userId) {
         });
         
         const data = await response.json();
+        if (!faceLoginActive(session)) return;
         
         if (data.success) {
             showFaceLoginStatus('Login successful! Redirecting...', 'success');
             setTimeout(() => {
+                if (!faceLoginActive(session)) return;
                 window.location.href = data.redirect_url;
             }, 1000);
         } else {
@@ -197,8 +212,7 @@ async function performFaceLogin(userId) {
 function closeFaceLoginModal() {
     const modal = document.getElementById('faceLoginModal');
     if (modal) {
-        modal.classList.remove('active');
-        stopFaceLoginCamera();
+        window.MediConnectDialog.close(modal);
     }
 }
 
@@ -222,6 +236,10 @@ function showFaceLoginStatus(message, type = 'info') {
 
 // Initialize face login button
 document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('faceLoginModal')?.addEventListener('mc:dialog-close', () => {
+        loginSession++;
+        stopFaceLoginCamera();
+    });
     const faceLoginBtn = document.getElementById('faceLoginBtn');
     if (faceLoginBtn) {
         faceLoginBtn.addEventListener('click', openFaceLoginModal);

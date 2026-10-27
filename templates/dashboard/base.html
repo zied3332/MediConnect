@@ -18,8 +18,10 @@
 <link rel="stylesheet" href="{% static 'css/dashboard/sidebar.css' %}">
 <link rel="stylesheet" href="{% static 'css/dashboard/patient-home.css' %}">
     {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/accessibility.css' %}">
 </head>
 <body class="{% block body_class %}{% endblock %}">
+    <a href="#main-content" class="mc-skip-link">Skip to main content</a>
     <div class="mc-dashboard">
         {% block sidebar %}
             {% include "dashboard/components/sidebar.html" %}
@@ -28,13 +30,14 @@
         <div class="mc-dashboard-main">
             {% include "dashboard/components/topbar.html" %}
 
-            <main class="mc-dashboard-content" id="main-content">
+            <main class="mc-dashboard-content" id="main-content" tabindex="-1">
                 {% block content %}{% endblock %}
             </main>
         </div>
     </div>
 
-    <script src="{% static 'js/dashboard.js' %}?v=3" defer></script>
+    <script src="{% static 'js/dialogs.js' %}" defer></script>
+    <script src="{% static 'js/dashboard.js' %}?v=4" defer></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

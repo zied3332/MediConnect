@@ -64,12 +64,13 @@
 
     <!-- Page-Specific Styles -->
     {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/accessibility.css' %}">
 </head>
 
 <body>
 
     <!-- Accessibility: Skip to Main Content -->
-    <a href="#main-content" class="mc-sr-only mc-skip-link">
+    <a href="#main-content" class="mc-skip-link">
         Skip to main content
     </a>
 
@@ -108,6 +109,7 @@
     </script>
 
     <!-- MediConnect Navigation -->
+    <script src="{% static 'js/dialogs.js' %}" defer></script>
     <script
         src="{% static 'js/navbar.js' %}"
         defer>
