@@ -1,5 +1,6 @@
 
 {% extends "dashboard/base.html" %}
+{% load accessibility %}
 
 {% block title %}
     {% if is_edit %}Edit Prescription{% else %}New Prescription{% endif %} | MediConnect
@@ -586,13 +587,10 @@
                         Medications and dosage
                     </label>
 
-                    {{ form.medicaments }}
+                    {% accessible_field form.medicaments "medications-help" %}
+                    {% include "components/field_help.html" with field=form.medicaments only %}
 
-                    {% for error in form.medicaments.errors %}
-                        <p class="rx-form-error" role="alert">
-                            {{ error }}
-                        </p>
-                    {% endfor %}
+                    {% include "components/field_errors.html" with field=form.medicaments error_class="rx-form-error" only %}
 
                 </section>
 
@@ -616,7 +614,7 @@
                         </h3>
                     </div>
 
-                    <p class="rx-form-help">
+                    <p class="rx-form-help" id="instructions-help">
                         Include precautions, follow-up instructions,
                         or other guidance for the patient.
                     </p>
@@ -626,13 +624,10 @@
                         Instructions
                     </label>
 
-                    {{ form.instructions }}
+                    {% accessible_field form.instructions "instructions-help" %}
+                    {% include "components/field_help.html" with field=form.instructions only %}
 
-                    {% for error in form.instructions.errors %}
-                        <p class="rx-form-error" role="alert">
-                            {{ error }}
-                        </p>
-                    {% endfor %}
+                    {% include "components/field_errors.html" with field=form.instructions error_class="rx-form-error" only %}
 
                 </section>
 

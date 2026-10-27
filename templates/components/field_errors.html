@@ -1,0 +1,5 @@
+{% if field.errors %}
+<div id="{{ field.auto_id }}_error" class="{{ error_class }}" role="alert"{% if error_style %} style="{{ error_style }}"{% endif %}>
+    {% for error in field.errors %}<div>{{ error }}</div>{% endfor %}
+</div>
+{% endif %}

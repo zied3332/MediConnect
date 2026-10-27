@@ -184,10 +184,12 @@ function stopEnrollCamera() {
 // Show status message
 function showEnrollStatus(message, type = 'info') {
     const statusEl = document.getElementById('faceEnrollStatus');
+    const errorEl = document.getElementById('faceEnrollError');
     if (statusEl) {
-        statusEl.textContent = message;
+        statusEl.textContent = type === 'error' ? '' : message;
         statusEl.className = `face-login-status ${type}`;
     }
+    if (errorEl) errorEl.textContent = type === 'error' ? message : '';
 }
 
 // Initialize event listeners

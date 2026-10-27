@@ -1,4 +1,11 @@
 /* Shared accessibility behavior for both public and dashboard shells. */
+/* Keep both announcement regions mounted without adding empty message space. */
+.face-login-status:empty {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
 :root {
     --mc-accessible-focus: #1f5f8b;
     --mc-control-border: #7a8079;

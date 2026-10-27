@@ -20,7 +20,7 @@ function fixture(kind, models = Promise.resolve()) {
     const video = {srcObject: null, play: async () => {}};
     const elements = {[modalId]: modal, [videoId]: video,
         captureFaceBtn: {disabled: false, addEventListener() {}},
-        faceEnrollStatus: {}, faceLoginStatus: {}};
+        faceEnrollStatus: {}, faceLoginStatus: {}, faceEnrollError: {}, faceLoginError: {}};
     let ready; let cameraCalls = 0; let stopped = 0;
     const permission = deferred();
     const stream = {getTracks: () => [{stop() { stopped++; }}]};
@@ -46,10 +46,38 @@ function fixture(kind, models = Promise.resolve()) {
     ready();
     return {open: () => context[enroll ? 'openFaceEnrollModal' : 'openFaceLoginModal'](),
         close: () => context[enroll ? 'closeFaceEnrollModal' : 'closeFaceLoginModal'](),
+        report: (message, type) => context[enroll ? 'showEnrollStatus' : 'showFaceLoginStatus'](message, type),
+        status: elements[enroll ? 'faceEnrollStatus' : 'faceLoginStatus'],
+        error: elements[enroll ? 'faceEnrollError' : 'faceLoginError'],
+        active: () => classes.has('active'),
+        rejectLogin: async () => {
+            context.fetch = async () => ({json: async () => ({success: false, error: 'Please try again'})});
+            context.document.querySelector = () => ({value: 'test-csrf'});
+            await context.performFaceLogin(1, 1);
+        },
         permission, stream, video, calls: () => cameraCalls, stopped: () => stopped};
 }
 
+test('failed face authentication stays visible for announcement and stops its camera', async () => {
+    const f = fixture('login'); f.permission.resolve(f.stream); await f.open();
+    await f.rejectLogin();
+    assert.equal(f.active(), true);
+    assert.equal(f.status.textContent, '');
+    assert.equal(f.error.textContent, 'Login failed: Please try again');
+    assert.equal(f.stopped(), 1);
+    assert.equal(f.video.srcObject, null);
+});
+
 for (const kind of ['login', 'enroll']) {
+    test(`${kind}: important failures use only the alert; routine updates clear stale errors`, () => {
+        const f = fixture(kind);
+        f.report('Camera access denied', 'error');
+        assert.equal(f.status.textContent, '');
+        assert.equal(f.error.textContent, 'Camera access denied');
+        f.report('Starting camera', 'info');
+        assert.equal(f.status.textContent, 'Starting camera');
+        assert.equal(f.error.textContent, '');
+    });
     test(`${kind}: closing while models load never requests a camera`, async () => {
         const models = deferred(); const f = fixture(kind, models.promise);
         const opening = f.open(); f.close(); models.resolve(); await opening;
