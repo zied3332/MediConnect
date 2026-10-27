@@ -1,4 +1,6 @@
-{% extends "consultations/base.html" %}{% block care_content %}
+{% extends "consultations/base.html" %}
+{% block title %}Prepare Patient Brief ? Consultation #{{ consultation.pk }} | MediConnect{% endblock %}
+{% block care_content %}
 {% include "consultations/brief_announcements.html" %}
 {% include "consultations/brief_fragment.html" %}
 {% endblock %}

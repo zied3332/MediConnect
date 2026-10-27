@@ -1,11 +1,56 @@
 """Page-level source/render checks; computed styles still need a browser."""
 import re
+from types import SimpleNamespace
 
 from django.conf import settings
 from django.test import SimpleTestCase
+from django import forms
+from django.contrib.auth import get_user_model
+from django.utils import timezone
+
+from appointments.models import Appointment
+from consultations.models import Consultation
+from medical_records.models import DossierMedical, Examen, Ordonnance
+from core.test_accessible_forms import render_page
 
 
 class PageAccessibilityTests(SimpleTestCase):
+    def page_context(self):
+        person = get_user_model()(pk=1, username="example", email="example@example.com")
+        appointment = Appointment(pk=9, patient=person, doctor=person, start=timezone.now())
+        consultation = Consultation(pk=7, appointment=appointment, diagnostic="PRIVATE CLINICAL TEXT")
+        record = DossierMedical(pk=2, patient=person)
+        return {"consultation": consultation, "appointment": appointment, "record": record,
+                "dossier": record, "prescription": Ordonnance(pk=13, consultation=consultation),
+                "examination": Examen(pk=11, dossier=record, titre="PRIVATE CLINICAL TEXT"),
+                "form": forms.Form(), "action": "Create", "message": SimpleNamespace(consultation_id=7)}
+
+    def test_page_titles_identify_purpose_without_clinical_details(self):
+        context = self.page_context()
+        groups = {
+            "medical_records/admin": {
+                "examinations": "Medical Examinations", "examination_detail": "Examination #11",
+                "examination_form": "Create Examination", "examination_confirm_delete": "Delete Examination #11",
+                "prescriptions": "Prescriptions", "prescription_detail": "Prescription #13",
+                "prescription_form": "Create Prescription", "prescription_confirm_delete": "Delete Prescription #13",
+            },
+            "consultations": {
+                "list": "My Consultations", "inbox": "Consultation Inbox", "conversation": "Messages",
+                "detail": "Consultation #7", "form": "Edit Consultation", "delete": "Delete Consultation #7",
+                "message_form": "Edit Consultation Message", "review_form": "Review a Consultation",
+                "reviews": "Consultation Reviews", "brief_patient": "Patient Brief", "brief_review": "Prepare Patient Brief",
+            },
+            "dashboard/doctor": {"patients": "My Patients"},
+        }
+        for directory, pages in groups.items():
+            for page, purpose in pages.items():
+                with self.subTest(page=f"{directory}/{page}"):
+                    html = render_page(f"{directory}/{page}.html", **context)
+                    title = re.search(r"<title>(.*?)</title>", html, re.S)[1]
+                    self.assertIn(purpose, title)
+                    self.assertIn("MediConnect", title)
+                    self.assertNotIn("PRIVATE CLINICAL TEXT", title)
+
     def source(self, path):
         return (settings.BASE_DIR / path).read_text(encoding="utf-8")
 
