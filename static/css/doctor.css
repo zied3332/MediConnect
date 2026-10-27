@@ -32,7 +32,9 @@
 .mc-doctor-steps {
     display: flex;
     gap: 0;
-    margin-bottom: 40px;
+    margin: 0 0 40px;
+    padding: 0;
+    list-style: none;
 }
 
 .mc-step {
@@ -78,6 +80,7 @@
 
 .mc-step-connector {
     width: 30px;
+    flex: 0 0 30px;
     height: 2px;
     background: #e0e0e0;
     margin: 0 4px;
@@ -445,3 +448,6 @@
     .mc-doctor-steps { flex-wrap: wrap; gap: 10px; }
     .mc-step-connector { display: none; }
 }
+
+.mc-step-label { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 650px) { .mc-step { flex: 1 1 130px; min-width: 0; } }

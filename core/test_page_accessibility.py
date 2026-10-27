@@ -85,6 +85,15 @@ class PageAccessibilityTests(SimpleTestCase):
         for verb in ("Edit", "Toggle", "Delete"):
             self.assertTrue(any(name.startswith(f"{verb} availability") and "09:00" in name and "10:00" in name for name in names))
 
+    def test_registration_progress_is_an_ordered_list_with_one_current_step(self):
+        for page, current in (("signup", 0), ("upload_docs", 2)):
+            with self.subTest(page=page):
+                tags = Elements(render_page(f"accounts/doctor/{page}.html", form=forms.Form())).tags
+                self.assertTrue(any(tag == "ol" and attrs.get("aria-label") == "Registration steps" for tag, attrs in tags))
+                steps = [attrs for tag, attrs in tags if tag == "li" and "mc-step" in attrs.get("class", "").split()]
+                self.assertEqual(len(steps), 4)
+                self.assertEqual([index for index, attrs in enumerate(steps) if attrs.get("aria-current") == "step"], [current])
+
     def test_page_titles_identify_purpose_without_clinical_details(self):
         context = self.page_context()
         groups = {

@@ -32,27 +32,27 @@
         </p>
 
         <!-- Step indicator -->
-        <div class="mc-doctor-steps" aria-label="Registration steps">
-            <div class="mc-step active">
-                <span class="mc-step-num">1</span>
-                Your details
-            </div>
-            <div class="mc-step-connector"></div>
-            <div class="mc-step">
-                <span class="mc-step-num">2</span>
-                Confirm email
-            </div>
-            <div class="mc-step-connector"></div>
-            <div class="mc-step">
-                <span class="mc-step-num">3</span>
-                Upload documents
-            </div>
-            <div class="mc-step-connector"></div>
-            <div class="mc-step">
-                <span class="mc-step-num">4</span>
-                Under review
-            </div>
-        </div>
+        <ol class="mc-doctor-steps" role="list" aria-label="Registration steps">
+            <li class="mc-step active" aria-current="step">
+                <span class="mc-step-num" aria-hidden="true">1</span>
+                <span class="mc-step-label">Your details</span>
+                <span class="mc-step-connector" aria-hidden="true"></span>
+            </li>
+            <li class="mc-step">
+                <span class="mc-step-num" aria-hidden="true">2</span>
+                <span class="mc-step-label">Confirm email</span>
+                <span class="mc-step-connector" aria-hidden="true"></span>
+            </li>
+            <li class="mc-step">
+                <span class="mc-step-num" aria-hidden="true">3</span>
+                <span class="mc-step-label">Upload documents</span>
+                <span class="mc-step-connector" aria-hidden="true"></span>
+            </li>
+            <li class="mc-step">
+                <span class="mc-step-num" aria-hidden="true">4</span>
+                <span class="mc-step-label">Under review</span>
+            </li>
+        </ol>
 
         {% include "components/form_errors.html" with form=form error_class="mc-auth-error" only %}
 
