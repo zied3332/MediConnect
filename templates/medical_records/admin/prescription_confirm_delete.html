@@ -1,0 +1,54 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}?v=3">
+{% endblock %}
+
+{% block content %}
+<div class="mr-admin">
+
+    <div class="mr-breadcrumb">
+        <a href="{% url 'medical_records:admin_prescription_list' %}">
+            Prescriptions
+        </a>
+        / Delete
+    </div>
+
+    <div class="mr-page-header">
+        <div>
+            <div class="mr-eyebrow">DELETE PRESCRIPTION</div>
+            <h1>Delete Prescription #{{ prescription.pk }}</h1>
+            <p>This action cannot be undone.</p>
+        </div>
+    </div>
+
+    <div class="mr-panel mr-form-panel">
+
+        <div class="mr-notice">
+            Are you sure you want to permanently delete
+            prescription #{{ prescription.pk }} for
+            {{ prescription.consultation.appointment.patient.get_full_name }}?
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mr-actions">
+                <button type="submit"
+                        class="mr-btn mr-btn-danger-outline">
+                    Yes, Delete Prescription
+                </button>
+
+                <a href="{% url 'medical_records:admin_prescription_detail' prescription.pk %}"
+                   class="mr-btn">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}

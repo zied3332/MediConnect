@@ -143,6 +143,14 @@
                     <span>Medical Records</span>
                 </a>
 
+                <!-- PHASE 2: ADMIN PRESCRIPTIONS -->
+                <a href="{% url 'medical_records:admin_prescription_list' %}"
+                   class="mc-sidebar-link {% if active_nav == 'admin_prescriptions' %}active{% endif %}"
+                   {% if active_nav == 'admin_prescriptions' %}aria-current="page"{% endif %}>
+                    {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
+                    <span>Prescriptions</span>
+                </a>
+
             </nav>
 
         {% elif dashboard_role == "doctor" %}
