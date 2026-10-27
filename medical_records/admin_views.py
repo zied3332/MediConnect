@@ -1,3 +1,4 @@
+# medical_records/admin_views.py
 
 import logging
 from functools import wraps
@@ -16,12 +17,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
 from accounts.models import User
-
 from .admin_forms import AdminOrdonnanceForm, AdminExamenForm
 from .models import DossierMedical, Ordonnance, Examen
 
 
 logger = logging.getLogger(__name__)
+
+DEMO_PATIENT_GROUP = "medical_crud_demo_patients"
 
 
 # ============================================================
@@ -43,28 +45,37 @@ def website_admin_required(view_func):
 
 
 # ============================================================
-# MEDICAL RECORDS — QUERYSETS
+# PHASE 1 — MEDICAL RECORDS QUERYSETS
 # ============================================================
 
 def eligible_patients():
-    """Return all registered patients."""
-
-    return User.objects.filter(
-        role="patient"
-    ).order_by(
-        "first_name",
-        "last_name",
-        "email",
+    """
+    Return only demo patients authorized for admin
+    medical-record management.
+    """
+    return (
+        User.objects.filter(
+            role="patient",
+            groups__name=DEMO_PATIENT_GROUP,
+        )
+        .distinct()
+        .order_by("first_name", "last_name", "email")
     )
 
 
 def medical_records():
-    """Return all medical records belonging to patients."""
+    """
+    Return only medical records belonging to demo patients.
 
-    return DossierMedical.objects.filter(
-        patient__role="patient"
-    ).select_related(
-        "patient"
+    Real patient records are excluded from admin CRUD.
+    """
+    return (
+        DossierMedical.objects.filter(
+            patient__role="patient",
+            patient__groups__name=DEMO_PATIENT_GROUP,
+        )
+        .select_related("patient")
+        .distinct()
     )
 
 
@@ -76,11 +87,11 @@ def get_medical_record(pk):
 
 
 # ============================================================
-# MEDICAL RECORDS — FORM
+# PHASE 1 — MEDICAL RECORDS FORM
 # ============================================================
 
 class AdminMedicalRecordForm(forms.ModelForm):
-    """Admin form for creating and editing medical records."""
+    """Admin form for creating and editing demo medical records."""
 
     class Meta:
         model = DossierMedical
@@ -521,14 +532,14 @@ def admin_examination_create(request):
 def admin_examination_update(request, pk):
     examination = get_admin_examination(pk)
 
-    # IMPORTANT:
     # Capture the original filename before form.is_valid().
-    # Django's ModelForm validation can modify the instance.
+    # Django ModelForm validation can modify the instance.
     old_file_name = (
         examination.fichier.name
         if examination.fichier
         else None
     )
+
     old_storage = examination.fichier.storage
 
     form = AdminExamenForm(
@@ -538,7 +549,6 @@ def admin_examination_update(request, pk):
     )
 
     if request.method == "POST" and form.is_valid():
-
         with transaction.atomic():
             updated_examination = form.save()
 
@@ -586,6 +596,7 @@ def admin_examination_delete(request, pk):
             if examination.fichier
             else None
         )
+
         storage = examination.fichier.storage
 
         try:
