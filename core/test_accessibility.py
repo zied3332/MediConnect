@@ -56,7 +56,9 @@ class SharedAccessibilityTests(SimpleTestCase):
     def render_shell(self, name, **context):
         request = RequestFactory().get("/")
         request.user = get_user_model()(pk=1, username="patient", role="patient")
-        return Elements(render_to_string(name, {"request": request, **context}))
+        return Elements(render_to_string(name, {
+            "request": request, "user": request.user, **context,
+        }))
 
     def test_dashboard_loads_dialog_controller_before_its_consumers(self):
         tags = self.render_shell("dashboard/base.html").tags
@@ -64,6 +66,21 @@ class SharedAccessibilityTests(SimpleTestCase):
                    if tag == "script"]
         self.assertLess(scripts.index("/static/js/dialogs.js"),
                         scripts.index("/static/js/dashboard.js"))
+
+    def test_face_dialogs_have_names_descriptions_and_live_feedback(self):
+        for template, status_id in (("accounts/login.html", "faceLoginStatus"),
+                                    ("dashboard/profile.html", "faceEnrollStatus")):
+            with self.subTest(template=template):
+                tags = self.render_shell(template).tags
+                self.assert_dialog_contract(tags, expected_count=1)
+                status = next(attrs for _, attrs in tags if attrs.get("id") == status_id)
+                self.assertEqual(status["role"], "status")
+                self.assertEqual(status["aria-live"], "polite")
+                scripts = [attrs.get("src", "") for tag, attrs in tags if tag == "script"]
+                controller = scripts.index("/static/js/dialogs.js")
+                consumer = next(index for index, src in enumerate(scripts)
+                                if "face-login.js" in src or "face-enroll.js" in src)
+                self.assertLess(controller, consumer)
 
     def test_specialty_dialogs_have_resolvable_names_and_descriptions(self):
         specialty = SimpleNamespace(id=1, name="Cardiology", description="Heart care")
