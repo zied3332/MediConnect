@@ -9,7 +9,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
 from accounts.models import User
-from .models import DossierMedical
+
+from .admin_forms import AdminOrdonnanceForm
+from .models import DossierMedical, Ordonnance
 
 
 # ============================================================
@@ -18,7 +20,7 @@ from .models import DossierMedical
 
 def website_admin_required(view_func):
     """
-    Restrict access to authenticated users with the admin role.
+    Restrict access to authenticated website administrators.
     """
 
     @wraps(view_func)
@@ -33,15 +35,12 @@ def website_admin_required(view_func):
 
 
 # ============================================================
-# QUERYSETS
+# MEDICAL RECORDS — QUERYSETS
 # ============================================================
 
 def eligible_patients():
     """
     Return all registered patients.
-
-    The create form will additionally exclude patients who
-    already have a medical record.
     """
 
     return User.objects.filter(
@@ -55,7 +54,7 @@ def eligible_patients():
 
 def medical_records():
     """
-    Return medical records belonging to registered patients.
+    Return all medical records belonging to patients.
     """
 
     return DossierMedical.objects.filter(
@@ -66,10 +65,6 @@ def medical_records():
 
 
 def get_medical_record(pk):
-    """
-    Retrieve a medical record or return 404.
-    """
-
     return get_object_or_404(
         medical_records(),
         pk=pk,
@@ -77,13 +72,12 @@ def get_medical_record(pk):
 
 
 # ============================================================
-# ADMIN MEDICAL RECORD FORM
+# MEDICAL RECORDS — FORM
 # ============================================================
 
 class AdminMedicalRecordForm(forms.ModelForm):
     """
-    Form used by website administrators to create and update
-    patient medical records.
+    Website Admin form for creating and editing medical records.
     """
 
     class Meta:
@@ -127,17 +121,14 @@ class AdminMedicalRecordForm(forms.ModelForm):
         patients = eligible_patients()
 
         if self.instance.pk:
-            # A medical record cannot be reassigned to
-            # another patient during an update.
+            # Prevent reassignment of an existing medical record.
             patients = patients.filter(
                 pk=self.instance.patient_id
             )
-
             self.fields["patient"].disabled = True
 
         else:
-            # Each patient can have only one medical record.
-            # Exclude patients who already have one.
+            # One medical record per patient.
             patients = patients.filter(
                 dossier_medical__isnull=True
             )
@@ -151,7 +142,7 @@ class AdminMedicalRecordForm(forms.ModelForm):
 
 def admin_context(**kwargs):
     """
-    Shared context for the website Admin dashboard.
+    Shared dashboard context for medical record pages.
     """
 
     return {
@@ -162,64 +153,58 @@ def admin_context(**kwargs):
     }
 
 
+def admin_prescription_context(**kwargs):
+    """
+    Shared dashboard context for prescription pages.
+    """
+
+    return {
+        "dashboard_role": "admin",
+        "page_title": "Prescriptions",
+        "active_nav": "admin_prescriptions",
+        **kwargs,
+    }
+
+
 # ============================================================
-# READ — LIST MEDICAL RECORDS
+# MEDICAL RECORDS — LIST
 # ============================================================
 
 @website_admin_required
 @require_http_methods(["GET"])
 def admin_record_list(request):
-    """
-    Display all existing patient medical records.
-    """
-
-    records = medical_records().order_by(
-        "-created_at"
-    )
+    records = medical_records().order_by("-created_at")
 
     return render(
         request,
         "medical_records/admin/records.html",
-        admin_context(
-            records=records,
-        ),
+        admin_context(records=records),
     )
 
 
 # ============================================================
-# READ — MEDICAL RECORD DETAILS
+# MEDICAL RECORDS — DETAIL
 # ============================================================
 
 @website_admin_required
 @require_http_methods(["GET"])
 def admin_record_detail(request, pk):
-    """
-    Display the details of a medical record.
-    """
-
     record = get_medical_record(pk)
 
     return render(
         request,
         "medical_records/admin/detail.html",
-        admin_context(
-            record=record,
-        ),
+        admin_context(record=record),
     )
 
 
 # ============================================================
-# CREATE — MEDICAL RECORD
+# MEDICAL RECORDS — CREATE
 # ============================================================
 
 @website_admin_required
 @require_http_methods(["GET", "POST"])
 def admin_record_create(request):
-    """
-    Create a medical record for a patient who does not
-    already have one.
-    """
-
     form = AdminMedicalRecordForm(
         request.POST or None
     )
@@ -243,18 +228,12 @@ def admin_record_create(request):
 
 
 # ============================================================
-# UPDATE — MEDICAL RECORD
+# MEDICAL RECORDS — UPDATE
 # ============================================================
 
 @website_admin_required
 @require_http_methods(["GET", "POST"])
 def admin_record_update(request, pk):
-    """
-    Update medical history and allergies.
-
-    Patient reassignment is not permitted.
-    """
-
     record = get_medical_record(pk)
 
     form = AdminMedicalRecordForm(
@@ -281,19 +260,12 @@ def admin_record_update(request, pk):
 
 
 # ============================================================
-# DELETE — MEDICAL RECORD
+# MEDICAL RECORDS — DELETE
 # ============================================================
 
 @website_admin_required
 @require_http_methods(["GET", "POST"])
 def admin_record_delete(request, pk):
-    """
-    Delete a medical record after confirmation.
-
-    Records referenced by protected related objects,
-    such as examinations, cannot be deleted.
-    """
-
     record = get_medical_record(pk)
 
     if request.method == "POST":
@@ -313,7 +285,160 @@ def admin_record_delete(request, pk):
     return render(
         request,
         "medical_records/admin/confirm_delete.html",
-        admin_context(
-            record=record,
+        admin_context(record=record),
+    )
+
+
+# ============================================================
+# PRESCRIPTIONS — QUERYSETS
+# ============================================================
+
+def admin_prescriptions():
+    """
+    Return prescriptions with consultation and appointment data.
+    """
+
+    return Ordonnance.objects.select_related(
+        "consultation__appointment__patient",
+        "consultation__appointment__doctor",
+    )
+
+
+def get_admin_prescription(pk):
+    return get_object_or_404(
+        admin_prescriptions(),
+        pk=pk,
+    )
+
+
+# ============================================================
+# PRESCRIPTIONS — LIST
+# ============================================================
+
+@website_admin_required
+@require_http_methods(["GET"])
+def admin_prescription_list(request):
+    prescriptions = admin_prescriptions().order_by(
+        "-date",
+        "-pk",
+    )
+
+    return render(
+        request,
+        "medical_records/admin/prescriptions.html",
+        admin_prescription_context(
+            prescriptions=prescriptions,
+        ),
+    )
+
+
+# ============================================================
+# PRESCRIPTIONS — DETAIL
+# ============================================================
+
+@website_admin_required
+@require_http_methods(["GET"])
+def admin_prescription_detail(request, pk):
+    prescription = get_admin_prescription(pk)
+
+    return render(
+        request,
+        "medical_records/admin/prescription_detail.html",
+        admin_prescription_context(
+            prescription=prescription,
+        ),
+    )
+
+
+# ============================================================
+# PRESCRIPTIONS — CREATE
+# ============================================================
+
+@website_admin_required
+@require_http_methods(["GET", "POST"])
+def admin_prescription_create(request):
+    form = AdminOrdonnanceForm(
+        request.POST or None
+    )
+
+    if request.method == "POST" and form.is_valid():
+        prescription = form.save()
+
+        return redirect(
+            "medical_records:admin_prescription_detail",
+            pk=prescription.pk,
+        )
+
+    return render(
+        request,
+        "medical_records/admin/prescription_form.html",
+        admin_prescription_context(
+            form=form,
+            action="Create",
+        ),
+    )
+
+
+# ============================================================
+# PRESCRIPTIONS — UPDATE
+# ============================================================
+
+@website_admin_required
+@require_http_methods(["GET", "POST"])
+def admin_prescription_update(request, pk):
+    prescription = get_admin_prescription(pk)
+
+    form = AdminOrdonnanceForm(
+        request.POST or None,
+        instance=prescription,
+    )
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+
+        return redirect(
+            "medical_records:admin_prescription_detail",
+            pk=prescription.pk,
+        )
+
+    return render(
+        request,
+        "medical_records/admin/prescription_form.html",
+        admin_prescription_context(
+            form=form,
+            action="Update",
+            prescription=prescription,
+        ),
+    )
+
+
+# ============================================================
+# PRESCRIPTIONS — DELETE
+# ============================================================
+
+@website_admin_required
+@require_http_methods(["GET", "POST"])
+def admin_prescription_delete(request, pk):
+    prescription = get_admin_prescription(pk)
+
+    if request.method == "POST":
+        try:
+            prescription.delete()
+
+        except ProtectedError:
+            return HttpResponseForbidden(
+                "Cannot delete this prescription because "
+                "it contains protected related data."
+            )
+
+        return redirect(
+            "medical_records:admin_prescription_list"
+        )
+
+    return render(
+        request,
+        "medical_records/admin/prescription_confirm_delete.html",
+        admin_prescription_context(
+            prescription=prescription,
         ),
     )

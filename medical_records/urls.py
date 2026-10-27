@@ -3,11 +3,14 @@ from django.urls import path
 
 from . import views, admin_views
 
+
 app_name = "medical_records"
 
+
 urlpatterns = [
+
     # ========================================================
-    # Medical records
+    # Medical Records — Patient / Doctor
     # ========================================================
 
     path(
@@ -23,7 +26,7 @@ urlpatterns = [
     ),
 
     # ========================================================
-    # Prescriptions
+    # Prescriptions — Patient / Doctor
     # ========================================================
 
     path(
@@ -57,7 +60,7 @@ urlpatterns = [
     ),
 
     # ========================================================
-    # Medical examinations
+    # Medical Examinations — Patient / Doctor
     # ========================================================
 
     path(
@@ -79,7 +82,7 @@ urlpatterns = [
     ),
 
     # ========================================================
-    # Website Admin — Demo Medical Records CRUD
+    # Website Admin — Medical Records CRUD
     # ========================================================
 
     path(
@@ -110,5 +113,39 @@ urlpatterns = [
         "management/records/<int:pk>/delete/",
         admin_views.admin_record_delete,
         name="admin_record_delete",
+    ),
+
+    # ========================================================
+    # Website Admin — Prescriptions CRUD (Phase 2)
+    # ========================================================
+
+    path(
+        "management/prescriptions/",
+        admin_views.admin_prescription_list,
+        name="admin_prescription_list",
+    ),
+
+    path(
+        "management/prescriptions/new/",
+        admin_views.admin_prescription_create,
+        name="admin_prescription_create",
+    ),
+
+    path(
+        "management/prescriptions/<int:pk>/",
+        admin_views.admin_prescription_detail,
+        name="admin_prescription_detail",
+    ),
+
+    path(
+        "management/prescriptions/<int:pk>/edit/",
+        admin_views.admin_prescription_update,
+        name="admin_prescription_update",
+    ),
+
+    path(
+        "management/prescriptions/<int:pk>/delete/",
+        admin_views.admin_prescription_delete,
+        name="admin_prescription_delete",
     ),
 ]
