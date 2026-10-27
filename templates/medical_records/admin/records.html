@@ -32,25 +32,26 @@
     <section class="mr-panel mr-list-panel">
         <div class="mr-table-wrap">
             <table class="mr-table">
+            <caption class="mc-sr-only">Patient medical records</caption>
                 <thead>
                     <tr>
-                        <th>Record ID</th>
-                        <th>Patient</th>
-                        <th>Created</th>
-                        <th>Actions</th>
+                        <th scope="col">Record ID</th>
+                        <th scope="col">Patient</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for record in records %}
                     <tr>
-                        <td>#{{ record.pk }}</td>
+                        <th scope="row">#{{ record.pk }}</th>
 
                         <td>
                             <strong>
                                 {{ record.patient.get_full_name|default:record.patient.username }}
                             </strong>
-                            <div style="color:#7b8588;margin-top:4px;">
+                            <div style="color: var(--mc-page-muted);margin-top:4px;">
                                 {{ record.patient.email }}
                             </div>
                         </td>
@@ -59,14 +60,14 @@
 
                         <td>
                             <div class="mr-table-actions">
-                                <a href="{% url 'medical_records:admin_record_detail' record.pk %}">
+                                <a href="{% url 'medical_records:admin_record_detail' record.pk %}" aria-label="View medical record #{{ record.pk }}">
                                     View
                                 </a>
-                                <a href="{% url 'medical_records:admin_record_update' record.pk %}">
+                                <a href="{% url 'medical_records:admin_record_update' record.pk %}" aria-label="Edit medical record #{{ record.pk }}">
                                     Edit
                                 </a>
                                 <a class="mr-delete-link"
-                                   href="{% url 'medical_records:admin_record_delete' record.pk %}">
+                                   href="{% url 'medical_records:admin_record_delete' record.pk %}" aria-label="Delete medical record #{{ record.pk }}">
                                     Delete
                                 </a>
                             </div>

@@ -184,7 +184,7 @@ a:hover {
 .mc-input:focus,
 .mc-select:focus,
 .mc-textarea:focus {
-    outline: 2px solid var(--mc-forest);
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 2px;
     border-color: var(--mc-forest);
 }
@@ -205,7 +205,7 @@ a:hover {
 /* Accessibility */
 
 :focus-visible {
-    outline: 3px solid var(--mc-forest);
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 3px;
 }
 

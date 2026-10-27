@@ -73,8 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let pendingDeleteForm = null;
 
     document.querySelectorAll("[data-delete-confirm]").forEach((form) => {
+        if (!deleteModal || !deleteTitle || !deleteForm || !window.MediConnectDialog) return;
         form.addEventListener("submit", (event) => {
-            if (!deleteModal || !deleteTitle || !deleteForm) return;
             event.preventDefault();
             pendingDeleteForm = form;
             deleteTitle.textContent = `Delete “${form.dataset.deleteName}”?`;
@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 initialFocus: deleteModal.querySelector("[data-delete-cancel]"),
             });
         });
+        form.dataset.deleteConfirmReady = "true";
     });
 
     if (deleteModal && deleteForm) {

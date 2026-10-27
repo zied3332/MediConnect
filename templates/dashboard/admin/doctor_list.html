@@ -46,7 +46,8 @@
     background: #fff;
     border: 1px solid var(--mc-admin-border);
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
+    min-width: 0;
 }
 .mc-table {
     width: 100%;
@@ -59,7 +60,7 @@
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.8px;
-    color: #888;
+    color: var(--mc-page-muted);
     border-bottom: 1px solid var(--mc-admin-border);
     background: #fafaf8;
     text-transform: uppercase;
@@ -70,11 +71,11 @@
 }
 .mc-table tbody tr:last-child { border-bottom: none; }
 .mc-table tbody tr:hover { background: #fafaf7; }
-.mc-table td { padding: 16px 20px; vertical-align: middle; }
+.mc-table :is(td, th[scope="row"]) { padding: 16px 20px; vertical-align: middle; }
 
 .mc-doctor-cell { display: flex; flex-direction: column; gap: 3px; }
 .mc-doctor-cell strong { font-size: 14px; }
-.mc-doctor-cell span { color: #888; font-size: 12px; }
+.mc-doctor-cell span { color: var(--mc-page-muted); font-size: 12px; }
 
 .mc-status-pill {
     display: inline-block;
@@ -84,7 +85,7 @@
     font-weight: 700;
 }
 .pill-pending_documents { background: #e3f2fd; color: #0d47a1; }
-.pill-pending_review    { background: #fff8e1; color: #e65100; }
+.pill-pending_review    { background: #fff8e1; color: #a13a00; }
 .pill-needs_more_info   { background: #fff3e0; color: #bf360c; }
 .pill-approved          { background: #e8f5e9; color: #1b5e20; }
 .pill-rejected          { background: #fce4ec; color: #880e4f; }
@@ -106,7 +107,7 @@
 .mc-empty-state {
     padding: 60px 20px;
     text-align: center;
-    color: #aaa;
+    color: var(--mc-page-muted);
 }
 .mc-empty-state p { font-size: 15px; margin: 0; }
 </style>
@@ -167,24 +168,25 @@
 <div class="mc-table-wrapper">
     {% if profiles %}
     <table class="mc-table">
+            <caption class="mc-sr-only">Doctor applications</caption>
         <thead>
             <tr>
-                <th>Doctor</th>
-                <th>Specialty</th>
-                <th>Status</th>
-                <th>Submitted</th>
-                <th></th>
+                <th scope="col">Doctor</th>
+                <th scope="col">Specialty</th>
+                <th scope="col">Status</th>
+                <th scope="col">Submitted</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for profile in profiles %}
             <tr>
-                <td>
+                <th scope="row">
                     <div class="mc-doctor-cell">
                         <strong>Dr. {{ profile.user.get_full_name }}</strong>
                         <span>{{ profile.user.email }}</span>
                     </div>
-                </td>
+                </th>
                 <td>{{ profile.get_specialty_display }}</td>
                 <td>
                     <span class="mc-status-pill pill-{{ profile.status }}">
@@ -195,12 +197,12 @@
                     {% if profile.submitted_at %}
                         {{ profile.submitted_at|date:"M d, Y" }}
                     {% else %}
-                        <span style="color:#bbb;">—</span>
+                        <span style="color: var(--mc-page-muted);">—</span>
                     {% endif %}
                 </td>
                 <td>
                     <a href="{% url 'dashboard:admin_doctor_detail' pk=profile.pk %}"
-                       class="mc-review-btn">
+                       class="mc-review-btn" aria-label="Review application for Dr. {{ profile.user.get_full_name|default:profile.user.email }}">
                         Review →
                     </a>
                 </td>

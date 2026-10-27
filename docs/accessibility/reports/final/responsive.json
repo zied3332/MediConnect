@@ -1,0 +1,1319 @@
+[
+  {
+    "name": "home",
+    "route": "/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "home",
+    "route": "/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "home",
+    "route": "/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "home",
+    "route": "/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "login",
+    "route": "/accounts/login/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "login",
+    "route": "/accounts/login/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "login",
+    "route": "/accounts/login/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "login",
+    "route": "/accounts/login/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "patient-registration",
+    "route": "/accounts/signup/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "patient-registration",
+    "route": "/accounts/signup/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "patient-registration",
+    "route": "/accounts/signup/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "patient-registration",
+    "route": "/accounts/signup/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "doctor-registration",
+    "route": "/accounts/doctor/signup/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "doctor-registration",
+    "route": "/accounts/doctor/signup/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "doctor-registration",
+    "route": "/accounts/doctor/signup/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "doctor-registration",
+    "route": "/accounts/doctor/signup/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "patient-dashboard",
+    "route": "/dashboard/patient/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "patient-dashboard",
+    "route": "/dashboard/patient/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "patient-dashboard",
+    "route": "/dashboard/patient/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "patient-dashboard",
+    "route": "/dashboard/patient/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "examinations",
+    "route": "/medical-records/patients/1/examinations/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "examinations",
+    "route": "/medical-records/patients/1/examinations/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "examinations",
+    "route": "/medical-records/patients/1/examinations/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "examinations",
+    "route": "/medical-records/patients/1/examinations/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "booking-slots",
+    "route": "/appointments/book/doctor/2/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "booking-slots",
+    "route": "/appointments/book/doctor/2/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "booking-slots",
+    "route": "/appointments/book/doctor/2/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "booking-slots",
+    "route": "/appointments/book/doctor/2/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": []
+  },
+  {
+    "name": "availability",
+    "route": "/dashboard/doctor/availability/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 867.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 867.28125,
+          "right": 743.421875,
+          "bottom": 903.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 911.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 911.28125,
+          "right": 757.84375,
+          "bottom": 947.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 955.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 955.28125,
+          "right": 758.40625,
+          "bottom": 991.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1022.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1022.28125,
+          "right": 743.421875,
+          "bottom": 1058.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1066.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1066.28125,
+          "right": 757.84375,
+          "bottom": 1102.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1110.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1110.28125,
+          "right": 758.40625,
+          "bottom": 1146.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1177.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1177.28125,
+          "right": 743.421875,
+          "bottom": 1213.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1221.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1221.28125,
+          "right": 757.84375,
+          "bottom": 1257.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1265.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1265.28125,
+          "right": 758.40625,
+          "bottom": 1301.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1332.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1332.28125,
+          "right": 743.421875,
+          "bottom": 1368.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1376.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1376.28125,
+          "right": 757.84375,
+          "bottom": 1412.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1420.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1420.28125,
+          "right": 758.40625,
+          "bottom": 1456.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1487.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1487.28125,
+          "right": 743.421875,
+          "bottom": 1523.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1531.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1531.28125,
+          "right": 757.84375,
+          "bottom": 1567.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1575.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1575.28125,
+          "right": 758.40625,
+          "bottom": 1611.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1642.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1642.28125,
+          "right": 743.421875,
+          "bottom": 1678.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1686.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1686.28125,
+          "right": 757.84375,
+          "bottom": 1722.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1730.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1730.28125,
+          "right": 758.40625,
+          "bottom": 1766.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1797.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1797.28125,
+          "right": 743.421875,
+          "bottom": 1833.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1841.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1841.28125,
+          "right": 757.84375,
+          "bottom": 1877.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1885.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1885.28125,
+          "right": 758.40625,
+          "bottom": 1921.28125,
+          "left": 696.078125
+        }
+      }
+    ],
+    "tables": [
+      {
+        "width": 760,
+        "parentWidth": 238,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "availability",
+    "route": "/dashboard/doctor/availability/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": [
+      {
+        "width": 890,
+        "parentWidth": 890,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "availability",
+    "route": "/dashboard/doctor/availability/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 867.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 867.28125,
+          "right": 743.421875,
+          "bottom": 903.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 911.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 911.28125,
+          "right": 757.84375,
+          "bottom": 947.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 955.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 955.28125,
+          "right": 758.40625,
+          "bottom": 991.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1022.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1022.28125,
+          "right": 743.421875,
+          "bottom": 1058.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1066.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1066.28125,
+          "right": 757.84375,
+          "bottom": 1102.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1110.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1110.28125,
+          "right": 758.40625,
+          "bottom": 1146.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1177.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1177.28125,
+          "right": 743.421875,
+          "bottom": 1213.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1221.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1221.28125,
+          "right": 757.84375,
+          "bottom": 1257.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1265.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1265.28125,
+          "right": 758.40625,
+          "bottom": 1301.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1332.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1332.28125,
+          "right": 743.421875,
+          "bottom": 1368.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1376.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1376.28125,
+          "right": 757.84375,
+          "bottom": 1412.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1420.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1420.28125,
+          "right": 758.40625,
+          "bottom": 1456.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1487.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1487.28125,
+          "right": 743.421875,
+          "bottom": 1523.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1531.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1531.28125,
+          "right": 757.84375,
+          "bottom": 1567.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1575.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1575.28125,
+          "right": 758.40625,
+          "bottom": 1611.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1642.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1642.28125,
+          "right": 743.421875,
+          "bottom": 1678.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1686.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1686.28125,
+          "right": 757.84375,
+          "bottom": 1722.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1730.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1730.28125,
+          "right": 758.40625,
+          "bottom": 1766.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "A",
+        "text": "Edit",
+        "rect": {
+          "x": 696.078125,
+          "y": 1797.28125,
+          "width": 47.34375,
+          "height": 36,
+          "top": 1797.28125,
+          "right": 743.421875,
+          "bottom": 1833.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Toggle",
+        "rect": {
+          "x": 696.078125,
+          "y": 1841.28125,
+          "width": 61.765625,
+          "height": 36,
+          "top": 1841.28125,
+          "right": 757.84375,
+          "bottom": 1877.28125,
+          "left": 696.078125
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Delete",
+        "rect": {
+          "x": 696.078125,
+          "y": 1885.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 1885.28125,
+          "right": 758.40625,
+          "bottom": 1921.28125,
+          "left": 696.078125
+        }
+      }
+    ],
+    "tables": [
+      {
+        "width": 760,
+        "parentWidth": 238,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "availability",
+    "route": "/dashboard/doctor/availability/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": [
+      {
+        "width": 890,
+        "parentWidth": 890,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "route": "/dashboard/admin/users/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [
+      {
+        "tag": "SELECT",
+        "text": "Admin\n                                \n                                \n        ",
+        "rect": {
+          "x": 489,
+          "y": 652,
+          "width": 101,
+          "height": 36,
+          "top": 652,
+          "right": 590,
+          "bottom": 688,
+          "left": 489
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 598,
+          "y": 652,
+          "width": 51.84375,
+          "height": 36,
+          "top": 652,
+          "right": 649.84375,
+          "bottom": 688,
+          "left": 598
+        }
+      },
+      {
+        "tag": "SELECT",
+        "text": "Admin\n                                \n                                \n        ",
+        "rect": {
+          "x": 489,
+          "y": 763,
+          "width": 101,
+          "height": 36,
+          "top": 763,
+          "right": 590,
+          "bottom": 799,
+          "left": 489
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 598,
+          "y": 763,
+          "width": 51.84375,
+          "height": 36,
+          "top": 763,
+          "right": 649.84375,
+          "bottom": 799,
+          "left": 598
+        }
+      },
+      {
+        "tag": "SELECT",
+        "text": "No specialty\n                                \n                                Au",
+        "rect": {
+          "x": 711,
+          "y": 763,
+          "width": 194,
+          "height": 36,
+          "top": 763,
+          "right": 905,
+          "bottom": 799,
+          "left": 711
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 913,
+          "y": 741,
+          "width": 31.25,
+          "height": 80,
+          "top": 741,
+          "right": 944.25,
+          "bottom": 821,
+          "left": 913
+        }
+      },
+      {
+        "tag": "SELECT",
+        "text": "Admin\n                                \n                                \n        ",
+        "rect": {
+          "x": 489,
+          "y": 874,
+          "width": 101,
+          "height": 36,
+          "top": 874,
+          "right": 590,
+          "bottom": 910,
+          "left": 489
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 598,
+          "y": 874,
+          "width": 51.84375,
+          "height": 36,
+          "top": 874,
+          "right": 649.84375,
+          "bottom": 910,
+          "left": 598
+        }
+      }
+    ],
+    "tables": [
+      {
+        "width": 1081,
+        "parentWidth": 238,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "route": "/dashboard/admin/users/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [
+      {
+        "tag": "SELECT",
+        "text": "No specialty\n                                \n                                Au",
+        "rect": {
+          "x": 1007,
+          "y": 821,
+          "width": 327,
+          "height": 45,
+          "top": 821,
+          "right": 1334,
+          "bottom": 866,
+          "left": 1007
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 1342,
+          "y": 773.5,
+          "width": 38.5,
+          "height": 140,
+          "top": 773.5,
+          "right": 1380.5,
+          "bottom": 913.5,
+          "left": 1342
+        }
+      }
+    ],
+    "tables": [
+      {
+        "width": 1386,
+        "parentWidth": 942,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "route": "/dashboard/admin/users/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [
+      {
+        "tag": "SELECT",
+        "text": "Admin\n                                \n                                \n        ",
+        "rect": {
+          "x": 489,
+          "y": 652,
+          "width": 101,
+          "height": 36,
+          "top": 652,
+          "right": 590,
+          "bottom": 688,
+          "left": 489
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 598,
+          "y": 652,
+          "width": 51.84375,
+          "height": 36,
+          "top": 652,
+          "right": 649.84375,
+          "bottom": 688,
+          "left": 598
+        }
+      },
+      {
+        "tag": "SELECT",
+        "text": "Admin\n                                \n                                \n        ",
+        "rect": {
+          "x": 489,
+          "y": 763,
+          "width": 101,
+          "height": 36,
+          "top": 763,
+          "right": 590,
+          "bottom": 799,
+          "left": 489
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 598,
+          "y": 763,
+          "width": 51.84375,
+          "height": 36,
+          "top": 763,
+          "right": 649.84375,
+          "bottom": 799,
+          "left": 598
+        }
+      },
+      {
+        "tag": "SELECT",
+        "text": "No specialty\n                                \n                                Au",
+        "rect": {
+          "x": 711,
+          "y": 763,
+          "width": 194,
+          "height": 36,
+          "top": 763,
+          "right": 905,
+          "bottom": 799,
+          "left": 711
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 913,
+          "y": 741,
+          "width": 31.25,
+          "height": 80,
+          "top": 741,
+          "right": 944.25,
+          "bottom": 821,
+          "left": 913
+        }
+      },
+      {
+        "tag": "SELECT",
+        "text": "Admin\n                                \n                                \n        ",
+        "rect": {
+          "x": 489,
+          "y": 874,
+          "width": 101,
+          "height": 36,
+          "top": 874,
+          "right": 590,
+          "bottom": 910,
+          "left": 489
+        }
+      },
+      {
+        "tag": "BUTTON",
+        "text": "Save",
+        "rect": {
+          "x": 598,
+          "y": 874,
+          "width": 51.84375,
+          "height": 36,
+          "top": 874,
+          "right": 649.84375,
+          "bottom": 910,
+          "left": 598
+        }
+      }
+    ],
+    "tables": [
+      {
+        "width": 1081,
+        "parentWidth": 238,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "route": "/dashboard/admin/users/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": [
+      {
+        "width": 1221,
+        "parentWidth": 942,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "record-management",
+    "route": "/medical-records/management/records/",
+    "mode": "320px",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": [
+      {
+        "width": 234,
+        "parentWidth": 234,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "record-management",
+    "route": "/medical-records/management/records/",
+    "mode": "200percent-text",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": [
+      {
+        "width": 874,
+        "parentWidth": 874,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "record-management",
+    "route": "/medical-records/management/records/",
+    "mode": "400percent-equivalent",
+    "width": 320,
+    "scrollWidth": 320,
+    "overflow": false,
+    "offscreen": [],
+    "tables": [
+      {
+        "width": 234,
+        "parentWidth": 234,
+        "overflowX": "auto"
+      }
+    ]
+  },
+  {
+    "name": "record-management",
+    "route": "/medical-records/management/records/",
+    "mode": "text-spacing",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "overflow": false,
+    "offscreen": [],
+    "tables": [
+      {
+        "width": 874,
+        "parentWidth": 874,
+        "overflowX": "auto"
+      }
+    ]
+  }
+]

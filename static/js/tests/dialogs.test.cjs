@@ -181,3 +181,14 @@ test('Escape and Cancel clear pending dashboard deletion without posting', () =>
         assert.equal(f.modal.attrs['aria-hidden'], 'true');
     }
 });
+
+test('availability deletion identifies the slot and posts only after confirmation', () => {
+    const f = deletionFixture();
+    f.source.dataset.deleteName = 'availability on Tuesday from 09:00 to 10:00';
+    assert.equal(f.source.dataset.deleteConfirmReady, 'true');
+    f.submit(f.source);
+    assert.match(f.title.textContent, /Tuesday from 09:00 to 10:00/);
+    assert.equal(f.submitted(), 0);
+    f.submit(f.confirmationForm);
+    assert.equal(f.submitted(), 1);
+});

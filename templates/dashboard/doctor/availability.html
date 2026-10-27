@@ -31,21 +31,23 @@
     <div class="mc-panel-heading"><div><h2>My slots</h2><p>Only you can change these availability slots.</p></div></div>
     <div class="mc-users-table-wrapper">
         <table class="mc-users-table mc-management-table">
-            <thead><tr><th>Day</th><th>Hours</th><th>Status</th><th>Actions</th></tr></thead>
+            <caption class="mc-sr-only">My availability slots</caption>
+            <thead><tr><th scope="col">Day</th><th scope="col">Hours</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
             <tbody>
             {% for slot in slots %}
             <tr>
-                <td>{{ slot.get_weekday_display }}</td>
+                <th scope="row">{{ slot.get_weekday_display }}</th>
                 <td>{{ slot.start_time|time:"H:i" }} – {{ slot.end_time|time:"H:i" }}</td>
                 <td>{% if slot.is_free %}Free{% else %}Unavailable{% endif %}</td>
                 <td>
                     <div class="mc-action-group">
-                        <a class="mc-role-save" href="{% url 'dashboard:edit_doctor_availability' slot.id %}">Edit</a>
+                        <a class="mc-role-save" href="{% url 'dashboard:edit_doctor_availability' slot.id %}" aria-label="Edit availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}">Edit</a>
                         <form method="post" action="{% url 'dashboard:toggle_doctor_availability' slot.id %}">
-                            {% csrf_token %}<button class="mc-role-save" type="submit">Toggle</button>
+                            {% csrf_token %}<button class="mc-role-save" type="submit" aria-label="Toggle availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}">Toggle</button>
                         </form>
-                        <form method="post" action="{% url 'dashboard:delete_doctor_availability' slot.id %}">
-                            {% csrf_token %}<button class="mc-role-save mc-role-save--danger" type="submit">Delete</button>
+                        <form method="post" action="{% url 'dashboard:delete_doctor_availability' slot.id %}" data-delete-confirm data-delete-name="availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}" onsubmit="if (!this.dataset.deleteConfirmReady) return confirm('Permanently delete this availability slot?');">
+                            <noscript><label for="confirm-delete-slot-{{ slot.id }}"><input id="confirm-delete-slot-{{ slot.id }}" type="checkbox" required> Confirm permanent deletion of {{ slot.get_weekday_display }} {{ slot.start_time|time:"H:i" }} to {{ slot.end_time|time:"H:i" }}.</label></noscript>
+                            {% csrf_token %}<button class="mc-role-save mc-role-save--danger" type="submit" aria-label="Delete availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}">Delete</button>
                         </form>
                     </div>
                 </td>
@@ -55,4 +57,5 @@
         </table>
     </div>
 </section>
+{% include "components/delete_confirmation.html" with label="DELETE AVAILABILITY" heading="Delete this availability?" description="This availability slot will be permanently deleted. Cancel to keep it." confirm_text="Delete availability" only %}
 {% endblock %}

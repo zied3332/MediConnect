@@ -35,7 +35,7 @@
         {% if request.GET %}<a href="{% url 'appointments:doctor_list' %}" class="mc-users-clear">Clear</a>{% endif %}
     </form>
 
-    <div class="mc-users-table-wrapper">
+    <div class="mc-users-table-wrapper" tabindex="0" role="region" aria-label="My appointments table">
         <table class="mc-users-table mc-appt-table">
             <caption class="mc-sr-only">My appointments</caption>
             <thead>

@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-27",
+  "timezone": "Africa/Lagos",
+  "django_settings": "config.accessibility_settings",
+  "database": "isolated SQLite",
+  "django_check": {"result": "pass", "issues": 0},
+  "django_tests": {"command": "python manage.py test --keepdb -v 1", "tests": 305, "result": "pass", "seconds": 165.702},
+  "javascript_tests": {"command": "node --test static/js/tests/*.test.cjs", "tests": 50, "passed": 50, "failed": 0},
+  "browser_verifier": {"command": "node scripts/accessibility_verify.cjs", "result": "pass", "axe_conditions": 24, "lighthouse_pages": 5, "keyboard_workflows": 12, "responsive_width_checks": 40},
+  "syntax": {"python_compilation": "pass", "javascript_node_check": "pass"},
+  "git_diff_check": "pass",
+  "limitations": ["Not a WCAG conformance statement", "No human-operated manual keyboard session or screen reader", "Native PostgreSQL suite not repeated", "Native zoom approximated", "Camera and AI success paths unverified"]
+}

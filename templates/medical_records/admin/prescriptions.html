@@ -1,5 +1,7 @@
 
 {% extends "dashboard/base.html" %}
+{% block title %}Prescriptions | MediConnect{% endblock %}
+
 {% load static %}
 
 {% block extra_css %}
@@ -33,21 +35,22 @@
 
         <div class="mr-table-wrap">
             <table class="mr-table">
+            <caption class="mc-sr-only">Prescriptions by patient and doctor</caption>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Patient</th>
-                        <th>Doctor</th>
-                        <th>Consultation</th>
-                        <th>Date</th>
-                        <th>Actions</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Patient</th>
+                        <th scope="col">Doctor</th>
+                        <th scope="col">Consultation</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for prescription in prescriptions %}
                     <tr>
-                        <td>#{{ prescription.pk }}</td>
+                        <th scope="row">#{{ prescription.pk }}</th>
 
                         <td>
                             {{ prescription.consultation.appointment.patient.get_full_name|default:prescription.consultation.appointment.patient.username }}
@@ -67,16 +70,16 @@
 
                         <td>
                             <div class="mr-table-actions">
-                                <a href="{% url 'medical_records:admin_prescription_detail' prescription.pk %}">
+                                <a href="{% url 'medical_records:admin_prescription_detail' prescription.pk %}" aria-label="View prescription #{{ prescription.pk }}">
                                     View
                                 </a>
 
-                                <a href="{% url 'medical_records:admin_prescription_update' prescription.pk %}">
+                                <a href="{% url 'medical_records:admin_prescription_update' prescription.pk %}" aria-label="Edit prescription #{{ prescription.pk }}">
                                     Edit
                                 </a>
 
                                 <a href="{% url 'medical_records:admin_prescription_delete' prescription.pk %}"
-                                   class="mr-delete-link">
+                                   class="mr-delete-link" aria-label="Delete prescription #{{ prescription.pk }}">
                                     Delete
                                 </a>
                             </div>

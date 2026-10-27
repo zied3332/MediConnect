@@ -35,7 +35,7 @@
 .mr-page .mr-header p {
     margin: 0;
     font-size: 14px;
-    color: #7a8584;
+    color: var(--mc-page-muted);
 }
 
 /* CONTENT CARDS */
@@ -48,7 +48,8 @@
     box-shadow: 0 5px 24px rgba(22, 38, 33, 0.035);
 }
 
-.mr-page .mr-card h3 {
+.mr-page .mr-card h3,
+.mr-page .mr-card .mr-card-title {
     margin: 0 0 24px;
     font-size: 19px;
     font-weight: 700;
@@ -141,9 +142,9 @@
     background: #f7f8f4;
 }
 
-.mr-page .table th {
+.mr-page .table thead th {
     padding: 16px 18px;
-    color: #77817e;
+    color: var(--mc-page-muted);
     font-size: 11px;
     font-weight: 750;
     letter-spacing: 0.8px;
@@ -152,15 +153,16 @@
     border-bottom: 1px solid #e9ece7;
 }
 
-.mr-page .table th:first-child {
+.mr-page .table thead th:first-child {
     border-radius: 10px 0 0 0;
 }
 
-.mr-page .table th:last-child {
+.mr-page .table thead th:last-child {
     border-radius: 0 10px 0 0;
 }
 
-.mr-page .table td {
+.mr-page .table td,
+.mr-page .table tbody th {
     padding: 19px 18px;
     vertical-align: middle;
     border-bottom: 1px solid #edf0eb;
@@ -177,7 +179,8 @@
     background: #fcfcf8;
 }
 
-.mr-page .table td strong {
+.mr-page .table td strong,
+.mr-page .table tbody th strong {
     font-size: 14px;
     font-weight: 700;
     color: #182d30;
@@ -185,7 +188,7 @@
 
 .mr-page .table .text-muted {
     font-size: 12px;
-    color: #939e99;
+    color: var(--mc-page-muted);
     margin-top: 4px;
 }
 
@@ -219,7 +222,7 @@
 }
 
 .mr-page dl.row dt {
-    color: #788582;
+    color: var(--mc-page-muted);
     font-weight: 600;
 }
 
@@ -252,25 +255,27 @@
     width: 100%;
     min-height: 46px;
     padding: 12px 14px;
-    border: 1px solid #dce3de;
+    border: 1px solid var(--mc-control-border);
     border-radius: 10px;
     background: #ffffff;
     color: #24383a;
     font: inherit;
     font-size: 14px;
     box-sizing: border-box;
-    outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .mr-page .form-control:focus {
-    border-color: #e3c941;
-    box-shadow: 0 0 0 4px rgba(255, 230, 83, 0.2);
+    border-color: var(--mc-accessible-focus);
+    box-shadow: none;
+
+    outline: 3px solid var(--mc-accessible-focus);
+    outline-offset: 2px;
 }
 
 .mr-page .form-control:disabled {
     background: #f4f5f1;
-    color: #7d8984;
+    color: var(--mc-page-muted);
     cursor: not-allowed;
 }
 
@@ -290,7 +295,7 @@
 
 .mr-page .form-text {
     margin-top: 8px;
-    color: #8a9591;
+    color: var(--mc-page-muted);
     font-size: 12px;
 }
 

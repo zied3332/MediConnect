@@ -27,7 +27,7 @@
     .medical-record-eyebrow {
         display: block;
         margin-bottom: 12px;
-        color: #8c8150;
+        color: var(--mc-page-muted-gold);
         font-size: 10px;
         font-weight: 800;
         letter-spacing: 1.4px;
@@ -46,7 +46,7 @@
     .medical-record-subtitle {
         max-width: 650px;
         margin: 0;
-        color: #858c82;
+        color: var(--mc-page-muted);
         font-size: 14px;
         line-height: 1.75;
     }
@@ -136,7 +136,7 @@
 
     .medical-record-card-header p {
         margin: 0;
-        color: #899087;
+        color: var(--mc-page-muted);
         font-size: 12px;
         line-height: 1.5;
     }
@@ -160,7 +160,7 @@
 
     .medical-record-section-description {
         margin: 0 0 17px;
-        color: #8a9188;
+        color: var(--mc-page-muted);
         font-size: 12px;
         line-height: 1.7;
     }
@@ -181,9 +181,8 @@
         width: 100%;
         min-height: 120px;
         padding: 14px 16px;
-        border: 1px solid #dfe4dc;
+        border: 1px solid var(--mc-control-border);
         border-radius: 11px;
-        outline: none;
         background: #ffffff;
         color: #252923;
         font-family: inherit;
@@ -201,18 +200,21 @@
 
     .medical-record-form textarea:hover,
     .medical-record-form input[type="text"]:hover {
-        border-color: #cbd2c6;
+        border-color: var(--mc-control-border);
     }
 
     .medical-record-form textarea:focus,
     .medical-record-form input[type="text"]:focus {
-        border-color: #d3b63f;
-        box-shadow: 0 0 0 3px rgba(255, 235, 77, 0.18);
+        border-color: var(--mc-accessible-focus);
+        box-shadow: none;
+
+        outline: 3px solid var(--mc-accessible-focus);
+        outline-offset: 2px;
     }
 
     .medical-record-form textarea::placeholder,
     .medical-record-form input::placeholder {
-        color: #a0a79e;
+        color: var(--mc-page-muted);
     }
 
     /* Feedback */
@@ -259,7 +261,7 @@
         align-items: center;
         gap: 8px;
         margin: 0;
-        color: #8a9188;
+        color: var(--mc-page-muted);
         font-size: 12px;
         line-height: 1.6;
     }
@@ -302,7 +304,7 @@
 
     .medical-record-nav-link:focus-visible,
     .medical-record-save:focus-visible {
-        outline: 3px solid #b69826;
+        outline: 3px solid var(--mc-accessible-focus);
         outline-offset: 3px;
     }
 

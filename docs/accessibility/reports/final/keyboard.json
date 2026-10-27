@@ -1,0 +1,956 @@
+{
+  "browser": "156.0.8078.48",
+  "date": "2026-10-27T10:09:36.189Z",
+  "results": [
+    {
+      "name": "Skip link, forward and reverse Tab",
+      "role": "public",
+      "route": "/",
+      "result": "pass",
+      "first": {
+        "tag": "A",
+        "id": "",
+        "text": "Skip to main content",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(36, 40, 36)",
+        "background": "rgb(255, 255, 255)",
+        "rect": {
+          "x": 12,
+          "y": 12,
+          "width": 184.96875,
+          "height": 53.59375,
+          "top": 12,
+          "right": 196.96875,
+          "bottom": 65.59375,
+          "left": 12
+        },
+        "focusVisible": true
+      },
+      "second": {
+        "tag": "A",
+        "id": "",
+        "text": "MediConnect",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(41, 45, 40)",
+        "background": "rgba(0, 0, 0, 0)",
+        "rect": {
+          "x": 48,
+          "y": 20,
+          "width": 232.0625,
+          "height": 56,
+          "top": 20,
+          "right": 280.0625,
+          "bottom": 76,
+          "left": 48
+        },
+        "focusVisible": true
+      },
+      "reverse": {
+        "tag": "A",
+        "id": "",
+        "text": "Skip to main content",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(36, 40, 36)",
+        "background": "rgb(255, 255, 255)",
+        "rect": {
+          "x": 12,
+          "y": 12,
+          "width": 184.96875,
+          "height": 53.59375,
+          "top": 12,
+          "right": 196.96875,
+          "bottom": 65.59375,
+          "left": 12
+        },
+        "focusVisible": true
+      },
+      "target": {
+        "tag": "MAIN",
+        "id": "main-content",
+        "text": "Find the right doctor,\n                right when you need one.\n            \n\n            Ready to b",
+        "outline": "rgb(41, 45, 40) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(41, 45, 40)",
+        "background": "rgba(0, 0, 0, 0)",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 1100.703125,
+          "top": 0,
+          "right": 1280,
+          "bottom": 1100.703125,
+          "left": 0
+        },
+        "focusVisible": true
+      }
+    },
+    {
+      "name": "Face login dialog",
+      "role": "public",
+      "route": "/accounts/login/",
+      "result": "pass",
+      "openerFocus": {
+        "tag": "BUTTON",
+        "id": "faceLoginBtn",
+        "text": "Login with Face",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "rect": {
+          "x": 431,
+          "y": 436,
+          "width": 418,
+          "height": 52,
+          "top": 436,
+          "right": 849,
+          "bottom": 488,
+          "left": 431
+        },
+        "focusVisible": true
+      },
+      "initial": {
+        "tag": "BUTTON",
+        "id": "closeFaceLoginModal",
+        "text": "×",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(89, 96, 87)",
+        "background": "rgba(0, 0, 0, 0)",
+        "rect": {
+          "x": 912,
+          "y": 266.203125,
+          "width": 32,
+          "height": 32,
+          "top": 266.203125,
+          "right": 944,
+          "bottom": 298.203125,
+          "left": 912
+        },
+        "focusVisible": true
+      },
+      "within": [
+        {
+          "key": "Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "closeFaceLoginModal",
+            "text": "×",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgba(0, 0, 0, 0)",
+            "rect": {
+              "x": 912,
+              "y": 266.203125,
+              "width": 32,
+              "height": 32,
+              "top": 266.203125,
+              "right": 944,
+              "bottom": 298.203125,
+              "left": 912
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "closeFaceLoginModal",
+            "text": "×",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgba(0, 0, 0, 0)",
+            "rect": {
+              "x": 912,
+              "y": 266.203125,
+              "width": 32,
+              "height": 32,
+              "top": 266.203125,
+              "right": 944,
+              "bottom": 298.203125,
+              "left": 912
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "closeFaceLoginModal",
+            "text": "×",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgba(0, 0, 0, 0)",
+            "rect": {
+              "x": 912,
+              "y": 266.203125,
+              "width": 32,
+              "height": 32,
+              "top": 266.203125,
+              "right": 944,
+              "bottom": 298.203125,
+              "left": 912
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "closeFaceLoginModal",
+            "text": "×",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgba(0, 0, 0, 0)",
+            "rect": {
+              "x": 912,
+              "y": 266.203125,
+              "width": 32,
+              "height": 32,
+              "top": 266.203125,
+              "right": 944,
+              "bottom": 298.203125,
+              "left": 912
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "closeFaceLoginModal",
+            "text": "×",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgba(0, 0, 0, 0)",
+            "rect": {
+              "x": 912,
+              "y": 266.203125,
+              "width": 32,
+              "height": 32,
+              "top": 266.203125,
+              "right": 944,
+              "bottom": 298.203125,
+              "left": 912
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        }
+      ],
+      "hidden": true,
+      "restored": {
+        "tag": "BUTTON",
+        "id": "faceLoginBtn",
+        "text": "Login with Face",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "rect": {
+          "x": 431,
+          "y": 436,
+          "width": 418,
+          "height": 52,
+          "top": 436,
+          "right": 849,
+          "bottom": 488,
+          "left": 431
+        },
+        "focusVisible": true
+      },
+      "camera": "No biometric success tested; no real face enrolled"
+    },
+    {
+      "name": "Face enrollment dialog",
+      "role": "patient",
+      "route": "/dashboard/profile/",
+      "result": "pass",
+      "openerFocus": {
+        "tag": "BUTTON",
+        "id": "enrollFaceBtn",
+        "text": "Set Up Face Login",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(37, 41, 35)",
+        "background": "rgb(255, 235, 77)",
+        "rect": {
+          "x": 805,
+          "y": 621.359375,
+          "width": 167.46875,
+          "height": 44,
+          "top": 621.359375,
+          "right": 972.46875,
+          "bottom": 665.359375,
+          "left": 805
+        },
+        "focusVisible": true
+      },
+      "initial": {
+        "tag": "BUTTON",
+        "id": "closeFaceEnrollModal",
+        "text": "×",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(89, 96, 87)",
+        "background": "rgb(255, 255, 255)",
+        "rect": {
+          "x": 849,
+          "y": 128.609375,
+          "width": 35,
+          "height": 35,
+          "top": 128.609375,
+          "right": 884,
+          "bottom": 163.609375,
+          "left": 849
+        },
+        "focusVisible": true
+      },
+      "within": [
+        {
+          "key": "Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "captureFaceBtn",
+            "text": "Capture Face",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(37, 41, 35)",
+            "background": "rgb(255, 235, 77)",
+            "rect": {
+              "x": 411,
+              "y": 712.390625,
+              "width": 458,
+              "height": 44,
+              "top": 712.390625,
+              "right": 869,
+              "bottom": 756.390625,
+              "left": 411
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "closeFaceEnrollModal",
+            "text": "×",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgb(255, 255, 255)",
+            "rect": {
+              "x": 849,
+              "y": 128.609375,
+              "width": 35,
+              "height": 35,
+              "top": 128.609375,
+              "right": 884,
+              "bottom": 163.609375,
+              "left": 849
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "captureFaceBtn",
+            "text": "Capture Face",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(37, 41, 35)",
+            "background": "rgb(255, 235, 77)",
+            "rect": {
+              "x": 411,
+              "y": 712.390625,
+              "width": 458,
+              "height": 44,
+              "top": 712.390625,
+              "right": 869,
+              "bottom": 756.390625,
+              "left": 411
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "closeFaceEnrollModal",
+            "text": "×",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgb(255, 255, 255)",
+            "rect": {
+              "x": 849,
+              "y": 128.609375,
+              "width": 35,
+              "height": 35,
+              "top": 128.609375,
+              "right": 884,
+              "bottom": 163.609375,
+              "left": 849
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "captureFaceBtn",
+            "text": "Capture Face",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(37, 41, 35)",
+            "background": "rgb(255, 235, 77)",
+            "rect": {
+              "x": 411,
+              "y": 712.390625,
+              "width": 458,
+              "height": 44,
+              "top": 712.390625,
+              "right": 869,
+              "bottom": 756.390625,
+              "left": 411
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        }
+      ],
+      "hidden": true,
+      "restored": {
+        "tag": "BUTTON",
+        "id": "enrollFaceBtn",
+        "text": "Set Up Face Login",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(37, 41, 35)",
+        "background": "rgb(255, 235, 77)",
+        "rect": {
+          "x": 805,
+          "y": 621.359375,
+          "width": 167.46875,
+          "height": 44,
+          "top": 621.359375,
+          "right": 972.46875,
+          "bottom": 665.359375,
+          "left": 805
+        },
+        "focusVisible": true
+      },
+      "camera": "No biometric success tested; no real face enrolled"
+    },
+    {
+      "name": "Availability deletion confirmation",
+      "role": "doctor",
+      "route": "/dashboard/doctor/availability/",
+      "result": "pass",
+      "openerFocus": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Delete",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(161, 45, 45)",
+        "background": "rgb(255, 245, 245)",
+        "rect": {
+          "x": 1095.390625,
+          "y": 476.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 476.28125,
+          "right": 1157.71875,
+          "bottom": 512.28125,
+          "left": 1095.390625
+        },
+        "focusVisible": true
+      },
+      "initial": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Cancel",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(89, 96, 87)",
+        "background": "rgb(240, 240, 240)",
+        "rect": {
+          "x": 640.359375,
+          "y": 545.59375,
+          "width": 49.578125,
+          "height": 41,
+          "top": 545.59375,
+          "right": 689.9375,
+          "bottom": 586.59375,
+          "left": 640.359375
+        },
+        "focusVisible": true
+      },
+      "within": [
+        {
+          "key": "Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Delete availability",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(161, 45, 45)",
+            "background": "rgb(255, 245, 245)",
+            "rect": {
+              "x": 699.9375,
+              "y": 545.59375,
+              "width": 129.0625,
+              "height": 41,
+              "top": 545.59375,
+              "right": 829,
+              "bottom": 586.59375,
+              "left": 699.9375
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Cancel",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgb(240, 240, 240)",
+            "rect": {
+              "x": 640.359375,
+              "y": 545.59375,
+              "width": 49.578125,
+              "height": 41,
+              "top": 545.59375,
+              "right": 689.9375,
+              "bottom": 586.59375,
+              "left": 640.359375
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Delete availability",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(161, 45, 45)",
+            "background": "rgb(255, 245, 245)",
+            "rect": {
+              "x": 699.9375,
+              "y": 545.59375,
+              "width": 129.0625,
+              "height": 41,
+              "top": 545.59375,
+              "right": 829,
+              "bottom": 586.59375,
+              "left": 699.9375
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Cancel",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(89, 96, 87)",
+            "background": "rgb(240, 240, 240)",
+            "rect": {
+              "x": 640.359375,
+              "y": 545.59375,
+              "width": 49.578125,
+              "height": 41,
+              "top": 545.59375,
+              "right": 689.9375,
+              "bottom": 586.59375,
+              "left": 640.359375
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        },
+        {
+          "key": "Shift+Tab",
+          "focus": {
+            "tag": "BUTTON",
+            "id": "",
+            "text": "Delete availability",
+            "outline": "rgb(31, 95, 139) solid 3px",
+            "boxShadow": "none",
+            "color": "rgb(161, 45, 45)",
+            "background": "rgb(255, 245, 245)",
+            "rect": {
+              "x": 699.9375,
+              "y": 545.59375,
+              "width": 129.0625,
+              "height": 41,
+              "top": 545.59375,
+              "right": 829,
+              "bottom": 586.59375,
+              "left": 699.9375
+            },
+            "focusVisible": true
+          },
+          "contained": true
+        }
+      ],
+      "hidden": true,
+      "restored": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Delete",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(161, 45, 45)",
+        "background": "rgb(255, 245, 245)",
+        "rect": {
+          "x": 1095.390625,
+          "y": 476.28125,
+          "width": 62.328125,
+          "height": 36,
+          "top": 476.28125,
+          "right": 1157.71875,
+          "bottom": 512.28125,
+          "left": 1095.390625
+        },
+        "focusVisible": true
+      },
+      "camera": "No biometric success tested; no real face enrolled"
+    },
+    {
+      "name": "Mobile sidebar",
+      "role": "patient",
+      "route": "/dashboard/patient/",
+      "result": "pass",
+      "initial": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "×",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(62, 70, 61)",
+        "background": "rgb(255, 255, 255)",
+        "rect": {
+          "x": 211,
+          "y": 12,
+          "width": 44,
+          "height": 36,
+          "top": 12,
+          "right": 255,
+          "bottom": 48,
+          "left": 211
+        },
+        "focusVisible": true
+      },
+      "expanded": "true",
+      "contained": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "restored": {
+        "tag": "BUTTON",
+        "id": "dashboard-menu-toggle",
+        "text": "",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)",
+        "rect": {
+          "x": 14,
+          "y": 11.5,
+          "width": 44,
+          "height": 44,
+          "top": 11.5,
+          "right": 58,
+          "bottom": 55.5,
+          "left": 14
+        },
+        "focusVisible": true
+      }
+    },
+    {
+      "name": "Login validation",
+      "role": "public",
+      "route": "/accounts/login/",
+      "result": "pass",
+      "invalid": 2,
+      "observed": [
+        "\n    This field is required.\n",
+        "\n    This field is required.\n",
+        ""
+      ],
+      "focus": {
+        "tag": "BODY",
+        "id": "",
+        "text": "Skip to main content\n    \n\n    \n    \n        \n\n    \n        +\n        MediConnect\n    \n\n\n    \n\n    \n",
+        "outline": "rgb(41, 45, 40) none 3px",
+        "boxShadow": "none",
+        "color": "rgb(41, 45, 40)",
+        "background": "rgb(248, 246, 239)",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 1018.578125,
+          "top": 0,
+          "right": 1280,
+          "bottom": 1018.578125,
+          "left": 0
+        },
+        "focusVisible": false
+      }
+    },
+    {
+      "name": "Examination filtering",
+      "role": "patient",
+      "route": "/medical-records/patients/1/examinations/",
+      "result": "pass",
+      "hidden": 0,
+      "status": "0 of 1 examination shown.",
+      "after": {
+        "tag": "INPUT",
+        "id": "examSearch",
+        "text": "",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(37, 41, 35)",
+        "background": "rgb(251, 252, 250)",
+        "rect": {
+          "x": 324,
+          "y": 580.578125,
+          "width": 888,
+          "height": 44,
+          "top": 580.578125,
+          "right": 1212,
+          "bottom": 624.578125,
+          "left": 324
+        },
+        "focusVisible": true
+      },
+      "restored": 1
+    },
+    {
+      "name": "Consultation pagination",
+      "role": "doctor",
+      "route": "/consultations/",
+      "result": "pass",
+      "url": "http://127.0.0.1:8765/consultations/?q=&status=&unread=&page=2",
+      "after": {
+        "tag": "P",
+        "id": "",
+        "text": "14 résultats",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(88, 108, 102)",
+        "background": "rgba(0, 0, 0, 0)",
+        "rect": {
+          "x": 296,
+          "y": 34.375,
+          "width": 944,
+          "height": 17,
+          "top": 34.375,
+          "right": 1240,
+          "bottom": 51.375,
+          "left": 296
+        },
+        "focusVisible": true
+      }
+    },
+    {
+      "name": "Appointment risk tooltip",
+      "role": "doctor",
+      "route": "/appointments/doctor/?when=past",
+      "result": "pass",
+      "before": 1,
+      "after": 0,
+      "observed": {
+        "tag": "SPAN",
+        "id": "",
+        "text": "No-show risk: High · 70%",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(143, 36, 36)",
+        "background": "rgb(253, 232, 232)",
+        "rect": {
+          "x": 1046.171875,
+          "y": 261.5,
+          "width": 81.109375,
+          "height": 24,
+          "top": 261.5,
+          "right": 1127.28125,
+          "bottom": 285.5,
+          "left": 1046.171875
+        },
+        "focusVisible": true
+      }
+    },
+    {
+      "name": "Patient brief panel updates",
+      "role": "doctor",
+      "route": "/consultations/1/",
+      "result": "pass",
+      "expanded": "true",
+      "content": "\nMiroir de consultation · Assistance IADu compte renduà une fiche claire.Un brouillon sourcé. Votre vérification. Une fiche patient validée.✦\n1 · Le compte rendu de référenceDiagnosticSynthetic audit consultationNotesAucune note.Modifier le compte re",
+      "after": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Préparer la fiche patient ✦",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(23, 106, 96)",
+        "rect": {
+          "x": 1009.125,
+          "y": 425.375,
+          "width": 205.875,
+          "height": 44,
+          "top": 425.375,
+          "right": 1215,
+          "bottom": 469.375,
+          "left": 1009.125
+        },
+        "focusVisible": true
+      },
+      "restored": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Préparer la fiche patient ✦",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(23, 106, 96)",
+        "rect": {
+          "x": 1009.125,
+          "y": 425.375,
+          "width": 205.875,
+          "height": 44,
+          "top": 425.375,
+          "right": 1215,
+          "bottom": 469.375,
+          "left": 1009.125
+        },
+        "focusVisible": true
+      },
+      "generation": "External AI generation not invoked"
+    },
+    {
+      "name": "Scrollable appointment table",
+      "role": "doctor",
+      "route": "/appointments/doctor/",
+      "result": "pass",
+      "before": 0,
+      "after": 40,
+      "observed": {
+        "tag": "DIV",
+        "id": "",
+        "text": "My appointments\n            \n                \n                    Date\n                    Patient\n ",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(36, 40, 36)",
+        "background": "rgba(0, 0, 0, 0)",
+        "rect": {
+          "x": 41,
+          "y": 621,
+          "width": 238,
+          "height": 155,
+          "top": 621,
+          "right": 279,
+          "bottom": 776,
+          "left": 41
+        },
+        "focusVisible": true
+      }
+    },
+    {
+      "name": "Users table actions at 320px",
+      "role": "admin",
+      "route": "/dashboard/admin/users/",
+      "result": "pass",
+      "observed": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Save",
+        "outline": "rgb(31, 95, 139) solid 3px",
+        "boxShadow": "none",
+        "color": "rgb(77, 89, 75)",
+        "background": "rgb(245, 247, 243)",
+        "rect": {
+          "x": 265,
+          "y": 741,
+          "width": 31.25,
+          "height": 80,
+          "top": 741,
+          "right": 296.25,
+          "bottom": 821,
+          "left": 265
+        },
+        "focusVisible": true
+      },
+      "scroll": 648
+    }
+  ]
+}

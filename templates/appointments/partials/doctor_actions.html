@@ -28,7 +28,7 @@
         <form method="post" action="{% url 'appointments:doctor_action' appointment.pk 'no-show' %}">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next_url }}">
-            <button type="submit" class="mc-role-save mc-role-save--danger" aria-label="Mark {{ patient_name }} as absent on {{ when }}">No-show</button>
+            <button type="submit" class="mc-role-save mc-role-save--danger" aria-label="No-show: mark {{ patient_name }} as absent on {{ when }}">No-show</button>
         </form>
         {% else %}
         <span class="mc-table-muted">Confirmed — actions available once it starts</span>

@@ -27,7 +27,7 @@
     .exam-eyebrow {
         display: block;
         margin-bottom: 12px;
-        color: #8c8150;
+        color: var(--mc-page-muted-gold);
         font-size: 10px;
         font-weight: 800;
         letter-spacing: 1.4px;
@@ -45,7 +45,7 @@
     .exam-header p {
         max-width: 570px;
         margin: 0;
-        color: #858c82;
+        color: var(--mc-page-muted);
         font-size: 14px;
         line-height: 1.7;
     }
@@ -133,7 +133,7 @@
     }
 
     .exam-patient-label {
-        color: #8a9188;
+        color: var(--mc-page-muted);
         font-size: 12px;
     }
 
@@ -155,7 +155,7 @@
 
     .exam-summary-label {
         margin-bottom: 12px;
-        color: #858c82;
+        color: var(--mc-page-muted);
         font-size: 12px;
         font-weight: 600;
     }
@@ -198,7 +198,7 @@
 
     .exam-panel-subtitle {
         margin: 7px 0 0;
-        color: #8a9188;
+        color: var(--mc-page-muted);
         font-size: 12px;
         line-height: 1.6;
     }
@@ -228,7 +228,7 @@
         width: 18px;
         height: 18px;
         transform: translateY(-50%);
-        color: #9aa197;
+        color: var(--mc-page-muted);
         pointer-events: none;
     }
 
@@ -236,9 +236,8 @@
         width: 100%;
         min-height: 44px;
         padding: 11px 16px 11px 44px;
-        border: 1px solid #e2e6df;
+        border: 1px solid var(--mc-control-border);
         border-radius: 10px;
-        outline: none;
         background: #fbfcfa;
         color: #252923;
         font-family: inherit;
@@ -246,8 +245,11 @@
     }
 
     .exam-search:focus {
-        border-color: #d3b63f;
-        box-shadow: 0 0 0 3px rgba(255,235,77,.18);
+        border-color: var(--mc-accessible-focus);
+        box-shadow: none;
+
+        outline: 3px solid var(--mc-accessible-focus);
+        outline-offset: 2px;
     }
 
     .exam-search-label {
@@ -310,7 +312,7 @@
     }
 
     .exam-item-meta {
-        color: #899087;
+        color: var(--mc-page-muted);
         font-size: 12px;
     }
 
@@ -319,7 +321,7 @@
         border: 1px solid #e9ece6;
         border-radius: 7px;
         background: #f8f9f6;
-        color: #717a70;
+        color: var(--mc-page-muted);
         font-size: 10px;
         font-weight: 750;
     }
@@ -328,7 +330,7 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        color: #7d857b;
+        color: var(--mc-page-muted);
         font-size: 11px;
         font-weight: 600;
     }
@@ -398,7 +400,7 @@
     .exam-empty p {
         max-width: 420px;
         margin: 0 auto;
-        color: #899087;
+        color: var(--mc-page-muted);
         font-size: 13px;
         line-height: 1.7;
     }
@@ -419,7 +421,7 @@
         align-items: flex-start;
         gap: 9px;
         margin-top: 20px;
-        color: #858c82;
+        color: var(--mc-page-muted);
         font-size: 12px;
         line-height: 1.6;
     }
@@ -431,7 +433,7 @@
     }
 
     .exam-page a:focus-visible {
-        outline: 3px solid #b69826;
+        outline: 3px solid var(--mc-accessible-focus);
         outline-offset: 3px;
     }
 

@@ -36,7 +36,7 @@
             <div class="mc-action-group">
                 <form method="post" action="{% url 'notifications:mark_read' notification.pk %}">
                     {% csrf_token %}
-                    <button type="submit" class="mc-role-save">
+                    <button type="submit" class="mc-role-save" aria-label="{% if notification.link %}Open{% else %}Mark as read{% endif %} notification: {{ notification.message|truncatechars:60 }}">
                         {% if notification.link %}Open{% else %}Mark as read{% endif %}
                     </button>
                 </form>

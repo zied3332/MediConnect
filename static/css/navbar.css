@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 32px;
+    flex-wrap: wrap;
 }
 
 /* Brand */
@@ -62,7 +63,9 @@
     display: flex;
     align-items: center;
     gap: clamp(20px, 2.5vw, 48px);
-    height: 96px;
+    min-height: 96px;
+    flex-wrap: wrap;
+    max-width: 100%;
 }
 
 .mc-nav-link,
@@ -173,7 +176,7 @@
     padding: 5px 12px 12px;
     font-size: 12px;
     font-weight: 700;
-    color: #767C73;
+    color: var(--mc-page-muted);
     text-transform: uppercase;
     letter-spacing: 0.07em;
 }
@@ -193,7 +196,7 @@
 }
 
 .mc-nav-menu-disabled {
-    color: #858982;
+    color: var(--mc-page-muted);
     cursor: default;
 }
 
@@ -240,7 +243,7 @@
 }
 
 .mc-nav-mobile-content > span {
-    color: #767C73;
+    color: var(--mc-page-muted);
 }
 
 .mc-nav-mobile-content .mc-nav-mobile-signup {

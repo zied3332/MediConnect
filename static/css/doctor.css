@@ -24,7 +24,7 @@
 
 .mc-doctor-form-container .mc-doctor-subtitle {
     margin: 0 0 36px;
-    color: #747474;
+    color: var(--mc-page-muted);
     font-size: 15px;
     line-height: 1.6;
 }
@@ -32,7 +32,9 @@
 .mc-doctor-steps {
     display: flex;
     gap: 0;
-    margin-bottom: 40px;
+    margin: 0 0 40px;
+    padding: 0;
+    list-style: none;
 }
 
 .mc-step {
@@ -41,7 +43,7 @@
     gap: 10px;
     flex: 1;
     font-size: 13px;
-    color: #999;
+    color: var(--mc-page-muted);
     font-weight: 500;
 }
 
@@ -78,6 +80,7 @@
 
 .mc-step-connector {
     width: 30px;
+    flex: 0 0 30px;
     height: 2px;
     background: #e0e0e0;
     margin: 0 4px;
@@ -91,7 +94,7 @@
     min-height: 54px;
     padding: 13px 15px;
     background: #fff;
-    border: 1px solid #dedede;
+    border: 1px solid var(--mc-control-border);
     border-radius: 4px;
     color: #303030;
     font: inherit;
@@ -104,7 +107,7 @@
 }
 
 .mc-auth-field select:focus {
-    outline: 2px solid #c6a83c;
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 1px;
 }
 
@@ -165,7 +168,7 @@
     margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid #f0f0ed;
-    color: #999;
+    color: var(--mc-page-muted);
     font-size: 13px;
 }
 
@@ -211,6 +214,9 @@
 .mc-doc-field:focus-within {
     border-color: #c6a83c;
     background: #fffdf5;
+
+    outline: 3px solid var(--mc-accessible-focus);
+    outline-offset: 2px;
 }
 
 .mc-doc-field label {
@@ -221,7 +227,7 @@
 
 .mc-doc-field .mc-doc-hint {
     margin: 0;
-    color: #888;
+    color: var(--mc-page-muted);
     font-size: 13px;
 }
 
@@ -345,7 +351,7 @@
 }
 
 .mc-status-badge--pending_documents { background: #e3f2fd; color: #0d47a1; }
-.mc-status-badge--pending_review    { background: #fff8e1; color: #e65100; }
+.mc-status-badge--pending_review    { background: #fff8e1; color: #a13a00; }
 .mc-status-badge--needs_more_info   { background: #fff3e0; color: #bf360c; }
 .mc-status-badge--approved          { background: #e8f5e9; color: #1b5e20; }
 .mc-status-badge--rejected          { background: #fce4ec; color: #880e4f; }
@@ -442,3 +448,6 @@
     .mc-doctor-steps { flex-wrap: wrap; gap: 10px; }
     .mc-step-connector { display: none; }
 }
+
+.mc-step-label { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 650px) { .mc-step { flex: 1 1 130px; min-width: 0; } }

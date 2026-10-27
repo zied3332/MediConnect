@@ -24,7 +24,7 @@
         align-items: center;
         gap: 9px;
         margin-bottom: 25px;
-        color: #7b8379;
+        color: var(--mc-page-muted);
         font-size: 12px;
         font-weight: 700;
         text-decoration: none;
@@ -46,7 +46,7 @@
     .rx-form-eyebrow {
         display: block;
         margin-bottom: 12px;
-        color: #8c8150;
+        color: var(--mc-page-muted-gold);
         font-size: 10px;
         font-weight: 800;
         letter-spacing: 1.4px;
@@ -65,7 +65,7 @@
     .rx-form-subtitle {
         max-width: 650px;
         margin: 0;
-        color: #858c82;
+        color: var(--mc-page-muted);
         font-size: 14px;
         line-height: 1.7;
     }
@@ -112,7 +112,7 @@
 
     .rx-form-card-header p {
         margin: 0;
-        color: #899087;
+        color: var(--mc-page-muted);
         font-size: 12px;
         line-height: 1.6;
     }
@@ -160,7 +160,7 @@
     .rx-consultation-label {
         display: block;
         margin-bottom: 6px;
-        color: #938762;
+        color: var(--mc-page-muted-gold);
         font-size: 11px;
         font-weight: 650;
     }
@@ -208,7 +208,7 @@
 
     .rx-form-help {
         margin: 0 0 17px;
-        color: #899087;
+        color: var(--mc-page-muted);
         font-size: 12px;
         line-height: 1.7;
     }
@@ -228,9 +228,8 @@
         width: 100%;
         min-height: 46px;
         padding: 13px 15px;
-        border: 1px solid #dfe4dc;
+        border: 1px solid var(--mc-control-border);
         border-radius: 10px;
-        outline: none;
         background: #fff;
         color: #252923;
         font-family: inherit;
@@ -247,13 +246,16 @@
     .rx-form-section textarea:focus,
     .rx-form-section input:focus,
     .rx-form-section select:focus {
-        border-color: #d3b63f;
-        box-shadow: 0 0 0 3px rgba(255, 235, 77, .18);
+        border-color: var(--mc-accessible-focus);
+        box-shadow: none;
+
+        outline: 3px solid var(--mc-accessible-focus);
+        outline-offset: 2px;
     }
 
     .rx-form-section textarea::placeholder,
     .rx-form-section input::placeholder {
-        color: #a0a79e;
+        color: var(--mc-page-muted);
     }
 
     /* Errors */
@@ -339,7 +341,7 @@
 
     .rx-form-page a:focus-visible,
     .rx-form-button:focus-visible {
-        outline: 3px solid #b69826;
+        outline: 3px solid var(--mc-accessible-focus);
         outline-offset: 3px;
     }
 

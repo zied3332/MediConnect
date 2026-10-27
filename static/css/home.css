@@ -132,7 +132,7 @@
 
 .mc-care-field label {
     margin-bottom: 5px;
-    color: #777777;
+    color: var(--mc-page-muted);
     font-size: 14px;
     font-weight: 500;
 }
@@ -141,8 +141,7 @@
     width: 100%;
     min-width: 0;
     padding: 2px 0;
-    border: 0;
-    outline: none;
+    border: 1px solid var(--mc-control-border);
     background: transparent;
     color: #333333;
     font-family: inherit;
@@ -151,12 +150,12 @@
 }
 
 .mc-care-field input::placeholder {
-    color: #777777;
+    color: var(--mc-page-muted);
     opacity: 1;
 }
 
 .mc-care-field:focus-within {
-    outline: 2px solid #D7B044;
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: -2px;
     border-radius: 4px;
 }
@@ -284,7 +283,7 @@
 }
 
 .mc-home-steps article > span {
-    color: #A88727;
+    color: #6b5720;
     font-size: 14px;
     font-weight: 700;
 }

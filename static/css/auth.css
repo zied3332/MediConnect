@@ -43,7 +43,7 @@
 }
 
 .mc-auth-header-note {
-    color: #777;
+    color: var(--mc-page-muted);
     font-size: 14px;
 }
 
@@ -104,7 +104,7 @@
     min-height: 54px;
     padding: 13px 15px;
     background: #fff;
-    border: 1px solid #dedede;
+    border: 1px solid var(--mc-control-border);
     border-radius: 4px;
     color: #303030;
     font: inherit;
@@ -112,7 +112,7 @@
 }
 
 .mc-auth-field input:focus {
-    outline: 2px solid #c6a83c;
+    outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 1px;
 }
 
@@ -182,7 +182,7 @@
 
 .mc-auth-notice {
     margin: 0;
-    color: #73766e;
+    color: var(--mc-page-muted);
     font-size: 13px;
     text-align: center;
 }
@@ -233,7 +233,7 @@
 
 .mc-auth-subtitle {
     margin: 0 0 32px;
-    color: #747474;
+    color: var(--mc-page-muted);
     text-align: center;
     font-size: 15px;
 }

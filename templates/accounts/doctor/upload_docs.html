@@ -59,7 +59,7 @@
 .mc-camera-placeholder p {
     margin: 0;
     font-size: 14px;
-    color: #888;
+    color: var(--mc-page-muted);
 }
 
 .mc-camera-overlay-hint {
@@ -74,7 +74,11 @@
     font-weight: 600;
     padding: 6px 14px;
     border-radius: 20px;
-    white-space: nowrap;
+    width: max-content;
+    max-width: calc(100% - 24px);
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
     pointer-events: none;
 }
 
@@ -142,7 +146,7 @@
 .mc-camera-status {
     padding: 10px 14px;
     font-size: 12px;
-    color: #888;
+    color: var(--mc-page-muted);
     border-top: 1px solid #f0f0ed;
     min-height: 36px;
     display: flex;
@@ -197,27 +201,27 @@
     <div class="mc-upload-container">
 
         <!-- Step indicator -->
-        <div class="mc-doctor-steps" aria-label="Registration steps" style="margin-bottom:36px;">
-            <div class="mc-step done">
-                <span class="mc-step-num">✓</span>
-                Your details
-            </div>
-            <div class="mc-step-connector"></div>
-            <div class="mc-step done">
-                <span class="mc-step-num">✓</span>
-                Email confirmed
-            </div>
-            <div class="mc-step-connector"></div>
-            <div class="mc-step active">
-                <span class="mc-step-num">3</span>
-                Upload documents
-            </div>
-            <div class="mc-step-connector"></div>
-            <div class="mc-step">
-                <span class="mc-step-num">4</span>
-                Under review
-            </div>
-        </div>
+        <ol class="mc-doctor-steps" role="list" aria-label="Registration steps" style="margin-bottom:36px;">
+            <li class="mc-step done">
+                <span class="mc-step-num" aria-hidden="true">✓</span>
+                <span class="mc-step-label"><span class="mc-sr-only">Completed: </span>Your details</span>
+                <span class="mc-step-connector" aria-hidden="true"></span>
+            </li>
+            <li class="mc-step done">
+                <span class="mc-step-num" aria-hidden="true">✓</span>
+                <span class="mc-step-label"><span class="mc-sr-only">Completed: </span>Email confirmed</span>
+                <span class="mc-step-connector" aria-hidden="true"></span>
+            </li>
+            <li class="mc-step active" aria-current="step">
+                <span class="mc-step-num" aria-hidden="true">3</span>
+                <span class="mc-step-label">Upload documents</span>
+                <span class="mc-step-connector" aria-hidden="true"></span>
+            </li>
+            <li class="mc-step">
+                <span class="mc-step-num" aria-hidden="true">4</span>
+                <span class="mc-step-label">Under review</span>
+            </li>
+        </ol>
 
         {% if is_resubmit %}
         <div class="mc-reviewer-note" role="alert">
