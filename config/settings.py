@@ -1,9 +1,3 @@
-"""
-Django settings for MediConnect.
-
-Project: MediConnect
-Description: AI-Assisted Healthcare & Telemedicine Platform
-"""
 
 from pathlib import Path
 import os
@@ -45,7 +39,15 @@ DEBUG = env_bool("DEBUG", True)
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
-
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME, "localhost", "127.0.0.1"]
+    CSRF_TRUSTED_ORIGINS = [f"https://{RENDER_EXTERNAL_HOSTNAME}"]
+    # Render ends HTTPS before Django. Without this line, Django thinks the
+    # site is HTTP, and Google login builds a wrong redirect address.
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 # ==========================================================
 # APPLICATIONS
 # ==========================================================
@@ -221,10 +223,14 @@ USE_TZ = True
 # ==========================================================
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+if not DEBUG:
+    STORAGES = {
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+    }
 
 
 # ==========================================================
@@ -240,20 +246,14 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Set SENDGRID_API_KEY in your environment (or .env file).
 # Set DEFAULT_FROM_EMAIL to your verified sender address.
 # ==========================================================
-
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "")
 
 if SENDGRID_API_KEY:
-    EMAIL_BACKEND    = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST       = "smtp.sendgrid.net"
-    EMAIL_PORT       = 587
-    EMAIL_USE_TLS    = True
-    EMAIL_HOST_USER  = "apikey"          # literal string — SendGrid requires this
-    EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+    EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
+    ANYMAIL = {"SENDGRID_API_KEY": SENDGRID_API_KEY}
 else:
-    # No API key set → fall back to console so dev still works.
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
+    
 DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL",
     "MediConnect <noreply@mediconnect.com>",

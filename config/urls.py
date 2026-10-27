@@ -1,9 +1,8 @@
-
 from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.views.i18n import JavaScriptCatalog
+from django.views.static import serve
 
 urlpatterns = [
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
@@ -26,13 +25,13 @@ urlpatterns = [
     # Medical Records — Module 4
     path("medical-records/", include("medical_records.urls")),
 
+    # Uploaded files (works on your PC and on Render)
+    re_path(
+        r"^media/(?P<path>.*)$",
+        serve,
+        {"document_root": settings.MEDIA_ROOT},
+    ),
+
     # Public website (keep this route last)
     path("", include("core.urls")),
 ]
-
-# Serve uploaded files during development.
-if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL,
-        document_root=settings.MEDIA_ROOT,
-    )
