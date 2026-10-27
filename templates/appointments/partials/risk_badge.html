@@ -1,5 +1,5 @@
 {% if appointment.no_show_risk is not None %}
-<span class="mc-risk mc-risk--{{ appointment.risk_level }}" tabindex="0" aria-describedby="risk-tip-{{ appointment.pk }}">
+<span class="mc-risk mc-risk--{{ appointment.risk_level }}" data-risk-tooltip tabindex="0" aria-describedby="risk-tip-{{ appointment.pk }}">
     <span><span class="mc-sr-only">No-show risk: </span>{{ appointment.risk_level|capfirst }} · {{ appointment.risk_percent }}%</span>
     <span class="mc-tooltip" role="tooltip" id="risk-tip-{{ appointment.pk }}">AI estimate, you decide</span>
 </span>

@@ -209,29 +209,32 @@
 .mc-risk--failed  { background: #fde8e8; color: #8f2424; cursor: default; }
 
 .mc-tooltip {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    z-index: 20;
+    position: fixed;
+    z-index: 250;
     padding: 6px 10px;
     border-radius: 6px;
     background: #242824;
     color: #fff;
     font-size: 12px;
     font-weight: 600;
-    white-space: nowrap;
-    transform: translateX(-50%);
+    width: max-content;
+    max-width: min(260px, calc(100vw - 24px));
+    white-space: normal;
+    overflow-wrap: anywhere;
     visibility: hidden;
     opacity: 0;
     transition: opacity 120ms;
 }
 
-.mc-risk:hover .mc-tooltip,
-.mc-risk:focus .mc-tooltip,
-.mc-risk:focus-within .mc-tooltip {
+.mc-tooltip.is-visible {
     visibility: visible;
     opacity: 1;
 }
+
+/* Without JavaScript the description remains available beside its badge. */
+.mc-risk > .mc-tooltip { position: absolute; bottom: 100%; left: 0; }
+.mc-risk:hover > .mc-tooltip,
+.mc-risk:focus-within > .mc-tooltip { visibility: visible; opacity: 1; }
 
 .mc-risk-pending {
     display: inline-flex;
