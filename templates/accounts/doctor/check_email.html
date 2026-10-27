@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Check your email | MediConnect{% endblock %}
+{% block title %}{% translate "Check your email | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
@@ -12,7 +12,7 @@
 <div class="mc-auth-header">
     <a href="{% url 'core:home' %}" class="mc-auth-brand">
         <span class="mc-auth-logo" aria-hidden="true">+</span>
-        <span>MediConnect</span>
+        <span>{% translate "MediConnect" %}</span>
     </a>
 </div>
 {% endblock %}
@@ -23,21 +23,19 @@
 
         <div class="mc-check-email-icon" aria-hidden="true">✉️</div>
 
-        <h1>Check your email</h1>
+        <h1>{% translate "Check your email" %}</h1>
 
         <p>
-            We sent a confirmation link to<br>
+            {% translate "We sent a confirmation link to" %}<br>
             <span class="mc-email-highlight">{{ email }}</span>
         </p>
 
         <p>
-            Click the link in the email to confirm your address
-            and proceed to upload your verification documents.
+            {% translate "Click the link in the email to confirm your address and proceed to upload your verification documents." %}
         </p>
 
         <p class="mc-check-email-note">
-            Didn't receive it? Check your spam folder.
-            The link expires in 3 days.
+            {% translate "Didn't receive it? Check your spam folder. The link expires in 3 days." %}
         </p>
 
     </div>

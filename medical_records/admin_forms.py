@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 
 from django import forms
 
@@ -38,14 +39,14 @@ class AdminOrdonnanceForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "rows": 5,
-                    "placeholder": "Medication, dosage, frequency...",
+                    "placeholder": ui_gettext("Medication, dosage, frequency..."),
                 }
             ),
             "instructions": forms.Textarea(
                 attrs={
                     "class": "form-control",
                     "rows": 4,
-                    "placeholder": "Additional instructions...",
+                    "placeholder": ui_gettext("Additional instructions..."),
                 }
             ),
         }
@@ -76,7 +77,7 @@ class AdminOrdonnanceForm(forms.ModelForm):
 
         if not value:
             raise forms.ValidationError(
-                "Please enter at least one medication."
+                ui_gettext("Please enter at least one medication.")
             )
 
         return value
@@ -101,7 +102,7 @@ class AdminExamenForm(ExamenForm):
 
     dossier = forms.ModelChoiceField(
         queryset=DossierMedical.objects.none(),
-        label="Patient Medical Record",
+        label=ui_gettext("Patient Medical Record"),
         widget=forms.Select(
             attrs={"class": "form-control"}
         ),

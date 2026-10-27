@@ -44,7 +44,7 @@
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: #e9ede7;
+    background:var(--ui-adaptive-soft,#e9ede7);
     font-weight: 700;
 }
 
@@ -130,8 +130,8 @@
     display: grid;
     place-items: center;
     border-radius: 9px;
-    background: #f5f6f1;
-    color: #545c51;
+    background:var(--ui-adaptive-soft,#f5f6f1);
+    color:var(--ui-adaptive-ink,#545c51);
     font-size: 13px;
     font-weight: 800;
 }
@@ -144,7 +144,7 @@
 }
 
 .mc-stat-change {
-    color: #657b5b;
+    color:var(--ui-adaptive-muted,#657b5b);
     font-size: 12px;
     font-weight: 700;
 }
@@ -226,7 +226,7 @@
 }
 
 .mc-quick-info span {
-    color: #626961;
+    color:var(--ui-adaptive-ink,#626961);
 }
 
 .mc-quick-info strong {
@@ -254,17 +254,17 @@
 }
 
 .mc-users-message--success {
-    background: #edf8ef;
+    background:var(--ui-adaptive-soft,#edf8ef);
     color: #26703d;
 }
 
 .mc-users-message--error {
-    background: #fff0f0;
+    background:var(--ui-adaptive-soft,#fff0f0);
     color: #9b3030;
 }
 
 .mc-users-message--info {
-    background: #eef5fb;
+    background:var(--ui-adaptive-soft,#eef5fb);
     color: #2f628b;
 }
 
@@ -299,7 +299,7 @@
     gap: 12px;
     padding: 20px 24px;
     border-bottom: 1px solid var(--mc-admin-border);
-    background: #fbfcfa;
+    background:var(--ui-adaptive-paper,#fbfcfa);
 }
 
 .mc-users-filters label {
@@ -321,7 +321,7 @@
     padding: 10px 13px;
     border: 1px solid var(--mc-control-border);
     border-radius: 7px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     color: var(--mc-admin-text);
     font-size: 13px;
     transition: border-color 150ms, box-shadow 150ms;
@@ -442,7 +442,7 @@
     padding-top: 16px;
     padding-bottom: 12px;
     border-top: 0;
-    background: #fbfcfa;
+    background:var(--ui-adaptive-paper,#fbfcfa);
 }
 
 .mc-users-table tbody tr {
@@ -450,7 +450,7 @@
 }
 
 .mc-users-table tbody tr:hover {
-    background: #fcfdfb;
+    background:var(--ui-adaptive-paper,#fcfdfb);
 }
 
 .mc-user-cell {
@@ -467,8 +467,8 @@
     flex-shrink: 0;
     place-items: center;
     border-radius: 50%;
-    background: #eef1eb;
-    color: #596553;
+    background:var(--ui-adaptive-soft,#eef1eb);
+    color:var(--ui-adaptive-ink,#596553);
     font-size: 11px;
     font-weight: 800;
 }
@@ -490,7 +490,7 @@
 
 .mc-user-email,
 .mc-user-date {
-    color: #626961;
+    color:var(--ui-adaptive-ink,#626961);
 }
 
 .mc-user-email {
@@ -510,7 +510,7 @@
     padding: 7px 28px 7px 10px;
     border: 1px solid var(--mc-control-border);
     border-radius: 6px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     color: var(--mc-admin-text);
     font-size: 12px;
     font-weight: 700;
@@ -527,8 +527,8 @@
     padding: 7px 11px;
     border: 1px solid #d7ddd4;
     border-radius: 6px;
-    background: #f5f7f3;
-    color: #4d594b;
+    background:var(--ui-adaptive-soft,#f5f7f3);
+    color:var(--ui-adaptive-ink,#4d594b);
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
@@ -536,7 +536,7 @@
 
 .mc-role-save:hover {
     border-color: #aeb9a8;
-    background: #eaf0e7;
+    background:var(--ui-adaptive-soft,#eaf0e7);
 }
 
 .mc-user-date {
@@ -561,7 +561,7 @@
 }
 
 .mc-user-status--active {
-    color: #36734a;
+    color:var(--ui-adaptive-muted,#36734a);
 }
 
 .mc-user-status--active::before {
@@ -609,7 +609,7 @@
     padding: 10px 12px;
     border: 1px solid var(--mc-control-border);
     border-radius: 7px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     color: var(--mc-admin-text);
     font-size: 13px;
 }
@@ -665,8 +665,8 @@
     padding: 13px 16px;
     border: 1px solid #dce6d9;
     border-radius: 8px;
-    background: #f2f7f0;
-    color: #53644f;
+    background:var(--ui-adaptive-soft,#f2f7f0);
+    color:var(--ui-adaptive-ink,#53644f);
     font-size: 13px;
     font-weight: 600;
 }
@@ -683,7 +683,7 @@
 
 .mc-role-save--danger {
     border-color: #efd1d1;
-    background: #fff5f5;
+    background:var(--ui-adaptive-soft,#fff5f5);
     color: #a12d2d;
 }
 
@@ -729,7 +729,7 @@
 }
 
 .mc-management-list-button:hover {
-    background: #f7f9f5;
+    background:var(--ui-adaptive-soft,#f7f9f5);
 }
 
 .mc-specialty-grid {
@@ -744,7 +744,7 @@
     padding: 22px;
     border: 1px solid var(--mc-admin-border);
     border-radius: 10px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     color: var(--mc-admin-text);
     transition: border-color 150ms, box-shadow 150ms, transform 150ms;
 }
@@ -797,7 +797,7 @@
     place-items: center;
     border: 1px solid var(--mc-admin-border);
     border-radius: 7px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     color: var(--mc-admin-text);
     cursor: pointer;
     font-size: 16px;
@@ -805,7 +805,7 @@
 
 .mc-specialty-icon-button:hover {
     border-color: #a9b9a4;
-    background: #f7f9f5;
+    background:var(--ui-adaptive-soft,#f7f9f5);
 }
 
 .mc-specialty-icon-button--danger {
@@ -814,7 +814,7 @@
 
 .mc-specialty-icon-button--danger:hover {
     border-color: #e4bebe;
-    background: #fff5f5;
+    background:var(--ui-adaptive-soft,#fff5f5);
 }
 
 .mc-modal {
@@ -846,7 +846,7 @@
     padding: 30px;
     border: 1px solid var(--mc-admin-border);
     border-radius: 14px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     box-shadow: 0 24px 60px rgba(36, 40, 36, 0.18);
 }
 
@@ -863,7 +863,7 @@
     height: 32px;
     border: 0;
     border-radius: 50%;
-    background: #f4f6f2;
+    background:var(--ui-adaptive-soft,#f4f6f2);
     color: var(--mc-admin-text);
     font-size: 22px;
     line-height: 1;
@@ -887,7 +887,7 @@
     place-items: center;
     margin-bottom: 16px;
     border-radius: 50%;
-    background: #fff1f1;
+    background:var(--ui-adaptive-soft,#fff1f1);
     color: #a12d2d;
     font-size: 22px;
     font-weight: 800;
@@ -1075,7 +1075,7 @@
     border: 1px solid var(--mc-admin-border, #e4e7e1);
     border-radius: 6px;
     background: transparent;
-    color: #555;
+    color:var(--ui-adaptive-ink,#555);
     font-family: inherit;
     font-size: 12px;
     font-weight: 600;
@@ -1084,7 +1084,7 @@
 }
 
 .mc-logout-btn:hover {
-    background: #f5f6f1;
+    background:var(--ui-adaptive-soft,#f5f6f1);
 }
 
 /* ── Field-level validation errors ───────────── */

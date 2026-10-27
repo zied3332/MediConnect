@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -16,7 +17,7 @@ def notification_list(request):
         request,
         "notifications/list.html",
         {
-            "page_title": "Notifications",
+            "page_title": ui_gettext("Notifications"),
             "dashboard_role": request.user.role,
             "active_nav": "notifications",
             "page_obj": page,
@@ -55,5 +56,5 @@ def mark_all_read(request):
 def delete_notification(request, pk):
     notification = get_object_or_404(Notification, pk=pk, user=request.user)
     notification.delete()
-    messages.success(request, "Notification deleted.")
+    messages.success(request, ui_gettext("Notification deleted."))
     return redirect("notifications:list")

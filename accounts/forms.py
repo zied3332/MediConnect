@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
@@ -10,14 +11,14 @@ from .models import DoctorProfile, User
 class LoginForm(forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
-            "placeholder": "you@example.com",
+            "placeholder": ui_gettext("you@example.com"),
             "autocomplete": "email",
             "id": "login-email",
         })
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            "placeholder": "Enter your password",
+            "placeholder": ui_gettext("Enter your password"),
             "autocomplete": "current-password",
             "id": "login-password",
         })
@@ -37,14 +38,14 @@ class LoginForm(forms.Form):
             user = authenticate(self.request, username=email, password=password)
             if user is None:
                 raise forms.ValidationError(
-                    "Invalid email or password. Please try again."
+                    ui_gettext("Invalid email or password. Please try again.")
                 )
             # Doctors in non-approved status are kept with is_active=False
             # so authenticate() returns None. But we need to distinguish
             # "wrong password" from "email not confirmed yet / under review".
             # We therefore do a second lookup by email.
             if not user.is_active:
-                raise forms.ValidationError("This account is inactive.")
+                raise forms.ValidationError(ui_gettext("This account is inactive."))
             self._user = user
         return cleaned
 
@@ -84,7 +85,7 @@ class SignupForm(forms.ModelForm):
         fields = ["email", "first_name", "last_name", "password"]
         widgets = {
             "email": forms.EmailInput(attrs={
-                "placeholder": "you@example.com",
+                "placeholder": ui_gettext("you@example.com"),
                 "autocomplete": "email",
                 "id": "signup-email",
             }),
@@ -94,7 +95,7 @@ class SignupForm(forms.ModelForm):
         email = self.cleaned_data["email"].lower().strip()
         if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError(
-                "An account with this email already exists."
+                ui_gettext("An account with this email already exists.")
             )
         return email
 
@@ -155,7 +156,7 @@ class DoctorSignupForm(forms.ModelForm):
         fields = ["email", "first_name", "last_name", "password"]
         widgets = {
             "email": forms.EmailInput(attrs={
-                "placeholder": "doctor@hospital.com",
+                "placeholder": ui_gettext("doctor@hospital.com"),
                 "autocomplete": "email",
                 "id": "doctor-email",
             }),
@@ -173,7 +174,7 @@ class DoctorSignupForm(forms.ModelForm):
         email = self.cleaned_data["email"].lower().strip()
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError(
-                "An account with this email already exists."
+                ui_gettext("An account with this email already exists.")
             )
         return email
 
@@ -240,10 +241,10 @@ class DoctorDocumentForm(forms.ModelForm):
             }),
         }
         labels = {
-            "medical_license": "Medical license / registration number",
-            "diploma":         "Diploma or specialty certificate",
-            "national_id":     "National ID or passport",
-            "selfie_with_id":  "Selfie holding your ID (optional but recommended)",
+            ui_gettext("medical_license"): ui_gettext("Medical license / registration number"),
+            ui_gettext("diploma"):         ui_gettext("Diploma or specialty certificate"),
+            ui_gettext("national_id"):     ui_gettext("National ID or passport"),
+            ui_gettext("selfie_with_id"):  ui_gettext("Selfie holding your ID (optional but recommended)"),
         }
 
     def clean(self):

@@ -69,6 +69,7 @@ INSTALLED_APPS = [
 
     # MediConnect applications
     "core.apps.CoreConfig",
+    "specialty.apps.SpecialtyConfig",
     "accounts.apps.AccountsConfig",
     "dashboard.apps.DashboardConfig",
     "notifications.apps.NotificationsConfig",
@@ -87,6 +88,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -118,6 +120,8 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
+                "core.preferences.preferences_context",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "notifications.context_processors.unread_notifications",
@@ -205,6 +209,9 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
+LANGUAGES = [("en", "English"), ("fr", "Français"), ("ar", "العربية")]
+LOCALE_PATHS = [BASE_DIR / "locale"]
+LANGUAGE_COOKIE_NAME = "django_language"
 USE_TZ = True
 
 

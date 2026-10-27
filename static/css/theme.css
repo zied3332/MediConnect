@@ -1,0 +1,85 @@
+/* App-wide preferences: server-rendered theme avoids a light flash on navigation. */
+html[data-theme=dark]{--ui-adaptive-ink:#edf1f5;--ui-adaptive-muted:#bbc3cd;--ui-adaptive-paper:#1d2530;--ui-adaptive-soft:#273240}
+:root{--ui-bg:#fffefb;--ui-surface:#fff;--ui-muted:#696558;--ui-text:#292d28;--ui-border:#e4dfcc;color-scheme:light}
+html[data-theme=dark]{--ui-bg:#131820;--ui-surface:#1d2530;--ui-muted:#bbc3cd;--ui-text:#edf1f5;--ui-border:#46515e;--mc-background:#131820;--mc-surface:#1d2530;--mc-surface-muted:#242d39;--mc-text:#edf1f5;--mc-text-secondary:#bbc3cd;--mc-text-muted:#bbc3cd;--mc-border:#46515e;--mc-border-strong:#627083;--mc-admin-bg:#131820;--mc-admin-surface:#1d2530;--mc-admin-text:#edf1f5;--mc-admin-muted:#bbc3cd;--mc-admin-border:#46515e;--mc-page-muted:#bbc3cd;--mc-page-muted-gold:#eed788;--mc-forest:#bddac9;--mc-accessible-focus:#ffeb4d;color-scheme:dark}
+html[data-theme=dark] body,html[data-theme=dark] body:has(.hp-page),html[data-theme=dark] body:has(.login-header),html[data-theme=dark] body.client-portal{background:var(--ui-bg)!important;color:var(--ui-text)!important}
+html[data-theme=dark] :is(h1,h2,h3,h4,h5,h6,legend,label){color:var(--ui-text)}
+html[data-theme=dark] :is(p,small,dt){color:var(--ui-muted)}
+html[data-theme=dark] a{color:#e3dca6}
+html[data-theme=dark] :is(input:not([type=checkbox]):not([type=radio]):not([type=submit]),select,textarea){background:#141c26!important;color:#edf1f5!important;border-color:#627083!important}
+html[data-theme=dark] :is(input,textarea)::placeholder{color:#a9b3bf!important;opacity:1}
+html[data-theme=dark] input:-webkit-autofill{box-shadow:0 0 0 1000px #1b2633 inset!important;-webkit-text-fill-color:#edf1f5!important}
+html[data-theme=dark] :is(.mc-dashboard-main,.mc-dashboard-content,.mc-auth-page,.mc-auth-signup,.mc-doctor-signup,.hp-page,.client-home,.mc-section,.mc-dashboard,.mr-page){background:var(--ui-bg)!important;color:var(--ui-text)!important}
+html[data-theme=dark] :is(.mc-dashboard-sidebar,.mc-dashboard-topbar,.patient-site-header,.mc-auth-header,#site-header,.hp-footer,.patient-site-footer,.mc-nav-mobile-menu){background:#19212b!important;border-color:var(--ui-border)!important;color:var(--ui-text)!important}
+html[data-theme=dark] :is([class$="-card"],[class*="-card "],[class$="-panel"],.care-stat,.mc-stat-card,.patient-home-card,.client-agenda,.client-shortcut,.client-next-card,.client-followup-link,.doctor-specialty,.hp-specialty,.hp-search-wrap,.pw-dropdown-panel,.mc-account-dropdown,.mc-modal-content,.face-login-modal-content,.mc-auth-login-card,.mc-doctor-form-container,.mc-notification,.mc-notifications-card){background:var(--ui-surface)!important;border-color:var(--ui-border)!important;color:var(--ui-text)!important;box-shadow:none!important}
+html[data-theme=dark] :is(.care-toolbar,.mc-users-filters,.mc-table-wrap,.mc-table-wrapper,.mc-filter-bar,.mc-admin-filters,.mc-filter-form,.care-live-toolbar,.hp-practitioners,.client-companion,.patient-feature-card,.mc-account-dropdown-header,.hp-care-path,.care-bubble,.care-note,.client-member,.client-date-tile,.client-shortcut-icon,.hp-doctor-avatar,.hp-person-avatar,.intake-avatar){background:#242d39!important;color:var(--ui-text)!important;border-color:var(--ui-border)!important}
+html[data-theme=dark] :is(.login-story,.patient-welcome,.client-welcome,.care-hero,.hp-visual,.mc-doctor-step-card){background:#302d20!important;border-color:#6f633c!important;color:#fff1ba!important}
+html[data-theme=dark] :is(.hp-ai-banner,.intake-recommendation,.care-bubble.mine){background:#25362f!important;color:#fff!important}
+html[data-theme=dark] :is(.hp-ai-banner,.intake-recommendation,.care-bubble.mine) :is(h1,h2,h3,p,span){color:inherit}
+html[data-theme=dark] :is(.login-journey,.client-next-card,.client-shortcut,.hp-care-card,.hp-specialty,.hp-doctor-card,.care-card,.care-stat,.mc-stat-card,.patient-home-card,.client-agenda,.patient-feature-card,.doctor-specialty,.mc-account-dropdown,.pw-dropdown-panel) :is(h1,h2,h3,h4,strong,dd){color:var(--ui-text)!important}
+html[data-theme=dark] :is(.login-story,.patient-welcome,.client-welcome,.care-hero) :is(h1,h2,h3,p,span){color:#f5e9ba!important}
+html[data-theme=dark] :is(.hp-section-heading h2,.hp-hero h1,.hp-specialty h3,.hp-doctor-card h3,.hp-person h2,.hp-brand,.pw-brand,.mc-auth-brand,.client-brand,.mc-auth-login-card h1,.client-section-heading h2,.client-followup-link strong,.client-agenda-person strong,.client-agenda-time strong){color:var(--ui-text)!important}
+html[data-theme=dark] :is(.hp-lead,.hp-hero-proof p,.hp-hero-proof strong,.hp-specialty>span,.hp-doctor-card>p,.hp-steps p,.hp-section-heading>p,.hp-footer p,.hp-footer h2,.client-eyebrow,.client-personal-counts a,.client-shortcut p,.client-shortcut h3,.client-empty-message,.client-home-footer,.client-home-footer a,.mc-auth-subtitle,.mc-doctor-subtitle,.login-professional,.mc-auth-switch,.mc-topbar-breadcrumb span,.mc-topbar-breadcrumb strong){color:var(--ui-muted)!important}
+html[data-theme=dark] :is(.mc-sidebar-link,.pw-nav-link,.hp-navigation>a,.hp-nav-actions>a,.pw-account-name,.pw-profile>summary,.pw-dropdown-panel>a,.mc-account-dropdown a,.mc-account-trigger,.mc-account-identity strong,.mc-auth-password-toggle){color:#dce2e9!important}
+html[data-theme=dark] :is(.mc-sidebar-link.active,.pw-nav-link.is-active,.pw-dropdown[open]>.pw-nav-link,.pw-dropdown-panel>a[aria-current=page],.doctor-specialty.selected,.hp-specialty.is-selected){background:#4b4225!important;color:#fff1a2!important}
+html[data-theme=dark] :is(.mc-sidebar-link.active,.pw-nav-link.is-active) svg{color:#fff1a2!important}
+html[data-theme=dark] :is(.mc-sidebar-link:hover,.pw-nav-link:hover,.pw-dropdown-panel>a:hover,.hp-specialty:hover,.client-shortcut:hover){background:#333e4c!important}
+html[data-theme=dark] :is(.hp-button-dark,.hp-button-lime,.mc-auth-submit,.care-btn,.client-button,.patient-btn-primary,.mc-btn-primary,.mc-button-primary,.hp-back-top,.preferences-form>button){background:#ffeb4d!important;color:#292d28!important;border-color:#d9c636!important}
+html[data-theme=dark] :is(.care-btn.secondary,.care-btn-outline,.hp-button-outline,.patient-btn-secondary,.client-top-book,.login-create-account,.mc-google-btn,.login-face-button){background:#273240!important;color:#edf1f5!important;border-color:#627083!important}
+html[data-theme=dark] :is(.care-btn,.client-button,.mc-auth-submit) span{color:inherit!important}
+html[data-theme=dark] :is(.mc-google-btn,.login-face-button) svg{color:#edf1f5}
+html[data-theme=dark] :is(.hp-brand-mark,.mc-auth-logo,.client-brand>span,.pw-brand>span,.hp-mini-logo,.login-journey-icon,.pw-avatar,.mc-account-avatar,.client-member-avatar){background:#ffeb4d!important;color:#292d28!important}
+html[data-theme=dark] :is(.care-btn.secondary,.care-btn-outline) span{color:inherit!important}
+html[data-theme=dark] :is(.hp-verified,.intake-approved,.mc-badge-success,.badge-success){background:#254436!important;color:#c4eed3!important}
+html[data-theme=dark] :is(.client-status,.intake-result-badge,.care-badge,.mc-badge-warning){background:#4b4225!important;color:#fff0ab!important}
+html[data-theme=dark] :is(.hp-floating-note,.intake-boundary){background:#26303c!important;border-color:#46515e!important;color:#dce2e9!important}
+html[data-theme=dark] table{color:#edf1f5!important;background:#1d2530!important}
+html[data-theme=dark] :is(th,thead){background:#273240!important;color:#dce2e9!important;border-color:#46515e!important}
+html[data-theme=dark] :is(td,tr,tbody){border-color:#46515e!important;color:#dce2e9!important}
+html[data-theme=dark] tbody tr:hover{background:#273240!important}
+html[data-theme=dark] :is(.mc-divider:before,.mc-divider:after,.hp-doctor-divider,.mc-account-dropdown-divider){background:#46515e!important}
+html[data-theme=dark] :is(.mc-auth-error,.mc-auth-field-error,.intake-error,.face-login-status.error){color:#ffb4aa!important;background:#472a2c!important}
+html[data-theme=dark] :is(.mc-alert-success,.face-login-status.success){color:#bce8ca!important;background:#254436!important}
+.ui-preferences-link{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:12px;color:inherit;text-decoration:none;white-space:nowrap;padding:10px;border-radius:9px}.ui-preferences-link:hover{background:#fff4bd}html[data-theme=dark] .ui-preferences-link:hover{background:#333e4c}
+/* Bidirectional layout uses logical spacing and mirrors the fixed professional sidebar. */
+html[data-theme=dark] :is(.mc-nav,.mc-footer,.mc-nav-menu,.mc-nav-mobile-menu){background:var(--ui-surface)!important;border-color:var(--ui-border)!important;color:var(--ui-text)!important}
+html[data-theme=dark] :is(.mc-nav-brand,.mc-nav-brand-name,.mc-nav-desktop>a,.mc-nav-menu>a,.mc-footer h2,.mc-footer-brand-link){color:var(--ui-text)!important}
+html[data-theme=dark] :is(.mc-nav-signup,.mc-nav-logo,.mc-footer-logo){color:#292d28!important}
+html[data-theme=dark] .mc-nav-desktop>a.mc-nav-signup{color:#292d28!important}
+html[data-theme=dark] :is(.mc-nav-help,.mc-sidebar-brand,.mc-sidebar-brand-name,.mc-panel .mc-quick-action span,.mc-stat-change){color:var(--ui-muted)!important}
+html[data-theme=dark] .mc-quick-info>div>span{color:var(--ui-muted)!important}
+html[data-theme=dark] :is(.hp-eyebrow,.hp-visual-caption,.hp-visual-bottom,.hp-card-label,.hp-card-top,.hp-care-path>div,.hp-search-heading>span){color:var(--ui-muted)!important}
+html[data-theme=dark] :is(.mc-nav-browse,.mc-nav-login){background:#303946;color:var(--ui-text)}
+@media(max-width:1100px){.mc-nav-desktop{gap:14px}.mc-nav-desktop .ui-preferences-link{font-size:11px;padding:7px}}
+html[dir=rtl] body{direction:rtl;text-align:right}html[dir=rtl] :is(input[type=email],input[type=url],input[type=password],input[name=phone]){direction:ltr;text-align:left}
+html[lang=ar] body,html[lang=ar] :is(button,input,select,textarea){font-family:Tahoma,"Segoe UI",Arial,sans-serif;letter-spacing:0}
+html[lang=ar] :is(h1,h2,h3,h4,h5,h6){font-family:Tahoma,"Segoe UI",Arial,sans-serif!important;letter-spacing:0}
+html[dir=rtl] :is(.mc-auth-login-card,.mc-auth-login-card h1,.mc-auth-subtitle,.mc-account-dropdown,.pw-dropdown-panel,.mc-account-dropdown-header){text-align:right}
+html[dir=rtl] :is(.mc-sidebar-link,.mc-topbar-right,.mc-topbar-left,.hp-navigation,.hp-nav-actions,.pw-navigation,.pw-main-links,.pw-account-links){direction:rtl}
+html[dir=rtl] .mc-dashboard-sidebar{left:auto;right:0;border-right:0;border-left:1px solid var(--mc-admin-border)}
+html[dir=rtl] .mc-dashboard-main{margin-left:0;margin-right:var(--mc-admin-sidebar-width)}
+html[dir=rtl] .patient-web-layout .mc-dashboard-main{margin-right:0}
+html[dir=rtl] .mc-auth-password-toggle{right:auto;left:14px}
+html[dir=rtl] .mc-auth-password-wrapper input{padding-left:85px;padding-right:15px}
+html[dir=rtl] .pw-dropdown-panel{left:auto;right:0}html[dir=rtl] .pw-profile .pw-dropdown-panel{right:auto;left:0}
+html[dir=rtl] .mc-account-dropdown{right:auto;left:0}
+html[dir=rtl] :is(.hp-nav-actions,.pw-account-links){border-left:0;border-right:1px solid var(--ui-border);padding-left:0;padding-right:22px}
+html[dir=rtl] :is(.mc-topbar-breadcrumb>svg,.client-shortcut-arrow,.client-followup-link>span:last-child){transform:scaleX(-1)}
+html[dir=rtl] :is(.mc-stat-change,.patient-appointment-date,.client-agenda-time){text-align:left}
+html[dir=rtl] :is(.hp-hero h1,.hp-section-heading h2,.login-story h2,.mc-auth-login-card h1,.client-welcome h1){letter-spacing:0}
+@media(max-width:960px){html[dir=rtl] .pw-account-links{padding:14px 0 0;border-right:0}}
+@media(max-width:900px){html[dir=rtl] .mc-dashboard-main{margin-right:0}html[dir=rtl] .mc-dashboard-sidebar:not(.is-open){transform:translateX(100%)}html[dir=rtl] .mc-dashboard-sidebar.is-open{transform:translateX(0)}}
+@media print{html[data-theme=dark] body,html[data-theme=dark] .mc-dashboard-main,html[data-theme=dark] main{background:white!important;color:black!important}html[data-theme=dark] :is(h1,h2,h3,h4,p,span,strong,td,th){color:black!important}}
+/* Patient site: retain the familiar visual order; only text reads right to left. */
+html[dir=rtl] .patient-web-layout{direction:ltr}
+html[dir=rtl] .patient-web-layout :is(.pw-navbar,.pw-navigation,.pw-main-links,.pw-account-links,.client-home,.client-welcome,.client-shortcuts,.client-home-grid,.client-section-heading,.client-agenda-item,.patient-site-footer){direction:ltr}
+html[dir=rtl] .patient-web-layout :is(.client-welcome-copy,.client-next-card,.client-shortcut,.client-companion,.client-section-heading>div,.client-agenda-person,.pw-nav-link,.pw-dropdown-panel,.care-card,.care-hero>div){direction:rtl;text-align:right}
+html[dir=rtl] .patient-web-layout .pw-brand{direction:ltr}
+html[dir=rtl] .patient-web-layout .pw-dropdown-panel{left:0;right:auto}
+html[dir=rtl] .patient-web-layout .pw-profile .pw-dropdown-panel{left:auto;right:0}
+html[dir=rtl] .patient-web-layout .pw-account-links{border-right:0;border-left:1px solid var(--ui-border);padding-right:0;padding-left:22px}
+html[dir=rtl] .patient-web-layout :is(.client-next-date,.client-agenda-time,.client-date-tile){direction:ltr;unicode-bidi:isolate}
+html[dir=rtl] .patient-web-layout .client-next-date>strong{color:var(--ui-adaptive-ink,#725c26)!important}
+html[dir=rtl] .patient-web-layout :is(.client-eyebrow,.client-shortcut p,.client-next-card p,.client-companion small){font-size:13px;line-height:1.8;letter-spacing:0}
+html[dir=rtl] .patient-web-layout :is(.client-shortcut-arrow,.client-followup-link>span:last-child){transform:none}
+@media(max-width:960px){html[dir=rtl] .patient-web-layout .pw-account-links{border-left:0;padding-left:0}}

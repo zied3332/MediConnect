@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 
 from pathlib import Path
 
@@ -99,7 +100,7 @@ def my_medical_record(request):
 
             messages.success(
                 request,
-                "Your medical record has been updated successfully.",
+                ui_gettext("Your medical record has been updated successfully."),
             )
 
             return redirect("medical_records:my_record")
@@ -113,7 +114,7 @@ def my_medical_record(request):
             "dossier": dossier,
             "form": form,
             "dashboard_role": "patient",
-            "page_title": "Medical Record",
+            "page_title": ui_gettext("Medical Record"),
             "active_nav": "medical_record",
         },
     )
@@ -143,7 +144,7 @@ def patient_medical_record(request, patient_id):
         {
             "dossier": dossier,
             "dashboard_role": "doctor",
-            "page_title": "Patient Medical Record",
+            "page_title": ui_gettext("Patient Medical Record"),
             "active_nav": "medical_records",
         },
     )
@@ -184,7 +185,7 @@ def prescription_list(request):
         {
             "ordonnances": ordonnances,
             "dashboard_role": request.user.role,
-            "page_title": "Prescriptions",
+            "page_title": ui_gettext("Prescriptions"),
             "active_nav": "prescriptions",
         },
     )
@@ -222,7 +223,7 @@ def prescription_detail(request, pk):
                 ordonnance.consultation,
             ),
             "dashboard_role": request.user.role,
-            "page_title": "Prescription Details",
+            "page_title": ui_gettext("Prescription Details"),
             "active_nav": "prescriptions",
         },
     )
@@ -261,7 +262,7 @@ def prescription_create(request, consultation_id):
 
             messages.success(
                 request,
-                "Prescription created successfully.",
+                ui_gettext("Prescription created successfully."),
             )
 
             return redirect(
@@ -279,7 +280,7 @@ def prescription_create(request, consultation_id):
             "consultation": consultation,
             "is_edit": False,
             "dashboard_role": "doctor",
-            "page_title": "Prescription",
+            "page_title": ui_gettext("Prescription"),
             "active_nav": "prescriptions",
         },
     )
@@ -320,7 +321,7 @@ def prescription_edit(request, pk):
 
             messages.success(
                 request,
-                "Prescription updated successfully.",
+                ui_gettext("Prescription updated successfully."),
             )
 
             return redirect(
@@ -339,7 +340,7 @@ def prescription_edit(request, pk):
             "ordonnance": ordonnance,
             "is_edit": True,
             "dashboard_role": "doctor",
-            "page_title": "Prescription",
+            "page_title": ui_gettext("Prescription"),
             "active_nav": "prescriptions",
         },
     )
@@ -374,7 +375,7 @@ def prescription_delete(request, pk):
 
         messages.success(
             request,
-            "Prescription deleted successfully.",
+            ui_gettext("Prescription deleted successfully."),
         )
 
         return redirect("medical_records:prescription_list")
@@ -385,7 +386,7 @@ def prescription_delete(request, pk):
         {
             "ordonnance": ordonnance,
             "dashboard_role": "doctor",
-            "page_title": "Delete Prescription",
+            "page_title": ui_gettext("Delete Prescription"),
             "active_nav": "prescriptions",
         },
     )
@@ -426,7 +427,7 @@ def examination_list(request, patient_id):
             "dossier": dossier,
             "examens": examens,
             "dashboard_role": request.user.role,
-            "page_title": "Medical Examinations",
+            "page_title": ui_gettext("Medical Examinations"),
             "active_nav": "medical_examinations",
         },
     )
@@ -466,7 +467,7 @@ def examination_upload(request):
 
             messages.success(
                 request,
-                "Your medical examination was uploaded successfully.",
+                ui_gettext("Your medical examination was uploaded successfully."),
             )
 
             return redirect(
@@ -483,7 +484,7 @@ def examination_upload(request):
             "form": form,
             "dossier": dossier,
             "dashboard_role": "patient",
-            "page_title": "Upload Examination",
+            "page_title": ui_gettext("Upload Examination"),
             "active_nav": "medical_examinations",
         },
     )

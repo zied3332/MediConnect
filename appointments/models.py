@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from datetime import timedelta
 
 from django.conf import settings
@@ -19,21 +20,21 @@ class Appointment(models.Model):
     """A consultation booked by a patient with an approved doctor."""
 
     class Mode(models.TextChoices):
-        CABINET = "cabinet", "In-office"
-        VISIO = "visio", "Video call"
+        CABINET = "cabinet", ui_gettext("In-office")
+        VISIO = "visio", ui_gettext("Video call")
 
     class Status(models.TextChoices):
-        PENDING = "pending", "Pending"
-        CONFIRMED = "confirmed", "Confirmed"
-        REJECTED = "rejected", "Rejected"
-        CANCELLED = "cancelled", "Cancelled"
-        COMPLETED = "completed", "Completed"
-        NO_SHOW = "no_show", "No-show"
+        PENDING = "pending", ui_gettext("Pending")
+        CONFIRMED = "confirmed", ui_gettext("Confirmed")
+        REJECTED = "rejected", ui_gettext("Rejected")
+        CANCELLED = "cancelled", ui_gettext("Cancelled")
+        COMPLETED = "completed", ui_gettext("Completed")
+        NO_SHOW = "no_show", ui_gettext("No-show")
 
     class RiskStatus(models.TextChoices):
-        PENDING = "pending", "Computing"
-        READY = "ready", "Ready"
-        FAILED = "failed", "Failed"
+        PENDING = "pending", ui_gettext("Computing")
+        READY = "ready", ui_gettext("Ready")
+        FAILED = "failed", ui_gettext("Failed")
 
     ACTIVE_STATUSES = (Status.PENDING, Status.CONFIRMED)
 
@@ -56,7 +57,7 @@ class Appointment(models.Model):
     )
     mode = models.CharField(max_length=10, choices=Mode.choices, default=Mode.CABINET)
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.PENDING)
-    reason = models.TextField(help_text="Why the patient wants to see the doctor.")
+    reason = models.TextField(help_text=ui_gettext("Why the patient wants to see the doctor."))
     # Optional message from the doctor when rejecting.
     status_note = models.TextField(blank=True)
 
@@ -73,7 +74,7 @@ class Appointment(models.Model):
     # ── Reminders ───────────────────────────────────────────────────────
     reminder_sent = models.BooleanField(default=False)
     early_reminder_sent = models.BooleanField(
-        default=False, help_text="Extra 48h reminder sent because risk is high."
+        default=False, help_text=ui_gettext("Extra 48h reminder sent because risk is high.")
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -167,12 +168,12 @@ class Appointment(models.Model):
 
         if not self._inside_availability():
             raise ValidationError(
-                "This time is outside the doctor's availability."
+                ui_gettext("This time is outside the doctor's availability.")
             )
         if self._overlapping(doctor=self.doctor).exists():
-            raise ValidationError("The doctor already has an appointment at this time.")
+            raise ValidationError(ui_gettext("The doctor already has an appointment at this time."))
         if self._overlapping(patient=self.patient).exists():
-            raise ValidationError("You already have an appointment at this time.")
+            raise ValidationError(ui_gettext("You already have an appointment at this time."))
 
     def _inside_availability(self):
         from core.models import Availability

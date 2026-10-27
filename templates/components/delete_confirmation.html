@@ -1,3 +1,4 @@
+{% load i18n ui %}
 <div class="mc-modal" id="delete-confirmation-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="delete-confirmation-title" aria-describedby="delete-confirmation-description">
     <div class="mc-modal-backdrop" data-modal-close></div>
     <div class="mc-modal-card mc-confirmation-card">
@@ -6,7 +7,7 @@
         <h2 id="delete-confirmation-title">{{ heading }}</h2>
         <p class="mc-modal-description" id="delete-confirmation-description">{{ description }}</p>
         <form id="delete-confirmation-form" class="mc-confirmation-actions">
-            <button type="button" class="mc-users-clear" data-delete-cancel>Cancel</button>
+            <button type="button" class="mc-users-clear" data-delete-cancel>{% translate "Cancel" %}</button>
             <button type="submit" class="mc-role-save mc-role-save--danger">{{ confirm_text }}</button>
         </form>
     </div>

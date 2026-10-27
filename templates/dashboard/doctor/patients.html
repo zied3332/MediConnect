@@ -1,5 +1,5 @@
-{% extends "dashboard/base.html" %}
-{% block title %}My Patients | MediConnect{% endblock %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
+{% block title %}{% translate "My Patients | MediConnect" %}{% endblock %}
 
 
 {% block content %}
@@ -8,16 +8,15 @@
 
     <div style="margin-bottom: 32px;">
         <p style="font-size: 12px; letter-spacing: 2px; color: var(--mc-page-muted);">
-            DOCTOR PORTAL
+            {% translate "DOCTOR PORTAL" %}
         </p>
 
         <h1 style="font-size: 32px; margin: 12px 0;">
-            My Patients
+            {% translate "My Patients" %}
         </h1>
 
         <p style="color: var(--mc-page-muted);">
-            View patients associated with your appointments
-            and access their medical records when authorized.
+            {% translate "View patients associated with your appointments and access their medical records when authorized." %}
         </p>
     </div>
 
@@ -33,14 +32,14 @@
             border-collapse: collapse;
             text-align: left;
         ">
-            <caption class="mc-sr-only">Patients associated with my appointments</caption>
+            <caption class="mc-sr-only">{% translate "Patients associated with my appointments" %}</caption>
 
             <thead style="background: #fafaf7;">
                 <tr>
-                    <th style="padding: 20px;" scope="col">Patient</th>
-                    <th style="padding: 20px;" scope="col">Appointments</th>
-                    <th style="padding: 20px;" scope="col">Last appointment</th>
-                    <th style="padding: 20px;" scope="col">Medical record</th>
+                    <th style="padding: 20px;" scope="col">{% translate "Patient" %}</th>
+                    <th style="padding: 20px;" scope="col">{% translate "Appointments" %}</th>
+                    <th style="padding: 20px;" scope="col">{% translate "Last appointment" %}</th>
+                    <th style="padding: 20px;" scope="col">{% translate "Medical record" %}</th>
                 </tr>
             </thead>
 
@@ -84,14 +83,14 @@
                                 font-weight: 600;
                                 text-decoration: none;
                             "
-                         aria-label="View Medical Record for patient #{{ patient.patient_id }}">
-                            View Medical Record
+                         aria-label="{% translate "View Medical Record for patient #" %}{{ patient.patient_id }}">
+                            {% translate "View Medical Record" %}
                         </a>
 
                         {% else %}
 
                         <span style="color: var(--mc-page-muted);">
-                            Not available
+                            {% translate "Not available" %}
                         </span>
 
                         {% endif %}
@@ -108,9 +107,7 @@
                         text-align: center;
                         color: var(--mc-page-muted);
                     ">
-                        No patients yet.
-                        Patients will appear here when they
-                        have appointments with you.
+                        {% translate "No patients yet. Patients will appear here when they have appointments with you." %}
                     </td>
                 </tr>
 

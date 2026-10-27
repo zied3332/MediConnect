@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 """Doctor-only generation/review, patient access only after explicit publication."""
 import uuid
 from datetime import timedelta
@@ -23,10 +24,10 @@ from .views import _context, _visible
 
 class BriefApprovalForm(forms.Form):
     generation_id = forms.UUIDField(widget=forms.HiddenInput)
-    constat = forms.CharField(label="Ce qui a été constaté", max_length=2000, widget=forms.Textarea(attrs={"rows": 4}))
-    consignes = forms.CharField(label="Les consignes mentionnées", max_length=2000, widget=forms.Textarea(attrs={"rows": 4}))
-    suivi = forms.CharField(label="La suite prévue", max_length=2000, widget=forms.Textarea(attrs={"rows": 4}))
-    confirm = forms.BooleanField(label="J'ai comparé chaque rubrique avec le compte rendu et je valide sa publication au patient.")
+    constat = forms.CharField(label=ui_gettext("Ce qui a été constaté"), max_length=2000, widget=forms.Textarea(attrs={"rows": 4}))
+    consignes = forms.CharField(label=ui_gettext("Les consignes mentionnées"), max_length=2000, widget=forms.Textarea(attrs={"rows": 4}))
+    suivi = forms.CharField(label=ui_gettext("La suite prévue"), max_length=2000, widget=forms.Textarea(attrs={"rows": 4}))
+    confirm = forms.BooleanField(label=ui_gettext("J'ai comparé chaque rubrique avec le compte rendu et je valide sa publication au patient."))
 
 
 def _doctor_consultation(request, pk):
@@ -46,36 +47,21 @@ def _expire(brief):
 @login_required(login_url="accounts:login")
 def brief_page(request, pk):
     consultation = get_object_or_404(_visible(request.user), pk=pk)
-    brief = PatientBrief.objects.filter(consultation=consultation).first()
-    _expire(brief)
-    current = _current(brief, consultation)
-    if request.user.role == "patient":
-        if not current or brief.status != "published":
-            return HttpResponseForbidden("La fiche patient n'est pas encore validée par votre médecin.")
-        return render(request, "consultations/brief_patient.html", _context(request, consultation=consultation, brief=brief))
-    if not _doctor_is_approved(request.user):
-        return HttpResponseForbidden("Votre compte médecin doit être approuvé.")
-    initial = {"generation_id": brief.generation_id} if brief else {}
-    if current and brief.status in ("ready", "published"):
-        initial.update({card["key"]: card["text"] for card in (brief.approved_cards if brief.status == "published" else brief.cards)})
-    template = "consultations/brief_fragment.html" if request.GET.get("fragment") == "1" else "consultations/brief_review.html"
-    return render(request, template, _context(request,
-        consultation=consultation, brief=brief, current=current,
-        form=BriefApprovalForm(initial=initial),
-        api_configured=bool(settings.ANTHROPIC_API_KEY),
-        error_message=ERRORS.get(brief.error_code, ERRORS["unavailable"]) if brief and brief.status == "failed" else "",
-        eager=settings.CELERY_TASK_ALWAYS_EAGER,
-    ))
+    # Legacy fiche URLs lead to the replacement workflow; existing data is preserved.
+    if request.user.role == "doctor":
+        return redirect("consultations:edit", appointment_id=consultation.appointment_id)
+    return redirect("consultations:detail", pk=consultation.pk)
+
 
 
 @login_required(login_url="accounts:login")
 @require_POST
 def brief_generate(request, pk):
     if request.user.role != "doctor" or not _doctor_is_approved(request.user):
-        return JsonResponse({"error": "Seul le médecin approuvé concerné peut générer cette fiche."}, status=403)
+        return JsonResponse({"error": ui_gettext("Seul le médecin approuvé concerné peut générer cette fiche.")}, status=403)
     _doctor_consultation(request, pk)
     if request.POST.get("consent") != "yes":
-        return JsonResponse({"error": "Confirmez l'envoi du diagnostic et des notes au service Anthropic."}, status=400)
+        return JsonResponse({"error": ui_gettext("Confirmez l'envoi du diagnostic et des notes au service Anthropic.")}, status=400)
     if not settings.ANTHROPIC_API_KEY:
         return JsonResponse({"error": ERRORS["configuration"]}, status=503)
     with transaction.atomic():
@@ -85,9 +71,9 @@ def brief_generate(request, pk):
         brief = PatientBrief.objects.filter(consultation=consultation).first()
         _expire(brief)
         if brief and brief.status == "pending":
-            return JsonResponse({"error": "Une génération est déjà en cours. Patientez avant de réessayer."}, status=409)
+            return JsonResponse({"error": ui_gettext("Une génération est déjà en cours. Patientez avant de réessayer.")}, status=409)
         if brief and brief.updated_at > timezone.now() - timedelta(seconds=20):
-            return JsonResponse({"error": "Patientez 20 secondes entre deux générations."}, status=429)
+            return JsonResponse({"error": ui_gettext("Patientez 20 secondes entre deux générations.")}, status=429)
         brief, _ = PatientBrief.objects.update_or_create(consultation=consultation, defaults={
             "status": "pending", "generation_id": uuid.uuid4(), "source_hash": source_hash(consultation),
             "cards": [], "approved_cards": [], "error_code": "", "model_name": "", "duration_ms": None,
@@ -108,7 +94,7 @@ def brief_generate(request, pk):
 @login_required(login_url="accounts:login")
 def brief_status(request, pk):
     if request.user.role != "doctor" or not _doctor_is_approved(request.user):
-        return JsonResponse({"error": "Accès réservé au médecin concerné."}, status=403)
+        return JsonResponse({"error": ui_gettext("Accès réservé au médecin concerné.")}, status=403)
     consultation = _doctor_consultation(request, pk)
     brief = get_object_or_404(PatientBrief, consultation=consultation)
     _expire(brief)
@@ -122,21 +108,21 @@ def brief_status(request, pk):
 def brief_publish(request, pk):
     wants_json = "application/json" in request.headers.get("Accept", "")
     if request.user.role != "doctor" or not _doctor_is_approved(request.user):
-        return HttpResponseForbidden("Seul le médecin concerné peut valider la fiche.")
+        return HttpResponseForbidden(ui_gettext("Seul le médecin concerné peut valider la fiche."))
     _doctor_consultation(request, pk)
     form = BriefApprovalForm(request.POST)
     if not form.is_valid():
         if wants_json:
-            return JsonResponse({"error": "Complétez les trois rubriques et confirmez votre vérification."}, status=400)
-        messages.error(request, "Complétez les trois rubriques et confirmez la vérification avant publication.")
+            return JsonResponse({"error": ui_gettext("Complétez les trois rubriques et confirmez votre vérification.")}, status=400)
+        messages.error(request, ui_gettext("Complétez les trois rubriques et confirmez la vérification avant publication."))
         return redirect("consultations:brief", pk=pk)
     with transaction.atomic():
         consultation = Consultation.objects.select_for_update().get(pk=pk)
         brief = get_object_or_404(PatientBrief.objects.select_for_update(), consultation=consultation)
         if not _current(brief, consultation) or brief.status not in ("ready", "published") or brief.generation_id != form.cleaned_data["generation_id"]:
             if wants_json:
-                return JsonResponse({"error": "Le compte rendu ou le brouillon a changé. Fermez puis rouvrez la fiche avant validation."}, status=409)
-            messages.error(request, "Le compte rendu ou le brouillon a changé. Rechargez la page avant validation.")
+                return JsonResponse({"error": ui_gettext("Le compte rendu ou le brouillon a changé. Fermez puis rouvrez la fiche avant validation.")}, status=409)
+            messages.error(request, ui_gettext("Le compte rendu ou le brouillon a changé. Rechargez la page avant validation."))
             return redirect("consultations:brief", pk=pk)
         brief.approved_cards = [{"key": key, "title": title, "text": form.cleaned_data[key]} for key, title in SECTIONS]
         brief.status = "published"
@@ -146,5 +132,5 @@ def brief_publish(request, pk):
         notify(consultation.appointment.patient, "Votre médecin a validé une fiche de lecture de votre consultation.", "system", link=reverse("consultations:brief", args=[pk]))
     if wants_json:
         return JsonResponse({"published": True})
-    messages.success(request, "La fiche vérifiée est maintenant accessible au patient.")
+    messages.success(request, ui_gettext("La fiche vérifiée est maintenant accessible au patient."))
     return redirect("consultations:brief", pk=pk)

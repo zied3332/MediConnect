@@ -1,6 +1,6 @@
 
-{% extends "dashboard/base.html" %}
-{% block title %}Prescription #{{ prescription.pk }} | MediConnect{% endblock %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
+{% block title %}{% translate "Prescription #" %}{{ prescription.pk }} {% translate "| MediConnect" %}{% endblock %}
 
 {% load static %}
 
@@ -13,26 +13,26 @@
 
     <div class="mr-breadcrumb">
         <a href="{% url 'medical_records:admin_prescription_list' %}">
-            Prescriptions
+            {% translate "Prescriptions" %}
         </a>
         / Prescription #{{ prescription.pk }}
     </div>
 
     <div class="mr-page-header">
         <div>
-            <div class="mr-eyebrow">PRESCRIPTION DETAILS</div>
-            <h1>Prescription #{{ prescription.pk }}</h1>
-            <p>Issued on {{ prescription.date|date:"F d, Y" }}</p>
+            <div class="mr-eyebrow">{% translate "PRESCRIPTION DETAILS" %}</div>
+            <h1>{% translate "Prescription #" %}{{ prescription.pk }}</h1>
+            <p>{% translate "Issued on" %} {{ prescription.date|date:"F d, Y" }}</p>
         </div>
 
         <a href="{% url 'medical_records:admin_prescription_update' prescription.pk %}"
            class="mr-btn mr-btn-primary">
-            Edit Prescription
+            {% translate "Edit Prescription" %}
         </a>
     </div>
 
     <div class="mr-panel mr-patient-panel">
-        <div class="mr-section-label">CONSULTATION INFORMATION</div>
+        <div class="mr-section-label">{% translate "CONSULTATION INFORMATION" %}</div>
 
         <div class="mr-patient-row">
             <div class="mr-avatar">
@@ -45,11 +45,11 @@
                 </h2>
 
                 <p>
-                    Patient · Consultation #{{ prescription.consultation.pk }}
+                    {% translate "Patient · Consultation #" %}{{ prescription.consultation.pk }}
                 </p>
 
                 <p>
-                    Doctor:
+                    {% translate "Doctor:" %}
                     {{ prescription.consultation.appointment.doctor.get_full_name }}
                 </p>
             </div>
@@ -60,7 +60,7 @@
 
         <section class="mr-panel mr-info-panel">
             <div class="mr-info-heading">
-                <h2>Medications</h2>
+                <h2>{% translate "Medications" %}</h2>
             </div>
 
             <div class="mr-clinical-content">
@@ -70,14 +70,14 @@
 
         <section class="mr-panel mr-info-panel">
             <div class="mr-info-heading">
-                <h2>Instructions</h2>
+                <h2>{% translate "Instructions" %}</h2>
             </div>
 
             <div class="mr-clinical-content">
                 {% if prescription.instructions %}
                     {{ prescription.instructions|linebreaks }}
                 {% else %}
-                    <p>No additional instructions.</p>
+                    <p>{% translate "No additional instructions." %}</p>
                 {% endif %}
             </div>
         </section>
@@ -86,19 +86,19 @@
 
     <div class="mr-panel mr-footer-panel">
         <div class="mr-record-meta">
-            Created:
+            {% translate "Created:" %}
             {{ prescription.created_at|date:"M d, Y H:i" }}
         </div>
 
         <div class="mr-actions">
             <a href="{% url 'medical_records:admin_prescription_list' %}"
                class="mr-btn">
-                Back to List
+                {% translate "Back to List" %}
             </a>
 
             <a href="{% url 'medical_records:admin_prescription_delete' prescription.pk %}"
                class="mr-btn mr-btn-danger-outline">
-                Delete
+                {% translate "Delete" %}
             </a>
         </div>
     </div>

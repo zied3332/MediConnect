@@ -1,27 +1,27 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Overview | MediConnect Admin{% endblock %}
+{% block title %}{% translate "Overview | MediConnect Admin" %}{% endblock %}
 
 {% block content %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">DASHBOARD OVERVIEW</span>
-        <h1>Good to see you.</h1>
-        <p>Here's what's happening across MediConnect.</p>
+        <span class="mc-page-eyebrow">{% translate "DASHBOARD OVERVIEW" %}</span>
+        <h1>{% translate "Good to see you." %}</h1>
+        <p>{% translate "Here's what's happening across MediConnect." %}</p>
     </div>
-    <span class="mc-overview-date">Demonstration data</span>
+    <span class="mc-overview-date">{% translate "Demonstration data" %}</span>
 </div>
 
 <div class="mc-stats-grid">
     {% for stat in stats %}
     <article class="mc-stat-card">
         <div class="mc-stat-top">
-            <span class="mc-stat-label">{{ stat.label }}</span>
+            <span class="mc-stat-label">{{ stat.label|ui }}</span>
             <span class="mc-stat-icon">{{ stat.icon|upper|slice:":1" }}</span>
         </div>
         <div class="mc-stat-value">{{ stat.value }}</div>
-        <div class="mc-stat-change">{{ stat.change }}</div>
+        <div class="mc-stat-change">{{ stat.change|ui }}</div>
     </article>
     {% endfor %}
 </div>
@@ -30,10 +30,10 @@
     <section class="mc-panel">
         <div class="mc-panel-heading">
             <div>
-                <h2>Recent activity</h2>
-                <p>Latest platform events</p>
+                <h2>{% translate "Recent activity" %}</h2>
+                <p>{% translate "Latest platform events" %}</p>
             </div>
-            <span class="mc-panel-label">Preview</span>
+            <span class="mc-panel-label">{% translate "Preview" %}</span>
         </div>
 
         <div class="mc-activity-list">
@@ -53,23 +53,23 @@
     <section class="mc-panel mc-panel-side">
         <div class="mc-panel-heading">
             <div>
-                <h2>Quick overview</h2>
-                <p>Platform management</p>
+                <h2>{% translate "Quick overview" %}</h2>
+                <p>{% translate "Platform management" %}</p>
             </div>
         </div>
 
         <div class="mc-quick-info">
             <div>
-                <span>Doctor verification</span>
-                <strong>Coming soon</strong>
+                <span>{% translate "Doctor verification" %}</span>
+                <strong>{% translate "Coming soon" %}</strong>
             </div>
             <div>
-                <span>Appointment monitoring</span>
-                <strong>Coming soon</strong>
+                <span>{% translate "Appointment monitoring" %}</span>
+                <strong>{% translate "Coming soon" %}</strong>
             </div>
             <div>
-                <span>Patient management</span>
-                <strong>Coming soon</strong>
+                <span>{% translate "Patient management" %}</span>
+                <strong>{% translate "Coming soon" %}</strong>
             </div>
         </div>
     </section>

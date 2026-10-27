@@ -30,6 +30,7 @@ urlpatterns = [
 
     # ── Patient ───────────────────────────────────────────
     path("patient/", views.patient_overview, name="patient_overview"),
+    path("patient/doctors/", views.patient_doctors, name="patient_doctors"),
 
     # ── Profile (all roles) ───────────────────────────────
     path("profile/", views.profile_view, name="profile"),

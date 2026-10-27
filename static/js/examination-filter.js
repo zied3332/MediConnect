@@ -1,3 +1,5 @@
+function uiGettext(message) { return typeof gettext === "function" ? gettext(message) : message; }
+function uiInterpolate(message, values) { return message.replace(/%\(([^)]+)\)s/g, (_, key) => String(values[key])); }
 document.addEventListener('DOMContentLoaded', () => {
     const search = document.getElementById('examSearch');
     const items = document.querySelectorAll('#examList .exam-item');
@@ -13,6 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (matches) count++;
         });
         if (noResults) noResults.hidden = count !== 0;
-        if (status) status.textContent = `${count} of ${items.length} examination${items.length === 1 ? '' : 's'} shown.`;
+        if (status) status.textContent = uiInterpolate(uiGettext("Examens affichés : %(shown)s / %(total)s"), {shown:count, total:items.length});
     });
 });

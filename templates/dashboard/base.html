@@ -1,10 +1,11 @@
+{% load i18n ui %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" data-theme="{{ ui_theme|default:'light' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Dashboard | MediConnect{% endblock %}</title>
+    <title>{% block title %}{% translate "Dashboard | MediConnect" %}{% endblock %}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,27 +19,34 @@
 <link rel="stylesheet" href="{% static 'css/dashboard/sidebar.css' %}">
 <link rel="stylesheet" href="{% static 'css/dashboard/patient-home.css' %}">
     {% block extra_css %}{% endblock %}
-    <link rel="stylesheet" href="{% static 'css/accessibility.css' %}">
+    {% if dashboard_role == 'patient' %}<link rel="stylesheet" href="{% static 'css/dashboard/client-portal.css' %}?v=1">{% endif %}
+    {% if dashboard_role == 'patient' %}<link rel="stylesheet" href="{% static 'css/patient-site.css' %}?v=2">{% endif %}
+    <link rel="stylesheet" href="{% static 'css/accessibility.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/theme.css' %}?v=5">
 </head>
-<body class="{% block body_class %}{% endblock %}">
-    <a href="#main-content" class="mc-skip-link">Skip to main content</a>
+<body class="{% if dashboard_role == 'patient' %}client-portal patient-web-layout {% endif %}{% block body_class %}{% endblock %}">
+    <a href="#main-content" class="mc-skip-link">{% translate "Skip to main content" %}</a>
+    {% if dashboard_role == 'patient' %}{% include 'components/patient_navbar.html' %}{% endif %}
     <div class="mc-dashboard">
         {% block sidebar %}
-            {% include "dashboard/components/sidebar.html" %}
+            {% if dashboard_role != 'patient' %}{% include "dashboard/components/sidebar.html" %}{% endif %}
         {% endblock %}
 
         <div class="mc-dashboard-main">
-            {% include "dashboard/components/topbar.html" %}
+            {% if dashboard_role != 'patient' %}{% include "dashboard/components/topbar.html" %}{% endif %}
 
             <main class="mc-dashboard-content" id="main-content" tabindex="-1">
                 {% block content %}{% endblock %}
             </main>
         </div>
     </div>
+    {% if dashboard_role == 'patient' %}<footer class="patient-site-footer"><a href="{% url 'core:home' %}">{% translate "MediConnect." %}</a><span>{% translate "Votre santé, un peu plus simple." %}</span><a href="{% url 'dashboard:profile' %}">{% translate "Mon profil ↗" %}</a></footer>{% endif %}
 
-    <script src="{% static 'js/dialogs.js' %}" defer></script>
+    <script src="{% url 'javascript-catalog' %}"></script>
+<script src="{% static 'js/dialogs.js' %}" defer></script>
     <script src="{% static 'js/dashboard.js' %}?v=4" defer></script>
     <script src="{% static 'js/risk-tooltips.js' %}" defer></script>
+    {% if dashboard_role == 'patient' %}<script src="{% static 'js/patient-navigation.js' %}?v=1" defer></script>{% endif %}
     {% block extra_js %}{% endblock %}
 </body>
 </html>

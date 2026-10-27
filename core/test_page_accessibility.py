@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 """Page-level source/render checks; computed styles still need a browser."""
 import re
 from types import SimpleNamespace
@@ -110,7 +111,8 @@ class PageAccessibilityTests(SimpleTestCase):
         for page, current in (("signup", 0), ("upload_docs", 2)):
             with self.subTest(page=page):
                 tags = Elements(render_page(f"accounts/doctor/{page}.html", form=forms.Form())).tags
-                self.assertTrue(any(tag == "ol" and attrs.get("aria-label") == "Registration steps" for tag, attrs in tags))
+                expected_label = gettext("Étapes de l’inscription médecin") if page == "signup" else gettext("Registration steps")
+                self.assertTrue(any(tag == "ol" and attrs.get("aria-label") == expected_label for tag, attrs in tags))
                 steps = [attrs for tag, attrs in tags if tag == "li" and "mc-step" in attrs.get("class", "").split()]
                 self.assertEqual(len(steps), 4)
                 self.assertEqual([index for index, attrs in enumerate(steps) if attrs.get("aria-current") == "step"], [current])
@@ -155,6 +157,9 @@ class PageAccessibilityTests(SimpleTestCase):
 
     def color(self, value):
         if value.startswith("var("):
+            fallback = re.search(r",\s*(#[\da-fA-F]+)\s*\)", value)
+            if fallback:
+                return self.color(fallback[1])
             name = value[4:].split(",")[0].rstrip(")")
             for path in ("static/css/accessibility.css", "static/css/tokens.css",
                          "static/css/dashboard/layout.css", "static/css/dashboard/medical-records-admin.css"):

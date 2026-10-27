@@ -1,134 +1,91 @@
-
 {% extends "dashboard/base.html" %}
+{% load i18n ui %}
 
-{% block title %}Doctor Dashboard | MediConnect{% endblock %}
+{% block title %}{% translate "Doctor Dashboard | MediConnect" %}{% endblock %}
+{% block body_class %}doctor-overview{% endblock %}
+{% block extra_css %}{{ block.super }}{% load static %}<link rel="stylesheet" href="{% static 'css/dashboard/doctor-overview.css' %}?v=1">{% endblock %}
 
 {% block content %}
-
-<div class="mc-page-heading">
-    <div>
-        <span class="mc-page-eyebrow">DOCTOR PORTAL</span>
-        <h1>Welcome, Dr. {{ request.user.last_name }}.</h1>
-        <p>Here's your practice at a glance.</p>
-    </div>
-</div>
-
-<!-- Dashboard statistics -->
-<div class="mc-stats-grid">
-    {% for stat in stats %}
-    <article class="mc-stat-card">
-        <div class="mc-stat-top">
-            <span class="mc-stat-label">{{ stat.label }}</span>
-            <span class="mc-stat-icon">{{ stat.icon }}</span>
+<div class="doctor-dashboard">
+    <header class="doctor-welcome">
+        <div class="doctor-welcome-copy">
+            <span class="doctor-kicker">{% translate "DOCTOR PORTAL" %}</span>
+            <h1>{% translate "Welcome, Dr." %} {{ request.user.last_name }}.</h1>
+            <p>{% translate "Here's your practice at a glance." %}</p>
+            <a class="doctor-primary-link" href="{% url 'appointments:doctor_list' %}">
+                {% translate "View appointments" %}
+                <span aria-hidden="true">→</span>
+            </a>
         </div>
-
-        <div class="mc-stat-value">
-            {{ stat.value }}
+        <div class="doctor-welcome-art" aria-hidden="true">
+            <span class="doctor-art-ring"></span>
+            <span class="doctor-art-cross">＋</span>
+            <span class="doctor-art-caption">MediConnect <b>·</b> {% translate "Your practice" %}</span>
         </div>
+    </header>
 
-        <div class="mc-stat-change">
-            {{ stat.change }}
-        </div>
-    </article>
-    {% endfor %}
-</div>
-
-<div class="mc-dashboard-panels">
-
-    <!-- Today's appointments -->
-    <section class="mc-panel">
-        <div class="mc-panel-heading">
-            <div>
-                <h2>Today's appointments</h2>
-                <p>Scheduled for today</p>
+    <section class="doctor-stats" aria-label="{% translate 'Practice overview' %}">
+        {% for stat in stats %}
+        <article class="doctor-stat-card">
+            <div class="doctor-stat-heading">
+                <span>{{ stat.label|ui }}</span>
+                <span class="doctor-stat-icon" aria-hidden="true">
+                    {% if forloop.counter == 1 %}◷{% elif forloop.counter == 2 %}♙{% elif forloop.counter == 3 %}⌛{% else %}✓{% endif %}
+                </span>
             </div>
-        </div>
+            <strong class="doctor-stat-value">{{ stat.value }}</strong>
+            <span class="doctor-stat-footnote">{{ stat.change|ui }}</span>
+        </article>
+        {% endfor %}
+    </section>
 
-        <div class="mc-activity-list">
+    <div class="doctor-workspace">
+        <section class="doctor-section-card doctor-agenda">
+            <div class="doctor-section-heading">
+                <div>
+                    <span class="doctor-kicker">{% translate "YOUR SCHEDULE" %}</span>
+                    <h2>{% translate "Today's appointments" %}</h2>
+                    <p>{% translate "Scheduled for today" %}</p>
+                </div>
+                <a class="doctor-text-link" href="{% url 'appointments:doctor_list' %}">{% translate "View all" %} <span aria-hidden="true">→</span></a>
+            </div>
 
             {% for appt in upcoming_appointments %}
-            <div class="mc-activity-item">
-                <span class="mc-activity-dot"></span>
-
-                <div class="mc-activity-body">
+            <article class="doctor-appointment">
+                <div class="doctor-appointment-time"><span aria-hidden="true">◷</span><time>{{ appt.time }}</time></div>
+                <span class="doctor-appointment-divider" aria-hidden="true"></span>
+                <div class="doctor-appointment-details">
                     <strong>{{ appt.patient }}</strong>
-                    <p>
-                        {{ appt.type }}
-                        · {{ appt.status }}
-                    </p>
+                    <span>{{ appt.type }} <b aria-hidden="true">·</b> {{ appt.status }}</span>
                 </div>
-
-                <time>{{ appt.time }}</time>
-            </div>
-
+                <a class="doctor-appointment-open" href="{% url 'appointments:doctor_list' %}" aria-label="{% translate 'Open appointments' %}">↗</a>
+            </article>
             {% empty %}
-            <div style="
-                padding: 36px 20px;
-                text-align: center;
-                color: var(--mc-page-muted);
-            ">
-                <p style="font-weight: 600; margin-bottom: 8px;">
-                    No appointments scheduled for today
-                </p>
-                <p>
-                    Your appointments will appear here
-                    when patients book with you.
-                </p>
+            <div class="doctor-empty-state">
+                <span class="doctor-empty-icon" aria-hidden="true">◷</span>
+                <h3>{% translate "No appointments scheduled for today" %}</h3>
+                <p>{% translate "Your appointments will appear here when patients book with you." %}</p>
+                <a class="doctor-secondary-link" href="{% url 'dashboard:doctor_availability' %}">{% translate "Manage availability" %} <span aria-hidden="true">→</span></a>
             </div>
             {% endfor %}
+        </section>
 
-        </div>
-    </section>
-
-    <!-- Quick actions -->
-    <section class="mc-panel mc-panel-side">
-        <div class="mc-panel-heading">
-            <div>
-                <h2>Quick actions</h2>
-                <p>Practice tools</p>
+        <section class="doctor-section-card doctor-tools">
+            <div class="doctor-section-heading">
+                <div>
+                    <span class="doctor-kicker">{% translate "YOUR PRACTICE" %}</span>
+                    <h2>{% translate "Quick actions" %}</h2>
+                    <p>{% translate "Practice tools" %}</p>
+                </div>
             </div>
-        </div>
-
-        <div class="mc-quick-info">
-
-            <div>
-                <span>Patient records</span>
-                <a href="{% url 'dashboard:doctor_patients' %}">
-                    My Patients &rarr;
-                </a>
-            </div>
-
-            <div>
-                <span>Appointments</span>
-                <a href="{% url 'appointments:doctor_list' %}">
-                    View appointments &rarr;
-                </a>
-            </div>
-
-            <div>
-                <span>Prescriptions</span>
-                <a href="{% url 'medical_records:prescription_list' %}">
-                    View prescriptions &rarr;
-                </a>
-            </div>
-
-            <div>
-                <span>Consultations</span>
-                <a href="{% url 'consultations:list' %}">
-                    Open consultations &rarr;
-                </a>
-            </div>
-
-            <div>
-                <span>Messages</span>
-                <a href="{% url 'consultations:inbox' %}">
-                    Open messages &rarr;
-                </a>
-            </div>
-
-        </div>
-    </section>
-
+            <nav class="doctor-action-list" aria-label="{% translate 'Quick actions' %}">
+                <a href="{% url 'dashboard:doctor_patients' %}"><span class="doctor-action-icon">{% include "dashboard/components/nav_icon.html" with icon="patients" %}</span><span class="doctor-action-copy"><strong>{% translate "Patient records" %}</strong><small>{% translate "Open your patient list" %}</small></span><span class="doctor-action-arrow" aria-hidden="true">→</span></a>
+                <a href="{% url 'appointments:doctor_list' %}"><span class="doctor-action-icon">{% include "dashboard/components/nav_icon.html" with icon="appointments" %}</span><span class="doctor-action-copy"><strong>{% translate "Appointments" %}</strong><small>{% translate "Review your schedule" %}</small></span><span class="doctor-action-arrow" aria-hidden="true">→</span></a>
+                <a href="{% url 'medical_records:prescription_list' %}"><span class="doctor-action-icon">{% include "dashboard/components/nav_icon.html" with icon="prescriptions" %}</span><span class="doctor-action-copy"><strong>{% translate "Prescriptions" %}</strong><small>{% translate "Manage prescriptions" %}</small></span><span class="doctor-action-arrow" aria-hidden="true">→</span></a>
+                <a href="{% url 'consultations:list' %}"><span class="doctor-action-icon">{% include "dashboard/components/nav_icon.html" with icon="consultations" %}</span><span class="doctor-action-copy"><strong>{% translate "Consultations" %}</strong><small>{% translate "Write and review reports" %}</small></span><span class="doctor-action-arrow" aria-hidden="true">→</span></a>
+                <a href="{% url 'consultations:inbox' %}"><span class="doctor-action-icon">{% include "dashboard/components/nav_icon.html" with icon="messages" %}</span><span class="doctor-action-copy"><strong>{% translate "Messages" %}</strong><small>{% translate "Continue patient conversations" %}</small></span><span class="doctor-action-arrow" aria-hidden="true">→</span></a>
+            </nav>
+        </section>
+    </div>
 </div>
-
 {% endblock %}

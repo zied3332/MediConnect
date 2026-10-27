@@ -1,3 +1,4 @@
+{% load i18n ui %}
 
 <!-- ==================================================
      MediConnect — Shared Footer
@@ -27,66 +28,65 @@
                         </svg>
                     </span>
 
-                    <span>MediConnect</span>
+                    <span>{% translate "MediConnect" %}</span>
                 </a>
 
                 <p>
-                    Making healthcare easier to find,
-                    access, and manage.
+                    {% translate "Making healthcare easier to find, access, and manage." %}
                 </p>
 
                 <span class="mc-footer-tagline">
-                    Healthcare, made simpler.
+                    {% translate "Healthcare, made simpler." %}
                 </span>
             </div>
 
             <!-- Patients -->
             <div class="mc-footer-column">
-                <h2>For Patients</h2>
+                <h2>{% translate "For Patients" %}</h2>
 
                 <ul>
                     <li>
                         <a href="{% url 'core:home' %}#find-doctors">
-                            Find doctors
+                            {% translate "Find doctors" %}
                         </a>
                     </li>
                     <li>
-                        <span>Browse specialties</span>
+                        <span>{% translate "Browse specialties" %}</span>
                     </li>
                     <li>
-                        <span>My appointments</span>
+                        <span>{% translate "My appointments" %}</span>
                     </li>
                     <li>
-                        <span>Patient account</span>
+                        <span>{% translate "Patient account" %}</span>
                     </li>
                 </ul>
             </div>
 
             <!-- Providers -->
             <div class="mc-footer-column">
-                <h2>For Providers</h2>
+                <h2>{% translate "For Providers" %}</h2>
 
                 <ul>
-                    <li><span>List your practice</span></li>
-                    <li><span>Provider portal</span></li>
-                    <li><span>Manage appointments</span></li>
-                    <li><span>Practice resources</span></li>
+                    <li><span>{% translate "List your practice" %}</span></li>
+                    <li><span>{% translate "Provider portal" %}</span></li>
+                    <li><span>{% translate "Manage appointments" %}</span></li>
+                    <li><span>{% translate "Practice resources" %}</span></li>
                 </ul>
             </div>
 
             <!-- Company -->
             <div class="mc-footer-column">
-                <h2>MediConnect</h2>
+                <h2>{% translate "MediConnect" %}</h2>
 
                 <ul>
                     <li>
                         <a href="{% url 'core:home' %}#how-it-works">
-                            How it works
+                            {% translate "How it works" %}
                         </a>
                     </li>
-                    <li><span>About us</span></li>
-                    <li><span>Help center</span></li>
-                    <li><span>Privacy policy</span></li>
+                    <li><span>{% translate "About us" %}</span></li>
+                    <li><span>{% translate "Help center" %}</span></li>
+                    <li><span>{% translate "Privacy policy" %}</span></li>
                 </ul>
             </div>
 
@@ -95,12 +95,11 @@
         <!-- Bottom -->
         <div class="mc-footer-bottom">
             <p>
-                &copy; {% now "Y" %} MediConnect.
-                All rights reserved.
+                {% translate "&copy;" %} {% now "Y" %} {% translate "MediConnect. All rights reserved." %}
             </p>
 
             <p>
-                Designed to make healthcare more accessible.
+                {% translate "Designed to make healthcare more accessible." %}
             </p>
         </div>
 

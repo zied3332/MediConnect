@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -6,7 +7,7 @@ from django.db.models import Q, Count, Avg, OuterRef, Subquery
 from django.core.paginator import Paginator
 from django.urls import reverse
 from django.views.decorators.http import require_POST
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from appointments.models import Appointment, _doctor_is_approved
@@ -31,7 +32,7 @@ def _context(request, **extra):
     return {
         "dashboard_role": request.user.role,
         "active_nav": "consultations",
-        "page_title": "Consultations",
+        "page_title": ui_gettext("Consultations"),
         **extra,
     }
 
@@ -162,7 +163,7 @@ def detail(request, pk):
 def edit(request, appointment_id):
     if request.user.role != "doctor" or not _doctor_is_approved(request.user):
         return HttpResponseForbidden(
-            "Seul le médecin approuvé concerné peut rédiger la consultation."
+            ui_gettext("Seul le médecin approuvé concerné peut rédiger la consultation.")
         )
 
     with transaction.atomic():
@@ -177,7 +178,7 @@ def edit(request, appointment_id):
             Appointment.Status.COMPLETED,
         ):
             return HttpResponseForbidden(
-                "Le rendez-vous doit être confirmé ou terminé."
+                ui_gettext("Le rendez-vous doit être confirmé ou terminé.")
             )
 
         consultation = Consultation.objects.filter(
@@ -213,7 +214,7 @@ def edit(request, appointment_id):
 
             messages.success(
                 request,
-                "Consultation enregistrée.",
+                ui_gettext("Consultation enregistrée."),
             )
 
             return redirect(
@@ -360,12 +361,12 @@ def review_edit(request, pk):
 
     if request.user.role != "patient":
         return HttpResponseForbidden(
-            "Seul le patient concerné peut laisser un avis."
+            ui_gettext("Seul le patient concerné peut laisser un avis.")
         )
 
     if consultation.appointment.status != Appointment.Status.COMPLETED:
         return HttpResponseForbidden(
-            "Le rendez-vous doit être terminé pour laisser un avis."
+            ui_gettext("Le rendez-vous doit être terminé pour laisser un avis.")
         )
 
     with transaction.atomic():
@@ -401,7 +402,7 @@ def review_edit(request, pk):
 
             messages.success(
                 request,
-                "Merci ! Votre avis a été enregistré.",
+                ui_gettext("Merci ! Votre avis a été enregistré."),
             )
 
             return redirect(
@@ -437,7 +438,7 @@ def review_delete(request, pk):
 
     messages.success(
         request,
-        "Votre avis a été supprimé.",
+        ui_gettext("Votre avis a été supprimé."),
     )
 
     if request.user.role == "admin":
@@ -468,11 +469,15 @@ def message_edit(request, pk):
         message.lu = False
         message.save()
 
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'contenu': message.contenu, 'lu': message.lu})
         return redirect(
             "consultations:conversation",
             pk=message.consultation_id,
         )
 
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'errors': form.errors.get_json_data()}, status=400)
     return render(
         request,
         "consultations/message_form.html",
@@ -561,7 +566,7 @@ def delete(request, pk):
 
     if request.user.role != "doctor" or not _doctor_is_approved(request.user):
         return HttpResponseForbidden(
-            "Seul le médecin concerné peut supprimer ce compte rendu."
+            ui_gettext("Seul le médecin concerné peut supprimer ce compte rendu.")
         )
 
     if request.method == "POST":
@@ -569,7 +574,7 @@ def delete(request, pk):
 
         messages.success(
             request,
-            "La consultation et ses échanges associés ont été supprimés.",
+            ui_gettext("La consultation et ses échanges associés ont été supprimés."),
         )
 
         return redirect("consultations:list")

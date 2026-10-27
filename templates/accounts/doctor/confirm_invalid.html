@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Invalid confirmation link | MediConnect{% endblock %}
+{% block title %}{% translate "Invalid confirmation link | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
@@ -12,7 +12,7 @@
 <div class="mc-auth-header">
     <a href="{% url 'core:home' %}" class="mc-auth-brand">
         <span class="mc-auth-logo" aria-hidden="true">+</span>
-        <span>MediConnect</span>
+        <span>{% translate "MediConnect" %}</span>
     </a>
 </div>
 {% endblock %}
@@ -23,23 +23,21 @@
 
         <div class="mc-check-email-icon" style="background:#fce4ec;" aria-hidden="true">⚠️</div>
 
-        <h1>This link is invalid or expired</h1>
+        <h1>{% translate "This link is invalid or expired" %}</h1>
 
         <p>
-            The confirmation link is no longer valid.
-            This can happen if you already confirmed your email,
-            or if the link has expired (links expire after 3 days).
+            {% translate "The confirmation link is no longer valid. This can happen if you already confirmed your email, or if the link has expired (links expire after 3 days)." %}
         </p>
 
         <p style="margin-top: 24px;">
             <a href="{% url 'accounts:doctor_signup' %}" class="mc-status-action-btn">
-                Register again
+                {% translate "Register again" %}
             </a>
         </p>
 
         <p style="margin-top:16px; font-size:13px; color:#999;">
-            If you believe this is an error, please contact
-            <a href="mailto:support@mediconnect.com">support@mediconnect.com</a>.
+            {% translate "If you believe this is an error, please contact" %}
+            <a href="mailto:support@mediconnect.com">{% translate "support@mediconnect.com" %}</a>.
         </p>
 
     </div>

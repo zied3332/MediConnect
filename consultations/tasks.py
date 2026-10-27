@@ -3,6 +3,7 @@ from django.utils import timezone
 
 from .ai import BriefError, generate_cards, source_data, source_hash
 from .models import PatientBrief
+from .intake_tasks import generate_orientation  # noqa: F401 — Celery autodiscovery
 
 
 @shared_task(ignore_result=True, soft_time_limit=65, time_limit=70)

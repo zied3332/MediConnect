@@ -1,175 +1,19 @@
-
-{% extends "base.html" %}
-{% load static %}
-
-{% block title %}Find Care | MediConnect{% endblock %}
-
-{% block meta_description %}Find doctors and explore healthcare services with MediConnect.{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/home.css' %}">
-{% endblock %}
-
-{% block content %}
-
-<section class="mc-hero" id="find-doctors" aria-labelledby="mc-hero-title">
-    <div class="mc-hero-inner">
-
-        <!-- Heading -->
-        <div class="mc-hero-heading">
-            <h1 id="mc-hero-title">
-                Find the right doctor,<br>
-                right when you need one.
-            </h1>
-
-            <p>Ready to be seen? Start searching below.</p>
-        </div>
-
-        <!-- Search Mode Selector -->
-        <div class="mc-search-modes" role="group"
-             aria-label="Search options">
-
-            <button
-                type="button"
-                class="mc-search-mode"
-                id="mc-ai-mode"
-                aria-pressed="false"
-            >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2Z"/>
-                </svg>
-                AI Care Assistant
-            </button>
-
-            <button
-                type="button"
-                class="mc-search-mode is-active"
-                id="mc-classic-mode"
-                aria-pressed="true"
-            >
-                Classic search
-            </button>
-
-        </div>
-
-        <!-- Search Form -->
-        <form
-            class="mc-care-search"
-            method="get"
-            action="{% url 'core:home' %}"
-            role="search"
-        >
-
-            <!-- Doctor / Condition -->
-            <div class="mc-care-field mc-care-field-primary">
-                <label for="mc-search-query">Search</label>
-
-                <input
-                    id="mc-search-query"
-                    type="search"
-                    name="q"
-                    placeholder="Condition, procedure or doctor name"
-                    value="{{ request.GET.q|default:'' }}"
-                >
-            </div>
-
-            <!-- Location -->
-            <div class="mc-care-field mc-care-field-location">
-                <label for="mc-search-location">Location</label>
-
-                <input
-                    id="mc-search-location"
-                    type="text"
-                    name="location"
-                    placeholder="City or area"
-                    value="{{ request.GET.location|default:'' }}"
-                >
-            </div>
-
-            <!-- Insurance -->
-            <div class="mc-care-field mc-care-field-insurance">
-                <label for="mc-search-insurance">Add insurance</label>
-
-                <input
-                    id="mc-search-insurance"
-                    type="text"
-                    name="insurance"
-                    placeholder="Insurance carrier and plan"
-                    value="{{ request.GET.insurance|default:'' }}"
-                >
-            </div>
-
-            <!-- Submit -->
-            <button class="mc-care-submit" type="submit">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="10.5" cy="10.5" r="6.5"/>
-                    <path d="M15.5 15.5L21 21"/>
-                </svg>
-                <span>Find care</span>
-            </button>
-
-        </form>
-
-        <!-- Future AI Assistant Preview -->
-        <div class="mc-ai-preview" id="mc-ai-preview" hidden>
-            <div class="mc-ai-preview-icon" aria-hidden="true">✦</div>
-            <h2>Tell us what kind of care you're looking for.</h2>
-            <p>
-                Our AI-assisted care experience is coming soon.
-                It will help you explore appropriate healthcare
-                services, but won't replace professional medical advice.
-            </p>
-            <button type="button" id="mc-back-to-search">
-                Continue with classic search
-            </button>
-        </div>
-
-        {% if request.GET.q or request.GET.location or request.GET.insurance %}
-        <p class="mc-search-notice" role="status">
-            Your search details have been captured.
-            Doctor search results will be available when the
-            discovery module is connected.
-        </p>
-        {% endif %}
-
-    </div>
-</section>
-
-<!-- Introduction -->
-<section class="mc-home-intro" id="how-it-works">
-    <div class="mc-home-intro-inner">
-
-        <span class="mc-home-section-label">
-            HOW MEDICONNECT WORKS
-        </span>
-
-        <h2>Care, without the complications.</h2>
-
-        <div class="mc-home-steps">
-            <article>
-                <span>01</span>
-                <h3>Find a doctor</h3>
-                <p>Explore healthcare professionals by specialty and location.</p>
-            </article>
-
-            <article>
-                <span>02</span>
-                <h3>Book an appointment</h3>
-                <p>Choose an available time that fits your schedule.</p>
-            </article>
-
-            <article>
-                <span>03</span>
-                <h3>Manage your care</h3>
-                <p>Keep your healthcare appointments organized.</p>
-            </article>
-        </div>
-
-    </div>
-</section>
-
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/home.js' %}" defer></script>
-{% endblock %}
+{% extends 'base.html' %}{% load i18n ui %}{% load static %}
+{% block language %}{{ LANGUAGE_CODE }}{% endblock %}
+{% block title %}{% translate "MediConnect — Le bon médecin, un suivi qui continue" %}{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/home-redesign.css' %}?v=3">{% if request.user.is_authenticated and request.user.role == 'patient' %}<link rel="stylesheet" href="{% static 'css/patient-site.css' %}?v=2">{% endif %}{% endblock %}
+{% block navigation %}
+{% if request.user.is_authenticated and request.user.role == 'patient' %}{% include 'components/patient_navbar.html' %}{% else %}
+<nav class="hp-nav hp-container" aria-label="{% translate "Navigation principale" %}"><a class="hp-brand" href="{% url 'core:home' %}" aria-label="{% translate "MediConnect, accueil" %}"><span class="hp-brand-mark" aria-hidden="true">+</span>{% translate "MediConnect." %}</a><button class="hp-menu-toggle" type="button" aria-expanded="false" aria-controls="hp-navigation">{% translate "Menu ☰" %}</button><div id="hp-navigation" class="hp-navigation"><a href="#practitioners">{% translate "Trouver un médecin" %}</a><a href="#how-it-works">{% translate "Comment ça marche" %}</a><a href="{% url 'accounts:doctor_signup' %}">{% translate "Vous êtes médecin ?" %}</a><div class="hp-nav-actions">{% if request.user.is_authenticated %}<a class="hp-button hp-button-dark" href="{{ request.user.dashboard_url }}">{% translate "Mon espace ↗" %}</a>{% else %}<a href="{% url 'accounts:login' %}">{% translate "Se connecter" %}</a><a class="hp-button hp-button-dark" href="{% url 'accounts:signup' %}">{% translate "Créer un compte ↗" %}</a>{% endif %}</div><a class="ui-preferences-link" href="{% url 'core:preferences' %}" aria-label="{% translate "Preferences" %}">⚙ <span>{% translate "Preferences" %}</span></a></div></nav>
+{% endif %}{% endblock %}
+{% block content %}<div class="hp-page">
+<section class="hp-hero hp-container" aria-labelledby="hp-title"><div class="hp-hero-copy"><span class="hp-eyebrow"><span class="hp-status-dot" aria-hidden="true"></span> {% translate "LE SOIN COMMENCE PAR UNE RENCONTRE" %}</span><h1 id="hp-title">{% translate "Votre santé," %}<br>{% translate "un peu plus" %} <span>{% translate "simple." %}</span></h1><p class="hp-lead">{% translate "Le bon professionnel. Un rendez-vous qui vous convient. Et un suivi qui reste à vos côtés." %}</p><div class="hp-hero-actions"><a class="hp-button hp-button-dark" href="#find-doctors">{% translate "Trouver mon médecin ↗" %}</a><a class="hp-text-link" href="{% url 'consultations:intake' %}">{% translate "✦ Me laisser guider par l’IA" %}</a></div><div class="hp-hero-proof"><span class="hp-proof-icon" aria-hidden="true">✓</span><p>{% translate "Des médecins approuvés sur la plateforme." %}<br><strong>{% translate "Votre parcours, réuni au même endroit." %}</strong></p></div></div>
+<div class="hp-visual"><div class="hp-visual-orbit hp-orbit-one" aria-hidden="true"></div><div class="hp-visual-orbit hp-orbit-two" aria-hidden="true"></div><span class="hp-visual-cross" aria-hidden="true">+</span><div class="hp-visual-caption">{% translate "PLUS PROCHE DU BON SOIN" %}</div><div class="hp-care-card"><div class="hp-card-top"><span class="hp-mini-logo" aria-hidden="true">+</span><span>{% translate "Votre parcours MediConnect" %}</span><span aria-hidden="true">↗</span></div><div class="hp-person"><div class="hp-person-avatar" aria-hidden="true"><svg viewBox="0 0 80 90" fill="none"><circle cx="40" cy="28" r="16" fill="#e6be9d"/><path d="M23 25c0-24 36-25 35 3l-9-12-13 7-13 2Z" fill="#214d44"/><path d="M7 89V70c0-21 66-21 66 0v19" fill="#fff"/><path d="m31 52 9 13 9-13v37H31V52Z" fill="#176a60"/><path d="M22 58v15c0 14 15 14 15 0M57 58v16" stroke="#214d44" stroke-width="3"/><circle cx="57" cy="77" r="5" fill="#214d44"/></svg></div><div><span class="hp-card-label">{% translate "DÉCOUVREZ NOS PRATICIENS" %}</span><h2>{% if featured_doctor %}{% translate "Dr" %} {{ featured_doctor.get_full_name|default:featured_doctor.username }}{% else %}{% translate "Le bon professionnel" %}{% endif %}</h2><p>{% if featured_doctor.main_specialty %}{{ featured_doctor.main_specialty.name|ui }}{% else %}{% translate "Un accompagnement à chaque étape" %}{% endif %}</p><span class="hp-verified">✓ {% if featured_doctor %}{% translate "Profil approuvé" %}{% else %}{% translate "Un parcours pensé pour vous" %}{% endif %}</span></div></div><div class="hp-care-path"><div><span>01</span> {% translate "Trouver" %}</div><b aria-hidden="true">→</b><div><span>02</span> {% translate "Consulter" %}</div><b aria-hidden="true">→</b><div><span>03</span> {% translate "Être suivi" %}</div></div><a href="#practitioners" class="hp-card-link">{% translate "Rencontrer nos médecins ↗" %}</a></div><div class="hp-floating-note"><span aria-hidden="true">✦</span><div><strong>{% translate "Vous hésitez sur la spécialité ?" %}</strong><span>{% translate "Notre assistant vous aide à vous orienter." %}</span></div></div><span class="hp-visual-bottom">{% translate "L’HUMAIN AU CŒUR. LE NUMÉRIQUE EN APPUI." %}</span></div></section>
+<section class="hp-search-wrap hp-container" id="find-doctors" aria-labelledby="hp-search-title"><div class="hp-search-heading"><h2 id="hp-search-title">{% translate "Qui souhaitez-vous consulter ?" %}</h2><span>{% translate "Commencez par un nom ou une spécialité" %}</span></div><form method="get" action="{% url 'core:home' %}#practitioners" class="hp-search" role="search"><div class="hp-search-field"><label for="hp-query">{% translate "Rechercher un médecin" %}</label><input type="search" id="hp-query" name="q" value="{{ query }}" placeholder="{% translate "Nom du médecin, spécialité…" %}" maxlength="150"></div><div class="hp-search-field"><label for="hp-specialty">{% translate "Spécialité" %}</label><select id="hp-specialty" name="specialty"><option value="">{% translate "Toutes les spécialités" %}</option>{% for specialty in popular_specialties %}<option value="{{ specialty.pk }}" {% if selected_specialty == specialty.pk|stringformat:'s' %}selected{% endif %}>{{ specialty.name|ui }}</option>{% endfor %}</select></div><button class="hp-button hp-button-lime" type="submit">{% translate "Rechercher ↗" %}</button></form></section>
+<section class="hp-section hp-container" aria-labelledby="hp-specialties-title"><div class="hp-section-heading"><div><span class="hp-eyebrow">{% translate "À CHAQUE BESOIN, SON PROFESSIONNEL" %}</span><h2 id="hp-specialties-title">{% translate "Le premier pas vers le bon soin." %}</h2></div><a class="hp-text-link" href="#practitioners">{% translate "Tous les médecins ↗" %}</a></div><div class="hp-specialty-grid">{% for specialty in popular_specialties %}<a class="hp-specialty" href="?specialty={{ specialty.pk }}#practitioners"><span class="hp-specialty-symbol" aria-hidden="true">{% cycle '✚' '♡' '✧' '◎' '✳' %}</span><h3>{{ specialty.name|ui }}</h3><span>{% translate "Découvrir les médecins" %} <b aria-hidden="true">↗</b></span></a>{% empty %}<p>{% translate "Les spécialités seront affichées dès leur ajout à la plateforme." %}</p>{% endfor %}</div></section>
+<section class="hp-section hp-practitioners" id="practitioners" aria-labelledby="hp-doctors-title"><div class="hp-container"><div class="hp-section-heading"><div><span class="hp-eyebrow">{% translate "DES PROFESSIONNELS À RENCONTRER" %}</span><h2 id="hp-doctors-title">{% if is_search %}{% translate "Les médecins pour votre recherche." %}{% else %}{% translate "Votre prochain échange commence ici." %}{% endif %}</h2></div><span class="hp-result-count">{{ result_count|ui_count:"doctor_found" }}</span></div>{% if is_search %}<p class="hp-filter-note">{% if query %}{% translate "Recherche : «" %} {{ query }} » · {% endif %}<a href="{% url 'core:home' %}#practitioners">{% translate "Effacer les filtres" %}</a></p>{% endif %}<div class="hp-doctors">{% for doctor in doctors %}<article class="hp-doctor-card"><div class="hp-doctor-card-top"><div class="hp-doctor-avatar" aria-hidden="true">{{ doctor.first_name|first }}{{ doctor.last_name|first }}</div><span class="hp-verified">{% translate "✓ Profil approuvé" %}</span></div><h3>{% translate "Dr" %} {{ doctor.get_full_name|default:doctor.username }}</h3><p>{% if doctor.main_specialty %}{{ doctor.main_specialty.name|ui }}{% else %}{{ doctor.doctor_profile.get_specialty_display|ui }}{% endif %}</p><div class="hp-doctor-divider"></div><p class="hp-doctor-note">{% translate "Un créneau à choisir selon vos disponibilités." %}</p><a class="hp-button hp-button-outline" href="{% url 'appointments:book_slot' doctor.pk %}" aria-label="{% translate "Voir les créneaux de Dr" %} {{ doctor.get_full_name }}">{% translate "Voir les créneaux ↗" %}</a></article>{% empty %}<div class="hp-empty"><span aria-hidden="true">⌕</span><h3>{% translate "Aucun médecin ne correspond pour le moment." %}</h3><p>{% translate "Essayez un autre nom ou une autre spécialité." %}</p><a href="{% url 'core:home' %}#practitioners" class="hp-button hp-button-dark">{% translate "Voir tous les médecins" %}</a></div>{% endfor %}</div>{% if result_count > 6 %}<a class="hp-text-link hp-directory-link" href="{% url 'dashboard:patient_doctors' %}">{% translate "Consulter l’annuaire complet ↗" %}</a>{% endif %}</div></section>
+<section class="hp-section hp-container" id="how-it-works" aria-labelledby="hp-how-title"><div class="hp-section-heading"><div><span class="hp-eyebrow">{% translate "MOINS DE DÉMARCHES. PLUS DE LIEN." %}</span><h2 id="hp-how-title">{% translate "Un parcours simple." %}<br>{% translate "Du premier clic au suivi." %}</h2></div><p>{% translate "Tout ce dont vous avez besoin pour organiser" %}<br>{% translate "vos soins, à votre rythme." %}</p></div><div class="hp-steps"><article><span class="hp-step-number">01 <span aria-hidden="true">↗</span></span><h3>{% translate "Trouvez votre médecin" %}</h3><p>{% translate "Explorez les spécialités et les profils approuvés. Besoin d’un point de départ ? L’assistant IA peut vous guider." %}</p></article><article><span class="hp-step-number">02 <span aria-hidden="true">↗</span></span><h3>{% translate "Choisissez votre rendez-vous" %}</h3><p>{% translate "Consultez les créneaux proposés et envoyez votre demande depuis votre espace patient." %}</p></article><article><span class="hp-step-number">03 <span aria-hidden="true">↗</span></span><h3>{% translate "Gardez le fil de vos soins" %}</h3><p>{% translate "Retrouvez vos comptes rendus, échangez avec votre médecin et partagez votre avis après la consultation." %}</p></article></div></section>
+<section class="hp-container hp-ai-banner" aria-labelledby="hp-ai-title"><div><span class="hp-eyebrow">{% translate "UNE AIDE POUR LE PREMIER PAS" %}</span><h2 id="hp-ai-title">{% translate "Pas sûr de savoir" %}<br>{% translate "à qui vous adresser ?" %}</h2><p>{% translate "Décrivez votre besoin en quelques phrases. Notre assistant propose une spécialité de la plateforme, à confirmer avec un professionnel." %}</p><a href="{% url 'consultations:intake' %}" class="hp-button hp-button-lime">{% translate "Essayer l’orientation IA ✦" %}</a><small>{% translate "Une aide à l’orientation, sans diagnostic. En cas d’urgence, contactez les services d’urgence locaux." %}</small></div><div class="hp-ai-art" aria-hidden="true"><div class="hp-ai-orbit">✦</div><span>{% translate "VOS MOTS → UNE PISTE → UN PROFESSIONNEL" %}</span></div></section>
+<section class="hp-container hp-provider"><div><h2>{% translate "Vous prenez soin des autres." %}<br>{% translate "Nous facilitons la rencontre." %}</h2><p>{% translate "Rejoignez MediConnect et gérez vos rendez-vous et le suivi de vos patients depuis votre espace professionnel." %}</p></div><a class="hp-button hp-button-outline" href="{% url 'accounts:doctor_signup' %}">{% translate "Rejoindre les médecins ↗" %}</a></section></div>{% endblock %}
+{% block footer %}<div class="hp-footer"><div class="hp-container"><div class="hp-footer-main"><div><a href="{% url 'core:home' %}" class="hp-brand"><span class="hp-brand-mark" aria-hidden="true">+</span>{% translate "MediConnect." %}</a><p>{% translate "Le soin commence par une rencontre." %}<br>{% translate "Le suivi continue avec vous." %}</p></div><div><h2>{% translate "Votre parcours" %}</h2><a href="#practitioners">{% translate "Trouver un médecin" %}</a><a href="{% url 'consultations:intake' %}">{% translate "Orientation IA" %}</a><a href="{% url 'appointments:my_list' %}">{% translate "Mes rendez-vous" %}</a></div><div><h2>{% translate "Votre espace" %}</h2><a href="{% url 'accounts:login' %}">{% translate "Se connecter" %}</a><a href="{% url 'accounts:signup' %}">{% translate "Créer un compte patient" %}</a><a href="{% url 'accounts:doctor_signup' %}">{% translate "Devenir médecin partenaire" %}</a></div></div><div class="hp-footer-bottom"><span>© {% now 'Y' %} {% translate "MediConnect" %}</span><span>{% translate "Des outils numériques. Des liens humains." %}</span><a href="#site-header">{% translate "Retour en haut ↑" %}</a></div></div></div>{% endblock %}
+{% block extra_js %}<script src="{% static 'js/home-redesign.js' %}?v=3" defer></script>{% if request.user.is_authenticated and request.user.role == 'patient' %}<script src="{% static 'js/patient-navigation.js' %}?v=1" defer></script>{% endif %}{% endblock %}

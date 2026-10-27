@@ -1,8 +1,8 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}{{ action }} Medical Record | MediConnect{% endblock %}
+{% block title %}{{ action }} {% translate "Medical Record | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}?v=2">
@@ -13,7 +13,7 @@
 
     <div class="mr-breadcrumb">
         <a href="{% url 'medical_records:admin_record_list' %}">
-            Medical Records
+            {% translate "Medical Records" %}
         </a>
         <span>/</span>
         <span>{{ action }}</span>
@@ -21,9 +21,9 @@
 
     <div class="mr-page-header">
         <div>
-            <div class="mr-eyebrow">MEDICAL RECORDS MANAGEMENT</div>
-            <h1>{{ action }} Medical Record</h1>
-            <p>Manage medical history and allergy information.</p>
+            <div class="mr-eyebrow">{% translate "MEDICAL RECORDS MANAGEMENT" %}</div>
+            <h1>{{ action }} {% translate "Medical Record" %}</h1>
+            <p>{% translate "Manage medical history and allergy information." %}</p>
         </div>
     </div>
 
@@ -41,12 +41,12 @@
 
             <div class="mr-actions">
                 <button type="submit" class="mr-btn mr-btn-primary">
-                    Save Medical Record
+                    {% translate "Save Medical Record" %}
                 </button>
 
                 <a href="{% url 'medical_records:admin_record_list' %}"
                    class="mr-btn mr-btn-danger-outline">
-                    Cancel
+                    {% translate "Cancel" %}
                 </a>
             </div>
         </form>

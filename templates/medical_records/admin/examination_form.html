@@ -1,6 +1,6 @@
 
-{% extends "dashboard/base.html" %}
-{% block title %}{{ action|default:"Manage" }} Examination | MediConnect{% endblock %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
+{% block title %}{{ action|default:"Manage" }} {% translate "Examination | MediConnect" %}{% endblock %}
 
 {% load static %}
 
@@ -14,19 +14,19 @@
 
     <div class="mr-header">
         <div>
-            <h1>{{ action }} Medical Examination</h1>
+            <h1>{{ action }} {% translate "Medical Examination" %}</h1>
             <p>
                 {% if examination %}
-                    Update examination information.
+                    {% translate "Update examination information." %}
                 {% else %}
-                    Upload a medical examination for a patient.
+                    {% translate "Upload a medical examination for a patient." %}
                 {% endif %}
             </p>
         </div>
 
         <a href="{% url 'medical_records:admin_examination_list' %}"
            class="btn btn-outline-secondary">
-            Cancel
+            {% translate "Cancel" %}
         </a>
     </div>
 
@@ -51,15 +51,15 @@
             <div class="d-flex gap-2 flex-wrap">
                 <button type="submit" class="btn btn-primary">
                     {% if examination %}
-                        Save Changes
+                        {% translate "Save Changes" %}
                     {% else %}
-                        Create Examination
+                        {% translate "Create Examination" %}
                     {% endif %}
                 </button>
 
                 <a href="{% url 'medical_records:admin_examination_list' %}"
                    class="btn btn-outline-secondary">
-                    Cancel
+                    {% translate "Cancel" %}
                 </a>
             </div>
         </form>

@@ -1,21 +1,21 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Appointment | MediConnect{% endblock %}
+{% block title %}{% translate "Appointment | MediConnect" %}{% endblock %}
 
 {% block content %}
 {% with doctor_name=appointment.doctor.get_full_name|default:appointment.doctor.email patient_name=appointment.patient.get_full_name|default:appointment.patient.email %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">APPOINTMENT</span>
-        <h1>{% if dashboard_role == "patient" %}Dr. {{ doctor_name }}{% else %}{{ patient_name }}{% endif %}</h1>
+        <span class="mc-page-eyebrow">{% translate "APPOINTMENT" %}</span>
+        <h1>{% if dashboard_role == "patient" %}{% translate "Dr." %} {{ doctor_name }}{% else %}{{ patient_name }}{% endif %}</h1>
         <p>{{ appointment.start|date:"l j F Y, H:i" }} – {{ appointment.end|date:"H:i" }}</p>
     </div>
     {% if dashboard_role == "patient" %}
-    <a class="mc-users-clear" href="{% url 'appointments:my_list' %}">← My appointments</a>
+    <a class="mc-users-clear" href="{% url 'appointments:my_list' %}">{% translate "← My appointments" %}</a>
     {% elif dashboard_role == "doctor" %}
-    <a class="mc-users-clear" href="{% url 'appointments:doctor_list' %}">← All my appointments</a>
+    <a class="mc-users-clear" href="{% url 'appointments:doctor_list' %}">{% translate "← All my appointments" %}</a>
     {% else %}
-    <a class="mc-users-clear" href="{% url 'appointments:admin_list' %}">← All appointments</a>
+    <a class="mc-users-clear" href="{% url 'appointments:admin_list' %}">{% translate "← All appointments" %}</a>
     {% endif %}
 </div>
 
@@ -23,69 +23,69 @@
 
 <div class="mc-dashboard-panels">
     <section class="mc-panel" aria-labelledby="details-title">
-        <div class="mc-panel-heading"><div><h2 id="details-title">Details</h2></div></div>
+        <div class="mc-panel-heading"><div><h2 id="details-title">{% translate "Details" %}</h2></div></div>
         <dl class="mc-detail-grid">
-            <dt>Status</dt>
+            <dt>{% translate "Status" %}</dt>
             <dd>{% include "appointments/partials/status_badge.html" %}</dd>
-            <dt>Doctor</dt>
-            <dd>Dr. {{ doctor_name }} · {{ appointment.doctor.main_specialty|default:"General" }}</dd>
-            <dt>Patient</dt>
+            <dt>{% translate "Doctor" %}</dt>
+            <dd>{% translate "Dr." %} {{ doctor_name }} · {{ appointment.doctor.main_specialty|default:"General" }}</dd>
+            <dt>{% translate "Patient" %}</dt>
             <dd>{{ patient_name }}</dd>
-            <dt>Type</dt>
-            <dd>{{ appointment.get_mode_display }}</dd>
-            <dt>Duration</dt>
-            <dd>{{ appointment.duration_minutes }} minutes</dd>
-            <dt>Reason</dt>
+            <dt>{% translate "Type" %}</dt>
+            <dd>{{ appointment.get_mode_display|ui }}</dd>
+            <dt>{% translate "Duration" %}</dt>
+            <dd>{{ appointment.duration_minutes }} {% translate "minutes" %}</dd>
+            <dt>{% translate "Reason" %}</dt>
             <dd>{{ appointment.reason }}</dd>
             {% if appointment.status_note %}
-            <dt>Doctor's note</dt>
+            <dt>{% translate "Doctor's note" %}</dt>
             <dd>{{ appointment.status_note }}</dd>
             {% endif %}
-            <dt>Requested</dt>
+            <dt>{% translate "Requested" %}</dt>
             <dd>{{ appointment.created_at|date:"j M Y, H:i" }}</dd>
             {% if dashboard_role != "patient" %}
-            <dt>Reminder sent</dt>
+            <dt>{% translate "Reminder sent" %}</dt>
             <dd>{{ appointment.reminder_sent|yesno:"Yes,No" }}</dd>
             {% endif %}
         </dl>
     </section>
 
     <section class="mc-panel mc-panel-side" aria-labelledby="actions-title">
-        <div class="mc-panel-heading"><div><h2 id="actions-title">Actions</h2></div></div>
+        <div class="mc-panel-heading"><div><h2 id="actions-title">{% translate "Actions" %}</h2></div></div>
         {% if dashboard_role == "doctor" %}
             {% if appointment.status == "confirmed" or appointment.status == "completed" %}
-            <p><a class="mc-role-save" href="{% url 'consultations:edit' appointment.pk %}">Rédiger / modifier la consultation</a></p>
+            <p><a class="mc-role-save" href="{% url 'consultations:edit' appointment.pk %}">{% translate "Rédiger / modifier la consultation" %}</a></p>
             {% endif %}
         {% endif %}
         {% if dashboard_role == "patient" or dashboard_role == "doctor" %}
             {% if appointment.consultation %}
-            <p><a href="{% url 'consultations:detail' appointment.consultation.pk %}">Voir le compte rendu</a></p>
+            <p><a href="{% url 'consultations:detail' appointment.consultation.pk %}">{% translate "Voir le compte rendu" %}</a></p>
             {% endif %}
         {% endif %}
 
         {% if dashboard_role == "patient" %}
             {% if appointment.can_be_changed_by_patient %}
             <div class="mc-action-group">
-                <a class="mc-role-save" href="{% url 'appointments:reschedule' appointment.pk %}">Reschedule</a>
-                <a class="mc-role-save mc-role-save--danger" href="{% url 'appointments:cancel' appointment.pk %}">Cancel appointment</a>
+                <a class="mc-role-save" href="{% url 'appointments:reschedule' appointment.pk %}">{% translate "Reschedule" %}</a>
+                <a class="mc-role-save mc-role-save--danger" href="{% url 'appointments:cancel' appointment.pk %}">{% translate "Cancel appointment" %}</a>
             </div>
             {% elif appointment.is_upcoming %}
-            <p class="mc-help">Less than 24 hours left: this appointment can no longer be changed online. Please contact the doctor.</p>
+            <p class="mc-help">{% translate "Less than 24 hours left: this appointment can no longer be changed online. Please contact the doctor." %}</p>
             {% else %}
-            <p class="mc-help">No action available for this appointment.</p>
+            <p class="mc-help">{% translate "No action available for this appointment." %}</p>
             {% endif %}
 
         {% elif dashboard_role == "doctor" %}
-            <h3 class="mc-help">No-show risk</h3>
+            <h3 class="mc-help">{% translate "No-show risk" %}</h3>
             <p>{% include "appointments/partials/risk_badge.html" %}</p>
-            <p class="mc-help">AI estimate based on booking delay, weekday and the patient's history. It only assists you: you decide.</p>
+            <p class="mc-help">{% translate "AI estimate based on booking delay, weekday and the patient's history. It only assists you: you decide." %}</p>
             {% include "appointments/partials/doctor_actions.html" with next_url=request.get_full_path %}
 
         {% else %}
             <form method="post" action="{% url 'appointments:admin_delete' appointment.pk %}"
                   data-delete-confirm data-delete-name="appointment of {{ appointment.start|date:'j M Y H:i' }}">
                 {% csrf_token %}
-                <button type="submit" class="mc-role-save mc-role-save--danger">Delete appointment</button>
+                <button type="submit" class="mc-role-save mc-role-save--danger">{% translate "Delete appointment" %}</button>
             </form>
         {% endif %}
     </section>

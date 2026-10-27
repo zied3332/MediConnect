@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -12,18 +13,18 @@ class Specialty(models.Model):
         verbose_name_plural = "Specialties"
 
     def __str__(self):
-        return self.name
+        return str(ui_gettext(self.name))
 
 
 class Availability(models.Model):
     class Weekday(models.IntegerChoices):
-        MONDAY = 0, "Monday"
-        TUESDAY = 1, "Tuesday"
-        WEDNESDAY = 2, "Wednesday"
-        THURSDAY = 3, "Thursday"
-        FRIDAY = 4, "Friday"
-        SATURDAY = 5, "Saturday"
-        SUNDAY = 6, "Sunday"
+        MONDAY = 0, ui_gettext("Monday")
+        TUESDAY = 1, ui_gettext("Tuesday")
+        WEDNESDAY = 2, ui_gettext("Wednesday")
+        THURSDAY = 3, ui_gettext("Thursday")
+        FRIDAY = 4, ui_gettext("Friday")
+        SATURDAY = 5, ui_gettext("Saturday")
+        SUNDAY = 6, ui_gettext("Sunday")
 
     doctor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -51,7 +52,7 @@ class Availability(models.Model):
 
     def clean(self):
         if self.end_time <= self.start_time:
-            raise ValidationError("End time must be after start time.")
+            raise ValidationError(ui_gettext("End time must be after start time."))
 
         overlapping = Availability.objects.filter(
             doctor=self.doctor,
@@ -61,7 +62,7 @@ class Availability(models.Model):
         ).exclude(pk=self.pk)
         if overlapping.exists():
             raise ValidationError(
-                "This availability overlaps another slot for the same doctor."
+                ui_gettext("This availability overlaps another slot for the same doctor.")
             )
 
     def __str__(self):

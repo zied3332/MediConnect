@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from datetime import datetime
 
 from django import forms
@@ -20,7 +21,7 @@ class SlotChoiceMixin:
     def _add_slot_field(self, slots):
         self.slots = list(slots)
         self.fields["slot"] = forms.ChoiceField(
-            label="Time slot",
+            label=ui_gettext("Time slot"),
             choices=[(slot_value(s), slot_value(s)) for s in self.slots],
             widget=forms.RadioSelect,
             error_messages={
@@ -43,8 +44,8 @@ class BookingForm(SlotChoiceMixin, forms.ModelForm):
             "reason": forms.Textarea(attrs={"rows": 4, "maxlength": 1000}),
         }
         labels = {
-            "mode": "Consultation type",
-            "reason": "Reason for the visit",
+            ui_gettext("mode"): ui_gettext("Consultation type"),
+            ui_gettext("reason"): ui_gettext("Reason for the visit"),
         }
         help_texts = {
             "reason": "A few words to help the doctor prepare (symptoms, follow-up...).",
@@ -59,7 +60,7 @@ class BookingForm(SlotChoiceMixin, forms.ModelForm):
     def clean_reason(self):
         reason = self.cleaned_data["reason"].strip()
         if len(reason) < 3:
-            raise forms.ValidationError("Please describe the reason in a few words.")
+            raise forms.ValidationError(ui_gettext("Please describe the reason in a few words."))
         return reason
 
 
@@ -71,7 +72,7 @@ class RescheduleForm(SlotChoiceMixin, forms.Form):
 
 class RejectForm(forms.Form):
     reason = forms.CharField(
-        label="Reason (optional)",
+        label=ui_gettext("Reason (optional)"),
         required=False,
         max_length=500,
         widget=forms.Textarea(attrs={"rows": 2}),
@@ -80,7 +81,7 @@ class RejectForm(forms.Form):
 
 class SpecialtyChoiceForm(forms.Form):
     specialty = forms.ModelChoiceField(
-        label="Specialty",
+        label=ui_gettext("Specialty"),
         queryset=Specialty.objects.all(),
         empty_label="Choose a specialty",
     )
@@ -92,29 +93,29 @@ STATUS_FILTER_CHOICES = [("", "All statuses"), *Appointment.Status.choices]
 class DoctorFilterForm(forms.Form):
     WHEN_CHOICES = [("upcoming", "Upcoming"), ("past", "Past"), ("all", "All dates")]
 
-    when = forms.ChoiceField(label="Period", choices=WHEN_CHOICES, required=False)
-    status = forms.ChoiceField(label="Status", choices=STATUS_FILTER_CHOICES, required=False)
+    when = forms.ChoiceField(label=ui_gettext("Period"), choices=WHEN_CHOICES, required=False)
+    status = forms.ChoiceField(label=ui_gettext("Status"), choices=STATUS_FILTER_CHOICES, required=False)
     date = forms.DateField(
-        label="Day", required=False, widget=forms.DateInput(attrs={"type": "date"})
+        label=ui_gettext("Day"), required=False, widget=forms.DateInput(attrs={"type": "date"})
     )
 
 
 class AdminFilterForm(forms.Form):
     doctor = forms.ModelChoiceField(
-        label="Doctor",
+        label=ui_gettext("Doctor"),
         queryset=User.objects.filter(role=User.Role.DOCTOR).order_by("last_name", "first_name"),
         required=False,
         empty_label="All doctors",
     )
     patient = forms.ModelChoiceField(
-        label="Patient",
+        label=ui_gettext("Patient"),
         queryset=User.objects.filter(role=User.Role.PATIENT).order_by("last_name", "first_name"),
         required=False,
         empty_label="All patients",
     )
-    status = forms.ChoiceField(label="Status", choices=STATUS_FILTER_CHOICES, required=False)
+    status = forms.ChoiceField(label=ui_gettext("Status"), choices=STATUS_FILTER_CHOICES, required=False)
     date = forms.DateField(
-        label="Day", required=False, widget=forms.DateInput(attrs={"type": "date"})
+        label=ui_gettext("Day"), required=False, widget=forms.DateInput(attrs={"type": "date"})
     )
 
     def __init__(self, *args, **kwargs):

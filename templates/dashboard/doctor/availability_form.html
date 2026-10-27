@@ -1,13 +1,13 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Edit Availability | MediConnect{% endblock %}
+{% block title %}{% translate "Edit Availability | MediConnect" %}{% endblock %}
 
 {% block content %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">MY PRACTICE</span>
-        <h1>Edit availability</h1>
-        <p>Update this availability slot.</p>
+        <span class="mc-page-eyebrow">{% translate "MY PRACTICE" %}</span>
+        <h1>{% translate "Edit availability" %}</h1>
+        <p>{% translate "Update this availability slot." %}</p>
     </div>
 </div>
 
@@ -15,8 +15,8 @@
     <form method="post" class="mc-availability-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="mc-users-filter-button" type="submit">Save changes</button>
-        <a class="mc-users-clear" href="{% url 'dashboard:doctor_availability' %}">Cancel</a>
+        <button class="mc-users-filter-button" type="submit">{% translate "Save changes" %}</button>
+        <a class="mc-users-clear" href="{% url 'dashboard:doctor_availability' %}">{% translate "Cancel" %}</a>
     </form>
     {% if form.errors %}<div class="mc-management-errors">{{ form.non_field_errors }}{% for field in form %}{{ field.errors }}{% endfor %}</div>{% endif %}
 </section>

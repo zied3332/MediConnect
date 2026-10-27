@@ -22,3 +22,4 @@ appointments/ml/data/
 
 # Local browser audit runtime (synthetic sessions and tool downloads)
 .audit-*
+.orientation-queue/

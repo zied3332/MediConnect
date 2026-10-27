@@ -1,1 +1,2 @@
-<span class="mc-status mc-status--{{ appointment.status }}">{{ appointment.get_status_display }}</span>
+{% load i18n ui %}
+<span class="mc-status mc-status--{{ appointment.status }}">{{ appointment.get_status_display|ui }}</span>

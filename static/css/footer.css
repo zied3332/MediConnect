@@ -5,9 +5,9 @@
 
 .mc-footer {
     width: 100%;
-    background: #F2F0E8;
+    background:var(--ui-adaptive-soft,#F2F0E8);
     border-top: 1px solid #E8E6DC;
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
 }
 
 .mc-footer-container {
@@ -32,7 +32,7 @@
     align-items: center;
     gap: 12px;
 
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
     font-size: 24px;
     font-weight: 800;
     letter-spacing: -0.05em;
@@ -40,7 +40,7 @@
 }
 
 .mc-footer-brand-link:hover {
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
 }
 
 .mc-footer-logo {
@@ -52,14 +52,14 @@
     height: 48px;
     border-radius: 50%;
     background: #FFEB4D;
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
 }
 
 .mc-footer-brand p {
     max-width: 290px;
     margin: 24px 0 16px;
 
-    color: #62675F;
+    color:var(--ui-adaptive-ink,#62675F);
     font-size: 15px;
     line-height: 1.8;
 }
@@ -73,7 +73,7 @@
 
 .mc-footer-column h2 {
     margin: 8px 0 24px;
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
     font-size: 15px;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -96,14 +96,14 @@
 
 .mc-footer-column a,
 .mc-footer-column li span {
-    color: #666B63;
+    color:var(--ui-adaptive-ink,#666B63);
     font-size: 14px;
     line-height: 1.5;
     text-decoration: none;
 }
 
 .mc-footer-column a:hover {
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
     text-decoration: underline;
     text-underline-offset: 4px;
 }

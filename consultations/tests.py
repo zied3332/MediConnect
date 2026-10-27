@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 from django.core.exceptions import ValidationError
 from django.db.models.deletion import ProtectedError
 from django.urls import reverse
@@ -89,7 +90,7 @@ class FollowUpTests(AppointmentTestCase):
         self.assertEqual(self.client.post(reverse("consultations:message_delete", args=[message.pk])).status_code, 404)
         self.client.post(self.thread_url, {"contenu": "Bonjour Marie"})
         self.client.force_login(self.patient)
-        self.assertContains(self.client.get(reverse("consultations:inbox")), "non lu")
+        self.assertContains(self.client.get(reverse("consultations:inbox")), gettext("%(count)s unread") % {"count": 1})
         self.client.post(reverse("consultations:message_edit", args=[message.pk]), {"contenu": "Question modifiée"})
         message.refresh_from_db()
         self.assertFalse(message.lu)
@@ -218,9 +219,9 @@ class FollowUpTests(AppointmentTestCase):
     def test_reviews_invite_only_eligible_patient_and_hide_after_submission(self):
         self.client.force_login(self.patient)
         response = self.client.get(reverse("consultations:reviews"))
-        self.assertContains(response, "Votre avis est attendu")
+        self.assertContains(response, gettext("Votre avis est attendu"))
         self.assertEqual(list(response.context["eligible"]), [self.consultation])
         self.client.post(self.review_url, {"note": 5, "commentaire": "Très clair"})
-        self.assertNotContains(self.client.get(reverse("consultations:reviews")), "Votre avis est attendu")
+        self.assertNotContains(self.client.get(reverse("consultations:reviews")), gettext("Votre avis est attendu"))
         self.client.force_login(self.other_patient)
         self.assertFalse(self.client.get(reverse("consultations:reviews")).context["eligible"].exists())

@@ -1,3 +1,4 @@
+{% load i18n ui %}
 {% if form.non_field_errors %}
 <div class="{{ error_class }}" role="alert">
     {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}

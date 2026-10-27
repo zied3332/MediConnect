@@ -1,6 +1,6 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Review Dr. {{ profile.user.get_full_name }} | MediConnect{% endblock %}
+{% block title %}{% translate "Review Dr." %} {{ profile.user.get_full_name }} {% translate "| MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -15,7 +15,7 @@
     font-weight: 600;
     text-decoration: none;
 }
-.mc-back-link:hover { color: #333; }
+.mc-back-link:hover { color:var(--ui-adaptive-ink,#333); }
 
 /* ── Detail layout ─────────────────────────── */
 .mc-detail-grid {
@@ -30,7 +30,7 @@
 
 /* ── Info card ─────────────────────────────── */
 .mc-info-card {
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid var(--mc-admin-border);
     border-radius: 12px;
     padding: 28px;
@@ -68,11 +68,11 @@
     font-size: 11px;
     font-weight: 700;
 }
-.pill-pending_documents { background: #e3f2fd; color: #0d47a1; }
-.pill-pending_review    { background: #fff8e1; color: #a13a00; }
-.pill-needs_more_info   { background: #fff3e0; color: #bf360c; }
-.pill-approved          { background: #e8f5e9; color: #1b5e20; }
-.pill-rejected          { background: #fce4ec; color: #880e4f; }
+.pill-pending_documents { background:var(--ui-adaptive-soft,#e3f2fd); color: #0d47a1; }
+.pill-pending_review    { background:var(--ui-adaptive-soft,#fff8e1); color: #a13a00; }
+.pill-needs_more_info   { background:var(--ui-adaptive-soft,#fff3e0); color: #bf360c; }
+.pill-approved          { background:var(--ui-adaptive-soft,#e8f5e9); color: #1b5e20; }
+.pill-rejected          { background:var(--ui-adaptive-soft,#fce4ec); color: #880e4f; }
 
 /* ── Document preview ──────────────────────── */
 .mc-doc-item {
@@ -86,7 +86,7 @@
 .mc-doc-icon {
     width: 40px;
     height: 40px;
-    background: #f5f6f1;
+    background:var(--ui-adaptive-soft,#f5f6f1);
     border-radius: 8px;
     display: grid;
     place-items: center;
@@ -99,15 +99,15 @@
 .mc-doc-view-btn {
     padding: 6px 14px;
     border-radius: 6px;
-    background: #f5f6f1;
+    background:var(--ui-adaptive-soft,#f5f6f1);
     border: 1px solid #e4e7e1;
-    color: #444;
+    color:var(--ui-adaptive-ink,#444);
     font-size: 12px;
     font-weight: 700;
     text-decoration: none;
     white-space: nowrap;
 }
-.mc-doc-view-btn:hover { background: #eaecea; color: #222; }
+.mc-doc-view-btn:hover { background:var(--ui-adaptive-soft,#eaecea); color:var(--ui-adaptive-ink,#222); }
 .mc-doc-missing {
     font-size: 12px;
     color: var(--mc-page-muted);
@@ -116,7 +116,7 @@
 
 /* ── Action panel ──────────────────────────── */
 .mc-action-panel {
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid var(--mc-admin-border);
     border-radius: 12px;
     overflow: hidden;
@@ -157,8 +157,8 @@
 }
 .mc-action-btn:hover { opacity: 0.88; }
 .mc-action-btn--approve  { background: #d4edda; color: #155724; }
-.mc-action-btn--reject   { background: #fce4ec; color: #880e4f; }
-.mc-action-btn--info     { background: #fff8e1; color: #5c4200; }
+.mc-action-btn--reject   { background:var(--ui-adaptive-soft,#fce4ec); color: #880e4f; }
+.mc-action-btn--info     { background:var(--ui-adaptive-soft,#fff8e1); color: #5c4200; }
 .mc-action-textarea {
     width: 100%;
     min-height: 90px;
@@ -167,7 +167,7 @@
     border-radius: 6px;
     font: inherit;
     font-size: 13px;
-    color: #333;
+    color:var(--ui-adaptive-ink,#333);
     resize: vertical;
     margin-bottom: 10px;
     box-sizing: border-box;
@@ -185,15 +185,15 @@
     font-size: 14px;
     font-weight: 600;
 }
-.mc-alert--success { background: #e8f5e9; color: #1b5e20; }
-.mc-alert--error   { background: #fce4ec; color: #880e4f; }
+.mc-alert--success { background:var(--ui-adaptive-soft,#e8f5e9); color: #1b5e20; }
+.mc-alert--error   { background:var(--ui-adaptive-soft,#fce4ec); color: #880e4f; }
 </style>
 {% endblock %}
 
 {% block content %}
 
 <a href="{% url 'dashboard:admin_doctor_list' %}" class="mc-back-link">
-    ← Back to all applications
+    {% translate "← Back to all applications" %}
 </a>
 
 {% if messages %}
@@ -204,12 +204,12 @@
 
 <div class="mc-page-heading" style="margin-bottom: 28px;">
     <div>
-        <span class="mc-page-eyebrow">DOCTOR REVIEW</span>
-        <h1>Dr. {{ profile.user.get_full_name }}</h1>
-        <p>{{ profile.get_specialty_display }}</p>
+        <span class="mc-page-eyebrow">{% translate "DOCTOR REVIEW" %}</span>
+        <h1>{% translate "Dr." %} {{ profile.user.get_full_name }}</h1>
+        <p>{{ profile.get_specialty_display|ui }}</p>
     </div>
     <span class="mc-status-pill pill-{{ profile.status }}" style="font-size:13px;padding:7px 16px;">
-        {{ profile.get_status_display }}
+        {{ profile.get_status_display|ui }}
     </span>
 </div>
 
@@ -220,40 +220,40 @@
 
         <!-- Doctor info -->
         <div class="mc-info-card">
-            <h2>Doctor Information</h2>
+            <h2>{% translate "Doctor Information" %}</h2>
             <div class="mc-info-row">
-                <span>Full name</span>
-                <span>Dr. {{ profile.user.get_full_name }}</span>
+                <span>{% translate "Full name" %}</span>
+                <span>{% translate "Dr." %} {{ profile.user.get_full_name }}</span>
             </div>
             <div class="mc-info-row">
-                <span>Email</span>
+                <span>{% translate "Email" %}</span>
                 <span>{{ profile.user.email }}</span>
             </div>
             <div class="mc-info-row">
-                <span>Specialty</span>
-                <span>{{ profile.get_specialty_display }}</span>
+                <span>{% translate "Specialty" %}</span>
+                <span>{{ profile.get_specialty_display|ui }}</span>
             </div>
             <div class="mc-info-row">
-                <span>Account status</span>
-                <span>{% if profile.user.is_active %}Active{% else %}Inactive{% endif %}</span>
+                <span>{% translate "Account status" %}</span>
+                <span>{% if profile.user.is_active %}{% translate "Active" %}{% else %}{% translate "Inactive" %}{% endif %}</span>
             </div>
             <div class="mc-info-row">
-                <span>Registered</span>
+                <span>{% translate "Registered" %}</span>
                 <span>{{ profile.created_at|date:"M d, Y" }}</span>
             </div>
             <div class="mc-info-row">
-                <span>Documents submitted</span>
+                <span>{% translate "Documents submitted" %}</span>
                 <span>
                     {% if profile.submitted_at %}
                         {{ profile.submitted_at|date:"M d, Y — H:i" }}
                     {% else %}
-                        Not yet submitted
+                        {% translate "Not yet submitted" %}
                     {% endif %}
                 </span>
             </div>
             {% if profile.reviewed_at %}
             <div class="mc-info-row">
-                <span>Last reviewed</span>
+                <span>{% translate "Last reviewed" %}</span>
                 <span>{{ profile.reviewed_at|date:"M d, Y — H:i" }}</span>
             </div>
             {% endif %}
@@ -261,57 +261,57 @@
 
         <!-- Documents -->
         <div class="mc-info-card">
-            <h2>Submitted Documents</h2>
+            <h2>{% translate "Submitted Documents" %}</h2>
 
             <div class="mc-doc-item">
                 <div class="mc-doc-icon">📄</div>
                 <div class="mc-doc-info">
-                    <strong>Medical license / registration</strong>
-                    <span>Professional license document</span>
+                    <strong>{% translate "Medical license / registration" %}</strong>
+                    <span>{% translate "Professional license document" %}</span>
                 </div>
                 {% if profile.medical_license %}
-                    <a href="{{ profile.medical_license.url }}" target="_blank" class="mc-doc-view-btn">View ↗</a>
+                    <a href="{{ profile.medical_license.url }}" target="_blank" class="mc-doc-view-btn">{% translate "View ↗" %}</a>
                 {% else %}
-                    <span class="mc-doc-missing">Not uploaded</span>
+                    <span class="mc-doc-missing">{% translate "Not uploaded" %}</span>
                 {% endif %}
             </div>
 
             <div class="mc-doc-item">
                 <div class="mc-doc-icon">🎓</div>
                 <div class="mc-doc-info">
-                    <strong>Diploma / specialty certificate</strong>
-                    <span>Medical degree or qualification</span>
+                    <strong>{% translate "Diploma / specialty certificate" %}</strong>
+                    <span>{% translate "Medical degree or qualification" %}</span>
                 </div>
                 {% if profile.diploma %}
-                    <a href="{{ profile.diploma.url }}" target="_blank" class="mc-doc-view-btn">View ↗</a>
+                    <a href="{{ profile.diploma.url }}" target="_blank" class="mc-doc-view-btn">{% translate "View ↗" %}</a>
                 {% else %}
-                    <span class="mc-doc-missing">Not uploaded</span>
+                    <span class="mc-doc-missing">{% translate "Not uploaded" %}</span>
                 {% endif %}
             </div>
 
             <div class="mc-doc-item">
                 <div class="mc-doc-icon">🪪</div>
                 <div class="mc-doc-info">
-                    <strong>National ID / passport</strong>
-                    <span>Government-issued identity document</span>
+                    <strong>{% translate "National ID / passport" %}</strong>
+                    <span>{% translate "Government-issued identity document" %}</span>
                 </div>
                 {% if profile.national_id %}
-                    <a href="{{ profile.national_id.url }}" target="_blank" class="mc-doc-view-btn">View ↗</a>
+                    <a href="{{ profile.national_id.url }}" target="_blank" class="mc-doc-view-btn">{% translate "View ↗" %}</a>
                 {% else %}
-                    <span class="mc-doc-missing">Not uploaded</span>
+                    <span class="mc-doc-missing">{% translate "Not uploaded" %}</span>
                 {% endif %}
             </div>
 
             <div class="mc-doc-item">
                 <div class="mc-doc-icon">🤳</div>
                 <div class="mc-doc-info">
-                    <strong>Selfie with ID</strong>
-                    <span>Optional identity verification photo</span>
+                    <strong>{% translate "Selfie with ID" %}</strong>
+                    <span>{% translate "Optional identity verification photo" %}</span>
                 </div>
                 {% if profile.selfie_with_id %}
-                    <a href="{{ profile.selfie_with_id.url }}" target="_blank" class="mc-doc-view-btn">View ↗</a>
+                    <a href="{{ profile.selfie_with_id.url }}" target="_blank" class="mc-doc-view-btn">{% translate "View ↗" %}</a>
                 {% else %}
-                    <span class="mc-doc-missing">Not provided</span>
+                    <span class="mc-doc-missing">{% translate "Not provided" %}</span>
                 {% endif %}
             </div>
         </div>
@@ -319,13 +319,13 @@
         <!-- Existing rejection reason or reviewer note -->
         {% if profile.rejection_reason %}
         <div class="mc-info-card" style="border-color:#f48fb1; background:#fff9fb;">
-            <h2 style="color:#880e4f;">Rejection reason on file</h2>
+            <h2 style="color:#880e4f;">{% translate "Rejection reason on file" %}</h2>
             <p style="margin:0; font-size:14px; line-height:1.7; color:#555;">{{ profile.rejection_reason }}</p>
         </div>
         {% endif %}
         {% if profile.reviewer_note %}
         <div class="mc-info-card" style="border-color:#ffe082; background:#fffde7;">
-            <h2 style="color:#5c4200;">Reviewer note on file</h2>
+            <h2 style="color:#5c4200;">{% translate "Reviewer note on file" %}</h2>
             <p style="margin:0; font-size:14px; line-height:1.7; color:#555;">{{ profile.reviewer_note }}</p>
         </div>
         {% endif %}
@@ -335,67 +335,67 @@
     <!-- ── Right column: action panel ─────────── -->
     <div>
         <div class="mc-action-panel">
-            <h2 class="mc-action-header">Review Decision</h2>
+            <h2 class="mc-action-header">{% translate "Review Decision" %}</h2>
 
             <!-- Approve -->
             <div class="mc-action-section">
-                <h3>✅ Approve application</h3>
+                <h3>{% translate "✅ Approve application" %}</h3>
                 <p style="font-size:13px; color:#666; margin: 0 0 14px; line-height:1.6;">
-                    The doctor will be activated and can log in to their dashboard immediately.
+                    {% translate "The doctor will be activated and can log in to their dashboard immediately." %}
                 </p>
                 <form method="post">
                     {% csrf_token %}
                     <input type="hidden" name="action" value="approve">
                     <button type="submit" class="mc-action-btn mc-action-btn--approve"
                         onclick="return confirm('Approve Dr. {{ profile.user.get_full_name }}?')">
-                        Approve →
+                        {% translate "Approve →" %}
                     </button>
                 </form>
             </div>
 
             <!-- Request more info -->
             <div class="mc-action-section">
-                <h3>📋 Request more information</h3>
+                <h3>{% translate "📋 Request more information" %}</h3>
                 <p id="reviewer-note-help" style="font-size:13px; color:#666; margin: 0 0 12px; line-height:1.6;">
-                    The doctor will see your message and be asked to re-upload documents.
+                    {% translate "The doctor will see your message and be asked to re-upload documents." %}
                 </p>
                 <form method="post">
                     {% csrf_token %}
                     <input type="hidden" name="action" value="needs_more_info">
-                    <label for="reviewer-note">Information requested from the doctor</label>
+                    <label for="reviewer-note">{% translate "Information requested from the doctor" %}</label>
                     <textarea
                         id="reviewer-note"
                         name="reviewer_note"
                         aria-describedby="reviewer-note-help"
                         class="mc-action-textarea"
-                        placeholder="e.g. Your medical license image is blurry. Please re-upload a clearer version."
+                        placeholder="{% translate "e.g. Your medical license image is blurry. Please re-upload a clearer version." %}"
                     ></textarea>
                     <button type="submit" class="mc-action-btn mc-action-btn--info">
-                        Send request →
+                        {% translate "Send request →" %}
                     </button>
                 </form>
             </div>
 
             <!-- Reject -->
             <div class="mc-action-section">
-                <h3>❌ Reject application</h3>
+                <h3>{% translate "❌ Reject application" %}</h3>
                 <p id="rejection-reason-help" style="font-size:13px; color:#666; margin: 0 0 12px; line-height:1.6;">
-                    The doctor's account will be deactivated. The reason will be shown to them.
+                    {% translate "The doctor's account will be deactivated. The reason will be shown to them." %}
                 </p>
                 <form method="post">
                     {% csrf_token %}
                     <input type="hidden" name="action" value="reject">
-                    <label for="rejection-reason">Reason for rejecting the application</label>
+                    <label for="rejection-reason">{% translate "Reason for rejecting the application" %}</label>
                     <textarea
                         id="rejection-reason"
                         name="rejection_reason"
                         aria-describedby="rejection-reason-help"
                         class="mc-action-textarea"
-                        placeholder="e.g. The provided license number could not be verified with the medical authority."
+                        placeholder="{% translate "e.g. The provided license number could not be verified with the medical authority." %}"
                     ></textarea>
                     <button type="submit" class="mc-action-btn mc-action-btn--reject"
                         onclick="return confirm('Reject this application? This will deactivate the account.')">
-                        Reject application →
+                        {% translate "Reject application →" %}
                     </button>
                 </form>
             </div>

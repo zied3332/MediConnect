@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from django.contrib import messages
 from django.contrib.auth import login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
@@ -125,7 +126,7 @@ def signup_page(request):
         user = form.save()
         # Specify backend explicitly since we have multiple backends
         login(request, user, backend="django.contrib.auth.backends.ModelBackend")
-        messages.success(request, f"Welcome to MediConnect, {user.first_name}!")
+        messages.success(request, ui_gettext('Welcome to MediConnect, %(value0)s!') % {'value0': user.first_name})
         return redirect(user.dashboard_url)
 
     return render(request, "accounts/signup.html", {"form": form})
@@ -309,13 +310,13 @@ def face_login(request):
         user_id = data.get("user_id")
         
         if not user_id:
-            return JsonResponse({"success": False, "error": "User ID required"}, status=400)
+            return JsonResponse({"success": False, "error": ui_gettext("User ID required")}, status=400)
         
         user = User.objects.get(id=user_id, is_active=True)
         
         # Verify user has face descriptor set up
         if not user.face_descriptor:
-            return JsonResponse({"success": False, "error": "Face login not set up"}, status=400)
+            return JsonResponse({"success": False, "error": ui_gettext("Face login not set up")}, status=400)
         
         # Log the user in
         login(request, user, backend="django.contrib.auth.backends.ModelBackend")
@@ -326,9 +327,9 @@ def face_login(request):
         })
         
     except User.DoesNotExist:
-        return JsonResponse({"success": False, "error": "User not found"}, status=404)
+        return JsonResponse({"success": False, "error": ui_gettext("User not found")}, status=404)
     except json.JSONDecodeError:
-        return JsonResponse({"success": False, "error": "Invalid JSON"}, status=400)
+        return JsonResponse({"success": False, "error": ui_gettext("Invalid JSON")}, status=400)
     except Exception as e:
         return JsonResponse({"success": False, "error": str(e)}, status=500)
 
@@ -351,13 +352,13 @@ def enroll_face(request):
         image_data = data.get("image_data")
         
         if not descriptor:
-            return JsonResponse({"success": False, "error": "Descriptor required"}, status=400)
+            return JsonResponse({"success": False, "error": ui_gettext("Descriptor required")}, status=400)
         
         # Validate descriptor is an array of 128 numbers
         if not isinstance(descriptor, list) or len(descriptor) != 128:
             return JsonResponse({
                 "success": False,
-                "error": "Descriptor must be array of 128 numbers"
+                "error": ui_gettext("Descriptor must be array of 128 numbers")
             }, status=400)
         
         # Save descriptor as JSON
@@ -385,9 +386,9 @@ def enroll_face(request):
         
         request.user.save()
         
-        return JsonResponse({"success": True, "message": "Face enrolled successfully"})
+        return JsonResponse({"success": True, "message": ui_gettext("Face enrolled successfully")})
         
     except json.JSONDecodeError:
-        return JsonResponse({"success": False, "error": "Invalid JSON"}, status=400)
+        return JsonResponse({"success": False, "error": ui_gettext("Invalid JSON")}, status=400)
     except Exception as e:
         return JsonResponse({"success": False, "error": str(e)}, status=500)

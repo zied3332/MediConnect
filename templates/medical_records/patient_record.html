@@ -1,7 +1,7 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Patient Medical Record | MediConnect{% endblock %}
+{% block title %}{% translate "Patient Medical Record | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -13,7 +13,7 @@
         width: 100%;
         max-width: 1100px;
         margin: 0 auto;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .doctor-record-eyebrow {
@@ -32,7 +32,7 @@
 
     .doctor-record-heading {
         margin: 0 0 11px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: clamp(28px, 3vw, 38px);
         font-weight: 800;
         letter-spacing: -1.2px;
@@ -65,8 +65,8 @@
         padding: 10px 16px;
         border: 1px solid #e5e8e0;
         border-radius: 9px;
-        background: #fff;
-        color: #4e584c;
+        background:var(--ui-adaptive-paper,#fff);
+        color:var(--ui-adaptive-ink,#4e584c);
         font-size: 12px;
         font-weight: 700;
         text-decoration: none;
@@ -75,8 +75,8 @@
 
     .doctor-record-nav-link:hover {
         border-color: #e7d47c;
-        background: #fff9dc;
-        color: #252923;
+        background:var(--ui-adaptive-soft,#fff9dc);
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .doctor-record-nav-link svg {
@@ -95,7 +95,7 @@
         padding: 22px 25px;
         border: 1px solid #e8ebe5;
         border-radius: 14px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
     }
 
     .doctor-record-avatar {
@@ -106,14 +106,14 @@
         flex: 0 0 52px;
         border-radius: 14px;
         background: #fff5c7;
-        color: #655628;
+        color:var(--ui-adaptive-ink,#655628);
         font-size: 20px;
         font-weight: 800;
     }
 
     .doctor-record-patient-name {
         margin: 0 0 6px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 17px;
         font-weight: 800;
         overflow-wrap: anywhere;
@@ -131,7 +131,7 @@
         overflow: hidden;
         border: 1px solid #e8ebe5;
         border-radius: 16px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
         box-shadow: 0 3px 15px rgba(30, 38, 30, .025);
     }
 
@@ -151,7 +151,7 @@
         flex: 0 0 45px;
         border-radius: 12px;
         background: #fff7d4;
-        color: #6b5e30;
+        color:var(--ui-adaptive-ink,#6b5e30);
     }
 
     .doctor-record-card-icon svg {
@@ -200,7 +200,7 @@
 
     .doctor-record-section h3 {
         margin: 0;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 16px;
         font-weight: 800;
     }
@@ -217,8 +217,8 @@
         padding: 19px 20px;
         border: 1px solid #e9ece6;
         border-radius: 11px;
-        background: #fafbf8;
-        color: #40483d;
+        background:var(--ui-adaptive-paper,#fafbf8);
+        color:var(--ui-adaptive-ink,#40483d);
         font-size: 13px;
         line-height: 1.8;
         overflow-wrap: anywhere;
@@ -257,7 +257,7 @@
     }
 
     .doctor-record-meta-item strong {
-        color: #4e584c;
+        color:var(--ui-adaptive-ink,#4e584c);
         font-weight: 700;
     }
 
@@ -271,8 +271,8 @@
         padding: 17px 19px;
         border: 1px solid #f1e8bb;
         border-radius: 12px;
-        background: #fffaf0;
-        color: #756a46;
+        background:var(--ui-adaptive-soft,#fffaf0);
+        color:var(--ui-adaptive-muted,#756a46);
         font-size: 12px;
         line-height: 1.7;
     }
@@ -330,21 +330,20 @@
 
     <header class="doctor-record-header">
         <span class="doctor-record-eyebrow">
-            DOCTOR PORTAL / MEDICAL RECORDS
+            {% translate "DOCTOR PORTAL / MEDICAL RECORDS" %}
         </span>
 
         <h1 id="doctor-record-title"
             class="doctor-record-heading">
-            Patient Medical Record
+            {% translate "Patient Medical Record" %}
         </h1>
 
         <p class="doctor-record-subtitle">
-            Review the patient's medical history and known allergies
-            to support informed clinical decisions.
+            {% translate "Review the patient's medical history and known allergies to support informed clinical decisions." %}
         </p>
 
         <nav class="doctor-record-navigation"
-             aria-label="Patient medical record navigation">
+             aria-label="{% translate "Patient medical record navigation" %}">
 
             <a href="{% url 'medical_records:examination_list' patient_id=dossier.patient_id %}"
                class="doctor-record-nav-link">
@@ -355,7 +354,7 @@
                     <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
                     <path d="M15 3v5h5M8 13h8M8 17h5"/>
                 </svg>
-                View examinations
+                {% translate "View examinations" %}
             </a>
 
             <a href="{% url 'medical_records:prescription_list' %}"
@@ -367,7 +366,7 @@
                     <path d="M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h3z"/>
                     <path d="M15 3v5h5M8 12h8M8 16h5"/>
                 </svg>
-                Prescriptions
+                {% translate "Prescriptions" %}
             </a>
 
         </nav>
@@ -376,7 +375,7 @@
     <!-- Patient identity -->
 
     <section class="doctor-record-patient"
-             aria-label="Patient identity">
+             aria-label="{% translate "Patient identity" %}">
 
         <div class="doctor-record-avatar"
              aria-hidden="true">
@@ -389,7 +388,7 @@
             </h2>
 
             <p class="doctor-record-patient-label">
-                Patient medical information · Read-only access
+                {% translate "Patient medical information · Read-only access" %}
             </p>
         </div>
 
@@ -412,9 +411,9 @@
             </div>
 
             <div>
-                <h2>Health information</h2>
+                <h2>{% translate "Health information" %}</h2>
                 <p>
-                    Information provided in the patient's medical record.
+                    {% translate "Information provided in the patient's medical record." %}
                 </p>
             </div>
 
@@ -437,13 +436,12 @@
                     </svg>
 
                     <h3 id="medical-history-heading">
-                        Medical history
+                        {% translate "Medical history" %}
                     </h3>
                 </div>
 
                 <p class="doctor-record-section-description">
-                    Previous medical conditions, surgeries,
-                    chronic illnesses, and relevant health history.
+                    {% translate "Previous medical conditions, surgeries, chronic illnesses, and relevant health history." %}
                 </p>
 
                 <div class="doctor-record-value">
@@ -451,7 +449,7 @@
                         {{ dossier.antecedents|linebreaksbr }}
                     {% else %}
                         <span class="doctor-record-muted">
-                            No medical history recorded.
+                            {% translate "No medical history recorded." %}
                         </span>
                     {% endif %}
                 </div>
@@ -473,13 +471,12 @@
                     </svg>
 
                     <h3 id="allergies-heading">
-                        Known allergies
+                        {% translate "Known allergies" %}
                     </h3>
                 </div>
 
                 <p class="doctor-record-section-description">
-                    Medication, food, and environmental allergies
-                    recorded by the patient.
+                    {% translate "Medication, food, and environmental allergies recorded by the patient." %}
                 </p>
 
                 <div class="doctor-record-value">
@@ -487,7 +484,7 @@
                         {{ dossier.allergies|linebreaksbr }}
                     {% else %}
                         <span class="doctor-record-muted">
-                            No allergies recorded.
+                            {% translate "No allergies recorded." %}
                         </span>
                     {% endif %}
                 </div>
@@ -508,7 +505,7 @@
                     </svg>
 
                     <span>
-                        Record created:
+                        {% translate "Record created:" %}
                         <strong>
                             {{ dossier.created_at|date:"F j, Y" }}
                         </strong>
@@ -525,7 +522,7 @@
                     </svg>
 
                     <span>
-                        Last updated:
+                        {% translate "Last updated:" %}
                         <strong>
                             {{ dossier.updated_at|date:"F j, Y \a\t H:i" }}
                         </strong>
@@ -551,8 +548,7 @@
         </svg>
 
         <span>
-            This medical record contains private patient information.
-            Access is restricted to authorized healthcare providers.
+            {% translate "This medical record contains private patient information. Access is restricted to authorized healthcare providers." %}
         </span>
 
     </div>

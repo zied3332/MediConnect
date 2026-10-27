@@ -1,3 +1,5 @@
+function uiGettext(message) { return typeof gettext === "function" ? gettext(message) : message; }
+function uiInterpolate(message, values) { return message.replace(/%\(([^)]+)\)s/g, (_, key) => String(values[key])); }
 /**
  * MediConnect — Auth page JS
  *
@@ -15,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", () => {
             const isPassword = input.type === "password";
             input.type = isPassword ? "text" : "password";
-            btn.textContent = isPassword ? "Hide" : "Show";
-            btn.setAttribute("aria-label", isPassword ? "Hide password" : "Show password");
+            btn.textContent = isPassword ? (btn.dataset.labelHide || uiGettext("Hide")) : (btn.dataset.labelShow || uiGettext("Show"));
+            btn.setAttribute("aria-label", btn.dataset.labelShow ? (isPassword ? uiGettext("Masquer le mot de passe") : uiGettext("Afficher le mot de passe")) : (isPassword ? uiGettext("Hide password") : uiGettext("Show password")));
         });
     });
 });

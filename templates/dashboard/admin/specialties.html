@@ -1,13 +1,13 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Specialties | MediConnect{% endblock %}
+{% block title %}{% translate "Specialties | MediConnect" %}{% endblock %}
 
 {% block content %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">ADMINISTRATION</span>
-        <h1>Specialties</h1>
-        <p>Define specialties and assign one main specialty to each doctor.</p>
+        <span class="mc-page-eyebrow">{% translate "ADMINISTRATION" %}</span>
+        <h1>{% translate "Specialties" %}</h1>
+        <p>{% translate "Define specialties and assign one main specialty to each doctor." %}</p>
     </div>
 </div>
 
@@ -19,35 +19,35 @@
 
 <div class="mc-dashboard-panels mc-management-grid">
     <section class="mc-panel">
-        <div class="mc-panel-heading"><div><h2>Add specialty</h2><p>Create a specialty for doctors.</p></div></div>
+        <div class="mc-panel-heading"><div><h2>{% translate "Add specialty" %}</h2><p>{% translate "Create a specialty for doctors." %}</p></div></div>
         <form method="post" class="mc-management-form">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="mc-users-filter-button" type="submit">Add specialty</button>
+            <button class="mc-users-filter-button" type="submit">{% translate "Add specialty" %}</button>
         </form>
     </section>
 
     <section class="mc-panel">
         <div class="mc-panel-heading">
-            <div><h2>Specialty catalogue</h2><p>{{ specialties|length }} specialties</p></div>
-            {% if has_more_specialties %}<a class="mc-users-clear" href="{% url 'dashboard:specialty_list' %}">More</a>{% endif %}
+            <div><h2>{% translate "Specialty catalogue" %}</h2><p>{{ specialties|length }} {% translate "specialties" %}</p></div>
+            {% if has_more_specialties %}<a class="mc-users-clear" href="{% url 'dashboard:specialty_list' %}">{% translate "More" %}</a>{% endif %}
         </div>
         <div class="mc-management-list">
             {% for specialty in catalogue_specialties %}
             <div class="mc-management-list-item mc-management-list-row">
                 <button type="button" class="mc-management-list-button" data-modal-target="specialty-modal-{{ specialty.id }}">
-                    <strong>{{ specialty.name }}</strong>
+                    <strong>{{ specialty.name|ui }}</strong>
                     <span>{{ specialty.description|default:"No description" }}</span>
                 </button>
-                <div class="mc-specialty-list-actions" aria-label="Actions for {{ specialty.name }}">
-                    <button type="button" class="mc-specialty-icon-button" data-modal-target="specialty-modal-{{ specialty.id }}" aria-label="Edit {{ specialty.name }}" title="Edit specialty">✎</button>
+                <div class="mc-specialty-list-actions" aria-label="{% translate "Actions for" %} {{ specialty.name }}">
+                    <button type="button" class="mc-specialty-icon-button" data-modal-target="specialty-modal-{{ specialty.id }}" aria-label="{% translate "Edit" %} {{ specialty.name }}" title="{% translate "Edit specialty" %}">✎</button>
                     <form method="post" action="{% url 'dashboard:delete_specialty' specialty.id %}" data-delete-confirm data-delete-name="{{ specialty.name }}">
                         {% csrf_token %}<input type="hidden" name="next" value="dashboard:admin_specialties">
-                        <button type="submit" class="mc-specialty-icon-button mc-specialty-icon-button--danger" aria-label="Delete {{ specialty.name }}" title="Delete specialty">🗑</button>
+                        <button type="submit" class="mc-specialty-icon-button mc-specialty-icon-button--danger" aria-label="{% translate "Delete" %} {{ specialty.name }}" title="{% translate "Delete specialty" %}">🗑</button>
                     </form>
                 </div>
             </div>
-            {% empty %}<p class="mc-users-empty">No specialties yet.</p>{% endfor %}
+            {% empty %}<p class="mc-users-empty">{% translate "No specialties yet." %}</p>{% endfor %}
         </div>
     </section>
 </div>
@@ -56,20 +56,20 @@
 <div class="mc-modal" id="specialty-modal-{{ specialty.id }}" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="specialty-title-{{ specialty.id }}" aria-describedby="specialty-description-text-{{ specialty.id }}">
     <div class="mc-modal-backdrop" data-modal-close></div>
     <div class="mc-modal-card">
-        <button type="button" class="mc-modal-close" data-modal-close aria-label="Close specialty details">×</button>
-        <span class="mc-page-eyebrow">SPECIALTY</span>
-        <h2 id="specialty-title-{{ specialty.id }}">{{ specialty.name }}</h2>
+        <button type="button" class="mc-modal-close" data-modal-close aria-label="{% translate "Close specialty details" %}">×</button>
+        <span class="mc-page-eyebrow">{% translate "SPECIALTY" %}</span>
+        <h2 id="specialty-title-{{ specialty.id }}">{{ specialty.name|ui }}</h2>
         <p class="mc-modal-description" id="specialty-description-text-{{ specialty.id }}">{{ specialty.description|default:"No description provided." }}</p>
         <div class="mc-modal-actions">
-            <a class="mc-role-save" href="{% url 'dashboard:specialty_list' %}#specialty-{{ specialty.id }}">✎ Edit</a>
+            <a class="mc-role-save" href="{% url 'dashboard:specialty_list' %}#specialty-{{ specialty.id }}">{% translate "✎ Edit" %}</a>
         </div>
         <form method="post" action="{% url 'dashboard:edit_specialty' specialty.id %}" class="mc-management-form mc-modal-edit-form">
             {% csrf_token %}<input type="hidden" name="next" value="dashboard:admin_specialties">
-            <label for="specialty-name-{{ specialty.id }}">Name</label>
+            <label for="specialty-name-{{ specialty.id }}">{% translate "Name" %}</label>
             <input id="specialty-name-{{ specialty.id }}" name="name" value="{{ specialty.name }}" required>
-            <label for="specialty-description-{{ specialty.id }}">Description</label>
+            <label for="specialty-description-{{ specialty.id }}">{% translate "Description" %}</label>
             <textarea id="specialty-description-{{ specialty.id }}" name="description" rows="4">{{ specialty.description }}</textarea>
-            <button type="submit" class="mc-users-filter-button">Save changes</button>
+            <button type="submit" class="mc-users-filter-button">{% translate "Save changes" %}</button>
         </form>
     </div>
 </div>
@@ -79,22 +79,22 @@
     <div class="mc-modal-backdrop" data-modal-close></div>
     <div class="mc-modal-card mc-confirmation-card">
         <span class="mc-confirmation-icon">!</span>
-        <span class="mc-page-eyebrow">DELETE SPECIALTY</span>
-        <h2 id="delete-confirmation-title">Delete this specialty?</h2>
-        <p class="mc-modal-description" id="delete-confirmation-description">This action cannot be undone. Doctors assigned to this specialty will no longer have it assigned.</p>
+        <span class="mc-page-eyebrow">{% translate "DELETE SPECIALTY" %}</span>
+        <h2 id="delete-confirmation-title">{% translate "Delete this specialty?" %}</h2>
+        <p class="mc-modal-description" id="delete-confirmation-description">{% translate "This action cannot be undone. Doctors assigned to this specialty will no longer have it assigned." %}</p>
         <form id="delete-confirmation-form" class="mc-confirmation-actions">
-            <button type="button" class="mc-users-clear" data-delete-cancel>Cancel</button>
-            <button type="submit" class="mc-role-save mc-role-save--danger">🗑 Delete specialty</button>
+            <button type="button" class="mc-users-clear" data-delete-cancel>{% translate "Cancel" %}</button>
+            <button type="submit" class="mc-role-save mc-role-save--danger">{% translate "🗑 Delete specialty" %}</button>
         </form>
     </div>
 </div>
 
 <section class="mc-panel mc-management-section">
-    <div class="mc-panel-heading"><div><h2>Doctor specialties</h2><p>Assign one main specialty to each doctor.</p></div></div>
+    <div class="mc-panel-heading"><div><h2>{% translate "Doctor specialties" %}</h2><p>{% translate "Assign one main specialty to each doctor." %}</p></div></div>
     <div class="mc-users-table-wrapper">
         <table class="mc-users-table mc-management-table">
-            <caption class="mc-sr-only">Doctor specialty assignments</caption>
-            <thead><tr><th scope="col">Doctor</th><th scope="col">Email</th><th scope="col">Main specialty</th><th scope="col">Action</th></tr></thead>
+            <caption class="mc-sr-only">{% translate "Doctor specialty assignments" %}</caption>
+            <thead><tr><th scope="col">{% translate "Doctor" %}</th><th scope="col">{% translate "Email" %}</th><th scope="col">{% translate "Main specialty" %}</th><th scope="col">{% translate "Action" %}</th></tr></thead>
             <tbody>
             {% for doctor in doctors %}
             <tr>
@@ -103,17 +103,17 @@
                 <td colspan="2">
                     <form method="post" action="{% url 'dashboard:update_doctor_specialty' doctor.id %}" class="mc-role-form">
                         {% csrf_token %}
-                        <select name="specialty" class="mc-role-select" aria-label="Specialty for {{ doctor.email }}">
-                            <option value="">No specialty</option>
+                        <select name="specialty" class="mc-role-select" aria-label="{% translate "Specialty for" %} {{ doctor.email }}">
+                            <option value="">{% translate "No specialty" %}</option>
                             {% for specialty in specialties %}
-                            <option value="{{ specialty.id }}" {% if doctor.main_specialty_id == specialty.id %}selected{% endif %}>{{ specialty.name }}</option>
+                            <option value="{{ specialty.id }}" {% if doctor.main_specialty_id == specialty.id %}selected{% endif %}>{{ specialty.name|ui }}</option>
                             {% endfor %}
                         </select>
-                        <button type="submit" class="mc-role-save" aria-label="Save specialty for {{ doctor.email }}">Save</button>
+                        <button type="submit" class="mc-role-save" aria-label="{% translate "Save specialty for" %} {{ doctor.email }}">{% translate "Save" %}</button>
                     </form>
                 </td>
             </tr>
-            {% empty %}<tr><td colspan="4" class="mc-users-empty">No doctor accounts yet.</td></tr>{% endfor %}
+            {% empty %}<tr><td colspan="4" class="mc-users-empty">{% translate "No doctor accounts yet." %}</td></tr>{% endfor %}
             </tbody>
         </table>
     </div>

@@ -1,6 +1,6 @@
 
-{% extends "dashboard/base.html" %}
-{% block title %}Examination #{{ examination.pk }} | MediConnect{% endblock %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
+{% block title %}{% translate "Examination #" %}{{ examination.pk }} {% translate "| MediConnect" %}{% endblock %}
 
 {% load static %}
 
@@ -14,42 +14,42 @@
     <div class="mr-header">
         <div>
             <h1>{{ examination.titre }}</h1>
-            <p>Medical examination #{{ examination.pk }}</p>
+            <p>{% translate "Medical examination #" %}{{ examination.pk }}</p>
         </div>
 
         <a href="{% url 'medical_records:admin_examination_list' %}"
            class="btn btn-outline-secondary">
-            Back to Examinations
+            {% translate "Back to Examinations" %}
         </a>
     </div>
 
     <div class="mr-card">
-        <h2 class="mr-card-title">Examination Details</h2>
+        <h2 class="mr-card-title">{% translate "Examination Details" %}</h2>
 
         <dl class="row">
-            <dt class="col-sm-4">Patient</dt>
+            <dt class="col-sm-4">{% translate "Patient" %}</dt>
             <dd class="col-sm-8">
                 {{ examination.dossier.patient.get_full_name|default:examination.dossier.patient.email }}
             </dd>
 
-            <dt class="col-sm-4">Patient Email</dt>
+            <dt class="col-sm-4">{% translate "Patient Email" %}</dt>
             <dd class="col-sm-8">
                 {{ examination.dossier.patient.email }}
             </dd>
 
-            <dt class="col-sm-4">Medical Record</dt>
+            <dt class="col-sm-4">{% translate "Medical Record" %}</dt>
             <dd class="col-sm-8">
                 <a href="{% url 'medical_records:admin_record_detail' examination.dossier.pk %}">
-                    Record #{{ examination.dossier.pk }}
+                    {% translate "Record #" %}{{ examination.dossier.pk }}
                 </a>
             </dd>
 
-            <dt class="col-sm-4">Examination Date</dt>
+            <dt class="col-sm-4">{% translate "Examination Date" %}</dt>
             <dd class="col-sm-8">
                 {{ examination.date|date:"F d, Y" }}
             </dd>
 
-            <dt class="col-sm-4">Uploaded</dt>
+            <dt class="col-sm-4">{% translate "Uploaded" %}</dt>
             <dd class="col-sm-8">
                 {{ examination.created_at|date:"F d, Y H:i" }}
             </dd>
@@ -59,7 +59,7 @@
         <div class="mt-4">
             <a href="{% url 'medical_records:admin_examination_download' examination.pk %}"
                class="btn btn-primary">
-                Download Examination
+                {% translate "Download Examination" %}
             </a>
         </div>
         {% endif %}
@@ -68,12 +68,12 @@
     <div class="mt-4 d-flex gap-2 flex-wrap">
         <a href="{% url 'medical_records:admin_examination_update' examination.pk %}"
            class="btn btn-primary">
-            Edit Examination
+            {% translate "Edit Examination" %}
         </a>
 
         <a href="{% url 'medical_records:admin_examination_delete' examination.pk %}"
            class="btn btn-outline-danger">
-            Delete Examination
+            {% translate "Delete Examination" %}
         </a>
     </div>
 

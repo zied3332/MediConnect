@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 
 from pathlib import Path
 from uuid import uuid4
@@ -19,12 +20,12 @@ class DossierMedical(models.Model):
 
     antecedents = models.TextField(
         blank=True,
-        verbose_name="Antécédents médicaux",
+        verbose_name=ui_gettext("Antécédents médicaux"),
     )
 
     allergies = models.TextField(
         blank=True,
-        verbose_name="Allergies",
+        verbose_name=ui_gettext("Allergies"),
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -60,12 +61,12 @@ class Ordonnance(models.Model):
     )
 
     medicaments = models.TextField(
-        verbose_name="Médicaments",
+        verbose_name=ui_gettext("Médicaments"),
     )
 
     instructions = models.TextField(
         blank=True,
-        verbose_name="Instructions",
+        verbose_name=ui_gettext("Instructions"),
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -107,13 +108,13 @@ class Examen(models.Model):
 
     titre = models.CharField(
         max_length=200,
-        verbose_name="Titre",
+        verbose_name=ui_gettext("Titre"),
     )
 
     fichier = models.FileField(
           upload_to=examen_upload_path,
           storage=private_medical_storage,
-          verbose_name="Fichier",
+          verbose_name=ui_gettext("Fichier"),
     )
 
     date = models.DateField(

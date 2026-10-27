@@ -1,0 +1,9 @@
+{
+  "enqueue_http_status": 202,
+  "enqueue_ms": 263,
+  "final_status": "ready",
+  "api_ms": 4663,
+  "doctor_count": 1,
+  "transport": "Celery filesystem local Windows",
+  "eager": false
+}

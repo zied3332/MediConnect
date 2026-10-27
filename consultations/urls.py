@@ -1,9 +1,16 @@
 from django.urls import path
 from . import views
 from . import brief_views
+from . import intake_views
+from . import copilot
 
 app_name = "consultations"
 urlpatterns = [
+    path('appointment/<int:appointment_id>/copilot/', copilot.draft, name='copilot'),
+    path('orientation/', intake_views.intake_page, name='intake'),
+    path('orientation/start/', intake_views.intake_start, name='intake_start'),
+    path('orientation/<uuid:pk>/status/', intake_views.intake_status, name='intake_status'),
+    path('orientation/<uuid:pk>/delete/', intake_views.intake_delete, name='intake_delete'),
     path("<int:pk>/fiche/", brief_views.brief_page, name="brief"),
     path("<int:pk>/fiche/generate/", brief_views.brief_generate, name="brief_generate"),
     path("<int:pk>/fiche/status/", brief_views.brief_status, name="brief_status"),

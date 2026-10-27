@@ -1,6 +1,6 @@
 
-{% extends "dashboard/base.html" %}
-{% block title %}Prescriptions | MediConnect{% endblock %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
+{% block title %}{% translate "Prescriptions | MediConnect" %}{% endblock %}
 
 {% load static %}
 
@@ -12,38 +12,38 @@
 <div class="mr-admin">
 
     <div class="mr-breadcrumb">
-        Admin / Medical Records / Prescriptions
+        {% translate "Admin / Medical Records / Prescriptions" %}
     </div>
 
     <div class="mr-page-header">
         <div>
-            <div class="mr-eyebrow">MEDICAL MANAGEMENT</div>
-            <h1>Prescriptions</h1>
-            <p>Manage prescriptions associated with patient consultations.</p>
+            <div class="mr-eyebrow">{% translate "MEDICAL MANAGEMENT" %}</div>
+            <h1>{% translate "Prescriptions" %}</h1>
+            <p>{% translate "Manage prescriptions associated with patient consultations." %}</p>
         </div>
 
         <a href="{% url 'medical_records:admin_prescription_create' %}"
            class="mr-btn mr-btn-primary">
-            + New Prescription
+            {% translate "+ New Prescription" %}
         </a>
     </div>
 
     <div class="mr-panel mr-list-panel">
         <div class="mr-section-label">
-            All prescriptions
+            {% translate "All prescriptions" %}
         </div>
 
         <div class="mr-table-wrap">
             <table class="mr-table">
-            <caption class="mc-sr-only">Prescriptions by patient and doctor</caption>
+            <caption class="mc-sr-only">{% translate "Prescriptions by patient and doctor" %}</caption>
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Patient</th>
-                        <th scope="col">Doctor</th>
-                        <th scope="col">Consultation</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">{% translate "ID" %}</th>
+                        <th scope="col">{% translate "Patient" %}</th>
+                        <th scope="col">{% translate "Doctor" %}</th>
+                        <th scope="col">{% translate "Consultation" %}</th>
+                        <th scope="col">{% translate "Date" %}</th>
+                        <th scope="col">{% translate "Actions" %}</th>
                     </tr>
                 </thead>
 
@@ -70,17 +70,17 @@
 
                         <td>
                             <div class="mr-table-actions">
-                                <a href="{% url 'medical_records:admin_prescription_detail' prescription.pk %}" aria-label="View prescription #{{ prescription.pk }}">
-                                    View
+                                <a href="{% url 'medical_records:admin_prescription_detail' prescription.pk %}" aria-label="{% translate "View prescription #" %}{{ prescription.pk }}">
+                                    {% translate "View" %}
                                 </a>
 
-                                <a href="{% url 'medical_records:admin_prescription_update' prescription.pk %}" aria-label="Edit prescription #{{ prescription.pk }}">
-                                    Edit
+                                <a href="{% url 'medical_records:admin_prescription_update' prescription.pk %}" aria-label="{% translate "Edit prescription #" %}{{ prescription.pk }}">
+                                    {% translate "Edit" %}
                                 </a>
 
                                 <a href="{% url 'medical_records:admin_prescription_delete' prescription.pk %}"
-                                   class="mr-delete-link" aria-label="Delete prescription #{{ prescription.pk }}">
-                                    Delete
+                                   class="mr-delete-link" aria-label="{% translate "Delete prescription #" %}{{ prescription.pk }}">
+                                    {% translate "Delete" %}
                                 </a>
                             </div>
                         </td>
@@ -89,7 +89,7 @@
                     {% empty %}
                     <tr>
                         <td colspan="6">
-                            No prescriptions have been created yet.
+                            {% translate "No prescriptions have been created yet." %}
                         </td>
                     </tr>
                     {% endfor %}

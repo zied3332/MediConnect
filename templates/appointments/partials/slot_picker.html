@@ -1,12 +1,13 @@
+{% load i18n ui %}
 <fieldset class="mc-field"{% if form.slot.errors %} aria-describedby="slot-errors"{% endif %}>
-    <legend>Choose a time slot</legend>
+    <legend>{% translate "Choose a time slot" %}</legend>
     {% if form.slot.errors %}
     <ul class="mc-errors" id="slot-errors" role="alert">
         {% for error in form.slot.errors %}<li>{{ error }}</li>{% endfor %}
     </ul>
     {% endif %}
     {% if days %}
-    <p class="mc-help">Each slot lasts 30 minutes. Use the arrow keys to move between times of the same day.</p>
+    <p class="mc-help">{% translate "Each slot lasts 30 minutes. Use the arrow keys to move between times of the same day." %}</p>
     <div class="mc-slot-days">
         {% for day in days %}
         <fieldset class="mc-slot-day">
@@ -23,6 +24,6 @@
         {% endfor %}
     </div>
     {% else %}
-    <p class="mc-users-empty">No free slots in the next 14 days. Please try another doctor or come back later.</p>
+    <p class="mc-users-empty">{% translate "No free slots in the next 14 days. Please try another doctor or come back later." %}</p>
     {% endif %}
 </fieldset>

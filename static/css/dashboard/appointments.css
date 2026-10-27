@@ -37,13 +37,13 @@
     place-items: center;
     border: 1px solid var(--mc-admin-border);
     border-radius: 50%;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     color: var(--mc-admin-text);
     text-decoration: none;
 }
 
 .mc-bell:hover {
-    background: #f5f6f1;
+    background:var(--ui-adaptive-soft,#f5f6f1);
 }
 
 .mc-bell-icon {
@@ -165,9 +165,9 @@
     letter-spacing: 0.4px;
 }
 
-.mc-notif-type--appointment { background: #e4eef9; color: #1f4f7d; }
+.mc-notif-type--appointment { background:var(--ui-adaptive-soft,#e4eef9); color: #1f4f7d; }
 .mc-notif-type--reminder    { background: #fff4d6; color: #6b4400; }
-.mc-notif-type--system      { background: #eceeea; color: #3f453e; }
+.mc-notif-type--system      { background:var(--ui-adaptive-soft,#eceeea); color:var(--ui-adaptive-ink,#3f453e); }
 
 /* ── Status badges ─────────────────────────────────────── */
 
@@ -181,11 +181,11 @@
 }
 
 .mc-status--pending   { background: #fff4d6; color: #6b4400; }
-.mc-status--confirmed { background: #e3f3e8; color: #1f5f36; }
-.mc-status--rejected  { background: #fde8e8; color: #8f2424; }
-.mc-status--cancelled { background: #eceeea; color: #3f453e; }
-.mc-status--completed { background: #e4eef9; color: #1f4f7d; }
-.mc-status--no_show   { background: #f6e7f3; color: #74285f; }
+.mc-status--confirmed { background:var(--ui-adaptive-soft,#e3f3e8); color:var(--ui-adaptive-ink,#1f5f36); }
+.mc-status--rejected  { background:var(--ui-adaptive-soft,#fde8e8); color: #8f2424; }
+.mc-status--cancelled { background:var(--ui-adaptive-soft,#eceeea); color:var(--ui-adaptive-ink,#3f453e); }
+.mc-status--completed { background:var(--ui-adaptive-soft,#e4eef9); color: #1f4f7d; }
+.mc-status--no_show   { background:var(--ui-adaptive-soft,#f6e7f3); color: #74285f; }
 
 /* ── AI risk badge + tooltip ───────────────────────────── */
 
@@ -202,11 +202,11 @@
     cursor: help;
 }
 
-.mc-risk--low     { background: #e3f3e8; color: #1f5f36; }
+.mc-risk--low     { background:var(--ui-adaptive-soft,#e3f3e8); color:var(--ui-adaptive-ink,#1f5f36); }
 .mc-risk--medium  { background: #fff4d6; color: #6b4400; }
-.mc-risk--high    { background: #fde8e8; color: #8f2424; }
-.mc-risk--none    { background: #eceeea; color: #3f453e; cursor: default; }
-.mc-risk--failed  { background: #fde8e8; color: #8f2424; cursor: default; }
+.mc-risk--high    { background:var(--ui-adaptive-soft,#fde8e8); color: #8f2424; }
+.mc-risk--none    { background:var(--ui-adaptive-soft,#eceeea); color:var(--ui-adaptive-ink,#3f453e); cursor: default; }
+.mc-risk--failed  { background:var(--ui-adaptive-soft,#fde8e8); color: #8f2424; cursor: default; }
 
 .mc-tooltip {
     position: fixed;
@@ -286,7 +286,7 @@
 
 .mc-tab[aria-current="page"] {
     border-bottom-color: #242824;
-    color: #242824;
+    color:var(--ui-adaptive-ink,#242824);
 }
 
 /* ── Booking: steps, doctor cards, slot picker ─────────── */
@@ -307,7 +307,7 @@
     padding: 6px 12px;
     border: 1px solid var(--mc-admin-border);
     border-radius: 999px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
 }
 
 .mc-steps li[aria-current="step"] {
@@ -333,7 +333,7 @@
     padding: 20px;
     border: 1px solid var(--mc-admin-border);
     border-radius: 12px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
 }
 
 .mc-doctor-card h3 {
@@ -394,7 +394,7 @@
     padding: 8px 12px;
     border: 1px solid #c9d2c6;
     border-radius: 7px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     color: var(--mc-admin-text);
     font-size: 13px;
     font-weight: 700;
@@ -445,7 +445,7 @@
     padding: 10px 12px;
     border: 1px solid var(--mc-control-border);
     border-radius: 7px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     color: var(--mc-admin-text);
     font: inherit;
     font-size: 14px;
@@ -479,7 +479,7 @@
     margin: 0;
     padding: 10px 12px;
     border-radius: 7px;
-    background: #fff0f0;
+    background:var(--ui-adaptive-soft,#fff0f0);
     color: #8f2424;
     font-size: 13px;
     font-weight: 600;
@@ -583,7 +583,7 @@
     padding: 14px 16px;
     border: 1px solid #c8d9e8;
     border-radius: 8px;
-    background: #eef5fb;
+    background:var(--ui-adaptive-soft,#eef5fb);
     color: #23486a;
     font-size: 14px;
     line-height: 1.6;
@@ -615,19 +615,19 @@
 }
 
 .mc-confusion .mc-confusion-hit {
-    background: #e3f3e8;
-    color: #1f5f36;
+    background:var(--ui-adaptive-soft,#e3f3e8);
+    color:var(--ui-adaptive-ink,#1f5f36);
 }
 
 .mc-confusion .mc-confusion-miss {
-    background: #fde8e8;
+    background:var(--ui-adaptive-soft,#fde8e8);
     color: #8f2424;
 }
 
 code.mc-code {
     padding: 2px 6px;
     border-radius: 4px;
-    background: #f1f3ee;
+    background:var(--ui-adaptive-soft,#f1f3ee);
     font-size: 13px;
 }
 

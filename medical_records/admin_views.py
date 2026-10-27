@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 # medical_records/admin_views.py
 
 import logging
@@ -37,7 +38,7 @@ def website_admin_required(view_func):
     @login_required(login_url="accounts:login")
     def wrapper(request, *args, **kwargs):
         if request.user.role != "admin":
-            return HttpResponseForbidden("Access denied")
+            return HttpResponseForbidden(ui_gettext("Access denied"))
 
         return view_func(request, *args, **kwargs)
 
@@ -111,7 +112,7 @@ class AdminMedicalRecordForm(forms.ModelForm):
                     "class": "form-control",
                     "rows": 5,
                     "placeholder": (
-                        "Medical history, previous conditions..."
+                        ui_gettext("Medical history, previous conditions...")
                     ),
                 }
             ),
@@ -119,7 +120,7 @@ class AdminMedicalRecordForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "rows": 4,
-                    "placeholder": "Known allergies...",
+                    "placeholder": ui_gettext("Known allergies..."),
                 }
             ),
         }
@@ -149,7 +150,7 @@ class AdminMedicalRecordForm(forms.ModelForm):
 def admin_context(**kwargs):
     return {
         "dashboard_role": "admin",
-        "page_title": "Medical Records",
+        "page_title": ui_gettext("Medical Records"),
         "active_nav": "medical_records",
         **kwargs,
     }
@@ -158,7 +159,7 @@ def admin_context(**kwargs):
 def admin_prescription_context(**kwargs):
     return {
         "dashboard_role": "admin",
-        "page_title": "Prescriptions",
+        "page_title": ui_gettext("Prescriptions"),
         "active_nav": "admin_prescriptions",
         **kwargs,
     }
@@ -167,7 +168,7 @@ def admin_prescription_context(**kwargs):
 def admin_examination_context(**kwargs):
     return {
         "dashboard_role": "admin",
-        "page_title": "Medical Examinations",
+        "page_title": ui_gettext("Medical Examinations"),
         "active_nav": "admin_examinations",
         **kwargs,
     }
@@ -264,8 +265,8 @@ def admin_record_delete(request, pk):
             record.delete()
         except ProtectedError:
             return HttpResponseForbidden(
-                "Cannot delete this medical record because "
-                "it contains protected related data."
+                ui_gettext("Cannot delete this medical record because "
+                "it contains protected related data.")
             )
 
         return redirect(
@@ -396,8 +397,8 @@ def admin_prescription_delete(request, pk):
             prescription.delete()
         except ProtectedError:
             return HttpResponseForbidden(
-                "Cannot delete this prescription because "
-                "it contains protected related data."
+                ui_gettext("Cannot delete this prescription because "
+                "it contains protected related data.")
             )
 
         return redirect(
@@ -611,8 +612,8 @@ def admin_examination_delete(request, pk):
 
         except ProtectedError:
             return HttpResponseForbidden(
-                "Cannot delete this examination because "
-                "it contains protected related data."
+                ui_gettext("Cannot delete this examination because "
+                "it contains protected related data.")
             )
 
         return redirect(

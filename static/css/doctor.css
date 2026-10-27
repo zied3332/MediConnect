@@ -5,7 +5,7 @@
 /* ── Doctor signup form ────────────────────────────────── */
 
 .mc-doctor-signup {
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     padding: 65px 24px 100px;
 }
 
@@ -16,7 +16,7 @@
 
 .mc-doctor-form-container h1 {
     margin: 0 0 8px;
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-size: 34px;
     font-weight: 700;
     letter-spacing: -0.04em;
@@ -48,7 +48,7 @@
 }
 
 .mc-step.active {
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-weight: 700;
 }
 
@@ -60,7 +60,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: #eee;
+    background:var(--ui-adaptive-soft,#eee);
     display: grid;
     place-items: center;
     font-size: 12px;
@@ -70,7 +70,7 @@
 
 .mc-step.active .mc-step-num {
     background: #ffeb4d;
-    color: #292929;
+    color:var(--ui-adaptive-ink,#292929);
 }
 
 .mc-step.done .mc-step-num {
@@ -82,7 +82,7 @@
     width: 30px;
     flex: 0 0 30px;
     height: 2px;
-    background: #e0e0e0;
+    background:var(--ui-adaptive-soft,#e0e0e0);
     margin: 0 4px;
     align-self: center;
 }
@@ -93,10 +93,10 @@
     width: 100%;
     min-height: 54px;
     padding: 13px 15px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid var(--mc-control-border);
     border-radius: 4px;
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font: inherit;
     font-size: 16px;
     appearance: none;
@@ -119,14 +119,14 @@
     align-items: center;
     justify-content: center;
     padding: 60px 24px;
-    background: #f8f7f5;
+    background:var(--ui-adaptive-soft,#f8f7f5);
 }
 
 .mc-check-email-card {
     max-width: 500px;
     width: 100%;
     padding: 52px 44px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid #eceae6;
     border-radius: 14px;
     box-shadow: 0 6px 24px rgba(0,0,0,.08);
@@ -149,19 +149,19 @@
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #252525;
+    color:var(--ui-adaptive-ink,#252525);
 }
 
 .mc-check-email-card p {
     margin: 0 0 10px;
-    color: #666;
+    color:var(--ui-adaptive-ink,#666);
     font-size: 15px;
     line-height: 1.65;
 }
 
 .mc-check-email-card .mc-email-highlight {
     font-weight: 700;
-    color: #252525;
+    color:var(--ui-adaptive-ink,#252525);
 }
 
 .mc-check-email-note {
@@ -175,7 +175,7 @@
 /* ── Document upload page ──────────────────────────────── */
 
 .mc-upload-page {
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     padding: 65px 24px 100px;
 }
 
@@ -189,12 +189,12 @@
     font-size: 32px;
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #252525;
+    color:var(--ui-adaptive-ink,#252525);
 }
 
 .mc-upload-container .mc-doctor-subtitle {
     margin: 0 0 36px;
-    color: #666;
+    color:var(--ui-adaptive-ink,#666);
     font-size: 15px;
     line-height: 1.6;
 }
@@ -206,21 +206,21 @@
     padding: 24px;
     border: 1px solid #e8e8e4;
     border-radius: 10px;
-    background: #fafaf8;
+    background:var(--ui-adaptive-paper,#fafaf8);
     margin-bottom: 18px;
     transition: border-color 150ms;
 }
 
 .mc-doc-field:focus-within {
     border-color: #c6a83c;
-    background: #fffdf5;
+    background:var(--ui-adaptive-soft,#fffdf5);
 
     outline: 3px solid var(--mc-accessible-focus);
     outline-offset: 2px;
 }
 
 .mc-doc-field label {
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-size: 15px;
     font-weight: 700;
 }
@@ -234,7 +234,7 @@
 .mc-doc-field input[type="file"] {
     margin-top: 4px;
     font-size: 14px;
-    color: #555;
+    color:var(--ui-adaptive-ink,#555);
 }
 
 .mc-doc-optional-tag {
@@ -242,7 +242,7 @@
     margin-left: 8px;
     padding: 2px 8px;
     border-radius: 20px;
-    background: #e8f5e9;
+    background:var(--ui-adaptive-soft,#e8f5e9);
     color: #2e7d32;
     font-size: 11px;
     font-weight: 700;
@@ -256,7 +256,7 @@
 
 .mc-selfie-tip {
     padding: 14px 18px;
-    background: #fffde7;
+    background:var(--ui-adaptive-soft,#fffde7);
     border: 1px solid #ffe082;
     border-radius: 8px;
     font-size: 13px;
@@ -295,14 +295,14 @@
     align-items: center;
     justify-content: center;
     padding: 60px 24px;
-    background: #f8f7f5;
+    background:var(--ui-adaptive-soft,#f8f7f5);
 }
 
 .mc-status-card {
     max-width: 560px;
     width: 100%;
     padding: 52px 44px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid #eceae6;
     border-radius: 14px;
     box-shadow: 0 6px 24px rgba(0,0,0,.08);
@@ -319,22 +319,22 @@
     font-size: 34px;
 }
 
-.mc-status-icon--pending   { background: #e3f2fd; }
-.mc-status-icon--review    { background: #fff8e1; }
-.mc-status-icon--info      { background: #fff3e0; }
-.mc-status-icon--rejected  { background: #fce4ec; }
+.mc-status-icon--pending   { background:var(--ui-adaptive-soft,#e3f2fd); }
+.mc-status-icon--review    { background:var(--ui-adaptive-soft,#fff8e1); }
+.mc-status-icon--info      { background:var(--ui-adaptive-soft,#fff3e0); }
+.mc-status-icon--rejected  { background:var(--ui-adaptive-soft,#fce4ec); }
 
 .mc-status-card h1 {
     margin: 0 0 14px;
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #252525;
+    color:var(--ui-adaptive-ink,#252525);
 }
 
 .mc-status-card p {
     margin: 0 0 12px;
-    color: #666;
+    color:var(--ui-adaptive-ink,#666);
     font-size: 15px;
     line-height: 1.65;
 }
@@ -350,11 +350,11 @@
     margin-bottom: 24px;
 }
 
-.mc-status-badge--pending_documents { background: #e3f2fd; color: #0d47a1; }
-.mc-status-badge--pending_review    { background: #fff8e1; color: #a13a00; }
-.mc-status-badge--needs_more_info   { background: #fff3e0; color: #bf360c; }
-.mc-status-badge--approved          { background: #e8f5e9; color: #1b5e20; }
-.mc-status-badge--rejected          { background: #fce4ec; color: #880e4f; }
+.mc-status-badge--pending_documents { background:var(--ui-adaptive-soft,#e3f2fd); color: #0d47a1; }
+.mc-status-badge--pending_review    { background:var(--ui-adaptive-soft,#fff8e1); color: #a13a00; }
+.mc-status-badge--needs_more_info   { background:var(--ui-adaptive-soft,#fff3e0); color: #bf360c; }
+.mc-status-badge--approved          { background:var(--ui-adaptive-soft,#e8f5e9); color: #1b5e20; }
+.mc-status-badge--rejected          { background:var(--ui-adaptive-soft,#fce4ec); color: #880e4f; }
 
 .mc-status-action-btn {
     display: inline-flex;
@@ -367,7 +367,7 @@
     border: 0;
     border-radius: 6px;
     background: #ffeb4d;
-    color: #252525;
+    color:#292d28;
     font-family: inherit;
     font-size: 16px;
     font-weight: 700;
@@ -378,13 +378,13 @@
 
 .mc-status-action-btn:hover {
     background: #f5df40;
-    color: #252525;
+    color:var(--ui-adaptive-ink,#252525);
 }
 
 .mc-status-rejection-reason {
     margin: 20px 0 0;
     padding: 16px 20px;
-    background: #fce4ec;
+    background:var(--ui-adaptive-soft,#fce4ec);
     border: 1px solid #f48fb1;
     border-radius: 8px;
     font-size: 14px;
@@ -406,14 +406,14 @@
     align-items: center;
     justify-content: center;
     padding: 60px 24px;
-    background: #f8f7f5;
+    background:var(--ui-adaptive-soft,#f8f7f5);
 }
 
 .mc-confirm-invalid-card {
     max-width: 480px;
     width: 100%;
     padding: 52px 44px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid #eceae6;
     border-radius: 14px;
     box-shadow: 0 6px 24px rgba(0,0,0,.08);
@@ -424,11 +424,11 @@
     margin: 0 0 14px;
     font-size: 24px;
     font-weight: 700;
-    color: #252525;
+    color:var(--ui-adaptive-ink,#252525);
 }
 
 .mc-confirm-invalid-card p {
-    color: #666;
+    color:var(--ui-adaptive-ink,#666);
     font-size: 15px;
     line-height: 1.6;
 }

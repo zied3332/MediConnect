@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 """Source/render contracts complement JS tests and manual browser checks."""
 from datetime import date
 from types import SimpleNamespace
@@ -51,7 +52,7 @@ class DynamicAccessibilityTests(SimpleTestCase):
                                     form=MessageForm(), thread=[])).tags
         log = next(attrs for _, attrs in tags if attrs.get("role") == "log")
         self.assertEqual(log["tabindex"], "0")
-        self.assertEqual(log["aria-label"], "Historique des messages")
+        self.assertEqual(log["aria-label"], gettext("Historique des messages"))
         self.assertTrue(any(attrs.get("id") == log["aria-describedby"] for _, attrs in tags))
 
     def test_examination_filter_has_persistent_status_and_hidden_empty_state(self):

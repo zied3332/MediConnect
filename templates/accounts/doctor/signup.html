@@ -1,56 +1,55 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Join as a Doctor | MediConnect{% endblock %}
+{% block language %}{{ LANGUAGE_CODE }}{% endblock %}
+{% block title %}{% translate "Créer un espace médecin | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 <link rel="stylesheet" href="{% static 'css/doctor.css' %}">
+<link rel="stylesheet" href="{% static 'css/login-redesign.css' %}?v=4">
 {% endblock %}
 
 {% block navigation %}
-<div class="mc-auth-header">
+<div class="mc-auth-header login-header">
     <a href="{% url 'core:home' %}" class="mc-auth-brand">
         <span class="mc-auth-logo" aria-hidden="true">+</span>
-        <span>MediConnect</span>
+        <span>{% translate "MediConnect" %}</span>
     </a>
-    <span class="mc-auth-header-note">
-        Already registered?
-        <a href="{% url 'accounts:login' %}" style="color:#303030;font-weight:600;text-decoration:underline;text-underline-offset:3px;">Log in</a>
-    </span>
-</div>
+    <div class="login-header-actions"><a href="{% url 'core:home' %}">{% translate "← Retour à l’accueil" %}</a><a class="login-create-account" href="{% url 'accounts:login' %}">{% translate "Se connecter ↗" %}</a></div>
+<a class="ui-preferences-link" href="{% url 'core:preferences' %}" aria-label="{% translate "Preferences" %}">⚙ <span>{% translate "Preferences" %}</span></a></div>
 {% endblock %}
 
 {% block content %}
-<section class="mc-doctor-signup">
-    <div class="mc-doctor-form-container">
+<section class="mc-doctor-signup mc-auth-page mc-auth-login signup-redesign doctor-signup-redesign">
+    <aside class="login-story" aria-label="{% translate "Votre espace professionnel" %}"><span class="login-eyebrow">{% translate "POUR LES PROFESSIONNELS DE SANTÉ" %}</span><h2>{% translate "Plus de lien." %}<br>{% translate "Un suivi" %}<br><span>{% translate "qui continue." %}</span></h2><p class="login-story-intro">{% translate "Un espace pour organiser vos rendez-vous et garder le contact avec vos patients, avant et après la consultation." %}</p><div class="login-journey"><div class="login-journey-heading"><span class="login-journey-icon" aria-hidden="true">✚</span><div><strong>{% translate "Votre pratique, au même endroit" %}</strong><span>{% translate "Les outils du quotidien, réunis." %}</span></div><span class="login-journey-spark" aria-hidden="true">✦</span></div><ol><li><span class="login-step-symbol" aria-hidden="true">01</span><div><strong>{% translate "Organisez vos disponibilités" %}</strong><span>{% translate "Proposez vos créneaux et gérez les demandes." %}</span></div></li><li><span class="login-step-symbol" aria-hidden="true">02</span><div><strong>{% translate "Rédigez vos comptes rendus" %}</strong><span>{% translate "Partagez le suivi avec le patient concerné." %}</span></div></li><li><span class="login-step-symbol" aria-hidden="true">03</span><div><strong>{% translate "Prolongez l’échange" %}</strong><span>{% translate "Retrouvez les messages liés aux consultations." %}</span></div></li></ol></div><div class="login-story-footer"><span aria-hidden="true">✓</span><p>{% translate "Un parcours de vérification avant l’accès." %}<br><strong>{% translate "Votre candidature sera examinée par l’administration." %}</strong></p></div></aside>
+    <div class="mc-doctor-form-container mc-auth-login-card">
 
-        <h1>Join as a doctor</h1>
+        <span class="login-eyebrow">{% translate "VOTRE ESPACE PROFESSIONNEL" %}</span><h1>{% translate "Rejoignez" %}<br>{% translate "la rencontre." %}</h1>
         <p class="mc-doctor-subtitle">
-            Create your practitioner account. You'll confirm your email
-            and upload verification documents before going live.
+            {% translate "Créez votre compte médecin. Confirmez ensuite votre e-mail et transmettez vos justificatifs pour faire vérifier votre candidature." %}
         </p>
 
         <!-- Step indicator -->
-        <ol class="mc-doctor-steps" role="list" aria-label="Registration steps">
+        <ol class="mc-doctor-steps" role="list" aria-label="{% translate "Étapes de l’inscription médecin" %}">
             <li class="mc-step active" aria-current="step">
                 <span class="mc-step-num" aria-hidden="true">1</span>
-                <span class="mc-step-label">Your details</span>
+                <span class="mc-step-label">{% translate "Votre profil" %}</span>
                 <span class="mc-step-connector" aria-hidden="true"></span>
             </li>
             <li class="mc-step">
                 <span class="mc-step-num" aria-hidden="true">2</span>
-                <span class="mc-step-label">Confirm email</span>
+                <span class="mc-step-label">{% translate "Votre e-mail" %}</span>
                 <span class="mc-step-connector" aria-hidden="true"></span>
             </li>
             <li class="mc-step">
                 <span class="mc-step-num" aria-hidden="true">3</span>
-                <span class="mc-step-label">Upload documents</span>
+                <span class="mc-step-label">{% translate "Justificatifs" %}</span>
                 <span class="mc-step-connector" aria-hidden="true"></span>
             </li>
             <li class="mc-step">
                 <span class="mc-step-num" aria-hidden="true">4</span>
-                <span class="mc-step-label">Under review</span>
+                <span class="mc-step-label">{% translate "Vérification" %}</span>
             </li>
         </ol>
 
@@ -61,13 +60,13 @@
 
             <!-- Email -->
             <div class="mc-auth-field">
-                <label for="doctor-email">Email address</label>
+                <label for="doctor-email">{% translate "Adresse e-mail" %}</label>
                 <input
                     type="email"
                     id="doctor-email"
                     name="email"
                     value="{{ form.email.value|default:'' }}"
-                    placeholder="doctor@hospital.com"
+                    placeholder="{% translate "medecin@exemple.com" %}"
                     autocomplete="email"
                     required
                  {% include "components/form_field_attributes.html" with field=form.email only %}>
@@ -77,7 +76,7 @@
             <!-- Name -->
             <div class="mc-auth-field-row">
                 <div class="mc-auth-field">
-                    <label for="doctor-first-name">First name</label>
+                    <label for="doctor-first-name">{% translate "Prénom" %}</label>
                     <input
                         type="text"
                         id="doctor-first-name"
@@ -89,7 +88,7 @@
                     {% include "components/field_errors.html" with field=form.first_name error_class="mc-auth-field-error" only %}
                 </div>
                 <div class="mc-auth-field">
-                    <label for="doctor-last-name">Last name</label>
+                    <label for="doctor-last-name">{% translate "Nom" %}</label>
                     <input
                         type="text"
                         id="doctor-last-name"
@@ -104,9 +103,9 @@
 
             <!-- Specialty -->
             <div class="mc-auth-field">
-                <label for="doctor-specialty">Medical specialty</label>
+                <label for="doctor-specialty">{% translate "Spécialité médicale" %}</label>
                 <select id="doctor-specialty" name="specialty" required {% include "components/form_field_attributes.html" with field=form.specialty only %}>
-                    <option value="">— Select your specialty —</option>
+                    <option value="">{% translate "Choisir votre spécialité" %}</option>
                     {% for value, label in form.fields.specialty.choices %}
                     <option value="{{ value }}" {% if form.specialty.value == value %}selected{% endif %}>{{ label }}</option>
                     {% endfor %}
@@ -116,7 +115,7 @@
 
             <!-- Password -->
             <div class="mc-auth-field">
-                <label for="doctor-password">Password</label>
+                <label for="doctor-password">{% translate "Mot de passe" %}</label>
                 <div class="mc-auth-password-wrapper">
                     <input
                         type="password"
@@ -127,13 +126,13 @@
                         required
                      {% include "components/form_field_attributes.html" with field=form.password only %}>
                     <button type="button" class="mc-auth-password-toggle"
-                            data-password-toggle="doctor-password" aria-label="Show password">Show</button>
+                            data-password-toggle="doctor-password" data-label-show="Afficher" data-label-hide="Masquer" aria-label="{% translate "Afficher le mot de passe" %}">{% translate "Afficher" %}</button>
                 </div>
                 {% include "components/field_errors.html" with field=form.password error_class="mc-auth-field-error" only %}
             </div>
 
             <div class="mc-auth-field">
-                <label for="doctor-confirm-password">Confirm password</label>
+                <label for="doctor-confirm-password">{% translate "Confirmer le mot de passe" %}</label>
                 <div class="mc-auth-password-wrapper">
                     <input
                         type="password"
@@ -144,16 +143,16 @@
                         required
                      {% include "components/form_field_attributes.html" with field=form.confirm_password only %}>
                     <button type="button" class="mc-auth-password-toggle"
-                            data-password-toggle="doctor-confirm-password" aria-label="Show password">Show</button>
+                            data-password-toggle="doctor-confirm-password" data-label-show="Afficher" data-label-hide="Masquer" aria-label="{% translate "Afficher le mot de passe" %}">{% translate "Afficher" %}</button>
                 </div>
                 {% include "components/field_errors.html" with field=form.confirm_password error_class="mc-auth-field-error" only %}
             </div>
 
-            <button type="submit" class="mc-auth-submit">Continue →</button>
+            <button type="submit" class="mc-auth-submit">{% translate "Créer mon espace médecin" %} <span aria-hidden="true">↗</span></button>
 
             <p class="mc-auth-switch">
-                Looking to book an appointment?
-                <a href="{% url 'accounts:signup' %}">Create a patient account</a>
+                {% translate "Vous souhaitez consulter un médecin ?" %}
+                <a href="{% url 'accounts:signup' %}">{% translate "Créer un compte patient" %}</a>
             </p>
         </form>
 

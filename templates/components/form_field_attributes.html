@@ -1,1 +1,2 @@
-{% if field.errors %}aria-invalid="true"{% endif %}{% if help_id or field.errors %} aria-describedby="{% if help_id %}{{ help_id }}{% endif %}{% if field.errors %}{% if help_id %} {% endif %}{{ field.auto_id }}_error{% endif %}"{% endif %}
+{% load i18n ui %}
+{% if field.errors %}{% translate "aria-invalid=\"true\"" %}{% endif %}{% if help_id or field.errors %} {% translate "aria-describedby=\"" %}{% if help_id %}{{ help_id }}{% endif %}{% if field.errors %}{% if help_id %} {% endif %}{{ field.auto_id }}{% translate "_error" %}{% endif %}"{% endif %}

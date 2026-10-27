@@ -1,6 +1,6 @@
-{% extends "dashboard/base.html" %}{% load static %}
-{% block title %}Consultations | MediConnect{% endblock %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}{% load static %}
+{% block title %}{% translate "Consultations | MediConnect" %}{% endblock %}
 {% block body_class %}care-dashboard{% endblock %}
 {% block extra_css %}<link rel="stylesheet" href="{% static 'css/dashboard/consultations.css' %}?v=8">{% endblock %}
-{% block content %}<div class="care-space" lang="fr">{% include 'components/dashboard_messages.html' %}{% block care_content %}{% endblock %}</div>{% endblock %}
-{% block extra_js %}<script src="{% static 'js/consultations.js' %}?v=5" defer></script><script src="{% static 'js/patient-brief.js' %}?v=2" defer></script><script src="{% static 'js/consultation-search.js' %}?v=1" defer></script>{% endblock %}
+{% block content %}<div class="care-space" lang="{{ LANGUAGE_CODE }}">{% include 'components/dashboard_messages.html' %}{% block care_content %}{% endblock %}</div>{% endblock %}
+{% block extra_js %}<script src="{% static 'js/consultations.js' %}?v=9" defer></script><script src="{% static 'js/patient-brief.js' %}?v=2" defer></script><script src="{% static 'js/consultation-search.js' %}?v=1" defer></script>{% endblock %}

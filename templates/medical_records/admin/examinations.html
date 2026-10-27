@@ -1,6 +1,6 @@
 
-{% extends "dashboard/base.html" %}
-{% block title %}Medical Examinations | MediConnect{% endblock %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
+{% block title %}{% translate "Medical Examinations | MediConnect" %}{% endblock %}
 
 {% load static %}
 
@@ -14,27 +14,27 @@
 
     <div class="mr-header">
         <div>
-            <h1>Medical Examinations</h1>
-            <p>Manage patient medical examination documents.</p>
+            <h1>{% translate "Medical Examinations" %}</h1>
+            <p>{% translate "Manage patient medical examination documents." %}</p>
         </div>
 
         <a href="{% url 'medical_records:admin_examination_create' %}"
            class="btn btn-primary">
-            + Add Examination
+            {% translate "+ Add Examination" %}
         </a>
     </div>
 
     <div class="mr-card">
         <div class="table-responsive">
             <table class="table">
-            <caption class="mc-sr-only">Patient examination documents</caption>
+            <caption class="mc-sr-only">{% translate "Patient examination documents" %}</caption>
                 <thead>
                     <tr>
-                        <th scope="col">Examination</th>
-                        <th scope="col">Patient</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">File</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">{% translate "Examination" %}</th>
+                        <th scope="col">{% translate "Patient" %}</th>
+                        <th scope="col">{% translate "Date" %}</th>
+                        <th scope="col">{% translate "File" %}</th>
+                        <th scope="col">{% translate "Actions" %}</th>
                     </tr>
                 </thead>
 
@@ -56,32 +56,32 @@
 
                         <td>
                             {% if examination.fichier %}
-                                <a href="{% url 'medical_records:admin_examination_download' examination.pk %}" aria-label="Download examination #{{ examination.pk }}">
-                                    Download
+                                <a href="{% url 'medical_records:admin_examination_download' examination.pk %}" aria-label="{% translate "Download examination #" %}{{ examination.pk }}">
+                                    {% translate "Download" %}
                                 </a>
                             {% else %}
-                                <span class="text-muted">No file</span>
+                                <span class="text-muted">{% translate "No file" %}</span>
                             {% endif %}
                         </td>
 
                         <td>
-                            <a href="{% url 'medical_records:admin_examination_detail' examination.pk %}" aria-label="View examination #{{ examination.pk }}">
-                                View
+                            <a href="{% url 'medical_records:admin_examination_detail' examination.pk %}" aria-label="{% translate "View examination #" %}{{ examination.pk }}">
+                                {% translate "View" %}
                             </a>
                             |
-                            <a href="{% url 'medical_records:admin_examination_update' examination.pk %}" aria-label="Edit examination #{{ examination.pk }}">
-                                Edit
+                            <a href="{% url 'medical_records:admin_examination_update' examination.pk %}" aria-label="{% translate "Edit examination #" %}{{ examination.pk }}">
+                                {% translate "Edit" %}
                             </a>
                             |
-                            <a href="{% url 'medical_records:admin_examination_delete' examination.pk %}" aria-label="Delete examination #{{ examination.pk }}">
-                                Delete
+                            <a href="{% url 'medical_records:admin_examination_delete' examination.pk %}" aria-label="{% translate "Delete examination #" %}{{ examination.pk }}">
+                                {% translate "Delete" %}
                             </a>
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
                         <td colspan="5" class="text-center">
-                            No medical examinations have been uploaded yet.
+                            {% translate "No medical examinations have been uploaded yet." %}
                         </td>
                     </tr>
                     {% endfor %}

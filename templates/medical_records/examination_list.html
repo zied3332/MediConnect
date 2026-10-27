@@ -1,8 +1,8 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Medical Examinations | MediConnect{% endblock %}
+{% block title %}{% translate "Medical Examinations | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -13,7 +13,7 @@
     .exam-page {
         max-width: 1160px;
         margin: 0 auto;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .exam-header {
@@ -66,8 +66,8 @@
         padding: 10px 17px;
         border: 1px solid #e2e6df;
         border-radius: 10px;
-        background: #fff;
-        color: #333b31;
+        background:var(--ui-adaptive-paper,#fff);
+        color:var(--ui-adaptive-ink,#333b31);
         font-family: inherit;
         font-size: 12px;
         font-weight: 700;
@@ -79,13 +79,13 @@
     .exam-button:hover {
         background: #fff9d6;
         border-color: #e8d67f;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .exam-button--primary {
         background: #ffeb4d;
         border-color: #ffeb4d;
-        color: #252923;
+        color:#292d28;
     }
 
     .exam-button--primary:hover {
@@ -109,7 +109,7 @@
         padding: 19px 23px;
         border: 1px solid #e8ebe5;
         border-radius: 14px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
     }
 
     .exam-avatar {
@@ -120,7 +120,7 @@
         flex: 0 0 45px;
         border-radius: 12px;
         background: #fff5c7;
-        color: #554c27;
+        color:var(--ui-adaptive-ink,#554c27);
         font-size: 17px;
         font-weight: 800;
     }
@@ -150,7 +150,7 @@
         padding: 23px 25px;
         border: 1px solid #e8ebe5;
         border-radius: 14px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
     }
 
     .exam-summary-label {
@@ -161,7 +161,7 @@
     }
 
     .exam-summary-value {
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 26px;
         font-weight: 800;
         letter-spacing: -0.8px;
@@ -173,7 +173,7 @@
         overflow: hidden;
         border: 1px solid #e8ebe5;
         border-radius: 16px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
     }
 
     .exam-panel-header {
@@ -238,8 +238,8 @@
         padding: 11px 16px 11px 44px;
         border: 1px solid var(--mc-control-border);
         border-radius: 10px;
-        background: #fbfcfa;
-        color: #252923;
+        background:var(--ui-adaptive-paper,#fbfcfa);
+        color:var(--ui-adaptive-ink,#252923);
         font-family: inherit;
         font-size: 13px;
     }
@@ -305,7 +305,7 @@
 
     .exam-item-title {
         margin: 0 0 6px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 13px;
         font-weight: 750;
         overflow-wrap: anywhere;
@@ -320,7 +320,7 @@
         padding: 6px 9px;
         border: 1px solid #e9ece6;
         border-radius: 7px;
-        background: #f8f9f6;
+        background:var(--ui-adaptive-soft,#f8f9f6);
         color: var(--mc-page-muted);
         font-size: 10px;
         font-weight: 750;
@@ -349,8 +349,8 @@
         padding: 9px 13px;
         border: 1px solid #e3e7e0;
         border-radius: 9px;
-        background: #fff;
-        color: #333b31;
+        background:var(--ui-adaptive-paper,#fff);
+        color:var(--ui-adaptive-ink,#333b31);
         font-size: 12px;
         font-weight: 700;
         text-decoration: none;
@@ -360,7 +360,7 @@
     .exam-download-button:hover {
         background: #fff9d6;
         border-color: #e8d67f;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .exam-download-button svg {
@@ -409,7 +409,7 @@
         margin-top: 22px;
     }
 
-    .exam-filter-status { padding: 0 25px; color: #586c66; font-size: 13px; }
+    .exam-filter-status { padding: 0 25px; color:var(--ui-adaptive-ink,#586c66); font-size: 13px; }
     .exam-filter-status:empty { margin: 0; padding: 0; }
 
     .exam-no-results[hidden] {
@@ -507,16 +507,15 @@
     <header class="exam-header">
         <div>
             <span class="exam-eyebrow">
-                MEDICAL RECORDS / EXAMINATIONS
+                {% translate "MEDICAL RECORDS / EXAMINATIONS" %}
             </span>
 
             <h1 id="exam-page-title">
-                Medical Examinations
+                {% translate "Medical Examinations" %}
             </h1>
 
             <p>
-                Your medical documents, organized and securely
-                accessible in one place.
+                {% translate "Your medical documents, organized and securely accessible in one place." %}
             </p>
         </div>
 
@@ -531,7 +530,7 @@
                          aria-hidden="true">
                         <path d="m15 18-6-6 6-6"/>
                     </svg>
-                    Medical record
+                    {% translate "Medical record" %}
                 </a>
             {% else %}
                 <a href="{% url 'medical_records:patient_record' patient_id=dossier.patient_id %}"
@@ -542,7 +541,7 @@
                          aria-hidden="true">
                         <path d="m15 18-6-6 6-6"/>
                     </svg>
-                    Patient record
+                    {% translate "Patient record" %}
                 </a>
             {% endif %}
 
@@ -555,7 +554,7 @@
                          aria-hidden="true">
                         <path d="M12 5v14M5 12h14"/>
                     </svg>
-                    Upload examination
+                    {% translate "Upload examination" %}
                 </a>
             {% endif %}
 
@@ -564,7 +563,7 @@
 
     <!-- Patient information -->
 
-    <section class="exam-patient" aria-label="Patient information">
+    <section class="exam-patient" aria-label="{% translate "Patient information" %}">
 
         <div class="exam-avatar" aria-hidden="true">
             {{ dossier.patient.first_name|first|upper|default:"P" }}
@@ -576,7 +575,7 @@
             </div>
 
             <div class="exam-patient-label">
-                Private medical documents
+                {% translate "Private medical documents" %}
             </div>
         </div>
 
@@ -584,11 +583,11 @@
 
     <!-- Examination summary -->
 
-    <section class="exam-summary" aria-label="Examination summary">
+    <section class="exam-summary" aria-label="{% translate "Examination summary" %}">
 
         <article class="exam-summary-card">
             <div class="exam-summary-label">
-                Total examinations
+                {% translate "Total examinations" %}
             </div>
 
             <div class="exam-summary-value">
@@ -598,7 +597,7 @@
 
         <article class="exam-summary-card">
             <div class="exam-summary-label">
-                Latest examination
+                {% translate "Latest examination" %}
             </div>
 
             <div class="exam-summary-value">
@@ -623,16 +622,16 @@
                 <div>
                     <h2 class="exam-panel-title"
                         id="exam-documents-heading">
-                        Examination documents
+                        {% translate "Examination documents" %}
                     </h2>
 
                     <p class="exam-panel-subtitle">
-                        Browse and download your medical reports.
+                        {% translate "Browse and download your medical reports." %}
                     </p>
                 </div>
 
                 <span class="exam-count">
-                    {{ examens|length }} files
+                    {{ examens|length }} {% translate "files" %}
                 </span>
             </div>
 
@@ -640,7 +639,7 @@
                 <div class="exam-search-wrap">
                     <label for="examSearch"
                            class="exam-search-label">
-                        Search examination documents
+                        {% translate "Search examination documents" %}
                     </label>
 
                     <svg viewBox="0 0 24 24" fill="none"
@@ -655,7 +654,7 @@
                         type="search"
                         id="examSearch"
                         class="exam-search"
-                        placeholder="Search examinations by title..."
+                        placeholder="{% translate "Search examinations by title..." %}"
                         autocomplete="off"
                     >
                 </div>
@@ -707,12 +706,12 @@
                                 <rect x="5" y="10" width="14" height="11" rx="2"/>
                                 <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
                             </svg>
-                            Private
+                            {% translate "Private" %}
                         </span>
 
                         <a href="{% url 'medical_records:examination_download' pk=examen.pk %}"
                            class="exam-download-button"
-                           aria-label="Download {{ examen.titre }}">
+                           aria-label="{% translate "Download" %} {{ examen.titre }}">
                             <svg viewBox="0 0 24 24" fill="none"
                                  stroke="currentColor" stroke-width="1.8"
                                  stroke-linecap="round"
@@ -721,7 +720,7 @@
                                 <path d="M12 3v12m-4-4 4 4 4-4"/>
                                 <path d="M5 17v3h14v-3"/>
                             </svg>
-                            Download
+                            {% translate "Download" %}
                         </a>
 
                     </article>
@@ -736,10 +735,10 @@
                  class="exam-empty exam-no-results"
                  hidden>
 
-                <h2>No matching examinations</h2>
+                <h2>{% translate "No matching examinations" %}</h2>
 
                 <p>
-                    Try searching for a different document title.
+                    {% translate "Try searching for a different document title." %}
                 </p>
 
             </div>
@@ -760,19 +759,17 @@
                     </svg>
                 </div>
 
-                <h2>No examinations yet</h2>
+                <h2>{% translate "No examinations yet" %}</h2>
 
                 <p>
-                    Medical examination documents will appear here
-                    once they have been added to this patient's
-                    medical record.
+                    {% translate "Medical examination documents will appear here once they have been added to this patient's medical record." %}
                 </p>
 
                 {% if request.user.role == "patient" and request.user.pk == dossier.patient_id %}
                     <div class="exam-empty-action">
                         <a href="{% url 'medical_records:examination_upload' %}"
                            class="exam-button exam-button--primary">
-                            Upload your first examination
+                            {% translate "Upload your first examination" %}
                         </a>
                     </div>
                 {% endif %}
@@ -796,8 +793,7 @@
         </svg>
 
         <span>
-            Medical documents are stored privately and
-            require authorization to access.
+            {% translate "Medical documents are stored privately and require authorization to access." %}
         </span>
 
     </div>

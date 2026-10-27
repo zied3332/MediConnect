@@ -1,16 +1,16 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}My appointments | MediConnect{% endblock %}
+{% block title %}{% translate "My appointments | MediConnect" %}{% endblock %}
 
 {% block content %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">MY PRACTICE</span>
-        <h1>Appointments</h1>
-        <p>Confirm requests and record how consultations went.</p>
+        <span class="mc-page-eyebrow">{% translate "MY PRACTICE" %}</span>
+        <h1>{% translate "Appointments" %}</h1>
+        <p>{% translate "Confirm requests and record how consultations went." %}</p>
     </div>
     <div class="mc-users-summary">
-        <span class="mc-users-summary-label">Waiting for you</span>
+        <span class="mc-users-summary-label">{% translate "Waiting for you" %}</span>
         <strong>{{ pending_count }}</strong>
     </div>
 </div>
@@ -18,7 +18,7 @@
 {% include "components/dashboard_messages.html" %}
 
 <section class="mc-panel mc-users-panel">
-    <form method="get" class="mc-users-filters" aria-label="Filter appointments">
+    <form method="get" class="mc-users-filters" aria-label="{% translate "Filter appointments" %}">
         <label class="mc-users-control">
             <span class="mc-sr-only">{{ filter_form.when.label }}</span>
             {{ filter_form.when }}
@@ -31,20 +31,20 @@
             <span class="mc-sr-only">{{ filter_form.date.label }}</span>
             {{ filter_form.date }}
         </label>
-        <button type="submit" class="mc-users-filter-button">Apply filters</button>
-        {% if request.GET %}<a href="{% url 'appointments:doctor_list' %}" class="mc-users-clear">Clear</a>{% endif %}
+        <button type="submit" class="mc-users-filter-button">{% translate "Apply filters" %}</button>
+        {% if request.GET %}<a href="{% url 'appointments:doctor_list' %}" class="mc-users-clear">{% translate "Clear" %}</a>{% endif %}
     </form>
 
-    <div class="mc-users-table-wrapper" tabindex="0" role="region" aria-label="My appointments table">
+    <div class="mc-users-table-wrapper" tabindex="0" role="region" aria-label="{% translate "My appointments table" %}">
         <table class="mc-users-table mc-appt-table">
-            <caption class="mc-sr-only">My appointments</caption>
+            <caption class="mc-sr-only">{% translate "My appointments" %}</caption>
             <thead>
                 <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Patient</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">No-show risk</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">{% translate "Date" %}</th>
+                    <th scope="col">{% translate "Patient" %}</th>
+                    <th scope="col">{% translate "Status" %}</th>
+                    <th scope="col">{% translate "No-show risk" %}</th>
+                    <th scope="col">{% translate "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@
                 <tr>
                     <td>
                         <a class="mc-link" href="{{ appointment.get_absolute_url }}"><time datetime="{{ appointment.start|date:'c' }}">{{ appointment.start|date:"D j M, H:i" }}</time></a>
-                        <small>{{ appointment.get_mode_display }} · {{ appointment.duration_minutes }} min</small>
+                        <small>{{ appointment.get_mode_display|ui }} · {{ appointment.duration_minutes }} {% translate "min" %}</small>
                     </td>
                     <td>
                         <strong>{{ appointment.patient.get_full_name|default:appointment.patient.email }}</strong>
@@ -63,7 +63,7 @@
                     <td>{% include "appointments/partials/doctor_actions.html" with next_url=request.get_full_path %}</td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="5" class="mc-users-empty">No appointments match your filters.</td></tr>
+                <tr><td colspan="5" class="mc-users-empty">{% translate "No appointments match your filters." %}</td></tr>
                 {% endfor %}
             </tbody>
         </table>

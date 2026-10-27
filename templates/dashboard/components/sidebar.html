@@ -1,11 +1,12 @@
+{% load i18n ui %}
 
-<aside class="mc-dashboard-sidebar" id="dashboard-sidebar" aria-label="Dashboard navigation">
+<aside class="mc-dashboard-sidebar" id="dashboard-sidebar" aria-label="{% translate "Dashboard navigation" %}">
 
     <!-- Mobile close -->
     <button
         type="button"
         class="mc-sidebar-close"
-        aria-label="Close navigation"
+        aria-label="{% translate "Close navigation" %}"
         hidden
     >
         ×
@@ -24,7 +25,7 @@
                         <path d="M12 3v18M3 12h18"/>
                     </svg>
                 </span>
-                <span class="mc-sidebar-brand-name">MediConnect</span>
+                <span class="mc-sidebar-brand-name">{% translate "MediConnect" %}</span>
             </a>
 
         {% elif dashboard_role == "doctor" %}
@@ -37,7 +38,7 @@
                         <path d="M12 3v18M3 12h18"/>
                     </svg>
                 </span>
-                <span class="mc-sidebar-brand-name">MediConnect</span>
+                <span class="mc-sidebar-brand-name">{% translate "MediConnect" %}</span>
             </a>
 
         {% else %}
@@ -50,17 +51,17 @@
                         <path d="M12 3v18M3 12h18"/>
                     </svg>
                 </span>
-                <span class="mc-sidebar-brand-name">MediConnect</span>
+                <span class="mc-sidebar-brand-name">{% translate "MediConnect" %}</span>
             </a>
         {% endif %}
 
         <div class="mc-sidebar-workspace">
             {% if dashboard_role == "admin" %}
-                Administration workspace
+                {% translate "Administration workspace" %}
             {% elif dashboard_role == "doctor" %}
-                Doctor workspace
+                {% translate "Doctor workspace" %}
             {% else %}
-                Patient workspace
+                {% translate "Patient workspace" %}
             {% endif %}
         </div>
     </div>
@@ -68,79 +69,79 @@
     <!-- Navigation -->
     <div class="mc-sidebar-navigation">
 
-        <div class="mc-sidebar-group-label">MENU</div>
+        <div class="mc-sidebar-group-label">{% translate "MENU" %}</div>
 
         {% if dashboard_role == "admin" %}
 
             <!-- ADMIN NAVIGATION -->
-            <nav class="mc-sidebar-nav" aria-label="Admin navigation">
+            <nav class="mc-sidebar-nav" aria-label="{% translate "Admin navigation" %}">
 
                 <a href="{% url 'dashboard:admin_overview' %}"
                    class="mc-sidebar-link {% if page_title == 'Overview' %}active{% endif %}"
                    {% if page_title == 'Overview' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='overview' %}
-                    <span>Overview</span>
+                    <span>{% translate "Overview" %}</span>
                 </a>
 
                 <a href="{% url 'dashboard:admin_users' %}"
                    class="mc-sidebar-link {% if page_title == 'Users' %}active{% endif %}"
                    {% if page_title == 'Users' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='users' %}
-                    <span>Users</span>
+                    <span>{% translate "Users" %}</span>
                 </a>
 
                 <a href="{% url 'dashboard:admin_doctor_list' %}"
                    class="mc-sidebar-link {% if active_nav == 'doctors' %}active{% endif %}"
                    {% if active_nav == 'doctors' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='users' %}
-                    <span>Doctors</span>
+                    <span>{% translate "Doctors" %}</span>
                 </a>
 
                 <a href="{% url 'appointments:admin_list' %}"
                    class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}"
                    {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
-                    <span>Appointments</span>
+                    <span>{% translate "Appointments" %}</span>
                 </a>
 
                 <a href="{% url 'appointments:admin_ai_model' %}"
                    class="mc-sidebar-link {% if active_nav == 'ai_model' %}active{% endif %}"
                    {% if active_nav == 'ai_model' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='ai' %}
-                    <span>AI model</span>
+                    <span>{% translate "AI model" %}</span>
                 </a>
 
                 <a href="{% url 'dashboard:admin_specialties' %}"
                    class="mc-sidebar-link {% if page_title == 'Specialties' %}active{% endif %}"
                    {% if page_title == 'Specialties' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
-                    <span>Specialties</span>
+                    <span>{% translate "Specialties" %}</span>
                 </a>
 
                 <a href="{% url 'dashboard:admin_availability' %}"
                    class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}"
                    {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='availability' %}
-                    <span>Availability</span>
+                    <span>{% translate "Availability" %}</span>
                 </a>
 
                 <a href="{% url 'consultations:reviews' %}"
                    class="mc-sidebar-link {% if active_nav == 'consultation_reviews' %}active{% endif %}"
                    {% if active_nav == 'consultation_reviews' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='reviews' %}
-                    <span>Reviews</span>
+                    <span>{% translate "Reviews" %}</span>
                 </a>
 
                 <!-- ADMIN MEDICAL RECORDS -->
                 <div class="mc-sidebar-group-label">
-                    MEDICAL RECORDS
+                    {% translate "MEDICAL RECORDS" %}
                 </div>
 
                 <a href="{% url 'medical_records:admin_record_list' %}"
                    class="mc-sidebar-link {% if active_nav == 'medical_records' %}active{% endif %}"
                    {% if active_nav == 'medical_records' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
-                    <span>Medical Records</span>
+                    <span>{% translate "Medical Records" %}</span>
                 </a>
 
                 <!-- PHASE 2: ADMIN PRESCRIPTIONS -->
@@ -148,7 +149,7 @@
                    class="mc-sidebar-link {% if active_nav == 'admin_prescriptions' %}active{% endif %}"
                    {% if active_nav == 'admin_prescriptions' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
-                    <span>Prescriptions</span>
+                    <span>{% translate "Prescriptions" %}</span>
                 </a>
 
                 <!-- PHASE 3: ADMIN MEDICAL EXAMINATIONS -->
@@ -156,7 +157,7 @@
                    class="mc-sidebar-link {% if active_nav == 'admin_examinations' %}active{% endif %}"
                    {% if active_nav == 'admin_examinations' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
-                    <span>Medical Examinations</span>
+                    <span>{% translate "Medical Examinations" %}</span>
                 </a>
 
             </nav>
@@ -164,27 +165,27 @@
         {% elif dashboard_role == "doctor" %}
 
             <!-- DOCTOR NAVIGATION -->
-            <nav class="mc-sidebar-nav" aria-label="Doctor navigation">
+            <nav class="mc-sidebar-nav" aria-label="{% translate "Doctor navigation" %}">
 
                 <a href="{% url 'dashboard:doctor_overview' %}"
                    class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}"
                    {% if active_nav == 'overview' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='overview' %}
-                    <span>Overview</span>
+                    <span>{% translate "Overview" %}</span>
                 </a>
 
                 <a href="{% url 'dashboard:doctor_availability' %}"
                    class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}"
                    {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='availability' %}
-                    <span>Availability</span>
+                    <span>{% translate "Availability" %}</span>
                 </a>
 
                 <a href="{% url 'appointments:doctor_list' %}"
                    class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}"
                    {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
-                    <span>Appointments</span>
+                    <span>{% translate "Appointments" %}</span>
                 </a>
 
                 <!-- My Patients -->
@@ -192,19 +193,19 @@
                    class="mc-sidebar-link {% if active_nav == 'patients' %}active{% endif %}"
                    {% if active_nav == 'patients' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='users' %}
-                    <span>My Patients</span>
+                    <span>{% translate "My Patients" %}</span>
                 </a>
 
                 <!-- Medical records module -->
                 <div class="mc-sidebar-group-label">
-                    MEDICAL RECORDS
+                    {% translate "MEDICAL RECORDS" %}
                 </div>
 
                 <a href="{% url 'medical_records:prescription_list' %}"
                    class="mc-sidebar-link {% if active_nav == 'prescriptions' %}active{% endif %}"
                    {% if active_nav == 'prescriptions' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
-                    <span>Prescriptions</span>
+                    <span>{% translate "Prescriptions" %}</span>
                 </a>
 
                 <!-- Existing consultation / care links -->
@@ -215,52 +216,51 @@
         {% else %}
 
             <!-- PATIENT NAVIGATION -->
-            <nav class="mc-sidebar-nav" aria-label="Patient navigation">
+            <nav class="mc-sidebar-nav" aria-label="{% translate "Patient navigation" %}">
 
                 <a href="{% url 'dashboard:patient_overview' %}"
                    class="mc-sidebar-link {% if active_nav == 'overview' %}active{% endif %}"
                    {% if active_nav == 'overview' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='overview' %}
-                    <span>Overview</span>
+                    <span>{% translate "Overview" %}</span>
                 </a>
 
                 <a href="{% url 'appointments:my_list' %}"
                    class="mc-sidebar-link {% if active_nav == 'appointments' %}active{% endif %}"
                    {% if active_nav == 'appointments' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
-                    <span>Appointments</span>
+                    <span>{% translate "Appointments" %}</span>
                 </a>
 
-                <span class="mc-sidebar-link disabled">
+                <a href="{% url 'dashboard:patient_doctors' %}" class="mc-sidebar-link {% if active_nav == 'patient_doctors' %}active{% endif %}" {% if active_nav == 'patient_doctors' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='users' %}
-                    <span>My Doctors</span>
-                    <small>Soon</small>
-                </span>
+                    <span>{% translate "My Doctors" %}</span>
+                </a>
 
                 <!-- Medical records module -->
                 <div class="mc-sidebar-group-label">
-                    MEDICAL RECORDS
+                    {% translate "MEDICAL RECORDS" %}
                 </div>
 
                 <a href="{% url 'medical_records:my_record' %}"
                    class="mc-sidebar-link {% if active_nav == 'medical_record' %}active{% endif %}"
                    {% if active_nav == 'medical_record' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
-                    <span>My Medical Record</span>
+                    <span>{% translate "My Medical Record" %}</span>
                 </a>
 
                 <a href="{% url 'medical_records:prescription_list' %}"
                    class="mc-sidebar-link {% if active_nav == 'prescriptions' %}active{% endif %}"
                    {% if active_nav == 'prescriptions' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
-                    <span>Prescriptions</span>
+                    <span>{% translate "Prescriptions" %}</span>
                 </a>
 
                 <a href="{% url 'medical_records:examination_list' request.user.pk %}"
                    class="mc-sidebar-link {% if active_nav == 'medical_examinations' %}active{% endif %}"
                    {% if active_nav == 'medical_examinations' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
-                    <span>Medical Examinations</span>
+                    <span>{% translate "Medical Examinations" %}</span>
                 </a>
 
                 <!-- Existing consultation / care links -->
@@ -275,29 +275,25 @@
     <!-- Bottom navigation -->
     <div class="mc-sidebar-bottom">
 
-        <div class="mc-sidebar-bottom-label">ACCOUNT</div>
+        <div class="mc-sidebar-bottom-label">{% translate "ACCOUNT" %}</div>
 
         <a href="{% url 'dashboard:profile' %}"
            class="mc-sidebar-link {% if active_nav == 'profile' %}active{% endif %}"
            {% if active_nav == 'profile' %}aria-current="page"{% endif %}>
             {% include 'dashboard/components/nav_icon.html' with icon='users' %}
-            <span>Profile</span>
+            <span>{% translate "Profile" %}</span>
         </a>
 
-        <span class="mc-sidebar-link disabled">
-            {% include 'dashboard/components/nav_icon.html' with icon='settings' %}
-            <span>Settings</span>
-            <small>Soon</small>
-        </span>
+        <a href="{% url 'core:preferences' %}" class="mc-sidebar-link">{% include 'dashboard/components/nav_icon.html' with icon='settings' %}<span>{% translate "Preferences" %}</span></a>
 
         <a href="{% url 'core:home' %}" class="mc-sidebar-link">
             {% include 'dashboard/components/nav_icon.html' with icon='website' %}
-            <span>View website</span>
+            <span>{% translate "View website" %}</span>
         </a>
 
         <div class="mc-sidebar-footer">
             <span class="mc-sidebar-footer-dot"></span>
-            <span>MediConnect Platform</span>
+            <span>{% translate "MediConnect Platform" %}</span>
         </div>
 
     </div>
