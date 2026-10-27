@@ -13,7 +13,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.http import require_POST
 
 from accounts.models import DoctorProfile, User
-from core.models import Specialty
+from specialty.models import Specialty
 from dashboard.views import approved_doctor_required, role_required
 
 from . import services

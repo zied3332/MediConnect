@@ -98,7 +98,7 @@
                     </td>
                     <td>
                         {% if user.role == "doctor" %}
-                        <form method="post" action="{% url 'dashboard:update_doctor_specialty' user.id %}" class="mc-role-form">
+                        <form method="post" action="{% url 'specialty:update_doctor_specialty' user.id %}" class="mc-role-form">
                             {% csrf_token %}
                             <label class="mc-sr-only" for="specialty-{{ user.id }}">{% translate "Specialty for" %} {{ user.email }}</label>
                             <select id="specialty-{{ user.id }}" name="specialty" class="mc-role-select">

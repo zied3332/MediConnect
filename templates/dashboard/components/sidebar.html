@@ -111,14 +111,14 @@
                     <span>{% translate "AI model" %}</span>
                 </a>
 
-                <a href="{% url 'dashboard:admin_specialties' %}"
+                <a href="{% url 'specialty:admin_specialties' %}"
                    class="mc-sidebar-link {% if page_title == 'Specialties' %}active{% endif %}"
                    {% if page_title == 'Specialties' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
                     <span>{% translate "Specialties" %}</span>
                 </a>
 
-                <a href="{% url 'dashboard:admin_availability' %}"
+                <a href="{% url 'availability:admin_availability' %}"
                    class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}"
                    {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='availability' %}
@@ -174,7 +174,7 @@
                     <span>{% translate "Overview" %}</span>
                 </a>
 
-                <a href="{% url 'dashboard:doctor_availability' %}"
+                <a href="{% url 'availability:doctor_availability' %}"
                    class="mc-sidebar-link {% if page_title == 'Availability' %}active{% endif %}"
                    {% if page_title == 'Availability' %}aria-current="page"{% endif %}>
                     {% include 'dashboard/components/nav_icon.html' with icon='availability' %}

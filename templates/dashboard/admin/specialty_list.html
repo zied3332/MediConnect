@@ -9,7 +9,7 @@
         <h1>{% translate "All specialties" %}</h1>
         <p>{% translate "Review, edit, or delete the specialties available to doctors." %}</p>
     </div>
-    <a class="mc-users-clear" href="{% url 'dashboard:admin_specialties' %}">{% translate "Back to specialties" %}</a>
+    <a class="mc-users-clear" href="{% url 'specialty:admin_specialties' %}">{% translate "Back to specialties" %}</a>
 </div>
 
 {% if messages %}
@@ -28,8 +28,8 @@
         </button>
         <div class="mc-specialty-card-actions" aria-label="{% translate "Actions for" %} {{ specialty.name }}">
             <button type="button" class="mc-specialty-icon-button" data-modal-target="specialty-modal-{{ specialty.id }}" aria-label="{% translate "Edit" %} {{ specialty.name }}" title="{% translate "Edit specialty" %}">✎</button>
-            <form method="post" action="{% url 'dashboard:delete_specialty' specialty.id %}" data-delete-confirm data-delete-name="{{ specialty.name }}">
-                {% csrf_token %}<input type="hidden" name="next" value="dashboard:specialty_list">
+            <form method="post" action="{% url 'specialty:delete_specialty' specialty.id %}" data-delete-confirm data-delete-name="{{ specialty.name }}">
+                {% csrf_token %}<input type="hidden" name="next" value="specialty:specialty_list">
                 <button type="submit" class="mc-specialty-icon-button mc-specialty-icon-button--danger" aria-label="{% translate "Delete" %} {{ specialty.name }}" title="{% translate "Delete specialty" %}">🗑</button>
             </form>
         </div>
@@ -42,13 +42,13 @@
             <h2 id="specialty-title-{{ specialty.id }}">{{ specialty.name|ui }}</h2>
             <p class="mc-modal-description" id="specialty-description-text-{{ specialty.id }}">{{ specialty.description|default:"No description provided." }}</p>
             <div class="mc-modal-actions">
-                <form method="post" action="{% url 'dashboard:delete_specialty' specialty.id %}" data-delete-confirm data-delete-name="{{ specialty.name }}">
-                    {% csrf_token %}<input type="hidden" name="next" value="dashboard:specialty_list">
+                <form method="post" action="{% url 'specialty:delete_specialty' specialty.id %}" data-delete-confirm data-delete-name="{{ specialty.name }}">
+                    {% csrf_token %}<input type="hidden" name="next" value="specialty:specialty_list">
                     <button type="submit" class="mc-role-save mc-role-save--danger">{% translate "🗑 Delete" %}</button>
                 </form>
             </div>
-            <form method="post" action="{% url 'dashboard:edit_specialty' specialty.id %}" class="mc-management-form mc-modal-edit-form">
-                {% csrf_token %}<input type="hidden" name="next" value="dashboard:specialty_list">
+            <form method="post" action="{% url 'specialty:edit_specialty' specialty.id %}" class="mc-management-form mc-modal-edit-form">
+                {% csrf_token %}<input type="hidden" name="next" value="specialty:specialty_list">
                 <label for="specialty-name-{{ specialty.id }}">{% translate "Name" %}</label>
                 <input id="specialty-name-{{ specialty.id }}" name="name" value="{{ specialty.name }}" required>
                 <label for="specialty-description-{{ specialty.id }}">{% translate "Description" %}</label>

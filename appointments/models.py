@@ -176,7 +176,7 @@ class Appointment(models.Model):
             raise ValidationError(ui_gettext("You already have an appointment at this time."))
 
     def _inside_availability(self):
-        from core.models import Availability
+        from availability.models import Availability
 
         start = timezone.localtime(self.start)
         end = timezone.localtime(self.end)

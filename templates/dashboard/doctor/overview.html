@@ -65,7 +65,7 @@
                 <span class="doctor-empty-icon" aria-hidden="true">◷</span>
                 <h3>{% translate "No appointments scheduled for today" %}</h3>
                 <p>{% translate "Your appointments will appear here when patients book with you." %}</p>
-                <a class="doctor-secondary-link" href="{% url 'dashboard:doctor_availability' %}">{% translate "Manage availability" %} <span aria-hidden="true">→</span></a>
+                <a class="doctor-secondary-link" href="{% url 'availability:doctor_availability' %}">{% translate "Manage availability" %} <span aria-hidden="true">→</span></a>
             </div>
             {% endfor %}
         </section>

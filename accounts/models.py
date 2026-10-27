@@ -27,7 +27,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
 
     main_specialty = models.ForeignKey(
-        "core.Specialty",
+        "specialty.Specialty",
         on_delete=models.SET_NULL,
         blank=True,
         null=True,

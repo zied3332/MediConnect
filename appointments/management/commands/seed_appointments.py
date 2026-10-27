@@ -8,7 +8,8 @@ from accounts.models import DoctorProfile, User
 from appointments import services
 from appointments.models import Appointment
 from appointments.tasks import compute_no_show_risk
-from core.models import Availability, Specialty
+from availability.models import Availability
+from specialty.models import Specialty
 from notifications.models import Notification
 from notifications.services import notify
 

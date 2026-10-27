@@ -7,7 +7,7 @@ from django.utils import timezone
 from accounts.models import DoctorProfile
 from appointments import services
 from appointments.models import Appointment
-from core.models import Availability
+from availability.models import Availability
 from notifications.models import Notification
 
 from .base import AppointmentTestCase, at, make_appointment, make_doctor

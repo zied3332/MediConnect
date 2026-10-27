@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from django.db import models
 
 
@@ -9,8 +10,6 @@ class Specialty(models.Model):
         db_table = "core_specialty"
         ordering = ("name",)
         verbose_name_plural = "Specialties"
-        managed = False
 
     def __str__(self):
-        return self.name
-
+        return str(ui_gettext(self.name))

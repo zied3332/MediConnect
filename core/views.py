@@ -2,7 +2,7 @@
 from django.db.models import Q
 from django.shortcuts import render
 from appointments.services import approved_doctors
-from .models import Specialty
+from specialty.models import Specialty
 
 
 def home(request):

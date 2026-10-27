@@ -2,7 +2,7 @@ from django.urls import reverse
 
 from appointments.tests.base import AppointmentTestCase, make_doctor
 from accounts.models import DoctorProfile
-from core.models import Specialty
+from specialty.models import Specialty
 
 
 class PatientDirectoryTests(AppointmentTestCase):

@@ -41,11 +41,11 @@
                 <td>{% if slot.is_free %}{% translate "Free" %}{% else %}{% translate "Unavailable" %}{% endif %}</td>
                 <td>
                     <div class="mc-action-group">
-                        <a class="mc-role-save" href="{% url 'dashboard:edit_doctor_availability' slot.id %}" aria-label="{% translate "Edit availability on" %} {{ slot.get_weekday_display }} {% translate "from" %} {{ slot.start_time|time:'H:i' }} {% translate "to" %} {{ slot.end_time|time:'H:i' }}">{% translate "Edit" %}</a>
-                        <form method="post" action="{% url 'dashboard:toggle_doctor_availability' slot.id %}">
+                        <a class="mc-role-save" href="{% url 'availability:edit_doctor_availability' slot.id %}" aria-label="{% translate "Edit availability on" %} {{ slot.get_weekday_display }} {% translate "from" %} {{ slot.start_time|time:'H:i' }} {% translate "to" %} {{ slot.end_time|time:'H:i' }}">{% translate "Edit" %}</a>
+                        <form method="post" action="{% url 'availability:toggle_doctor_availability' slot.id %}">
                             {% csrf_token %}<button class="mc-role-save" type="submit" aria-label="{% translate "Toggle availability on" %} {{ slot.get_weekday_display }} {% translate "from" %} {{ slot.start_time|time:'H:i' }} {% translate "to" %} {{ slot.end_time|time:'H:i' }}">{% translate "Toggle" %}</button>
                         </form>
-                        <form method="post" action="{% url 'dashboard:delete_doctor_availability' slot.id %}" data-delete-confirm data-delete-name="availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}" onsubmit="if (!this.dataset.deleteConfirmReady) return confirm('Permanently delete this availability slot?');">
+                        <form method="post" action="{% url 'availability:delete_doctor_availability' slot.id %}" data-delete-confirm data-delete-name="availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}" onsubmit="if (!this.dataset.deleteConfirmReady) return confirm('Permanently delete this availability slot?');">
                             <noscript><label for="confirm-delete-slot-{{ slot.id }}"><input id="confirm-delete-slot-{{ slot.id }}" type="checkbox" required> {% translate "Confirm permanent deletion of" %} {{ slot.get_weekday_display|ui }} {{ slot.start_time|time:"H:i" }} {% translate "to" %} {{ slot.end_time|time:"H:i" }}.</label></noscript>
                             {% csrf_token %}<button class="mc-role-save mc-role-save--danger" type="submit" aria-label="{% translate "Delete availability on" %} {{ slot.get_weekday_display }} {% translate "from" %} {{ slot.start_time|time:'H:i' }} {% translate "to" %} {{ slot.end_time|time:'H:i' }}">{% translate "Delete" %}</button>
                         </form>

@@ -10,7 +10,8 @@ from django.contrib.auth import get_user_model
 from django.test import Client
 from django.utils import timezone
 from accounts.models import DoctorProfile
-from core.models import Specialty, Availability
+from availability.models import Availability
+from specialty.models import Specialty
 from appointments.models import Appointment
 from consultations.models import Consultation
 from medical_records.models import DossierMedical, Ordonnance, Examen

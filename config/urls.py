@@ -13,7 +13,9 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("allauth.urls")),  # Google OAuth callbacks
 
-    # User dashboards and notifications
+    # User dashboards and domain modules
+    path("dashboard/", include("specialty.urls")),
+    path("dashboard/", include("availability.urls")),
     path("dashboard/", include("dashboard.urls")),
     path("notifications/", include("notifications.urls")),
 

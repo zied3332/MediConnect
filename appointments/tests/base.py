@@ -8,7 +8,8 @@ from django.utils import timezone
 from accounts.models import DoctorProfile, User
 from appointments.ml import predictor
 from appointments.models import Appointment
-from core.models import Availability, Specialty
+from availability.models import Availability
+from specialty.models import Specialty
 
 PASSWORD = "StrongPassword123!"
 MISSING_MODEL = Path(tempfile.gettempdir()) / "mediconnect-tests-no-model.joblib"

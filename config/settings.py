@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     # MediConnect applications
     "core.apps.CoreConfig",
     "specialty.apps.SpecialtyConfig",
+    "availability.apps.AvailabilityConfig",
     "accounts.apps.AccountsConfig",
     "dashboard.apps.DashboardConfig",
     "notifications.apps.NotificationsConfig",

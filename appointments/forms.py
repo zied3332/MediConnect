@@ -5,7 +5,7 @@ from django import forms
 from django.utils import timezone
 
 from accounts.models import User
-from core.models import Specialty
+from specialty.models import Specialty
 
 from .models import Appointment
 

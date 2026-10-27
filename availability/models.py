@@ -27,7 +27,6 @@ class Availability(models.Model):
 
     class Meta:
         db_table = "core_availability"
-        managed = False
         ordering = ("doctor", "weekday", "start_time")
         constraints = [
             models.UniqueConstraint(

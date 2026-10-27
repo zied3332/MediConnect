@@ -15,7 +15,7 @@ from consultations.models import Consultation
 from medical_records.models import DossierMedical, Examen, Ordonnance
 from core.test_accessible_forms import render_page
 from core.test_accessibility import Elements
-from core.models import Availability
+from availability.models import Availability
 from accounts.models import DoctorProfile
 
 
