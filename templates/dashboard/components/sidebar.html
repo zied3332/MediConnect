@@ -131,6 +131,18 @@
                     <span>Reviews</span>
                 </a>
 
+                <!-- ADMIN MEDICAL RECORDS -->
+                <div class="mc-sidebar-group-label">
+                    MEDICAL RECORDS
+                </div>
+
+                <a href="{% url 'medical_records:admin_record_list' %}"
+                   class="mc-sidebar-link {% if active_nav == 'medical_records' %}active{% endif %}"
+                   {% if active_nav == 'medical_records' %}aria-current="page"{% endif %}>
+                    {% include 'dashboard/components/nav_icon.html' with icon='specialties' %}
+                    <span>Medical Records</span>
+                </a>
+
             </nav>
 
         {% elif dashboard_role == "doctor" %}
@@ -159,7 +171,7 @@
                     <span>Appointments</span>
                 </a>
 
-                <!-- My Patients - Enabled -->
+                <!-- My Patients -->
                 <a href="{% url 'dashboard:doctor_patients' %}"
                    class="mc-sidebar-link {% if active_nav == 'patients' %}active{% endif %}"
                    {% if active_nav == 'patients' %}aria-current="page"{% endif %}>

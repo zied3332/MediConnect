@@ -1,0 +1,56 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}">
+{% endblock %}
+{% block title %}Medical Record Details | MediConnect{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <a href="{% url 'medical_records:admin_record_list' %}">
+        Back to Medical Records
+    </a>
+
+    <h1 class="mt-3">Medical Record #{{ record.pk }}</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h3>Patient Information</h3>
+            <p><strong>Email:</strong> {{ record.patient.email }}</p>
+            <p><strong>Patient ID:</strong> {{ record.patient.pk }}</p>
+
+            <hr>
+
+            <h3>Medical History</h3>
+            <p>{{ record.antecedents|default:"Not provided"|linebreaksbr }}</p>
+
+            <h3>Allergies</h3>
+            <p>{{ record.allergies|default:"Not provided"|linebreaksbr }}</p>
+
+            <hr>
+
+            <p>
+                <strong>Created:</strong>
+                {{ record.created_at|date:"M d, Y H:i" }}
+            </p>
+
+            <p>
+                <strong>Last updated:</strong>
+                {{ record.updated_at|date:"M d, Y H:i" }}
+            </p>
+
+            <a href="{% url 'medical_records:admin_record_update' record.pk %}"
+               class="btn btn-primary">
+                Edit
+            </a>
+
+            <a href="{% url 'medical_records:admin_record_delete' record.pk %}"
+               class="btn btn-danger">
+                Delete
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

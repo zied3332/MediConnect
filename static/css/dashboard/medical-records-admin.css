@@ -1,0 +1,100 @@
+
+.mc-dashboard-content .container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px;
+}
+
+.mc-dashboard-content h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.mc-dashboard-content h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.mc-dashboard-content .card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 20px;
+}
+
+.mc-dashboard-content .mb-3 {
+    margin-bottom: 20px;
+}
+
+.mc-dashboard-content .form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.mc-dashboard-content input,
+.mc-dashboard-content select,
+.mc-dashboard-content textarea {
+    display: block;
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.mc-dashboard-content .btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border: 0;
+    margin-right: 8px;
+}
+
+.mc-dashboard-content .btn-primary {
+    background: #eab308;
+    color: #1f2937;
+}
+
+.mc-dashboard-content .btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.mc-dashboard-content .btn-danger {
+    background: #dc2626;
+    color: #fff;
+}
+
+.mc-dashboard-content .table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mc-dashboard-content .table th,
+.mc-dashboard-content .table td {
+    padding: 14px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.mc-dashboard-content .alert {
+    padding: 14px;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.mc-dashboard-content .alert-info {
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.mc-dashboard-content .text-danger {
+    color: #b91c1c;
+}

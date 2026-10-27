@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from . import views
+from . import views, admin_views
 
 app_name = "medical_records"
 
@@ -76,5 +76,39 @@ urlpatterns = [
         "examinations/<int:pk>/download/",
         views.examination_download,
         name="examination_download",
+    ),
+
+    # ========================================================
+    # Website Admin — Demo Medical Records CRUD
+    # ========================================================
+
+    path(
+        "management/records/",
+        admin_views.admin_record_list,
+        name="admin_record_list",
+    ),
+
+    path(
+        "management/records/new/",
+        admin_views.admin_record_create,
+        name="admin_record_create",
+    ),
+
+    path(
+        "management/records/<int:pk>/",
+        admin_views.admin_record_detail,
+        name="admin_record_detail",
+    ),
+
+    path(
+        "management/records/<int:pk>/edit/",
+        admin_views.admin_record_update,
+        name="admin_record_update",
+    ),
+
+    path(
+        "management/records/<int:pk>/delete/",
+        admin_views.admin_record_delete,
+        name="admin_record_delete",
     ),
 ]
