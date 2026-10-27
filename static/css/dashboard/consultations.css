@@ -58,3 +58,6 @@ body.care-dialog-open{overflow:hidden}
 
 /* Announcement regions stay mounted while fragment content is replaced. */
 [data-brief-status]:empty, [data-brief-error]:empty { margin: 0; padding: 0; border: 0; }
+
+/* Native keyboard scrolling once the named conversation region has focus. */
+.care-thread { scroll-padding: 8px; overscroll-behavior: contain; }
