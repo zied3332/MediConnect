@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "#mc-nav-mobile-menu"
     );
 
-    function closeDropdowns() {
+    function closeDropdowns(restoreFocus = false) {
         dropdownButtons.forEach((button) => {
             button.setAttribute("aria-expanded", "false");
 
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const menu = document.getElementById(menuId);
 
             if (menu) {
+                if (restoreFocus === true && !menu.hidden && menu.contains(document.activeElement)) button.focus();
                 menu.hidden = true;
             }
         });
@@ -49,9 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    function closeMobileMenu() {
+    function closeMobileMenu(restoreFocus = false) {
         if (!mobileToggle || !mobileMenu) return;
 
+        if (restoreFocus === true && !mobileMenu.hidden && mobileMenu.contains(document.activeElement)) mobileToggle.focus();
         mobileMenu.hidden = true;
         mobileToggle.setAttribute("aria-expanded", "false");
         mobileToggle.setAttribute(
@@ -96,8 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
-            closeDropdowns();
-            closeMobileMenu();
+            closeDropdowns(true);
+            closeMobileMenu(true);
         }
     });
 
