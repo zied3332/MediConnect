@@ -85,6 +85,18 @@ class PageAccessibilityTests(SimpleTestCase):
         for verb in ("Edit", "Toggle", "Delete"):
             self.assertTrue(any(name.startswith(f"{verb} availability") and "09:00" in name and "10:00" in name for name in names))
 
+    def test_availability_deletion_has_confirmation_and_csrf_fallbacks(self):
+        html = render_page("dashboard/doctor/availability.html", csrf_token="test-token", **self.page_context())
+        tags = Elements(html).tags
+        form = next(attrs for tag, attrs in tags if tag == "form" and "data-delete-confirm" in attrs)
+        self.assertEqual(form["method"], "post")
+        self.assertIn("09:00 to 10:00", form["data-delete-name"])
+        self.assertIn("deleteConfirmReady", form["onsubmit"])
+        self.assertTrue(any(tag == "input" and attrs.get("name") == "csrfmiddlewaretoken" for tag, attrs in tags))
+        self.assertTrue(any(tag == "input" and attrs.get("id") == "confirm-delete-slot-3" and "required" in attrs for tag, attrs in tags))
+        self.assertIn('role="dialog"', html)
+        self.assertIn('Delete availability', html)
+
     def test_registration_progress_is_an_ordered_list_with_one_current_step(self):
         for page, current in (("signup", 0), ("upload_docs", 2)):
             with self.subTest(page=page):
