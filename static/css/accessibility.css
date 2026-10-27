@@ -1,4 +1,25 @@
 /* Shared accessibility behavior for both public and dashboard shells. */
+:root {
+    --mc-accessible-focus: #1f5f8b;
+    --mc-control-border: #7a8079;
+}
+
+/* Keep keyboard focus visible even when page-specific styles reset outlines. */
+body :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--mc-accessible-focus) !important;
+    outline-offset: 3px !important;
+}
+
+.mc-input,
+.mc-select,
+.mc-textarea,
+.mc-users-filters :is(input, select),
+.mc-role-select,
+.mr-field :is(input, select, textarea),
+.mr-page .form-control {
+    border-color: var(--mc-control-border);
+}
+
 .mc-skip-link {
     position: fixed;
     top: 12px;
