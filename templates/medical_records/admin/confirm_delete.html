@@ -2,46 +2,62 @@
 {% extends "dashboard/base.html" %}
 {% load static %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}">
-{% endblock %}
 {% block title %}Delete Medical Record | MediConnect{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}?v=2">
+{% endblock %}
+
 {% block content %}
-<div class="container-fluid py-4">
-    <h1>Delete Medical Record</h1>
+<div class="mr-admin">
 
-    <div class="card mt-4">
-        <div class="card-body">
-            <h3>Confirm deletion</h3>
+    <div class="mr-breadcrumb">
+        <a href="{% url 'medical_records:admin_record_list' %}">
+            Medical Records
+        </a>
+        <span>/</span>
+        <span>Delete Record</span>
+    </div>
 
-            <p>
-                Are you sure you want to delete medical record
-                #{{ record.pk }}?
-            </p>
+    <div class="mr-page-header">
+        <div>
+            <div class="mr-eyebrow">CONFIRM DELETION</div>
+            <h1>Delete Medical Record</h1>
+            <p>Please review the information before continuing.</p>
+        </div>
+    </div>
 
-            <p>
-                <strong>Patient:</strong>
-                {{ record.patient.email }}
-            </p>
+    <section class="mr-panel mr-form-panel">
+        <h3>Are you sure?</h3>
 
-            <p class="text-danger">
-                This operation cannot be undone.
-            </p>
+        <p>
+            You are about to delete medical record
+            <strong>#{{ record.pk }}</strong>
+            belonging to
+            <strong>{{ record.patient.email }}</strong>.
+        </p>
 
-            <form method="post">
-                {% csrf_token %}
+        <div class="mr-notice">
+            This action cannot be undone.
+            Records with protected related data cannot be deleted.
+        </div>
 
-                <button type="submit" class="btn btn-danger">
-                    Yes, Delete
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mr-actions">
+                <button type="submit"
+                        class="mr-btn mr-btn-danger-outline">
+                    Delete Medical Record
                 </button>
 
                 <a href="{% url 'medical_records:admin_record_detail' record.pk %}"
-                   class="btn btn-secondary">
+                   class="mr-btn mr-btn-primary">
                     Cancel
                 </a>
-            </form>
-        </div>
-    </div>
+            </div>
+        </form>
+    </section>
+
 </div>
 {% endblock %}

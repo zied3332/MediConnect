@@ -2,55 +2,139 @@
 {% extends "dashboard/base.html" %}
 {% load static %}
 
+{% block title %}Medical Record #{{ record.pk }} | MediConnect{% endblock %}
+
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}?v=2">
 {% endblock %}
-{% block title %}Medical Record Details | MediConnect{% endblock %}
 
 {% block content %}
-<div class="container-fluid py-4">
-    <a href="{% url 'medical_records:admin_record_list' %}">
-        Back to Medical Records
-    </a>
+<div class="mr-admin">
 
-    <h1 class="mt-3">Medical Record #{{ record.pk }}</h1>
+    <div class="mr-breadcrumb">
+        <a href="{% url 'medical_records:admin_record_list' %}">
+            Medical Records
+        </a>
+        <span>/</span>
+        <span>Record #{{ record.pk }}</span>
+    </div>
 
-    <div class="card mt-4">
-        <div class="card-body">
-            <h3>Patient Information</h3>
-            <p><strong>Email:</strong> {{ record.patient.email }}</p>
-            <p><strong>Patient ID:</strong> {{ record.patient.pk }}</p>
+    <div class="mr-page-header">
+        <div>
+            <div class="mr-eyebrow">PATIENT MEDICAL INFORMATION</div>
+            <h1>Medical Record #{{ record.pk }}</h1>
+            <p>View and manage this patient's medical information.</p>
+        </div>
 
-            <hr>
+        <div class="mr-header-icon">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8"/>
+                <path d="M8 3v5h5M14 3h7M17.5 0v6"/>
+                <path d="M8 14h8M8 18h5"/>
+            </svg>
+        </div>
+    </div>
 
-            <h3>Medical History</h3>
-            <p>{{ record.antecedents|default:"Not provided"|linebreaksbr }}</p>
+    <section class="mr-panel mr-patient-panel">
+        <div class="mr-section-label">PATIENT INFORMATION</div>
 
-            <h3>Allergies</h3>
-            <p>{{ record.allergies|default:"Not provided"|linebreaksbr }}</p>
+        <div class="mr-patient-row">
+            <div class="mr-avatar">
+                {{ record.patient.first_name|first|default:"P"|upper }}{{ record.patient.last_name|first|upper }}
+            </div>
 
-            <hr>
+            <div class="mr-patient-identity">
+                <h2>
+                    {{ record.patient.get_full_name|default:record.patient.username }}
+                </h2>
+                <p>{{ record.patient.email }}</p>
+            </div>
 
-            <p>
-                <strong>Created:</strong>
-                {{ record.created_at|date:"M d, Y H:i" }}
-            </p>
+            <span class="mr-patient-id">
+                Patient #{{ record.patient.pk }}
+            </span>
+        </div>
+    </section>
 
-            <p>
-                <strong>Last updated:</strong>
-                {{ record.updated_at|date:"M d, Y H:i" }}
-            </p>
+    <div class="mr-details-grid">
 
+        <section class="mr-panel mr-info-panel">
+            <div class="mr-info-heading">
+                <span class="mr-info-icon">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="5" y="4" width="14" height="17" rx="2"/>
+                        <path d="M9 4.5V3h6v1.5M9 10h6M9 14h6"/>
+                    </svg>
+                </span>
+                <h3>Medical History</h3>
+            </div>
+
+            <div class="mr-clinical-content">
+                {% if record.antecedents %}
+                    {{ record.antecedents|linebreaks }}
+                {% else %}
+                    <p class="mr-empty-text">
+                        No medical history has been recorded.
+                    </p>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="mr-panel mr-info-panel">
+            <div class="mr-info-heading">
+                <span class="mr-info-icon mr-allergy-icon">
+                    <svg viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3 2 21h20L12 3Z"/>
+                        <path d="M12 9v5M12 18h.01"/>
+                    </svg>
+                </span>
+                <h3>Allergies</h3>
+            </div>
+
+            <div class="mr-clinical-content">
+                {% if record.allergies %}
+                    {{ record.allergies|linebreaks }}
+                {% else %}
+                    <p class="mr-empty-text">
+                        No allergies have been recorded.
+                    </p>
+                {% endif %}
+            </div>
+        </section>
+
+    </div>
+
+    <section class="mr-panel mr-footer-panel">
+        <div class="mr-record-meta">
+            <div>
+                <span>CREATED</span>
+                <strong>{{ record.created_at|date:"M d, Y · H:i" }}</strong>
+            </div>
+
+            <div>
+                <span>LAST UPDATED</span>
+                <strong>{{ record.updated_at|date:"M d, Y · H:i" }}</strong>
+            </div>
+        </div>
+
+        <div class="mr-actions">
             <a href="{% url 'medical_records:admin_record_update' record.pk %}"
-               class="btn btn-primary">
-                Edit
+               class="mr-btn mr-btn-primary">
+                Edit Record
             </a>
 
             <a href="{% url 'medical_records:admin_record_delete' record.pk %}"
-               class="btn btn-danger">
+               class="mr-btn mr-btn-danger-outline">
                 Delete
             </a>
         </div>
-    </div>
+    </section>
+
 </div>
 {% endblock %}
