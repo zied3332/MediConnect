@@ -74,11 +74,7 @@
         <h1>Welcome back</h1>
         <p class="mc-auth-subtitle">Log in to manage your healthcare.</p>
 
-        {% if form.non_field_errors %}
-        <p class="mc-auth-error" role="alert">
-            {{ form.non_field_errors|first }}
-        </p>
-        {% endif %}
+        {% include "components/form_errors.html" with form=form error_class="mc-auth-error" only %}
 
         <!-- ── Google login button ── -->
         <a href="/accounts/google/login/?process=login" class="mc-google-btn">
@@ -115,10 +111,8 @@
                     placeholder="you@example.com"
                     autocomplete="email"
                     required
-                >
-                {% if form.email.errors %}
-                <span class="mc-auth-field-error">{{ form.email.errors|first }}</span>
-                {% endif %}
+                 {% include "components/form_field_attributes.html" with field=form.email only %}>
+                {% include "components/field_errors.html" with field=form.email error_class="mc-auth-field-error" only %}
             </div>
 
             <div class="mc-auth-field">
@@ -131,7 +125,7 @@
                         placeholder="Enter your password"
                         autocomplete="current-password"
                         required
-                    >
+                     {% include "components/form_field_attributes.html" with field=form.password only %}>
                     <button
                         type="button"
                         class="mc-auth-password-toggle"
@@ -139,6 +133,7 @@
                         aria-label="Show password"
                     >Show</button>
                 </div>
+                {% include "components/field_errors.html" with field=form.password error_class="mc-auth-field-error" only %}
             </div>
 
             <button type="submit" class="mc-auth-submit">Continue</button>

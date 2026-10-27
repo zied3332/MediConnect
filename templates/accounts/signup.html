@@ -26,11 +26,7 @@
 
         <h1>Create an account</h1>
 
-        {% if form.non_field_errors %}
-        <p class="mc-auth-error" role="alert">
-            {{ form.non_field_errors|first }}
-        </p>
-        {% endif %}
+        {% include "components/form_errors.html" with form=form error_class="mc-auth-error" only %}
 
         <!-- Google signup -->
         <a href="/accounts/google/login/?process=signup" style="
@@ -68,10 +64,8 @@
                     placeholder="you@example.com"
                     autocomplete="email"
                     required
-                >
-                {% if form.email.errors %}
-                <span class="mc-auth-field-error" role="alert">{{ form.email.errors|first }}</span>
-                {% endif %}
+                 {% include "components/form_field_attributes.html" with field=form.email only %}>
+                {% include "components/field_errors.html" with field=form.email error_class="mc-auth-field-error" only %}
             </div>
 
             <div class="mc-auth-field-row">
@@ -84,10 +78,8 @@
                         value="{{ form.first_name.value|default:'' }}"
                         autocomplete="given-name"
                         required
-                    >
-                    {% if form.first_name.errors %}
-                    <span class="mc-auth-field-error" role="alert">{{ form.first_name.errors|first }}</span>
-                    {% endif %}
+                     {% include "components/form_field_attributes.html" with field=form.first_name only %}>
+                    {% include "components/field_errors.html" with field=form.first_name error_class="mc-auth-field-error" only %}
                 </div>
 
                 <div class="mc-auth-field">
@@ -99,10 +91,8 @@
                         value="{{ form.last_name.value|default:'' }}"
                         autocomplete="family-name"
                         required
-                    >
-                    {% if form.last_name.errors %}
-                    <span class="mc-auth-field-error" role="alert">{{ form.last_name.errors|first }}</span>
-                    {% endif %}
+                     {% include "components/form_field_attributes.html" with field=form.last_name only %}>
+                    {% include "components/field_errors.html" with field=form.last_name error_class="mc-auth-field-error" only %}
                 </div>
             </div>
 
@@ -115,10 +105,8 @@
                     autocomplete="new-password"
                     minlength="8"
                     required
-                >
-                {% if form.password.errors %}
-                <span class="mc-auth-field-error" role="alert">{{ form.password.errors|first }}</span>
-                {% endif %}
+                 {% include "components/form_field_attributes.html" with field=form.password only %}>
+                {% include "components/field_errors.html" with field=form.password error_class="mc-auth-field-error" only %}
             </div>
 
             <div class="mc-auth-field">
@@ -130,10 +118,8 @@
                     autocomplete="new-password"
                     minlength="8"
                     required
-                >
-                {% if form.confirm_password.errors %}
-                <span class="mc-auth-field-error" role="alert">{{ form.confirm_password.errors|first }}</span>
-                {% endif %}
+                 {% include "components/form_field_attributes.html" with field=form.confirm_password only %}>
+                {% include "components/field_errors.html" with field=form.confirm_password error_class="mc-auth-field-error" only %}
             </div>
 
             <button type="submit" class="mc-auth-submit">Create account</button>

@@ -235,9 +235,7 @@
             We accept PDF, JPG, and PNG files. All documents are stored securely.
         </p>
 
-        {% if form.non_field_errors %}
-        <p class="mc-auth-error" role="alert">{{ form.non_field_errors|first }}</p>
-        {% endif %}
+        {% include "components/form_errors.html" with form=form error_class="mc-auth-error" only %}
 
         <form id="mc-doc-form" method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
@@ -245,51 +243,45 @@
             <!-- Medical license -->
             <div class="mc-doc-field">
                 <label for="doc-license">Medical license / registration number</label>
-                <p class="mc-doc-hint">
+                <p class="mc-doc-hint" id="doc-license-help">
                     Your official medical license or professional registration document issued by your medical authority.
                 </p>
                 <input type="file" id="doc-license" name="medical_license"
-                       accept=".pdf,.jpg,.jpeg,.png" required>
-                {% if form.medical_license.errors %}
-                <span class="mc-doc-field-error">{{ form.medical_license.errors|first }}</span>
-                {% endif %}
+                       accept=".pdf,.jpg,.jpeg,.png" required {% include "components/form_field_attributes.html" with field=form.medical_license help_id="doc-license-help" only %}>
+                {% include "components/field_errors.html" with field=form.medical_license error_class="mc-doc-field-error" only %}
             </div>
 
             <!-- Diploma -->
             <div class="mc-doc-field">
                 <label for="doc-diploma">Diploma or specialty certificate</label>
-                <p class="mc-doc-hint">
+                <p class="mc-doc-hint" id="doc-diploma-help">
                     Your medical degree or specialist qualification certificate.
                 </p>
                 <input type="file" id="doc-diploma" name="diploma"
-                       accept=".pdf,.jpg,.jpeg,.png" required>
-                {% if form.diploma.errors %}
-                <span class="mc-doc-field-error">{{ form.diploma.errors|first }}</span>
-                {% endif %}
+                       accept=".pdf,.jpg,.jpeg,.png" required {% include "components/form_field_attributes.html" with field=form.diploma help_id="doc-diploma-help" only %}>
+                {% include "components/field_errors.html" with field=form.diploma error_class="mc-doc-field-error" only %}
             </div>
 
             <!-- National ID -->
             <div class="mc-doc-field">
                 <label for="doc-id">National ID or passport</label>
-                <p class="mc-doc-hint">
+                <p class="mc-doc-hint" id="doc-id-help">
                     A government-issued photo ID confirming your identity.
                 </p>
                 <input type="file" id="doc-id" name="national_id"
-                       accept=".pdf,.jpg,.jpeg,.png" required>
-                {% if form.national_id.errors %}
-                <span class="mc-doc-field-error">{{ form.national_id.errors|first }}</span>
-                {% endif %}
+                       accept=".pdf,.jpg,.jpeg,.png" required {% include "components/form_field_attributes.html" with field=form.national_id help_id="doc-id-help" only %}>
+                {% include "components/field_errors.html" with field=form.national_id error_class="mc-doc-field-error" only %}
             </div>
 
             <!-- ── Selfie — live camera capture ── -->
-            <div class="mc-doc-field" style="padding:0; overflow:hidden;">
+            <div class="mc-doc-field" role="group" aria-labelledby="selfie-label" style="padding:0; overflow:hidden;" {% include "components/form_field_attributes.html" with field=form.selfie_with_id help_id="selfie-help" only %}>
 
                 <div style="padding: 18px 24px 14px;">
-                    <label style="font-size:15px; font-weight:700; color:#303030;">
+                    <div id="selfie-label" style="font-size:15px; font-weight:700; color:#303030;">
                         Selfie holding your ID
                         <span class="mc-doc-optional-tag">Optional</span>
-                    </label>
-                    <p class="mc-doc-hint" style="margin-top:6px;">
+                    </div>
+                    <p class="mc-doc-hint" id="selfie-help" style="margin-top:6px;">
                         Hold your ID card or passport next to your face so both are clearly
                         visible. Your photo is taken live — no upload needed.
                     </p>
@@ -345,19 +337,15 @@
                         </label>
                         <input type="file" id="doc-selfie-fallback"
                                name="selfie_with_id"
-                               accept=".jpg,.jpeg,.png">
+                               accept=".jpg,.jpeg,.png" {% include "components/form_field_attributes.html" with field=form.selfie_with_id help_id="selfie-help" only %}>
                     </div>
                 </div>
 
                 <!-- Hidden file input that receives the captured blob -->
                 <input type="file" id="selfie-file-input" name="selfie_with_id"
-                       accept="image/*" style="display:none;" aria-hidden="true">
+                       accept="image/*" style="display:none;" aria-hidden="true" {% include "components/form_field_attributes.html" with field=form.selfie_with_id help_id="selfie-help" only %}>
 
-                {% if form.selfie_with_id.errors %}
-                <span class="mc-doc-field-error" style="padding:0 24px 14px; display:block;">
-                    {{ form.selfie_with_id.errors|first }}
-                </span>
-                {% endif %}
+                {% include "components/field_errors.html" with field=form.selfie_with_id error_class="mc-doc-field-error" error_style="padding:0 24px 14px; display:block;" only %}
             </div>
 
             <button type="submit" class="mc-auth-submit" style="margin-top:24px;">
