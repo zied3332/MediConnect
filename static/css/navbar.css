@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 32px;
+    flex-wrap: wrap;
 }
 
 /* Brand */
@@ -62,7 +63,9 @@
     display: flex;
     align-items: center;
     gap: clamp(20px, 2.5vw, 48px);
-    height: 96px;
+    min-height: 96px;
+    flex-wrap: wrap;
+    max-width: 100%;
 }
 
 .mc-nav-link,

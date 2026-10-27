@@ -385,6 +385,11 @@
     overflow-x: auto;
 }
 
+/* Contain visually hidden row labels inside the horizontally scrolling table. */
+.mc-role-form {
+    position: relative;
+}
+
 .mc-users-table {
     width: 100%;
     border-collapse: collapse;
