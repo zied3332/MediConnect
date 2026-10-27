@@ -392,7 +392,7 @@
     min-width: 980px;
 }
 
-.mc-users-table th {
+.mc-users-table thead th {
     color: var(--mc-admin-muted);
     font-size: 10px;
     font-weight: 800;
@@ -468,16 +468,16 @@
     font-weight: 800;
 }
 
-.mc-users-table td strong,
-.mc-users-table td small {
+.mc-users-table :is(td, th[scope="row"]) strong,
+.mc-users-table :is(td, th[scope="row"]) small {
     display: block;
 }
 
-.mc-users-table td strong {
+.mc-users-table :is(td, th[scope="row"]) strong {
     font-size: 13px;
 }
 
-.mc-users-table td small {
+.mc-users-table :is(td, th[scope="row"]) small {
     margin-top: 4px;
     color: var(--mc-admin-muted);
     font-size: 11px;

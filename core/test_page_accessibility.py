@@ -1,6 +1,7 @@
 """Page-level source/render checks; computed styles still need a browser."""
 import re
 from types import SimpleNamespace
+from datetime import time
 
 from django.conf import settings
 from django.test import SimpleTestCase
@@ -12,18 +13,54 @@ from appointments.models import Appointment
 from consultations.models import Consultation
 from medical_records.models import DossierMedical, Examen, Ordonnance
 from core.test_accessible_forms import render_page
+from core.test_accessibility import Elements
+from core.models import Availability
+from accounts.models import DoctorProfile
 
 
 class PageAccessibilityTests(SimpleTestCase):
     def page_context(self):
-        person = get_user_model()(pk=1, username="example", email="example@example.com")
+        person = get_user_model()(pk=1, username="example", email="example@example.com", role="doctor")
         appointment = Appointment(pk=9, patient=person, doctor=person, start=timezone.now())
         consultation = Consultation(pk=7, appointment=appointment, diagnostic="PRIVATE CLINICAL TEXT")
         record = DossierMedical(pk=2, patient=person)
+        prescription = Ordonnance(pk=13, consultation=consultation)
+        exam = Examen(pk=11, dossier=record, titre="PRIVATE CLINICAL TEXT")
+        profile = DoctorProfile(pk=1, user=person, specialty="cardiology")
         return {"consultation": consultation, "appointment": appointment, "record": record,
-                "dossier": record, "prescription": Ordonnance(pk=13, consultation=consultation),
-                "examination": Examen(pk=11, dossier=record, titre="PRIVATE CLINICAL TEXT"),
-                "form": forms.Form(), "action": "Create", "message": SimpleNamespace(consultation_id=7)}
+                "dossier": record, "prescription": prescription, "examination": exam,
+                "form": forms.Form(), "action": "Create", "message": SimpleNamespace(consultation_id=7),
+                "records": [record], "prescriptions": [prescription], "examinations": [exam],
+                "users": [person], "doctors": [person], "profiles": [profile], "profile": profile,
+                "slots": [Availability(pk=3, doctor=person, weekday=1, start_time=time(9), end_time=time(10))],
+                "patients": [{"patient_id": 1, "patient__first_name": "Example", "completed_count": 1}]}
+
+    def test_dashboard_tables_have_captions_and_explicit_header_scopes(self):
+        for page in ("medical_records/admin/records", "medical_records/admin/prescriptions",
+                     "medical_records/admin/examinations", "dashboard/admin/availability",
+                     "dashboard/admin/doctor_list", "dashboard/admin/users", "dashboard/admin/specialties",
+                     "dashboard/doctor/availability", "dashboard/doctor/patients"):
+            with self.subTest(page=page):
+                tags = Elements(render_page(f"{page}.html", **self.page_context())).tags
+                self.assertEqual(sum(tag == "table" for tag, _ in tags), 1)
+                self.assertEqual(sum(tag == "caption" for tag, _ in tags), 1)
+                headers = [attrs for tag, attrs in tags if tag == "th"]
+                self.assertTrue(any(attrs.get("scope") == "row" for attrs in headers))
+                for attrs in headers:
+                    self.assertIn(attrs.get("scope"), ("col", "row"))
+
+    def test_detail_and_confirmation_headings_have_one_primary_heading_and_no_skips(self):
+        for page in ("medical_records/admin/detail", "medical_records/admin/confirm_delete",
+                     "medical_records/admin/examination_detail", "medical_records/admin/examination_confirm_delete",
+                     "consultations/detail", "consultations/brief_review", "dashboard/admin/doctor_detail"):
+            with self.subTest(page=page):
+                tags = Elements(render_page(f"{page}.html", **self.page_context())).tags
+                headings = [int(tag[1]) for tag, _ in tags if re.fullmatch(r"h[1-6]", tag)]
+                self.assertEqual(headings.count(1), 1)
+                previous = 0
+                for level in headings:
+                    self.assertLessEqual(level, previous + 1)
+                    previous = level
 
     def test_page_titles_identify_purpose_without_clinical_details(self):
         context = self.page_context()
@@ -92,7 +129,7 @@ class PageAccessibilityTests(SimpleTestCase):
 
     def test_examination_text_contrast_on_its_declared_parent_backgrounds(self):
         css = "static/css/dashboard/medical-examinations-admin.css"
-        for selector, parent in ((".mr-page .table th", ".mr-page .table thead"),
+        for selector, parent in ((".mr-page .table thead th", ".mr-page .table thead"),
                                  (".mr-page .table .text-muted", ".mr-page .mr-card"),
                                  (".mr-page .form-text", ".mr-page .mr-card"),
                                  (".mr-page dl.row dt", ".mr-page .mr-card")):

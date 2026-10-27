@@ -27,25 +27,26 @@
     <div class="mr-card">
         <div class="table-responsive">
             <table class="table">
+            <caption class="mc-sr-only">Patient examination documents</caption>
                 <thead>
                     <tr>
-                        <th>Examination</th>
-                        <th>Patient</th>
-                        <th>Date</th>
-                        <th>File</th>
-                        <th>Actions</th>
+                        <th scope="col">Examination</th>
+                        <th scope="col">Patient</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">File</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for examination in examinations %}
                     <tr>
-                        <td>
+                        <th scope="row">
                             <strong>{{ examination.titre }}</strong>
                             <div class="text-muted">
                                 #{{ examination.pk }}
                             </div>
-                        </td>
+                        </th>
 
                         <td>
                             {{ examination.dossier.patient.get_full_name|default:examination.dossier.patient.email }}

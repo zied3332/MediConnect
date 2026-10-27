@@ -56,3 +56,6 @@ body :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible 
     outline: 3px solid #1f5f8b;
     outline-offset: 2px;
 }
+
+/* Row headers carry relationships while retaining normal table-body typography. */
+tbody th[scope="row"] { text-align: left; font-weight: inherit; }

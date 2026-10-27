@@ -32,19 +32,20 @@
     <section class="mr-panel mr-list-panel">
         <div class="mr-table-wrap">
             <table class="mr-table">
+            <caption class="mc-sr-only">Patient medical records</caption>
                 <thead>
                     <tr>
-                        <th>Record ID</th>
-                        <th>Patient</th>
-                        <th>Created</th>
-                        <th>Actions</th>
+                        <th scope="col">Record ID</th>
+                        <th scope="col">Patient</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for record in records %}
                     <tr>
-                        <td>#{{ record.pk }}</td>
+                        <th scope="row">#{{ record.pk }}</th>
 
                         <td>
                             <strong>

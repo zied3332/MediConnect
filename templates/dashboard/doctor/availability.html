@@ -31,11 +31,12 @@
     <div class="mc-panel-heading"><div><h2>My slots</h2><p>Only you can change these availability slots.</p></div></div>
     <div class="mc-users-table-wrapper">
         <table class="mc-users-table mc-management-table">
-            <thead><tr><th>Day</th><th>Hours</th><th>Status</th><th>Actions</th></tr></thead>
+            <caption class="mc-sr-only">My availability slots</caption>
+            <thead><tr><th scope="col">Day</th><th scope="col">Hours</th><th scope="col">Status</th><th scope="col">Actions</th></tr></thead>
             <tbody>
             {% for slot in slots %}
             <tr>
-                <td>{{ slot.get_weekday_display }}</td>
+                <th scope="row">{{ slot.get_weekday_display }}</th>
                 <td>{{ slot.start_time|time:"H:i" }} – {{ slot.end_time|time:"H:i" }}</td>
                 <td>{% if slot.is_free %}Free{% else %}Unavailable{% endif %}</td>
                 <td>

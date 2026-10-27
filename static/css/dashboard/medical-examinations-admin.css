@@ -48,7 +48,8 @@
     box-shadow: 0 5px 24px rgba(22, 38, 33, 0.035);
 }
 
-.mr-page .mr-card h3 {
+.mr-page .mr-card h3,
+.mr-page .mr-card .mr-card-title {
     margin: 0 0 24px;
     font-size: 19px;
     font-weight: 700;
@@ -141,7 +142,7 @@
     background: #f7f8f4;
 }
 
-.mr-page .table th {
+.mr-page .table thead th {
     padding: 16px 18px;
     color: var(--mc-page-muted);
     font-size: 11px;
@@ -152,15 +153,16 @@
     border-bottom: 1px solid #e9ece7;
 }
 
-.mr-page .table th:first-child {
+.mr-page .table thead th:first-child {
     border-radius: 10px 0 0 0;
 }
 
-.mr-page .table th:last-child {
+.mr-page .table thead th:last-child {
     border-radius: 0 10px 0 0;
 }
 
-.mr-page .table td {
+.mr-page .table td,
+.mr-page .table tbody th {
     padding: 19px 18px;
     vertical-align: middle;
     border-bottom: 1px solid #edf0eb;
@@ -177,7 +179,8 @@
     background: #fcfcf8;
 }
 
-.mr-page .table td strong {
+.mr-page .table td strong,
+.mr-page .table tbody th strong {
     font-size: 14px;
     font-weight: 700;
     color: #182d30;

@@ -33,13 +33,14 @@
             border-collapse: collapse;
             text-align: left;
         ">
+            <caption class="mc-sr-only">Patients associated with my appointments</caption>
 
             <thead style="background: #fafaf7;">
                 <tr>
-                    <th style="padding: 20px;">Patient</th>
-                    <th style="padding: 20px;">Appointments</th>
-                    <th style="padding: 20px;">Last appointment</th>
-                    <th style="padding: 20px;">Medical record</th>
+                    <th style="padding: 20px;" scope="col">Patient</th>
+                    <th style="padding: 20px;" scope="col">Appointments</th>
+                    <th style="padding: 20px;" scope="col">Last appointment</th>
+                    <th style="padding: 20px;" scope="col">Medical record</th>
                 </tr>
             </thead>
 
@@ -49,7 +50,7 @@
 
                 <tr style="border-top: 1px solid #eee;">
 
-                    <td style="padding: 20px;">
+                    <th scope="row" style="padding: 20px;">
                         <strong>
                             {{ patient.patient__first_name }}
                             {{ patient.patient__last_name }}
@@ -58,7 +59,7 @@
                         <div style="font-size: 13px; color: var(--mc-page-muted);">
                             {{ patient.patient__email }}
                         </div>
-                    </td>
+                    </th>
 
                     <td style="padding: 20px;">
                         {{ patient.appointment_count }}
