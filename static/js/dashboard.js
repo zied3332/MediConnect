@@ -3,40 +3,52 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById("dashboard-menu-toggle");
     const sidebar = document.getElementById("dashboard-sidebar");
 
-    function closeSidebar() {
-        if (!sidebar || !toggle) return;
-        sidebar.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-    }
-
     if (toggle && sidebar) {
+        const mobile = window.matchMedia("(max-width: 900px)");
         const close = sidebar.querySelector(".mc-sidebar-close");
-        if (close) close.addEventListener("click", () => {
-            closeSidebar();
-            toggle.focus();
+        const dialogs = window.MediConnectDialog;
+        function syncSidebar() {
+            const opened = mobile.matches && sidebar.classList.contains("is-open");
+            toggle.setAttribute("aria-expanded", String(opened));
+            if (close) close.hidden = !mobile.matches;
+            if (mobile.matches) {
+                sidebar.setAttribute("role", "dialog");
+                sidebar.setAttribute("aria-modal", "true");
+                sidebar.setAttribute("aria-hidden", String(!opened));
+            } else {
+                sidebar.removeAttribute("role");
+                sidebar.removeAttribute("aria-modal");
+                sidebar.removeAttribute("aria-hidden");
+            }
+            // Another modal may currently own the background's inert state.
+            if (!dialogs.isActive()) sidebar.inert = mobile.matches && !opened;
+        }
+        const closeSidebar = () => dialogs.close(sidebar);
+        sidebar.addEventListener("mc:dialog-close", syncSidebar);
+        document.querySelectorAll('[role="dialog"]').forEach(modal => {
+            if (modal !== sidebar) modal.addEventListener("mc:dialog-close", syncSidebar);
         });
+        close?.addEventListener("click", closeSidebar);
         toggle.addEventListener("click", () => {
-            const isOpen = sidebar.classList.toggle("is-open");
-            toggle.setAttribute("aria-expanded", String(isOpen));
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                const wasOpen = sidebar.classList.contains("is-open");
-                closeSidebar();
-                if (wasOpen) toggle.focus();
+            if (!mobile.matches) return;
+            if (sidebar.classList.contains("is-open")) closeSidebar();
+            else {
+                sidebar.inert = false;
+                dialogs.open(sidebar, {opener: toggle, initialFocus: close});
+                toggle.setAttribute("aria-expanded", "true");
             }
         });
-
-        document.addEventListener("click", (event) => {
-            if (
-                sidebar.classList.contains("is-open") &&
-                !sidebar.contains(event.target) &&
-                !toggle.contains(event.target)
-            ) {
-                closeSidebar();
-            }
+        mobile.addEventListener("change", () => {
+            const focusDesktop = !mobile.matches &&
+                (document.activeElement === close || document.activeElement === toggle);
+            closeSidebar(); syncSidebar();
+            if (focusDesktop && !dialogs.isActive()) sidebar.querySelector('a[href]')?.focus();
         });
+        document.addEventListener("click", event => {
+            if (mobile.matches && sidebar.classList.contains("is-open") &&
+                !sidebar.contains(event.target) && !toggle.contains(event.target)) closeSidebar();
+        });
+        syncSidebar();
     }
 
     document.querySelectorAll("[data-modal-target]").forEach((trigger) => {

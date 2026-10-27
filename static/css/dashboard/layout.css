@@ -221,3 +221,9 @@ input {
     .mc-logout-btn { min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) { .mc-dashboard-sidebar { transition: none; } }
+
+/* A focused mobile drawer opens immediately and scrolls controls clear of its edges. */
+.mc-dashboard-sidebar { scroll-padding: 12px; }
+@media (max-width: 900px) {
+    .mc-dashboard-sidebar.is-open:focus-within { transition: none; }
+}
