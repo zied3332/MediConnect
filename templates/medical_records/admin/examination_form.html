@@ -32,39 +32,17 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-            {% if form.non_field_errors %}
-                <div class="alert alert-danger">
-                    {{ form.non_field_errors }}
-                </div>
-            {% endif %}
+            {% include "components/form_errors.html" with form=form error_class="alert alert-danger" only %}
 
             {% for field in form %}
                 <div class="mb-4">
-                    <label for="{{ field.id_for_label }}"
-                           class="form-label">
-                        {{ field.label }}
-                    </label>
-
-                    {{ field }}
-
                     {% if field.name == "fichier" %}
-                        <div class="form-text">
-                            Accepted formats: PDF, JPG, JPEG, PNG.
-                            Maximum size: 10 MB.
-                        </div>
+                        {% include "components/form_field.html" with field=field label_class="form-label" help_class="form-text" error_class="text-danger small mt-1" extra_help_id="examination-file-help" extra_help="Accepted formats: PDF, JPG, JPEG, PNG. Maximum size: 10 MB." only %}
+                    {% elif field.name == "dossier" and field.field.disabled %}
+                        {% include "components/form_field.html" with field=field label_class="form-label" help_class="form-text" error_class="text-danger small mt-1" extra_help_id="examination-patient-help" extra_help="The patient cannot be changed after creation." only %}
+                    {% else %}
+                        {% include "components/form_field.html" with field=field label_class="form-label" help_class="form-text" error_class="text-danger small mt-1" only %}
                     {% endif %}
-
-                    {% if field.name == "dossier" and field.field.disabled %}
-                        <div class="form-text">
-                            The patient cannot be changed after creation.
-                        </div>
-                    {% endif %}
-
-                    {% for error in field.errors %}
-                        <div class="text-danger small mt-1">
-                            {{ error }}
-                        </div>
-                    {% endfor %}
                 </div>
             {% endfor %}
 

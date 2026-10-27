@@ -1,5 +1,6 @@
 
 {% extends "dashboard/base.html" %}
+{% load accessibility %}
 {% load static %}
 
 {% block title %}My Medical Record | MediConnect{% endblock %}
@@ -460,7 +461,7 @@
                     Medical history
                 </h3>
 
-                <p class="medical-record-section-description">
+                <p class="medical-record-section-description" id="medical-history-help">
                     Include previous medical conditions, chronic illnesses,
                     surgeries, or other relevant health information.
                 </p>
@@ -470,13 +471,10 @@
                     Medical history
                 </label>
 
-                {{ form.antecedents }}
+                {% accessible_field form.antecedents "medical-history-help" %}
+                {% include "components/field_help.html" with field=form.antecedents only %}
 
-                {% for error in form.antecedents.errors %}
-                    <p class="medical-record-error" role="alert">
-                        {{ error }}
-                    </p>
-                {% endfor %}
+                {% include "components/field_errors.html" with field=form.antecedents error_class="medical-record-error" only %}
             </div>
 
             <!-- Allergies -->
@@ -486,7 +484,7 @@
                     Allergies
                 </h3>
 
-                <p class="medical-record-section-description">
+                <p class="medical-record-section-description" id="allergies-help">
                     List any known medication, food, or environmental
                     allergies.
                 </p>
@@ -496,13 +494,10 @@
                     Known allergies
                 </label>
 
-                {{ form.allergies }}
+                {% accessible_field form.allergies "allergies-help" %}
+                {% include "components/field_help.html" with field=form.allergies only %}
 
-                {% for error in form.allergies.errors %}
-                    <p class="medical-record-error" role="alert">
-                        {{ error }}
-                    </p>
-                {% endfor %}
+                {% include "components/field_errors.html" with field=form.allergies error_class="medical-record-error" only %}
             </div>
 
             <!-- Save -->

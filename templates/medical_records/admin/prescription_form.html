@@ -36,29 +36,11 @@
         <form method="post">
             {% csrf_token %}
 
-            {% if form.non_field_errors %}
-                <div class="mr-notice">
-                    {{ form.non_field_errors }}
-                </div>
-            {% endif %}
+            {% include "components/form_errors.html" with form=form error_class="mr-notice" only %}
 
             {% for field in form %}
                 <div class="mr-field">
-                    <label for="{{ field.id_for_label }}">
-                        {{ field.label }}
-                    </label>
-
-                    {{ field }}
-
-                    {% if field.help_text %}
-                        <small>{{ field.help_text }}</small>
-                    {% endif %}
-
-                    {% for error in field.errors %}
-                        <div class="mr-field-error">
-                            {{ error }}
-                        </div>
-                    {% endfor %}
+                    {% include "components/form_field.html" with field=field error_class="mr-field-error" only %}
                 </div>
             {% endfor %}
 

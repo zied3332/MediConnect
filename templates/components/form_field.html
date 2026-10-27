@@ -1,0 +1,6 @@
+{% load accessibility %}
+<label for="{{ field.id_for_label }}"{% if label_class %} class="{{ label_class }}"{% endif %}>{{ field.label }}</label>
+{% accessible_field field extra_help_id %}
+{% include "components/field_help.html" with field=field help_class=help_class only %}
+{% if extra_help %}<div id="{{ extra_help_id }}" class="{{ help_class }}">{{ extra_help }}</div>{% endif %}
+{% include "components/field_errors.html" with field=field error_class=error_class only %}

@@ -1,4 +1,7 @@
 """Rendered form associations, independent of browser/AT verification."""
+from types import SimpleNamespace
+
+from django import forms
 from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.test import RequestFactory, SimpleTestCase
@@ -6,6 +9,11 @@ from django.test import RequestFactory, SimpleTestCase
 from accounts.models import DoctorProfile
 from accounts.forms import DoctorDocumentForm, DoctorSignupForm, LoginForm, SignupForm
 from core.test_accessibility import Elements
+from core.templatetags.accessibility import accessible_field
+from medical_records.admin_forms import AdminExamenForm, AdminOrdonnanceForm
+from medical_records.admin_views import AdminMedicalRecordForm
+from medical_records.forms import DossierMedicalForm, ExamenForm, OrdonnanceForm
+from medical_records.models import DossierMedical
 
 
 def render_page(template, **context):
@@ -89,3 +97,70 @@ class AccessibleFormTests(SimpleTestCase):
             label = next(attrs for tag, attrs in tags if tag == "label" and attrs.get("for") == field["id"])
             self.assertNotIn("mc-sr-only", label.get("class", ""))
             self.assertIn("aria-describedby", field)
+
+    def test_medical_fields_resolve_help_and_all_errors_without_duplicate_ids(self):
+        patient = get_user_model()(pk=2, username="patient", role="patient")
+        consultation = SimpleNamespace(pk=1, appointment=SimpleNamespace(patient=patient, start=None))
+        for template, form_class in (
+            ("admin/form.html", AdminMedicalRecordForm),
+            ("admin/prescription_form.html", AdminOrdonnanceForm),
+            ("admin/examination_form.html", AdminExamenForm),
+            ("my_record.html", DossierMedicalForm),
+            ("prescription_form.html", OrdonnanceForm),
+            ("examination_upload.html", ExamenForm),
+        ):
+            for bound in (False, True):
+                with self.subTest(template=template, bound=bound):
+                    form = form_class(data={} if bound else None, prefix="record")
+                    for field in form.fields.values():
+                        if isinstance(field, forms.ModelChoiceField):
+                            field.queryset = field.queryset.none()
+                        field.help_text = "Additional field guidance"
+                    if bound:
+                        form.is_valid()
+                        for field in form:
+                            form.add_error(field.name, f"First error for {field.name}")
+                            form.add_error(field.name, f"Second error for {field.name}")
+                    html = render_page(f"medical_records/{template}", form=form,
+                        dossier=DossierMedical(pk=1, patient=patient), consultation=consultation)
+                    tags = self.assert_associations(html)
+                    for field in form:
+                        widget = next(attrs for tag, attrs in tags if tag in ("input", "select", "textarea")
+                                      and attrs.get("name") == field.html_name)
+                        descriptions = widget["aria-describedby"].split()
+                        self.assertIn(f"{field.auto_id}_helptext", descriptions)
+                        if bound:
+                            self.assertEqual(widget["aria-invalid"], "true")
+                            self.assertIn(f"{field.auto_id}_error", descriptions)
+                            self.assertIn(f"First error for {field.name}", html)
+                            self.assertIn(f"Second error for {field.name}", html)
+                        if template == "prescription_form.html":
+                            expected = "medications-help" if field.name == "medicaments" else "instructions-help"
+                            self.assertIn(expected, descriptions)
+
+    def test_extra_descriptions_preserve_widget_attributes_and_deduplicate_tokens(self):
+        class ExampleForm(forms.Form):
+            notes = forms.CharField(help_text="Guidance", widget=forms.TextInput(attrs={
+                "class": "existing-style", "aria-describedby": "existing-help existing-help",
+            }))
+        form = ExampleForm(data={}, prefix="example")
+        form.is_valid()
+        before = form.fields["notes"].widget.attrs.copy()
+        html = accessible_field(form["notes"], "extra-help extra-help")
+        widget = Elements(html).tags[0][1]
+        self.assertEqual(widget["class"], "existing-style")
+        self.assertEqual(widget["aria-invalid"], "true")
+        self.assertEqual(widget["aria-describedby"].split(), [
+            "existing-help", "id_example-notes_helptext", "id_example-notes_error", "extra-help",
+        ])
+        self.assertEqual(form.fields["notes"].widget.attrs, before)
+
+    def test_locked_examination_patient_has_associated_explanation(self):
+        form = AdminExamenForm()
+        form.fields["dossier"].queryset = form.fields["dossier"].queryset.none()
+        form.fields["dossier"].disabled = True
+        tags = self.assert_associations(render_page(
+            "medical_records/admin/examination_form.html", form=form))
+        patient = next(attrs for tag, attrs in tags if tag == "select" and attrs.get("name") == "dossier")
+        self.assertIn("disabled", patient)
+        self.assertIn("examination-patient-help", patient["aria-describedby"].split())

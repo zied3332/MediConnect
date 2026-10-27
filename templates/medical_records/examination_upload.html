@@ -1,5 +1,6 @@
 
 {% extends "dashboard/base.html" %}
+{% load accessibility %}
 
 {% block title %}Upload Examination | MediConnect{% endblock %}
 
@@ -416,13 +417,10 @@
                     Examination title
                 </label>
 
-                {{ form.titre }}
+                {% accessible_field form.titre %}
+                {% include "components/field_help.html" with field=form.titre only %}
 
-                {% for error in form.titre.errors %}
-                    <p class="upload-errors" role="alert">
-                        {{ error }}
-                    </p>
-                {% endfor %}
+                {% include "components/field_errors.html" with field=form.titre error_class="upload-errors" only %}
             </div>
 
             <!-- Date -->
@@ -432,13 +430,10 @@
                     Examination date
                 </label>
 
-                {{ form.date }}
+                {% accessible_field form.date %}
+                {% include "components/field_help.html" with field=form.date only %}
 
-                {% for error in form.date.errors %}
-                    <p class="upload-errors" role="alert">
-                        {{ error }}
-                    </p>
-                {% endfor %}
+                {% include "components/field_errors.html" with field=form.date error_class="upload-errors" only %}
             </div>
 
             <!-- Document -->
@@ -448,18 +443,15 @@
                     Medical document
                 </label>
 
-                {{ form.fichier }}
+                {% accessible_field form.fichier "examination-file-help" %}
+                {% include "components/field_help.html" with field=form.fichier only %}
 
-                <p class="upload-help">
+                <p class="upload-help" id="examination-file-help">
                     Accepted formats: PDF, JPG, JPEG, PNG.
                     Maximum file size: 10 MB.
                 </p>
 
-                {% for error in form.fichier.errors %}
-                    <p class="upload-errors" role="alert">
-                        {{ error }}
-                    </p>
-                {% endfor %}
+                {% include "components/field_errors.html" with field=form.fichier error_class="upload-errors" only %}
             </div>
 
             <!-- Actions -->
