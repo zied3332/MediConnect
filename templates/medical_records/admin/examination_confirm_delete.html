@@ -1,0 +1,60 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/dashboard/medical-examinations-admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="mr-page">
+
+    <div class="mr-header">
+        <div>
+            <h1>Delete Medical Examination</h1>
+            <p>Confirm the removal of this examination record.</p>
+        </div>
+    </div>
+
+    <div class="mr-card">
+        <h3>{{ examination.titre }}</h3>
+
+        <p>
+            Are you sure you want to delete this examination?
+        </p>
+
+        <p>
+            <strong>Patient:</strong>
+            {{ examination.dossier.patient.get_full_name|default:examination.dossier.patient.email }}
+        </p>
+
+        <p>
+            <strong>Date:</strong>
+            {{ examination.date|date:"F d, Y" }}
+        </p>
+
+        <div class="alert alert-warning">
+            This action cannot be undone.
+            The examination database record will be removed.
+            The stored file requires separate cleanup.
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="d-flex gap-2 flex-wrap">
+                <button type="submit" class="btn btn-danger">
+                    Yes, Delete Examination
+                </button>
+
+                <a href="{% url 'medical_records:admin_examination_detail' examination.pk %}"
+                   class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

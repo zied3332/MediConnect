@@ -151,6 +151,14 @@
                     <span>Prescriptions</span>
                 </a>
 
+                <!-- PHASE 3: ADMIN MEDICAL EXAMINATIONS -->
+                <a href="{% url 'medical_records:admin_examination_list' %}"
+                   class="mc-sidebar-link {% if active_nav == 'admin_examinations' %}active{% endif %}"
+                   {% if active_nav == 'admin_examinations' %}aria-current="page"{% endif %}>
+                    {% include 'dashboard/components/nav_icon.html' with icon='appointments' %}
+                    <span>Medical Examinations</span>
+                </a>
+
             </nav>
 
         {% elif dashboard_role == "doctor" %}

@@ -1,0 +1,91 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/dashboard/medical-examinations-admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="mr-page">
+
+    <div class="mr-header">
+        <div>
+            <h1>Medical Examinations</h1>
+            <p>Manage patient medical examination documents.</p>
+        </div>
+
+        <a href="{% url 'medical_records:admin_examination_create' %}"
+           class="btn btn-primary">
+            + Add Examination
+        </a>
+    </div>
+
+    <div class="mr-card">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Examination</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>File</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for examination in examinations %}
+                    <tr>
+                        <td>
+                            <strong>{{ examination.titre }}</strong>
+                            <div class="text-muted">
+                                #{{ examination.pk }}
+                            </div>
+                        </td>
+
+                        <td>
+                            {{ examination.dossier.patient.get_full_name|default:examination.dossier.patient.email }}
+                        </td>
+
+                        <td>{{ examination.date|date:"M d, Y" }}</td>
+
+                        <td>
+                            {% if examination.fichier %}
+                                <a href="{% url 'medical_records:admin_examination_download' examination.pk %}">
+                                    Download
+                                </a>
+                            {% else %}
+                                <span class="text-muted">No file</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <a href="{% url 'medical_records:admin_examination_detail' examination.pk %}">
+                                View
+                            </a>
+                            |
+                            <a href="{% url 'medical_records:admin_examination_update' examination.pk %}">
+                                Edit
+                            </a>
+                            |
+                            <a href="{% url 'medical_records:admin_examination_delete' examination.pk %}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            No medical examinations have been uploaded yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

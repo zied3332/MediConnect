@@ -1,0 +1,79 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/dashboard/medical-examinations-admin.css' %}">
+{% endblock %}
+{% block content %}
+<div class="mr-page">
+
+    <div class="mr-header">
+        <div>
+            <h1>{{ examination.titre }}</h1>
+            <p>Medical examination #{{ examination.pk }}</p>
+        </div>
+
+        <a href="{% url 'medical_records:admin_examination_list' %}"
+           class="btn btn-outline-secondary">
+            Back to Examinations
+        </a>
+    </div>
+
+    <div class="mr-card">
+        <h3>Examination Details</h3>
+
+        <dl class="row">
+            <dt class="col-sm-4">Patient</dt>
+            <dd class="col-sm-8">
+                {{ examination.dossier.patient.get_full_name|default:examination.dossier.patient.email }}
+            </dd>
+
+            <dt class="col-sm-4">Patient Email</dt>
+            <dd class="col-sm-8">
+                {{ examination.dossier.patient.email }}
+            </dd>
+
+            <dt class="col-sm-4">Medical Record</dt>
+            <dd class="col-sm-8">
+                <a href="{% url 'medical_records:admin_record_detail' examination.dossier.pk %}">
+                    Record #{{ examination.dossier.pk }}
+                </a>
+            </dd>
+
+            <dt class="col-sm-4">Examination Date</dt>
+            <dd class="col-sm-8">
+                {{ examination.date|date:"F d, Y" }}
+            </dd>
+
+            <dt class="col-sm-4">Uploaded</dt>
+            <dd class="col-sm-8">
+                {{ examination.created_at|date:"F d, Y H:i" }}
+            </dd>
+        </dl>
+
+        {% if examination.fichier %}
+        <div class="mt-4">
+            <a href="{% url 'medical_records:admin_examination_download' examination.pk %}"
+               class="btn btn-primary">
+                Download Examination
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="mt-4 d-flex gap-2 flex-wrap">
+        <a href="{% url 'medical_records:admin_examination_update' examination.pk %}"
+           class="btn btn-primary">
+            Edit Examination
+        </a>
+
+        <a href="{% url 'medical_records:admin_examination_delete' examination.pk %}"
+           class="btn btn-outline-danger">
+            Delete Examination
+        </a>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/dashboard/medical-examinations-admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="mr-page">
+
+    <div class="mr-header">
+        <div>
+            <h1>{{ action }} Medical Examination</h1>
+            <p>
+                {% if examination %}
+                    Update examination information.
+                {% else %}
+                    Upload a medical examination for a patient.
+                {% endif %}
+            </p>
+        </div>
+
+        <a href="{% url 'medical_records:admin_examination_list' %}"
+           class="btn btn-outline-secondary">
+            Cancel
+        </a>
+    </div>
+
+    <div class="mr-card">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="mb-4">
+                    <label for="{{ field.id_for_label }}"
+                           class="form-label">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.name == "fichier" %}
+                        <div class="form-text">
+                            Accepted formats: PDF, JPG, JPEG, PNG.
+                            Maximum size: 10 MB.
+                        </div>
+                    {% endif %}
+
+                    {% if field.name == "dossier" and field.field.disabled %}
+                        <div class="form-text">
+                            The patient cannot be changed after creation.
+                        </div>
+                    {% endif %}
+
+                    {% for error in field.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <div class="d-flex gap-2 flex-wrap">
+                <button type="submit" class="btn btn-primary">
+                    {% if examination %}
+                        Save Changes
+                    {% else %}
+                        Create Examination
+                    {% endif %}
+                </button>
+
+                <a href="{% url 'medical_records:admin_examination_list' %}"
+                   class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

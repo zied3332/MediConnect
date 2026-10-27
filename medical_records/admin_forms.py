@@ -88,12 +88,15 @@ class AdminOrdonnanceForm(forms.ModelForm):
 
 class AdminExamenForm(ExamenForm):
     """
-    Admin form for medical examinations.
+    Admin form for creating and editing medical examinations.
 
     Reuses ExamenForm validation:
     - PDF, JPG, JPEG, PNG
-    - Maximum size of 10 MB
+    - Maximum size: 10 MB
     - PDF and image content verification
+
+    Uses FileInput instead of ClearableFileInput to avoid
+    exposing private medical file URLs.
     """
 
     dossier = forms.ModelChoiceField(
@@ -142,3 +145,15 @@ class AdminExamenForm(ExamenForm):
             self.fields["dossier"].initial = self.instance.dossier
 
         self.fields["dossier"].queryset = dossiers
+
+        # Never generate public URLs for private medical files.
+        self.fields["fichier"].widget = forms.FileInput(
+            attrs={
+                "class": "form-control",
+                "accept": ".pdf,.jpg,.jpeg,.png",
+            }
+        )
+
+        # The existing document can be kept without re-uploading.
+        if self.instance.pk and self.instance.fichier:
+            self.fields["fichier"].required = False
