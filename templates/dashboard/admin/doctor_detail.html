@@ -355,14 +355,17 @@
             <!-- Request more info -->
             <div class="mc-action-section">
                 <h3>📋 Request more information</h3>
-                <p style="font-size:13px; color:#666; margin: 0 0 12px; line-height:1.6;">
+                <p id="reviewer-note-help" style="font-size:13px; color:#666; margin: 0 0 12px; line-height:1.6;">
                     The doctor will see your message and be asked to re-upload documents.
                 </p>
                 <form method="post">
                     {% csrf_token %}
                     <input type="hidden" name="action" value="needs_more_info">
+                    <label for="reviewer-note">Information requested from the doctor</label>
                     <textarea
+                        id="reviewer-note"
                         name="reviewer_note"
+                        aria-describedby="reviewer-note-help"
                         class="mc-action-textarea"
                         placeholder="e.g. Your medical license image is blurry. Please re-upload a clearer version."
                     ></textarea>
@@ -375,14 +378,17 @@
             <!-- Reject -->
             <div class="mc-action-section">
                 <h3>❌ Reject application</h3>
-                <p style="font-size:13px; color:#666; margin: 0 0 12px; line-height:1.6;">
+                <p id="rejection-reason-help" style="font-size:13px; color:#666; margin: 0 0 12px; line-height:1.6;">
                     The doctor's account will be deactivated. The reason will be shown to them.
                 </p>
                 <form method="post">
                     {% csrf_token %}
                     <input type="hidden" name="action" value="reject">
+                    <label for="rejection-reason">Reason for rejecting the application</label>
                     <textarea
+                        id="rejection-reason"
                         name="rejection_reason"
+                        aria-describedby="rejection-reason-help"
                         class="mc-action-textarea"
                         placeholder="e.g. The provided license number could not be verified with the medical authority."
                     ></textarea>
