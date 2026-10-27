@@ -1,13 +1,13 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Admin Overview | MediConnect{% endblock %}
+{% block title %}{% translate "Admin Overview | MediConnect" %}{% endblock %}
 
 {% block content %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">ADMINISTRATION</span>
-        <h1>Good to see you, {{ request.user.first_name }}.</h1>
-        <p>Here's what's happening across MediConnect.</p>
+        <span class="mc-page-eyebrow">{% translate "ADMINISTRATION" %}</span>
+        <h1>{% translate "Good to see you," %} {{ request.user.first_name }}.</h1>
+        <p>{% translate "Here's what's happening across MediConnect." %}</p>
     </div>
 </div>
 
@@ -15,11 +15,11 @@
     {% for stat in stats %}
     <article class="mc-stat-card">
         <div class="mc-stat-top">
-            <span class="mc-stat-label">{{ stat.label }}</span>
+            <span class="mc-stat-label">{{ stat.label|ui }}</span>
             <span class="mc-stat-icon">{{ stat.icon }}</span>
         </div>
         <div class="mc-stat-value">{{ stat.value }}</div>
-        <div class="mc-stat-change">{{ stat.change }}</div>
+        <div class="mc-stat-change">{{ stat.change|ui }}</div>
     </article>
     {% endfor %}
 </div>
@@ -27,7 +27,7 @@
 <div class="mc-dashboard-panels">
     <section class="mc-panel">
         <div class="mc-panel-heading">
-            <div><h2>Recent activity</h2><p>Latest platform events</p></div>
+            <div><h2>{% translate "Recent activity" %}</h2><p>{% translate "Latest platform events" %}</p></div>
         </div>
         <div class="mc-activity-list">
             {% for activity in recent_activity %}
@@ -45,18 +45,18 @@
 
     <section class="mc-panel mc-panel-side">
         <div class="mc-panel-heading">
-            <div><h2>Quick overview</h2><p>Platform management</p></div>
+            <div><h2>{% translate "Quick overview" %}</h2><p>{% translate "Platform management" %}</p></div>
         </div>
         <div class="mc-quick-info">
             <div>
-                <span>Doctor verification</span>
+                <span>{% translate "Doctor verification" %}</span>
                 <a href="{% url 'dashboard:admin_doctor_list' %}?status=pending_review"
                    style="font-size:11px;font-weight:700;color:var(--mc-page-muted-gold);text-decoration:none;">
-                    Review →
+                    {% translate "Review →" %}
                 </a>
             </div>
-            <div><span>Appointment monitoring</span><strong>Coming soon</strong></div>
-            <div><span>Patient management</span><strong>Coming soon</strong></div>
+            <div><span>{% translate "Appointment monitoring" %}</span><strong>{% translate "Coming soon" %}</strong></div>
+            <div><span>{% translate "Patient management" %}</span><strong>{% translate "Coming soon" %}</strong></div>
         </div>
     </section>
 </div>
@@ -65,12 +65,12 @@
 <section class="mc-panel" style="margin-top: 24px;">
     <div class="mc-panel-heading">
         <div>
-            <h2>Doctors awaiting review</h2>
-            <p>Applications submitted and pending approval</p>
+            <h2>{% translate "Doctors awaiting review" %}</h2>
+            <p>{% translate "Applications submitted and pending approval" %}</p>
         </div>
         <a href="{% url 'dashboard:admin_doctor_list' %}?status=pending_review"
            style="font-size:13px;font-weight:700;color:#c6a83c;text-decoration:none;">
-            View all →
+            {% translate "View all →" %}
         </a>
     </div>
     <div class="mc-activity-list">
@@ -78,12 +78,12 @@
         <div class="mc-activity-item">
             <span class="mc-activity-dot" style="background:#5bc0de;"></span>
             <div class="mc-activity-body">
-                <strong>Dr. {{ profile.user.get_full_name }}</strong>
-                <p>{{ profile.get_specialty_display }} — {{ profile.user.email }}</p>
+                <strong>{% translate "Dr." %} {{ profile.user.get_full_name }}</strong>
+                <p>{{ profile.get_specialty_display|ui }} — {{ profile.user.email }}</p>
             </div>
             <a href="{% url 'dashboard:admin_doctor_detail' pk=profile.pk %}"
                style="font-size:11px;font-weight:700;color:#c6a83c;white-space:nowrap;text-decoration:none;">
-                Review →
+                {% translate "Review →" %}
             </a>
         </div>
         {% endfor %}

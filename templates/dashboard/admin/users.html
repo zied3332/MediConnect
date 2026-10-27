@@ -1,16 +1,16 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Users | MediConnect{% endblock %}
+{% block title %}{% translate "Users | MediConnect" %}{% endblock %}
 
 {% block content %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">ADMINISTRATION</span>
-        <h1>User management</h1>
-        <p>Manage access and keep track of everyone using MediConnect.</p>
+        <span class="mc-page-eyebrow">{% translate "ADMINISTRATION" %}</span>
+        <h1>{% translate "User management" %}</h1>
+        <p>{% translate "Manage access and keep track of everyone using MediConnect." %}</p>
     </div>
     <div class="mc-users-summary">
-        <span class="mc-users-summary-label">Total users</span>
+        <span class="mc-users-summary-label">{% translate "Total users" %}</span>
         <strong>{{ total_users }}</strong>
     </div>
 </div>
@@ -26,20 +26,20 @@
 
     <form method="get" class="mc-users-filters">
         <label class="mc-users-search mc-users-control">
-            <span class="mc-sr-only">Search users</span>
+            <span class="mc-sr-only">{% translate "Search users" %}</span>
             <span class="mc-users-search-icon" aria-hidden="true">⌕</span>
             <input
                 type="search"
                 name="q"
                 value="{{ search_query }}"
-                placeholder="Search by name, email, or username"
+                placeholder="{% translate "Search by name, email, or username" %}"
             >
         </label>
 
         <label class="mc-users-control">
-            <span class="mc-sr-only">Filter by role</span>
+            <span class="mc-sr-only">{% translate "Filter by role" %}</span>
             <select name="role">
-                <option value="">All roles</option>
+                <option value="">{% translate "All roles" %}</option>
                 {% for value, label in role_choices %}
                 <option value="{{ value }}" {% if selected_role == value %}selected{% endif %}>
                     {{ label }}
@@ -48,23 +48,23 @@
             </select>
         </label>
 
-        <button type="submit" class="mc-users-filter-button">Apply filters</button>
+        <button type="submit" class="mc-users-filter-button">{% translate "Apply filters" %}</button>
         {% if search_query or selected_role %}
-        <a href="{% url 'dashboard:admin_users' %}" class="mc-users-clear">Clear</a>
+        <a href="{% url 'dashboard:admin_users' %}" class="mc-users-clear">{% translate "Clear" %}</a>
         {% endif %}
     </form>
 
     <div class="mc-users-table-wrapper">
         <table class="mc-users-table">
-            <caption class="mc-sr-only">Registered MediConnect users</caption>
+            <caption class="mc-sr-only">{% translate "Registered MediConnect users" %}</caption>
             <thead>
                 <tr>
-                    <th scope="col">User</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Specialty</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Joined</th>
+                    <th scope="col">{% translate "User" %}</th>
+                    <th scope="col">{% translate "Email" %}</th>
+                    <th scope="col">{% translate "Role" %}</th>
+                    <th scope="col">{% translate "Specialty" %}</th>
+                    <th scope="col">{% translate "Status" %}</th>
+                    <th scope="col">{% translate "Joined" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,7 +85,7 @@
                     <td>
                         <form method="post" action="{% url 'dashboard:update_user_role' user.id %}" class="mc-role-form">
                             {% csrf_token %}
-                            <label class="mc-sr-only" for="role-{{ user.id }}">Role for {{ user.email }}</label>
+                            <label class="mc-sr-only" for="role-{{ user.id }}">{% translate "Role for" %} {{ user.email }}</label>
                             <select id="role-{{ user.id }}" name="role" class="mc-role-select">
                                 {% for value, label in role_choices %}
                                 <option value="{{ value }}" {% if user.role == value %}selected{% endif %}>
@@ -93,38 +93,38 @@
                                 </option>
                                 {% endfor %}
                             </select>
-                            <button type="submit" class="mc-role-save" aria-label="Save role for {{ user.email }}">Save</button>
+                            <button type="submit" class="mc-role-save" aria-label="{% translate "Save role for" %} {{ user.email }}">{% translate "Save" %}</button>
                         </form>
                     </td>
                     <td>
                         {% if user.role == "doctor" %}
                         <form method="post" action="{% url 'dashboard:update_doctor_specialty' user.id %}" class="mc-role-form">
                             {% csrf_token %}
-                            <label class="mc-sr-only" for="specialty-{{ user.id }}">Specialty for {{ user.email }}</label>
+                            <label class="mc-sr-only" for="specialty-{{ user.id }}">{% translate "Specialty for" %} {{ user.email }}</label>
                             <select id="specialty-{{ user.id }}" name="specialty" class="mc-role-select">
-                                <option value="">No specialty</option>
+                                <option value="">{% translate "No specialty" %}</option>
                                 {% for specialty in specialties %}
-                                <option value="{{ specialty.id }}" {% if user.main_specialty_id == specialty.id %}selected{% endif %}>{{ specialty.name }}</option>
+                                <option value="{{ specialty.id }}" {% if user.main_specialty_id == specialty.id %}selected{% endif %}>{{ specialty.name|ui }}</option>
                                 {% endfor %}
                             </select>
-                            <button type="submit" class="mc-role-save" aria-label="Save specialty for {{ user.email }}">Save</button>
+                            <button type="submit" class="mc-role-save" aria-label="{% translate "Save specialty for" %} {{ user.email }}">{% translate "Save" %}</button>
                         </form>
                         {% else %}
-                        <span class="mc-table-muted">Not applicable</span>
+                        <span class="mc-table-muted">{% translate "Not applicable" %}</span>
                         {% endif %}
                     </td>
                     <td>
                         {% if user.is_active %}
-                        <span class="mc-user-status mc-user-status--active">Active</span>
+                        <span class="mc-user-status mc-user-status--active">{% translate "Active" %}</span>
                         {% else %}
-                        <span class="mc-user-status mc-user-status--inactive">Inactive</span>
+                        <span class="mc-user-status mc-user-status--inactive">{% translate "Inactive" %}</span>
                         {% endif %}
                     </td>
                     <td class="mc-user-date">{{ user.date_joined|date:"M j, Y" }}</td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" class="mc-users-empty">No users match your filters.</td>
+                    <td colspan="6" class="mc-users-empty">{% translate "No users match your filters." %}</td>
                 </tr>
                 {% endfor %}
             </tbody>

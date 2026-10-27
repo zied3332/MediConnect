@@ -102,12 +102,12 @@ a:hover {
 
 .mc-btn-primary {
     background: var(--mc-primary);
-    color: var(--mc-text);
+    color:#292d28;
 }
 
 .mc-btn-primary:hover {
     background: var(--mc-primary-hover);
-    color: var(--mc-text);
+    color:#292d28;
 }
 
 .mc-btn-secondary {

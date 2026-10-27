@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from django.conf import settings
 from django.db import models
 
@@ -10,9 +11,9 @@ class Notification(models.Model):
     """
 
     class Type(models.TextChoices):
-        APPOINTMENT = "appointment", "Appointment"
-        REMINDER = "reminder", "Reminder"
-        SYSTEM = "system", "System"
+        APPOINTMENT = "appointment", ui_gettext("Appointment")
+        REMINDER = "reminder", ui_gettext("Reminder")
+        SYSTEM = "system", ui_gettext("System")
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

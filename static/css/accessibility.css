@@ -48,8 +48,8 @@ body :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible 
     overflow: visible;
     clip-path: none;
     white-space: normal;
-    background: #ffffff;
-    color: #242824;
+    background:var(--ui-adaptive-paper,#ffffff);
+    color:var(--ui-adaptive-ink,#242824);
     border: 2px solid #1f5f8b;
     border-radius: 6px;
     text-decoration: underline;
@@ -73,6 +73,13 @@ tbody th[scope="row"] { text-align: left; font-weight: inherit; }
     min-width: 0;
     overflow-wrap: anywhere;
 }
+
+/* Yellow actions always need dark ink, including nested labels and icons. */
+html body :is(.mc-btn-primary,.mc-auth-submit,.mc-care-submit,.mc-status-action-btn,.mc-nav-signup,.mc-nav-mobile-signup,.client-button,.mr-btn-primary,.profile-action-btn,.exam-button--primary,.upload-submit,.medical-record-save,.rx-detail-button--primary,.rx-form-button,.mc-cam-btn--primary,.hp-button-dark,.hp-button-lime,.preferences-form>button),
+html body.client-portal .care-btn:not(.secondary):not(.danger):not(.care-btn-outline){color:#292d28!important;-webkit-text-fill-color:#292d28}
+html body :is(.mc-btn-primary,.mc-auth-submit,.mc-care-submit,.mc-status-action-btn,.mc-nav-signup,.mc-nav-mobile-signup,.client-button,.mr-btn-primary,.profile-action-btn,.exam-button--primary,.upload-submit,.medical-record-save,.rx-detail-button--primary,.rx-form-button,.mc-cam-btn--primary,.hp-button-dark,.hp-button-lime,.preferences-form>button) :is(span,svg),
+html body.client-portal .care-btn:not(.secondary):not(.danger):not(.care-btn-outline) :is(span,svg){color:inherit!important;-webkit-text-fill-color:inherit}
+html body :is(button,input[type=submit]):disabled{opacity:1;cursor:not-allowed}
 
 @media (max-width: 700px) {
     .mc-management-grid { grid-template-columns: minmax(0, 1fr); }

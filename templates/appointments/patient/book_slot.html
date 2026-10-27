@@ -1,21 +1,21 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Book with Dr. {{ doctor.get_full_name }} | MediConnect{% endblock %}
+{% block title %}{% translate "Book with Dr." %} {{ doctor.get_full_name }} {% translate "| MediConnect" %}{% endblock %}
 
 {% block content %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">BOOK AN APPOINTMENT</span>
-        <h1>Book with Dr. {{ doctor.get_full_name|default:doctor.email }}</h1>
-        <p>{{ doctor.main_specialty|default:"General" }} · choose a free time and tell the doctor why you are coming.</p>
+        <span class="mc-page-eyebrow">{% translate "BOOK AN APPOINTMENT" %}</span>
+        <h1>{% translate "Book with Dr." %} {{ doctor.get_full_name|default:doctor.email }}</h1>
+        <p>{{ doctor.main_specialty|default:"General" }} {% translate "· choose a free time and tell the doctor why you are coming." %}</p>
     </div>
-    <a class="mc-users-clear" href="{% url 'appointments:book' %}{% if doctor.main_specialty_id %}?specialty={{ doctor.main_specialty_id }}{% endif %}">← Choose another doctor</a>
+    <a class="mc-users-clear" href="{% url 'appointments:book' %}{% if doctor.main_specialty_id %}?specialty={{ doctor.main_specialty_id }}{% endif %}">{% translate "← Choose another doctor" %}</a>
 </div>
 
-<ol class="mc-steps" aria-label="Booking steps">
-    <li>1. Specialty</li>
-    <li>2. Doctor</li>
-    <li aria-current="step">3. Time &amp; details</li>
+<ol class="mc-steps" aria-label="{% translate "Booking steps" %}">
+    <li>{% translate "1. Specialty" %}</li>
+    <li>{% translate "2. Doctor" %}</li>
+    <li aria-current="step">{% translate "3. Time &amp; details" %}</li>
 </ol>
 
 <section class="mc-panel">
@@ -30,7 +30,7 @@
             {% if form.mode.errors %}<ul class="mc-errors" id="mode-errors" role="alert">{% for e in form.mode.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
             <div class="mc-inline-choices">
                 {% for radio in form.mode %}
-                <label for="{{ radio.id_for_label }}">{{ radio.tag }} {{ radio.choice_label }}</label>
+                <label for="{{ radio.id_for_label }}">{{ radio.tag }} {{ radio.choice_label|ui }}</label>
                 {% endfor %}
             </div>
         </fieldset>
@@ -44,8 +44,8 @@
         </div>
 
         <div class="mc-form-actions">
-            <button type="submit" class="mc-users-filter-button">Send request</button>
-            <a class="mc-users-clear" href="{% url 'appointments:my_list' %}">Cancel</a>
+            <button type="submit" class="mc-users-filter-button">{% translate "Send request" %}</button>
+            <a class="mc-users-clear" href="{% url 'appointments:my_list' %}">{% translate "Cancel" %}</a>
         </div>
         {% endif %}
     </form>

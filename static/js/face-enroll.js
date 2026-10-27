@@ -1,3 +1,5 @@
+function uiGettext(message) { return typeof gettext === "function" ? gettext(message) : message; }
+function uiInterpolate(message, values) { return message.replace(/%\(([^)]+)\)s/g, (_, key) => String(values[key])); }
 /**
  * Face Enrollment for Face Login
  */
@@ -27,7 +29,7 @@ async function loadFaceModels() {
         console.log('Face recognition models loaded');
     } catch (error) {
         console.error('Error loading face models:', error);
-        throw new Error('Failed to load face recognition models');
+        throw new Error(uiGettext('Failed to load face recognition models'));
     }
 }
 
@@ -60,7 +62,7 @@ async function openFaceEnrollModal() {
 // Start camera for enrollment
 async function startEnrollCamera(session) {
     const video = document.getElementById('faceEnrollVideo');
-    if (!video) throw new Error('Video element not found');
+    if (!video) throw new Error(uiGettext('Video element not found'));
     
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -76,7 +78,7 @@ async function startEnrollCamera(session) {
         await video.play();
         
     } catch (error) {
-        throw new Error('Camera access denied. Please allow camera access.');
+        throw new Error(uiGettext('Camera access denied. Please allow camera access.'));
     }
 }
 
@@ -101,7 +103,7 @@ async function captureFace() {
         if (!enrollmentActive(session)) return;
         
         if (!detection) {
-            throw new Error('No face detected. Please ensure your face is clearly visible.');
+            throw new Error(uiGettext('No face detected. Please ensure your face is clearly visible.'));
         }
         
         showEnrollStatus('Face detected! Processing...', 'info');
@@ -160,7 +162,7 @@ async function enrollFaceOnServer(descriptor, imageData) {
     const data = await response.json();
     
     if (!data.success) {
-        throw new Error(data.error || 'Failed to enroll face');
+        throw new Error(data.error || uiGettext('Failed to enroll face'));
     }
 }
 

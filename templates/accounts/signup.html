@@ -1,53 +1,47 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Create an Account | MediConnect{% endblock %}
+{% block language %}{{ LANGUAGE_CODE }}{% endblock %}
+{% block title %}{% translate "Créer un compte | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/login-redesign.css' %}?v=3">
 {% endblock %}
 
 {% block navigation %}
-<div class="mc-auth-header">
+<div class="mc-auth-header login-header">
     <a href="{% url 'core:home' %}" class="mc-auth-brand">
         <span class="mc-auth-logo" aria-hidden="true">+</span>
-        <span>MediConnect</span>
+        <span>{% translate "MediConnect" %}</span>
     </a>
-    <span class="mc-auth-header-note">
-        Already have an account?
-        <a href="{% url 'accounts:login' %}" style="color:#303030;font-weight:600;text-decoration:underline;text-underline-offset:3px;">Log in</a>
-    </span>
-</div>
+    <div class="login-header-actions"><a href="{% url 'core:home' %}">{% translate "← Retour à l’accueil" %}</a><a class="login-create-account" href="{% url 'accounts:login' %}">{% translate "Se connecter ↗" %}</a></div>
+<a class="ui-preferences-link" href="{% url 'core:preferences' %}" aria-label="{% translate "Preferences" %}">⚙ <span>{% translate "Preferences" %}</span></a></div>
 {% endblock %}
 
 {% block content %}
-<section class="mc-auth-page mc-auth-signup">
-    <div class="mc-auth-form-container">
+<section class="mc-auth-page mc-auth-signup mc-auth-login signup-redesign">
+    <aside class="login-story" aria-label="{% translate "Votre futur espace patient" %}"><span class="login-eyebrow">{% translate "LE PREMIER PAS VERS VOTRE SUIVI" %}</span><h2>{% translate "Un compte." %}<br>{% translate "Plus de lien." %}<br><span>{% translate "Moins de démarches." %}</span></h2><p class="login-story-intro">{% translate "Créez votre espace patient et retrouvez les outils pour organiser vos rendez-vous et poursuivre vos échanges." %}</p><div class="login-journey"><div class="login-journey-heading"><span class="login-journey-icon" aria-hidden="true">✚</span><div><strong>{% translate "Votre parcours commence ici" %}</strong><span>{% translate "Un espace pour garder le fil de vos soins." %}</span></div><span class="login-journey-spark" aria-hidden="true">✦</span></div><ol><li><span class="login-step-symbol" aria-hidden="true">01</span><div><strong>{% translate "Trouvez à qui vous adresser" %}</strong><span>{% translate "Des spécialités et des médecins approuvés." %}</span></div></li><li><span class="login-step-symbol" aria-hidden="true">02</span><div><strong>{% translate "Organisez vos rendez-vous" %}</strong><span>{% translate "Choisissez un créneau et suivez vos demandes." %}</span></div></li><li><span class="login-step-symbol" aria-hidden="true">03</span><div><strong>{% translate "Continuez la conversation" %}</strong><span>{% translate "Retrouvez vos comptes rendus et vos messages." %}</span></div></li></ol></div><div class="login-story-footer"><span aria-hidden="true">✦</span><p>{% translate "Votre santé, un peu plus simple." %}<br><strong>{% translate "Bienvenue sur MediConnect." %}</strong></p></div></aside>
+    <div class="mc-auth-form-container mc-auth-login-card">
 
-        <h1>Create an account</h1>
+        <span class="login-eyebrow">{% translate "VOTRE ESPACE PATIENT" %}</span><h1>{% translate "Et si on prenait" %}<br>{% translate "soin du lien ?" %}</h1><p class="mc-auth-subtitle">{% translate "Créez votre compte pour commencer votre parcours." %}</p>
 
         {% include "components/form_errors.html" with form=form error_class="mc-auth-error" only %}
 
         <!-- Google signup -->
-        <a href="/accounts/google/login/?process=signup" style="
-            width:100%; min-height:52px; display:flex; align-items:center;
-            justify-content:center; gap:12px; border:1.5px solid #dadce0;
-            border-radius:6px; background:#fff; color:#3c4043; font-family:inherit;
-            font-size:15px; font-weight:600; cursor:pointer; text-decoration:none;
-            margin-bottom: 20px; transition: background 120ms;
-        " onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">
+        <a href="/accounts/google/login/?process=signup" class="mc-google-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                 <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
-            Sign up with Google
+            {% translate "S’inscrire avec Google" %}
         </a>
 
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;color: var(--mc-page-muted);font-size:13px;">
             <span style="flex:1;height:1px;background:#e8e8e4;"></span>
-            or create with email
+            {% translate "ou avec votre adresse e-mail" %}
             <span style="flex:1;height:1px;background:#e8e8e4;"></span>
         </div>
 
@@ -55,13 +49,13 @@
             {% csrf_token %}
 
             <div class="mc-auth-field">
-                <label for="signup-email">Email</label>
+                <label for="signup-email">{% translate "Adresse e-mail" %}</label>
                 <input
                     type="email"
                     id="signup-email"
                     name="email"
                     value="{{ form.email.value|default:'' }}"
-                    placeholder="you@example.com"
+                    placeholder="{% translate "vous@exemple.com" %}"
                     autocomplete="email"
                     required
                  {% include "components/form_field_attributes.html" with field=form.email only %}>
@@ -70,7 +64,7 @@
 
             <div class="mc-auth-field-row">
                 <div class="mc-auth-field">
-                    <label for="signup-first-name">First name</label>
+                    <label for="signup-first-name">{% translate "Prénom" %}</label>
                     <input
                         type="text"
                         id="signup-first-name"
@@ -83,7 +77,7 @@
                 </div>
 
                 <div class="mc-auth-field">
-                    <label for="signup-last-name">Last name</label>
+                    <label for="signup-last-name">{% translate "Nom" %}</label>
                     <input
                         type="text"
                         id="signup-last-name"
@@ -97,7 +91,7 @@
             </div>
 
             <div class="mc-auth-field">
-                <label for="signup-password">Password</label>
+                <label for="signup-password">{% translate "Mot de passe" %}</label>
                 <input
                     type="password"
                     id="signup-password"
@@ -110,7 +104,7 @@
             </div>
 
             <div class="mc-auth-field">
-                <label for="signup-confirm-password">Confirm password</label>
+                <label for="signup-confirm-password">{% translate "Confirmer le mot de passe" %}</label>
                 <input
                     type="password"
                     id="signup-confirm-password"
@@ -122,14 +116,15 @@
                 {% include "components/field_errors.html" with field=form.confirm_password error_class="mc-auth-field-error" only %}
             </div>
 
-            <button type="submit" class="mc-auth-submit">Create account</button>
+            <button type="submit" class="mc-auth-submit">{% translate "Créer mon compte" %} <span aria-hidden="true">↗</span></button>
 
             <p class="mc-auth-switch">
-                Already have an account?
-                <a href="{% url 'accounts:login' %}">Log in</a>
+                {% translate "Déjà un compte ?" %}
+                <a href="{% url 'accounts:login' %}">{% translate "Se connecter" %}</a>
             </p>
 
         </form>
+        <p class="login-professional">{% translate "Vous êtes médecin ?" %} <a href="{% url 'accounts:doctor_signup' %}">{% translate "Créer votre espace professionnel ↗" %}</a></p>
     </div>
 </section>
 {% endblock %}

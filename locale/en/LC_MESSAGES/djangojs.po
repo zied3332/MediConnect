@@ -1,0 +1,5365 @@
+#
+msgid ""
+msgstr ""
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "% no-shows"
+msgstr "% no-shows"
+
+msgid "%(v0)s / 4 000 caractères"
+msgstr "%(v0)s / 4,000 characters"
+
+msgid "%(v0)s of %(v1)s examination%(v2)s shown."
+msgstr "%(v0)s of %(v1)s examination%(v2)s shown."
+
+msgid "%(v0)s profil%(v1)s"
+msgstr "%(v0)s profile%(v1)s"
+
+msgid "%(v0)s s d'attente dans cette fenêtre"
+msgstr "%(v0)s s waiting in this window"
+
+msgid "%(value0)s already has this role."
+msgstr "%(value0)s already has this role."
+
+msgid "%(value0)s is now a %(value1)s."
+msgstr "%(value0)s is now a %(value1)s."
+
+msgid "%(value0)s was added."
+msgstr "%(value0)s was added."
+
+msgid "%(value0)s was deleted."
+msgstr "%(value0)s was deleted."
+
+msgid "%(value0)s was updated."
+msgstr "%(value0)s was updated."
+
+msgid "%(value0)s's specialty was updated."
+msgstr "%(value0)s's specialty was updated."
+
+msgid "&amp; Dr"
+msgstr "&amp; Dr"
+
+msgid "&copy;"
+msgstr "&copy;"
+
+msgid "&times;"
+msgstr "&times;"
+
+msgid "+ Add Examination"
+msgstr "+ Add Examination"
+
+msgid "+ Book an appointment"
+msgstr "+ Book an appointment"
+
+msgid "+ Create Record"
+msgstr "+ Create Record"
+
+msgid "+ New Prescription"
+msgstr "+ New Prescription"
+
+msgid "+%(count)s this week"
+msgstr "+%(count)s this week"
+
+msgid ". The doctor will need to confirm the new time."
+msgstr ". The doctor will need to confirm the new time."
+
+msgid ". Until then doctors see \"Risk not available\"."
+msgstr ". Until then doctors see \"Risk not available\"."
+
+msgid ". Your documents have been submitted and our team is reviewing them."
+msgstr ". Your documents have been submitted and our team is reviewing them."
+
+msgid "0 seconde écoulée"
+msgstr "0 seconds elapsed"
+
+msgid "0.5 = random, 1 = perfect"
+msgstr "0.5 = random, 1 = perfect"
+
+msgid "1 · Le compte rendu de référence"
+msgstr "1 · The reference report"
+
+msgid "1. Specialty"
+msgstr "1. Specialty"
+
+msgid "2 · Préparer le brouillon"
+msgstr "2 · Prepare the draft"
+
+msgid "2. Doctor"
+msgstr "2. Doctor"
+
+msgid ""
+"20 à 8 000 caractères. Les noms et le dossier du patient ne sont pas ajoutés"
+" automatiquement."
+msgstr ""
+"20 to 8,000 characters. Patient name and file are not added automatically."
+
+msgid "3 · Comparer, corriger, valider"
+msgstr "3 · Compare, correct, validate"
+
+msgid "3. Time &amp; details"
+msgstr "3. Time &amp; details"
+
+msgid "4 000 caractères maximum"
+msgstr "4,000 characters maximum"
+
+msgid "A government-issued photo ID confirming your identity."
+msgstr "A government-issued photo ID confirming your identity."
+
+msgid "ACCOUNT"
+msgstr "ACCOUNT"
+
+msgid "ACCOUNT SETTINGS"
+msgstr "ACCOUNT SETTINGS"
+
+msgid "ADMINISTRATION"
+msgstr "ADMINISTRATION"
+
+msgid ""
+"AI estimate based on booking delay, weekday and the patient's history. It "
+"only assists you: you decide."
+msgstr ""
+"AI estimate based on booking delay, weekday and the patient's history. It "
+"only assists you: you decide."
+
+msgid "AI estimate, you decide"
+msgstr "AI estimate, you decide"
+
+msgid "AI model"
+msgstr "AI model"
+
+msgid "AI model | MediConnect"
+msgstr "AI model | MediConnect"
+
+msgid "AI risk"
+msgstr "AI risk"
+
+msgid "APPOINTMENT"
+msgstr "APPOINTMENT"
+
+msgid "About us"
+msgstr "About us"
+
+msgid "Accepted formats: PDF, JPG, JPEG, PNG. Maximum file size: 10 MB."
+msgstr "Accepted formats: PDF, JPG, JPEG, PNG. Maximum file size: 10 MB."
+
+msgid "Accepter et préparer ✦"
+msgstr "Accept and prepare ✦"
+
+msgid "Access denied"
+msgstr "Access denied"
+
+msgid "Account role"
+msgstr "Account role"
+
+msgid "Account status"
+msgstr "Account status"
+
+msgid "Account summary"
+msgstr "Account summary"
+
+msgid ""
+"Accueil, écoute, clarté des explications… Évitez les informations médicales "
+"personnelles."
+msgstr ""
+"Reception, listening, clarity of explanations… Avoid personal medical "
+"information."
+
+msgid "Accuracy"
+msgstr "Accuracy"
+
+msgid "Accès réservé au médecin concerné."
+msgstr "Access reserved for the concerned doctor."
+
+msgid "Accès réservé aux patients."
+msgstr "Access reserved for patients."
+
+msgid ""
+"Accédez aux antécédents, allergies, examens médicaux et ordonnances du "
+"patient."
+msgstr ""
+"Access the patient's medical history, allergies, medical examinations and "
+"prescriptions."
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Actions for"
+msgstr "Actions for"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Active doctors"
+msgstr "Active doctors"
+
+msgid "Actualiser les messages"
+msgstr "Refresh messages"
+
+msgid ""
+"Add a medical report, laboratory result, or examination image to your "
+"personal medical record."
+msgstr ""
+"Add a medical report, laboratory result, or examination image to your "
+"personal medical record."
+
+msgid "Add availability"
+msgstr "Add availability"
+
+msgid "Add slot"
+msgstr "Add slot"
+
+msgid "Add specialty"
+msgstr "Add specialty"
+
+msgid "Additional information needed"
+msgstr "Additional information needed"
+
+msgid "Additional instructions"
+msgstr "Additional instructions"
+
+msgid "Additional instructions..."
+msgstr "Additional instructions..."
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Admin / Medical Records / Prescriptions"
+msgstr "Admin / Medical Records / Prescriptions"
+
+msgid "Admin Overview | MediConnect"
+msgstr "Admin Overview | MediConnect"
+
+msgid "Admin navigation"
+msgstr "Admin navigation"
+
+msgid "Administration"
+msgstr "Administration"
+
+msgid "Administration workspace"
+msgstr "Administration workspace"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Adresse e-mail"
+msgstr "Email address"
+
+msgid "Afficher"
+msgstr "Show"
+
+msgid "Afficher le mot de passe"
+msgstr "Show password"
+
+msgid ""
+"Ajoutez le lien HTTPS de votre salle vidéo pour permettre au patient de la "
+"rejoindre. Ce lien ouvre un service externe."
+msgstr ""
+"Add the HTTPS link of your video room to allow the patient to join. This "
+"link opens an external service."
+
+msgid "All"
+msgstr "All"
+
+msgid "All Specialties | MediConnect"
+msgstr "All Specialties | MediConnect"
+
+msgid "All appointments"
+msgstr "All appointments"
+
+msgid "All prescriptions"
+msgstr "All prescriptions"
+
+msgid "All roles"
+msgstr "All roles"
+
+msgid "All specialties"
+msgstr "All specialties"
+
+msgid "All time"
+msgstr "All time"
+
+msgid "Allergies"
+msgstr "Allergies"
+
+msgid "An account with this email already exists."
+msgstr "An account with this email already exists."
+
+msgid "An experience that suits you."
+msgstr "An experience that suits you."
+
+msgid ""
+"An unexpected error occurred on our side. Please try again in a few minutes."
+msgstr ""
+"An unexpected error occurred on our side. Please try again in a few minutes."
+
+msgid "Annuler"
+msgstr "Cancel"
+
+msgid "Antécédents médicaux"
+msgstr "Medical history"
+
+msgid "Appearance"
+msgstr "Appearance"
+
+msgid "Application Status | MediConnect"
+msgstr "Application Status | MediConnect"
+
+msgid "Application language"
+msgstr "Application language"
+
+msgid "Application not approved"
+msgstr "Application not approved"
+
+msgid "Applications submitted and pending approval"
+msgstr "Applications submitted and pending approval"
+
+msgid "Appliquer au compte rendu ↓"
+msgstr "Apply to report ↓"
+
+msgid "Apply filters"
+msgstr "Apply filters"
+
+msgid "Appointment"
+msgstr "Appointment"
+
+msgid "Appointment booked"
+msgstr "Appointment booked"
+
+msgid "Appointment confirmed. The patient was notified."
+msgstr "Appointment confirmed. The patient was notified."
+
+msgid "Appointment date"
+msgstr "Appointment date"
+
+msgid "Appointment marked as completed."
+msgstr "Appointment marked as completed."
+
+msgid "Appointment marked as no-show."
+msgstr "Appointment marked as no-show."
+
+msgid "Appointment monitoring"
+msgstr "Appointment monitoring"
+
+msgid "Appointment period"
+msgstr "Appointment period"
+
+msgid "Appointment rejected. The patient was notified."
+msgstr "Appointment rejected. The patient was notified."
+
+msgid "Appointment | MediConnect"
+msgstr "Appointment | MediConnect"
+
+msgid "Appointments"
+msgstr "Appointments"
+
+msgid "Appointments can only be cancelled more than 24 hours in advance."
+msgstr "Appointments can only be cancelled more than 24 hours in advance."
+
+msgid "Appointments can only be changed more than 24 hours in advance."
+msgstr "Appointments can only be changed more than 24 hours in advance."
+
+msgid "Appointments | MediConnect"
+msgstr "Appointments | MediConnect"
+
+msgid "Approve →"
+msgstr "Approve →"
+
+msgid "Approved"
+msgstr "Approved"
+
+msgid "Arabic uses a right-to-left layout."
+msgstr "Arabic uses a right-to-left layout."
+
+msgid "Are you sure you want to delete this examination?"
+msgstr "Are you sure you want to delete this examination?"
+
+msgid "Are you sure you want to permanently delete prescription #"
+msgstr "Are you sure you want to permanently delete prescription #"
+
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+msgid "Assign one main specialty to each doctor."
+msgstr "Assign one main specialty to each doctor."
+
+msgid "Atelier IA"
+msgstr "AI Workshop"
+
+msgid "Au cabinet"
+msgstr "In office"
+
+msgid "Aucun avis pour le moment"
+msgstr "No reviews yet"
+
+msgid ""
+"Aucun médecin approuvé ne correspond à ces critères. Choisissez une autre "
+"spécialité ou effacez votre recherche."
+msgstr ""
+"No approved doctor matches these criteria. Choose another specialty or clear"
+" your search."
+
+msgid ""
+"Aucun médecin correspondant dans l’annuaire. Contactez un professionnel pour"
+" préciser votre besoin."
+msgstr ""
+"No matching doctor in the directory. Contact a professional to clarify your "
+"need."
+
+msgid "Aucun médecin ne correspond pour le moment."
+msgstr "No matching doctor at the moment."
+
+msgid "Aucun médecin trouvé"
+msgstr "No doctor found"
+
+msgid ""
+"Aucun rendez-vous prévu pour le moment. Votre prochain échange commence dans"
+" l’annuaire des médecins."
+msgstr ""
+"No appointments scheduled at the moment. Your next interaction starts in the"
+" doctor directory."
+
+msgid "Aucun rendez-vous à venir. Trouvez le professionnel qui vous convient."
+msgstr "No upcoming appointments. Find the professional that suits you."
+
+msgid "Aucune consultation à afficher"
+msgstr "No consultations to display"
+
+msgid "Aucune conversation à afficher"
+msgstr "No conversations to display"
+
+msgid "Aucune spécialité enregistrée pour le moment."
+msgstr "No specialty registered at the moment."
+
+msgid "Availability"
+msgstr "Availability"
+
+msgid "Availability slot was added."
+msgstr "Availability slot was added."
+
+msgid "Availability slot was removed."
+msgstr "Availability slot was removed."
+
+msgid "Availability slot was updated."
+msgstr "Availability slot was updated."
+
+msgid "Availability slots"
+msgstr "Availability slots"
+
+msgid "Availability status was updated."
+msgstr "Availability status was updated."
+
+msgid "Availability | MediConnect"
+msgstr "Availability | MediConnect"
+
+msgid "Avant votre rendez-vous"
+msgstr "Before your appointment"
+
+msgid "Avec un compte rendu"
+msgstr "With a report"
+
+msgid "Average per appointment"
+msgstr "Average per appointment"
+
+msgid "Avis"
+msgstr "Reviews"
+
+msgid "Avis enregistrés"
+msgstr "Saved reviews"
+
+msgid "Awaiting confirmation"
+msgstr "Awaiting confirmation"
+
+msgid "BIENVENUE DANS VOTRE ESPACE"
+msgstr "WELCOME TO YOUR SPACE"
+
+msgid "BOOK AN APPOINTMENT"
+msgstr "BOOK AN APPOINTMENT"
+
+msgid "Back to Examinations"
+msgstr "Back to Examinations"
+
+msgid "Back to List"
+msgstr "Back to List"
+
+msgid "Back to MediConnect"
+msgstr "Back to MediConnect"
+
+msgid "Back to consultation"
+msgstr "Back to consultation"
+
+msgid "Back to dashboard"
+msgstr "Back to dashboard"
+
+msgid "Back to examinations"
+msgstr "Back to examinations"
+
+msgid "Back to prescription"
+msgstr "Back to prescription"
+
+msgid "Back to prescriptions"
+msgstr "Back to prescriptions"
+
+msgid "Back to specialties"
+msgstr "Back to specialties"
+
+msgid "Best"
+msgstr "Best"
+
+msgid "Bientôt"
+msgstr "Coming soon"
+
+msgid "Bienvenue sur MediConnect."
+msgstr "Welcome to MediConnect."
+
+msgid "Bonjour"
+msgstr "Hello"
+
+msgid "Book an appointment | MediConnect"
+msgstr "Book an appointment | MediConnect"
+
+msgid "Book appointment"
+msgstr "Book appointment"
+
+msgid "Book one now"
+msgstr "Book one now"
+
+msgid "Book with Dr."
+msgstr "Book with Dr."
+
+msgid "Booking steps"
+msgstr "Booking steps"
+
+msgid ""
+"Both use class_weight=\"balanced\" because only about one appointment in "
+"five is a no-show."
+msgstr ""
+"Both use class_weight=\"balanced\" because only about one appointment in "
+"five is a no-show."
+
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
+msgid ""
+"Brouillon appliqué. Vérifiez le formulaire puis enregistrez le compte rendu."
+msgstr "Draft applied. Review the form then save the report."
+
+msgid ""
+"Brouillon prêt. Comparez les rubriques avec vos notes avant de les "
+"appliquer."
+msgstr ""
+"Draft ready. Compare the sections with your notes before applying them."
+
+msgid "Brouillon à vérifier"
+msgstr "Draft to review"
+
+msgid "Browse"
+msgstr "Browse"
+
+msgid "Browse and download your medical reports."
+msgstr "Browse and download your medical reports."
+
+msgid "Browse healthcare"
+msgstr "Browse healthcare"
+
+msgid "Browse specialties"
+msgstr "Browse specialties"
+
+msgid "CONFIRM DELETION"
+msgstr "CONFIRM DELETION"
+
+msgid "CONSULTATION INFORMATION"
+msgstr "CONSULTATION INFORMATION"
+
+msgid "COPILOTE DE RÉDACTION"
+msgstr "WRITING COPILOT"
+
+msgid "CREATED"
+msgstr "CREATED"
+
+msgid "Camera access denied. Please allow camera access."
+msgstr "Camera access denied. Please allow camera access."
+
+msgid "Camera is off."
+msgstr "Camera is off."
+
+msgid "Camera not started"
+msgstr "Camera not started"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Cancel appointment"
+msgstr "Cancel appointment"
+
+msgid "Cancel appointment | MediConnect"
+msgstr "Cancel appointment | MediConnect"
+
+msgid "Cancel this appointment?"
+msgstr "Cancel this appointment?"
+
+msgid "Cancelled"
+msgstr "Cancelled"
+
+msgid ""
+"Cannot delete this examination because it contains protected related data."
+msgstr ""
+"Cannot delete this examination because it contains protected related data."
+
+msgid ""
+"Cannot delete this medical record because it contains protected related "
+"data."
+msgstr ""
+"Cannot delete this medical record because it contains protected related "
+"data."
+
+msgid ""
+"Cannot delete this prescription because it contains protected related data."
+msgstr ""
+"Cannot delete this prescription because it contains protected related data."
+
+msgid "Capture Face"
+msgstr "Capture Face"
+
+msgid "Captured photo"
+msgstr "Captured photo"
+
+msgid "Cardiologie"
+msgstr "Cardiology"
+
+msgid "Cardiology"
+msgstr "Cardiology"
+
+msgid "Ce qui a été constaté"
+msgstr "What was observed"
+
+msgid "Ce rendez-vous possède un compte rendu et ne peut pas être supprimé."
+msgstr "This appointment has a report and cannot be deleted."
+
+msgid ""
+"Ces consultations sont terminées. Vous pouvez partager votre expérience."
+msgstr "These consultations are completed. You can share your experience."
+
+msgid "Cet assistant est réservé aux patients."
+msgstr "This assistant is reserved for patients."
+
+msgid ""
+"Cette action prépare le formulaire ci-dessous. Seul son enregistrement rend "
+"le compte rendu disponible au patient."
+msgstr ""
+"This action prepares the form below. Only saving it makes the report "
+"available to the patient."
+
+msgid ""
+"Cette conversation est accessible au patient et au médecin de la "
+"consultation."
+msgstr ""
+"This conversation is accessible to the patient and the consultation doctor."
+
+msgid ""
+"Cette fiche facilite la lecture du compte rendu. Si une information vous "
+"semble ambiguë, demandez une précision à votre médecin."
+msgstr ""
+"This sheet makes the report easier to read. If any information seems "
+"ambiguous, ask your doctor for clarification."
+
+msgid "Chaque consultation,"
+msgstr "Each consultation,"
+
+msgid "Check your email"
+msgstr "Check your email"
+
+msgid "Check your email | MediConnect"
+msgstr "Check your email | MediConnect"
+
+msgid "Choisir un créneau avec Dr %(v0)s"
+msgstr "Choose a time slot with Dr %(v0)s"
+
+msgid "Choisir un créneau →"
+msgstr "Choose a time slot →"
+
+msgid "Choisir votre spécialité"
+msgstr "Choose your specialty"
+
+msgid "Choisissez parmi les créneaux proposés."
+msgstr "Choose from the proposed time slots."
+
+msgid "Choisissez un créneau et suivez vos demandes."
+msgstr "Choose a time slot and track your requests."
+
+msgid "Choisissez votre rendez-vous"
+msgstr "Choose your appointment"
+
+msgid "Choose a specialty"
+msgstr "Choose a specialty"
+
+msgid "Choose a specialty, then one of our verified doctors."
+msgstr "Choose a specialty, then one of our verified doctors."
+
+msgid "Choose a time slot"
+msgstr "Choose a time slot"
+
+msgid "Choose the atmosphere in which you feel most comfortable."
+msgstr "Choose the atmosphere in which you feel most comfortable."
+
+msgid ""
+"Choose your appearance and language. Your preferences apply across the "
+"application on this browser."
+msgstr ""
+"Choose your appearance and language. Your preferences apply across the "
+"application on this browser."
+
+msgid "Chosen"
+msgstr "Chosen"
+
+msgid "Chosen model"
+msgstr "Chosen model"
+
+msgid "Class"
+msgstr "Class"
+
+msgid "Classement des extraits et vérification des sources…"
+msgstr "Sorting excerpts and verifying sources…"
+
+msgid "Classification report"
+msgstr "Classification report"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Click"
+msgstr "Click"
+
+msgid ""
+"Click the link in the email to confirm your address and proceed to upload "
+"your verification documents."
+msgstr ""
+"Click the link in the email to confirm your address and proceed to upload "
+"your verification documents."
+
+msgid "Clinics — Coming soon"
+msgstr "Clinics — Coming soon"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Close face enrollment"
+msgstr "Close face enrollment"
+
+msgid "Close navigation"
+msgstr "Close navigation"
+
+msgid "Close navigation menu"
+msgstr "Close navigation menu"
+
+msgid "Close specialty details"
+msgstr "Close specialty details"
+
+msgid "Coming soon"
+msgstr "Coming soon"
+
+msgid "Commencez la conversation"
+msgstr "Start the conversation"
+
+msgid "Commencez par un nom ou une spécialité"
+msgstr "Start with a name or specialty"
+
+msgid "Comment ça marche"
+msgstr "How it works"
+
+msgid "Compared models"
+msgstr "Compared models"
+
+msgid "Complete the medication information and instructions."
+msgstr "Complete the medication information and instructions."
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "Completed consultations"
+msgstr "Completed consultations"
+
+msgid "Completed visits"
+msgstr "Completed visits"
+
+msgid "Completed:"
+msgstr "Completed:"
+
+msgid ""
+"Complétez les trois rubriques et confirmez la vérification avant "
+"publication."
+msgstr ""
+"Complete the three sections and confirm verification before publishing."
+
+msgid "Complétez les trois rubriques et confirmez votre vérification."
+msgstr "Complete the three sections and confirm your verification."
+
+msgid "Comprendre votre suivi,"
+msgstr "Understand your follow-up,"
+
+msgid "Compte rendu médical"
+msgstr "Medical report"
+
+msgid "Compte rendu · N°"
+msgstr "Report · No."
+
+msgid "Comptes rendus disponibles"
+msgstr "Available reports"
+
+msgid "Comptes rendus et échanges, au même endroit."
+msgstr "Reports and exchanges, in one place."
+
+msgid "Computing"
+msgstr "Computing"
+
+msgid "Computing risk…"
+msgstr "Computing risk…"
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Confirm appointment with"
+msgstr "Confirm appointment with"
+
+msgid "Confirm permanent deletion of"
+msgstr "Confirm permanent deletion of"
+
+msgid "Confirm rejection"
+msgstr "Confirm rejection"
+
+msgid "Confirm requests and record how consultations went."
+msgstr "Confirm requests and record how consultations went."
+
+msgid "Confirm the removal of this examination record."
+msgstr "Confirm the removal of this examination record."
+
+msgid "Confirmation"
+msgstr "Confirmation"
+
+msgid "Confirmed"
+msgstr "Confirmed"
+
+msgid "Confirmed — actions available once it starts"
+msgstr "Confirmed — actions available once it starts"
+
+msgid "Confirmer la suppression"
+msgstr "Confirm deletion"
+
+msgid "Confirmer le mot de passe"
+msgstr "Confirm password"
+
+msgid "Confirmez l'envoi du diagnostic et des notes au service Anthropic."
+msgstr "Confirm sending the diagnosis and notes to Anthropic service."
+
+msgid "Confirmé"
+msgstr "Confirmed"
+
+msgid "Confusion matrix"
+msgstr "Confusion matrix"
+
+msgid "Confusion matrix of the test set"
+msgstr "Confusion matrix of the test set"
+
+msgid "Connectez-vous pour retrouver votre parcours de soins."
+msgstr "Sign in to access your care journey."
+
+msgid "Connexion | MediConnect"
+msgstr "Sign in | MediConnect"
+
+msgid "Conserver la consultation"
+msgstr "Keep consultation"
+
+msgid "Consultation"
+msgstr "Consultation"
+
+msgid "Consultation #"
+msgstr "Consultation #"
+
+msgid "Consultation Inbox | MediConnect"
+msgstr "Consultation Inbox | MediConnect"
+
+msgid "Consultation Reviews | MediConnect"
+msgstr "Consultation Reviews | MediConnect"
+
+msgid "Consultation du"
+msgstr "Consultation of"
+
+msgid "Consultation enregistrée."
+msgstr "Consultation saved."
+
+msgid "Consultation information"
+msgstr "Consultation information"
+
+msgid "Consultation type"
+msgstr "Consultation type"
+
+msgid "Consultation à distance"
+msgstr "Remote consultation"
+
+msgid "Consultations"
+msgstr "Consultations"
+
+msgid "Consultations | MediConnect"
+msgstr "Consultations | MediConnect"
+
+msgid "Consulter"
+msgstr "Consult"
+
+msgid "Consulter les prescriptions de mes médecins."
+msgstr "View my doctors' prescriptions."
+
+msgid "Consulter l’annuaire complet ↗"
+msgstr "View full directory ↗"
+
+msgid ""
+"Consultez les créneaux proposés et envoyez votre demande depuis votre espace"
+" patient."
+msgstr "View available slots and send your request from your patient portal."
+
+msgid "Consultez ses créneaux pour choisir votre rendez-vous."
+msgstr "View their available slots to choose your appointment."
+
+msgid "Continuer avec Google"
+msgstr "Continue with Google"
+
+msgid "Continuez la conversation"
+msgstr "Continue the conversation"
+
+msgid "Conversation"
+msgstr "Conversation"
+
+msgid "Create Examination"
+msgstr "Create Examination"
+
+msgid "Create Prescription"
+msgstr "Create Prescription"
+
+msgid "Create a prescription for an eligible consultation."
+msgstr "Create a prescription for an eligible consultation."
+
+msgid "Create a prescription for your patient's consultation."
+msgstr "Create a prescription for your patient's consultation."
+
+msgid "Create a specialty for doctors."
+msgstr "Create a specialty for doctors."
+
+msgid "Create an account"
+msgstr "Create an account"
+
+msgid "Create and manage the time slots doctors offer."
+msgstr "Create and manage the time slots doctors offer."
+
+msgid "Create prescription"
+msgstr "Create prescription"
+
+msgid "Created"
+msgstr "Created"
+
+msgid "Created:"
+msgstr "Created:"
+
+msgid "Creating new prescription"
+msgstr "Creating new prescription"
+
+msgid "Créer mon compte"
+msgstr "Create my account"
+
+msgid "Créer mon espace médecin"
+msgstr "Create my doctor account"
+
+msgid "Créer un compte patient"
+msgstr "Create a patient account"
+
+msgid "Créer un compte | MediConnect"
+msgstr "Create an account | MediConnect"
+
+msgid "Créer un compte ↗"
+msgstr "Create an account ↗"
+
+msgid "Créer un espace médecin | MediConnect"
+msgstr "Create a doctor account | MediConnect"
+
+msgid "Créer votre espace professionnel ↗"
+msgstr "Create your professional account ↗"
+
+msgid ""
+"Créez votre compte médecin. Confirmez ensuite votre e-mail et transmettez "
+"vos justificatifs pour faire vérifier votre candidature."
+msgstr ""
+"Create your doctor account. Then confirm your email and submit your "
+"credentials to have your application verified."
+
+msgid "Créez votre compte pour commencer votre parcours."
+msgstr "Create your account to begin your journey."
+
+msgid ""
+"Créez votre espace patient et retrouvez les outils pour organiser vos "
+"rendez-vous et poursuivre vos échanges."
+msgstr ""
+"Create your patient account and access tools to organize your appointments "
+"and continue your conversations."
+
+msgid "Current doctor schedules."
+msgstr "Current doctor schedules."
+
+msgid "Currently"
+msgstr "Currently"
+
+msgid "DASHBOARD OVERVIEW"
+msgstr "DASHBOARD OVERVIEW"
+
+msgid "DELETE PRESCRIPTION"
+msgstr "DELETE PRESCRIPTION"
+
+msgid "DELETE SPECIALTY"
+msgstr "DELETE SPECIALTY"
+
+msgid "DES PROFESSIONNELS À RENCONTRER"
+msgstr "PROFESSIONALS TO MEET"
+
+msgid "DOCTOR MANAGEMENT"
+msgstr "DOCTOR MANAGEMENT"
+
+msgid "DOCTOR PORTAL"
+msgstr "DOCTOR PORTAL"
+
+msgid "DOCTOR PORTAL / MEDICAL RECORDS"
+msgstr "DOCTOR PORTAL / MEDICAL RECORDS"
+
+msgid "DOCTOR PORTAL / PRESCRIPTIONS"
+msgstr "DOCTOR PORTAL / PRESCRIPTIONS"
+
+msgid "DOCTOR REVIEW"
+msgstr "DOCTOR REVIEW"
+
+msgid "Dark"
+msgstr "Dark"
+
+msgid "Dashboard navigation"
+msgstr "Dashboard navigation"
+
+msgid "Dashboard | MediConnect"
+msgstr "Dashboard | MediConnect"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Date:"
+msgstr "Date:"
+
+msgid "Day"
+msgstr "Day"
+
+msgid "De quoi avez-vous besoin ?"
+msgstr "What do you need?"
+
+msgid "Define specialties and assign one main specialty to each doctor."
+msgstr "Define specialties and assign one main specialty to each doctor."
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Delete Consultation #"
+msgstr "Delete Consultation #"
+
+msgid "Delete Examination"
+msgstr "Delete Examination"
+
+msgid "Delete Examination #"
+msgstr "Delete Examination #"
+
+msgid "Delete Medical Examination"
+msgstr "Delete Medical Examination"
+
+msgid "Delete Medical Record"
+msgstr "Delete Medical Record"
+
+msgid "Delete Medical Record | MediConnect"
+msgstr "Delete Medical Record | MediConnect"
+
+msgid "Delete Prescription"
+msgstr "Delete Prescription"
+
+msgid "Delete Prescription #"
+msgstr "Delete Prescription #"
+
+msgid "Delete Prescription | MediConnect"
+msgstr "Delete Prescription | MediConnect"
+
+msgid "Delete Prescription?"
+msgstr "Delete Prescription?"
+
+msgid "Delete Record"
+msgstr "Delete Record"
+
+msgid "Delete appointment"
+msgstr "Delete appointment"
+
+msgid "Delete availability on"
+msgstr "Delete availability on"
+
+msgid "Delete examination #"
+msgstr "Delete examination #"
+
+msgid "Delete medical record #"
+msgstr "Delete medical record #"
+
+msgid "Delete notification:"
+msgstr "Delete notification:"
+
+msgid "Delete prescription"
+msgstr "Delete prescription"
+
+msgid "Delete prescription #"
+msgstr "Delete prescription #"
+
+msgid "Delete specialty"
+msgstr "Delete specialty"
+
+msgid "Delete this specialty?"
+msgstr "Delete this specialty?"
+
+msgid "Delete “%(v0)s”?"
+msgstr "Delete \"%(v0)s\"?"
+
+msgid "Demonstration data"
+msgstr "Demonstration data"
+
+msgid "Dentistry"
+msgstr "Dentistry"
+
+msgid "Dermatologie"
+msgstr "Dermatology"
+
+msgid "Dermatology"
+msgstr "Dermatology"
+
+msgid "Dernier échange :"
+msgstr "Last exchange:"
+
+msgid "Dernière modification :"
+msgstr "Last modified:"
+
+msgid "Dernière validation :"
+msgstr "Last validation:"
+
+msgid "Des avis associés à des consultations terminées."
+msgstr "Reviews associated with completed consultations."
+
+msgid "Des médecins approuvés sur la plateforme."
+msgstr "Approved doctors on the platform."
+
+msgid "Des outils numériques. Des liens humains."
+msgstr "Digital tools. Human connections."
+
+msgid "Des spécialités et des médecins approuvés."
+msgstr "Approved specialties and doctors."
+
+msgid "Describe this specialty"
+msgstr "Describe this specialty"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Descriptor must be array of 128 numbers"
+msgstr "Descriptor must be array of 128 numbers"
+
+msgid "Descriptor required"
+msgstr "Descriptor required"
+
+msgid "Designed to make healthcare more accessible."
+msgstr "Designed to make healthcare more accessible."
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Devenir médecin partenaire"
+msgstr "Become a partner doctor"
+
+msgid "Diagnostic"
+msgstr "Diagnosis"
+
+msgid "Didn't receive it? Check your spam folder. The link expires in 3 days."
+msgstr ""
+"Didn't receive it? Check your spam folder. The link expires in 3 days."
+
+msgid "Diploma / specialty certificate"
+msgstr "Diploma / specialty certificate"
+
+msgid "Diploma or specialty certificate"
+msgstr "Diploma or specialty certificate"
+
+msgid "Diploma or specialty certificate."
+msgstr "Diploma or specialty certificate."
+
+msgid "Doctor"
+msgstr "Doctor"
+
+msgid "Doctor Applications"
+msgstr "Doctor Applications"
+
+msgid "Doctor Applications | MediConnect"
+msgstr "Doctor Applications | MediConnect"
+
+msgid "Doctor Dashboard | MediConnect"
+msgstr "Doctor Dashboard | MediConnect"
+
+msgid "Doctor Information"
+msgstr "Doctor Information"
+
+msgid "Doctor Portal"
+msgstr "Doctor Portal"
+
+msgid "Doctor applications"
+msgstr "Doctor applications"
+
+msgid "Doctor availability"
+msgstr "Doctor availability"
+
+msgid "Doctor availability slots"
+msgstr "Doctor availability slots"
+
+msgid "Doctor navigation"
+msgstr "Doctor navigation"
+
+msgid "Doctor specialties"
+msgstr "Doctor specialties"
+
+msgid "Doctor specialty assignments"
+msgstr "Doctor specialty assignments"
+
+msgid "Doctor verification"
+msgstr "Doctor verification"
+
+msgid "Doctor workspace"
+msgstr "Doctor workspace"
+
+msgid "Doctor's note"
+msgstr "Doctor's note"
+
+msgid "Doctor:"
+msgstr "Doctor:"
+
+msgid "Doctors"
+msgstr "Doctors"
+
+msgid "Doctors awaiting review"
+msgstr "Doctors awaiting review"
+
+msgid "Doctors seen"
+msgstr "Doctors seen"
+
+msgid "Documenter les soins,"
+msgstr "Document care,"
+
+msgid "Documents needed"
+msgstr "Documents needed"
+
+msgid "Documents submitted"
+msgstr "Documents submitted"
+
+msgid "Donner mon avis ★"
+msgstr "Give my feedback ★"
+
+msgid "Donner mon avis ★ - consultation #"
+msgstr "Give my review ★ - consultation #"
+
+msgid "Dossier médical du patient"
+msgstr "Patient medical record"
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Download Examination"
+msgstr "Download Examination"
+
+msgid "Download examination #"
+msgstr "Download examination #"
+
+msgid "Download the dataset (see README), then run"
+msgstr "Download the dataset (see README), then run"
+
+msgid "Dr"
+msgstr "Dr"
+
+msgid "Dr %(v0)s"
+msgstr "Dr %(v0)s"
+
+msgid "Dr."
+msgstr "Dr."
+
+msgid "Dr. %(value0)s has been approved."
+msgstr "Dr. %(value0)s has been approved."
+
+msgid "Dr. %(value0)s has been asked for more info."
+msgstr "Dr. %(value0)s has been asked for more info."
+
+msgid "Dr. %(value0)s's application has been rejected."
+msgstr "Dr. %(value0)s's application has been rejected."
+
+msgid "Du compte rendu"
+msgstr "From the report"
+
+msgid "Du premier clic au suivi."
+msgstr "From first click to follow-up."
+
+msgid "Du texte brut à une structure claire."
+msgstr "From raw text to clear structure."
+
+msgid "Duration"
+msgstr "Duration"
+
+msgid "DÉCOUVREZ NOS PRATICIENS"
+msgstr "DISCOVER OUR PRACTITIONERS"
+
+msgid ""
+"Découvrez les spécialités présentes et choisissez parmi les médecins "
+"approuvés de MediConnect."
+msgstr ""
+"Discover the available specialties and choose from MediConnect's approved "
+"doctors."
+
+msgid "Découvrir les médecins"
+msgstr "Discover doctors"
+
+msgid "Découvrir les médecins ↗"
+msgstr "Discover doctors ↗"
+
+msgid ""
+"Décrivez votre besoin en quelques phrases. Notre assistant propose une "
+"spécialité de la plateforme, à confirmer avec un professionnel."
+msgstr ""
+"Describe your need in a few sentences. Our assistant suggests a specialty "
+"from the platform, to be confirmed with a professional."
+
+msgid "Décrivez votre état en quelques phrases"
+msgstr "Describe your condition in a few sentences"
+
+msgid ""
+"Décrivez votre état. La proposition apparaîtra ici, sans quitter cette page."
+msgstr ""
+"Describe your condition. The suggestion will appear here, without leaving "
+"this page."
+
+msgid "Déjà un compte ?"
+msgstr "Already have an account?"
+
+msgid ""
+"D’après votre description, cette spécialité est une piste à explorer avec un"
+" professionnel."
+msgstr ""
+"Based on your description, this specialty is worth exploring with a "
+"professional."
+
+msgid "ENT (Ear, Nose & Throat)"
+msgstr "ENT (Ear, Nose & Throat)"
+
+msgid "ERROR 404"
+msgstr "ERROR 404"
+
+msgid "ERROR 500"
+msgstr "ERROR 500"
+
+msgid ""
+"Each patient can have one medical record. Patients with existing records are"
+" managed below."
+msgstr ""
+"Each patient can have one medical record. Patients with existing records are"
+" managed below."
+
+msgid ""
+"Each slot lasts 30 minutes. Use the arrow keys to move between times of the "
+"same day."
+msgstr ""
+"Each slot lasts 30 minutes. Use the arrow keys to move between times of the "
+"same day."
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Edit Availability | MediConnect"
+msgstr "Edit Availability | MediConnect"
+
+msgid "Edit Consultation Message | MediConnect"
+msgstr "Edit Consultation Message | MediConnect"
+
+msgid "Edit Consultation | MediConnect"
+msgstr "Edit Consultation | MediConnect"
+
+msgid "Edit Examination"
+msgstr "Edit Examination"
+
+msgid "Edit Prescription"
+msgstr "Edit Prescription"
+
+msgid "Edit Record"
+msgstr "Edit Record"
+
+msgid "Edit availability"
+msgstr "Edit availability"
+
+msgid "Edit availability on"
+msgstr "Edit availability on"
+
+msgid "Edit examination #"
+msgstr "Edit examination #"
+
+msgid "Edit medical record #"
+msgstr "Edit medical record #"
+
+msgid "Edit prescription"
+msgstr "Edit prescription"
+
+msgid "Edit prescription #"
+msgstr "Edit prescription #"
+
+msgid "Edit specialty"
+msgstr "Edit specialty"
+
+msgid "Editing existing prescription"
+msgstr "Editing existing prescription"
+
+msgid "Effacer"
+msgstr "Clear"
+
+msgid "Effacer cette orientation et mes réponses"
+msgstr "Clear this orientation and my answers"
+
+msgid "Effacer les filtres"
+msgstr "Clear filters"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Email address"
+msgstr "Email address"
+
+msgid "Email confirmed"
+msgstr "Email confirmed"
+
+msgid "En attente de validation médicale"
+msgstr "Awaiting medical validation"
+
+msgid ""
+"En cliquant sur « Accepter et préparer », vous acceptez l’envoi de ce texte "
+"à Anthropic pour obtenir une orientation. Pour la démonstration, utilisez "
+"des informations fictives."
+msgstr ""
+"By clicking \"Accept and Prepare\", you agree to send this text to Anthropic"
+" to obtain guidance. For the demonstration, use fictitious information."
+
+msgid "En préparation"
+msgstr "In preparation"
+
+msgid "End time must be after start time."
+msgstr "End time must be after start time."
+
+msgid "Endocrinology"
+msgstr "Endocrinology"
+
+msgid "Enregistrer"
+msgstr "Save"
+
+msgid "Enregistrer le compte rendu"
+msgstr "Save report"
+
+msgid "Enregistrer mon avis"
+msgstr "Save my opinion"
+
+msgid "Enter your password"
+msgstr "Enter your password"
+
+msgid "Envoyer le message →"
+msgstr "Send message →"
+
+msgid "Envoyé"
+msgstr "Sent"
+
+msgid "Espace médecin · Compte rendu"
+msgstr "Physician Portal · Report"
+
+msgid "Essayer l’orientation IA ✦"
+msgstr "Try AI guidance ✦"
+
+msgid "Essayez un autre nom ou une autre spécialité."
+msgstr "Try another name or specialty."
+
+msgid "Et si on prenait"
+msgstr "What if we took"
+
+msgid "Examens affichés : %(shown)s / %(total)s"
+msgstr "Examinations shown: %(shown)s / %(total)s"
+
+msgid "Examens médicaux"
+msgstr "Medical examinations"
+
+msgid "Examination"
+msgstr "Examination"
+
+msgid "Examination #"
+msgstr "Examination #"
+
+msgid "Examination Date"
+msgstr "Examination Date"
+
+msgid "Examination Details"
+msgstr "Examination Details"
+
+msgid "Examination date"
+msgstr "Examination date"
+
+msgid "Examination details"
+msgstr "Examination details"
+
+msgid "Examination documents"
+msgstr "Examination documents"
+
+msgid "Examination summary"
+msgstr "Examination summary"
+
+msgid "Examination title"
+msgstr "Examination title"
+
+msgid "Examination | MediConnect"
+msgstr "Examination | MediConnect"
+
+msgid ""
+"Expliquez ce que vous ressentez, depuis quand et ce qui vous gêne au "
+"quotidien. Ne renseignez ni nom ni coordonnées."
+msgstr ""
+"Explain what you feel, since when and what bothers you in daily life. Do not"
+" provide any name or contact details."
+
+msgid ""
+"Expliquez votre besoin. Retrouvez une spécialité et des médecins approuvés."
+msgstr "Explain your need. Find a specialty and approved doctors."
+
+msgid "Explorer MediConnect"
+msgstr "Explore MediConnect"
+
+msgid "Explorer la plateforme ↗"
+msgstr "Explore the platform ↗"
+
+msgid "Explorez les spécialités et les médecins approuvés."
+msgstr "Explore approved specialties and doctors."
+
+msgid ""
+"Explorez les spécialités et les profils approuvés. Besoin d’un point de "
+"départ ? L’assistant IA peut vous guider."
+msgstr ""
+"Explore approved specialties and profiles. Need a starting point? The AI "
+"assistant can guide you."
+
+msgid "Extra 48h reminder sent because risk is high."
+msgstr "Extra 48h reminder sent because risk is high."
+
+msgid "F1 (no-show)"
+msgstr "F1 (no-show)"
+
+msgid "F1 score"
+msgstr "F1 score"
+
+msgid "Face Login"
+msgstr "Face Login"
+
+msgid "Face encoding for facial recognition login (JSON array)"
+msgstr "Face encoding for facial recognition login (JSON array)"
+
+msgid "Face enrolled successfully"
+msgstr "Face enrolled successfully"
+
+msgid "Face login enabled"
+msgstr "Face login enabled"
+
+msgid "Face login not configured"
+msgstr "Face login not configured"
+
+msgid "Face login not set up"
+msgstr "Face login not set up"
+
+msgid "Face recognition requires access to your device camera."
+msgstr "Face recognition requires access to your device camera."
+
+msgid "Facial recognition is configured for your account."
+msgstr "Facial recognition is configured for your account."
+
+msgid "Failed"
+msgstr "Failed"
+
+msgid "Failed to enroll face"
+msgstr "Failed to enroll face"
+
+msgid "Failed to load face recognition models"
+msgstr "Failed to load face recognition models"
+
+msgid "Features used"
+msgstr "Features used"
+
+msgid "Fermer le menu"
+msgstr "Close menu"
+
+msgid ""
+"Fiche préparée avec une assistance IA, puis vérifiée et validée par votre "
+"médecin."
+msgstr ""
+"Document prepared with AI assistance, then verified and validated by your "
+"doctor."
+
+msgid "Fichier"
+msgstr "File"
+
+msgid "File"
+msgstr "File"
+
+msgid "Fill in the information below to add your document."
+msgstr "Fill in the information below to add your document."
+
+msgid "Filled by an admin when the application is rejected."
+msgstr "Filled by an admin when the application is rejected."
+
+msgid "Filter appointments"
+msgstr "Filter appointments"
+
+msgid "Filter by role"
+msgstr "Filter by role"
+
+msgid "Find a doctor"
+msgstr "Find a doctor"
+
+msgid "Find doctors"
+msgstr "Find doctors"
+
+msgid "Follow your requests and upcoming consultations."
+msgstr "Follow your requests and upcoming consultations."
+
+msgid "For Patients"
+msgstr "For Patients"
+
+msgid "For Providers"
+msgstr "For Providers"
+
+msgid ""
+"For each new booking it estimates the probability that the patient will not "
+"come (Low &lt; 30 %, Medium &lt; 60 %, High above). Doctors see this "
+"estimate next to the appointment; it never confirms, rejects or cancels "
+"anything on its own. The only automatic effect is an extra reminder sent 48 "
+"hours before a confirmed appointment when the risk is High."
+msgstr ""
+"For each new booking it estimates the probability that the patient will not "
+"come (Low &lt; 30 %, Medium &lt; 60 %, High above). Doctors see this "
+"estimate next to the appointment; it never confirms, rejects or cancels "
+"anything on its own. The only automatic effect is an extra reminder sent 48 "
+"hours before a confirmed appointment when the risk is High."
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Free"
+msgstr "Free"
+
+msgid "Friday"
+msgstr "Friday"
+
+msgid "From healthcare providers"
+msgstr "From healthcare providers"
+
+msgid "Full name"
+msgstr "Full name"
+
+msgid "Garder le contact après ma consultation."
+msgstr "Stay in touch after my consultation."
+
+msgid "Gardez le fil de vos soins"
+msgstr "Keep track of your care"
+
+msgid "Gastroenterology"
+msgstr "Gastroenterology"
+
+msgid "General Medicine"
+msgstr "General Medicine"
+
+msgid "Go to my dashboard →"
+msgstr "Go to my dashboard →"
+
+msgid "Good to see you,"
+msgstr "Good to see you,"
+
+msgid "Good to see you."
+msgstr "Good to see you."
+
+msgid "Government-issued identity document"
+msgstr "Government-issued identity document"
+
+msgid "Gynecology & Obstetrics"
+msgstr "Gynecology & Obstetrics"
+
+msgid "Générer une nouvelle version"
+msgstr "Generate a new version"
+
+msgid "Health information"
+msgstr "Health information"
+
+msgid "Healthcare, made simpler."
+msgstr "Healthcare, made simpler."
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Help center"
+msgstr "Help center"
+
+msgid "Here's what's happening across MediConnect."
+msgstr "Here's what's happening across MediConnect."
+
+msgid "Here's your practice at a glance."
+msgstr "Here's your practice at a glance."
+
+msgid "Heureux de"
+msgstr "Happy to"
+
+msgid "Hide"
+msgstr "Hide"
+
+msgid "Hide password"
+msgstr "Hide password"
+
+msgid "Historique des messages"
+msgstr "Message history"
+
+msgid ""
+"Hold your ID card or passport next to your face so both are clearly visible."
+" Your photo is taken live — no upload needed."
+msgstr ""
+"Hold your ID card or passport next to your face so both are clearly visible."
+" Your photo is taken live — no upload needed."
+
+msgid "Hold your ID next to your face, then click Capture"
+msgstr "Hold your ID next to your face, then click Capture"
+
+msgid "Hours"
+msgstr "Hours"
+
+msgid "How it works"
+msgstr "How it works"
+
+msgid ""
+"How well the AI estimates the risk that a patient misses an appointment."
+msgstr ""
+"How well the AI estimates the risk that a patient misses an appointment."
+
+msgid "ID"
+msgstr "ID"
+
+msgid "INBOX"
+msgstr "INBOX"
+
+msgid "If you believe this decision is an error, please contact"
+msgstr "If you believe this decision is an error, please contact"
+
+msgid "If you believe this is an error, please contact"
+msgstr "If you believe this is an error, please contact"
+
+msgid "Imprimer / PDF"
+msgstr "Print / PDF"
+
+msgid "In-office"
+msgstr "In-office"
+
+msgid "Inactive"
+msgstr "Inactive"
+
+msgid "Include medication names, dosages, frequency, and treatment duration."
+msgstr "Include medication names, dosages, frequency, and treatment duration."
+
+msgid ""
+"Include precautions, follow-up instructions, or other guidance for the "
+"patient."
+msgstr ""
+"Include precautions, follow-up instructions, or other guidance for the "
+"patient."
+
+msgid ""
+"Include previous medical conditions, chronic illnesses, surgeries, or other "
+"relevant health information."
+msgstr ""
+"Include previous medical conditions, chronic illnesses, surgeries, or other "
+"relevant health information."
+
+msgid "Indisponible"
+msgstr "Unavailable"
+
+msgid "Inference time"
+msgstr "Inference time"
+
+msgid "Information non précisée"
+msgstr "Information not specified"
+
+msgid "Information provided in the patient's medical record."
+msgstr "Information provided in the patient's medical record."
+
+msgid "Information requested from the doctor"
+msgstr "Information requested from the doctor"
+
+msgid "Informations de la consultation"
+msgstr "Consultation information"
+
+msgid "Initializing..."
+msgstr "Initializing..."
+
+msgid "Instructions"
+msgstr "Instructions"
+
+msgid "Invalid JSON"
+msgstr "Invalid JSON"
+
+msgid "Invalid confirmation link | MediConnect"
+msgstr "Invalid confirmation link | MediConnect"
+
+msgid "Invalid email or password. Please try again."
+msgstr "Invalid email or password. Please try again."
+
+msgid "Issued"
+msgstr "Issued"
+
+msgid "Issued Prescriptions"
+msgstr "Issued Prescriptions"
+
+msgid "Issued on"
+msgstr "Issued on"
+
+msgid ""
+"It was trained on the public Kaggle dataset \"Medical Appointment No Shows\""
+" (Brazil, 2016) using only features that MediConnect also knows: booking "
+"delay, weekday, the patient's previous appointments and no-shows, and "
+"whether a reminder was sent."
+msgstr ""
+"It was trained on the public Kaggle dataset \"Medical Appointment No Shows\""
+" (Brazil, 2016) using only features that MediConnect also knows: booking "
+"delay, weekday, the patient's previous appointments and no-shows, and "
+"whether a reminder was sent."
+
+msgid ""
+"J'ai comparé chaque rubrique avec le compte rendu et je valide sa "
+"publication au patient."
+msgstr ""
+"I have compared each section with the report and I confirm its publication "
+"to the patient."
+
+msgid ""
+"Je confirme l'envoi de ces deux champs à Anthropic pour préparer ce "
+"brouillon."
+msgstr ""
+"I confirm sending these two fields to Anthropic to prepare this draft."
+
+msgid "Join as a doctor"
+msgstr "Join as a doctor"
+
+msgid "Joined"
+msgstr "Joined"
+
+msgid "Justificatifs"
+msgstr "Supporting documents"
+
+msgid ""
+"J’accepte l’envoi de ces notes à Anthropic pour préparer un brouillon. Pour "
+"un test, j’utilise des données fictives."
+msgstr ""
+"I agree to send these notes to Anthropic to prepare a draft. For testing, I "
+"use fictional data."
+
+msgid "J’ai comparé ce brouillon avec mes notes et corrigé son contenu."
+msgstr "I have compared this draft with my notes and corrected its content."
+
+msgid "Keep the current time"
+msgstr "Keep the current time"
+
+msgid ""
+"Keep your medical history and allergies up to date so your healthcare "
+"providers can better understand your needs."
+msgstr ""
+"Keep your medical history and allergies up to date so your healthcare "
+"providers can better understand your needs."
+
+msgid "Known allergies"
+msgstr "Known allergies"
+
+msgid "Known allergies..."
+msgstr "Known allergies..."
+
+msgid ""
+"L'IA reformule le texte existant. Elle ne remplace pas votre diagnostic et "
+"ne doit ajouter aucun traitement ni aucune consigne."
+msgstr ""
+"The AI reformulates existing text. It does not replace your diagnosis and "
+"must not add any treatment or instructions."
+
+msgid "L'avis doit concerner le patient et le médecin de cette consultation."
+msgstr "The review must concern the patient and doctor of this consultation."
+
+msgid "L'expérience des patients."
+msgstr "Patient experience."
+
+msgid "LAST UPDATED"
+msgstr "LAST UPDATED"
+
+msgid "LE FIL DE VOS RENCONTRES"
+msgstr "YOUR APPOINTMENTS TIMELINE"
+
+msgid "LE PREMIER PAS VERS VOTRE SUIVI"
+msgstr "THE FIRST STEP TOWARD YOUR CARE"
+
+msgid "LE SOIN COMMENCE PAR UNE RENCONTRE"
+msgstr "CARE BEGINS WITH A MEETING"
+
+msgid "La clé API a été refusée. Vérifiez la configuration du serveur."
+msgstr "The API key was rejected. Check the server configuration."
+
+msgid "La clé API doit être configurée sur le serveur avant la génération."
+msgstr "The API key must be configured on the server before generation."
+
+msgid "La clé API ou le modèle n'est pas configuré sur le serveur."
+msgstr "The API key or model is not configured on the server."
+
+msgid "La consultation et ses échanges associés ont été supprimés."
+msgstr "The consultation and its associated messages have been deleted."
+
+msgid "La demande a échoué. Réessayez."
+msgstr "The request failed. Please try again."
+
+msgid "La fiche ne peut pas être actualisée. Réessayez."
+msgstr "The record cannot be updated. Please try again."
+
+msgid ""
+"La fiche ne peut pas être ouverte. Vérifiez votre connexion et réessayez."
+msgstr "The record cannot be opened. Check your connection and try again."
+
+msgid "La fiche patient n'est pas encore validée par votre médecin."
+msgstr "The patient record has not yet been validated by your doctor."
+
+msgid "La fiche vérifiée est maintenant accessible au patient."
+msgstr "The verified record is now accessible to the patient."
+
+msgid "La fiche vérifiée est publiée et accessible au patient."
+msgstr "The verified record is published and accessible to the patient."
+
+msgid "La liste se met à jour pendant la saisie."
+msgstr "The list updates as you type."
+
+msgid ""
+"La messagerie n'est pas un service d'urgence. Les réponses ne sont pas "
+"instantanées."
+msgstr ""
+"Messaging is not an emergency service. Responses are not instantaneous."
+
+msgid ""
+"La modification remettra votre message à l'état non lu pour votre "
+"interlocuteur."
+msgstr "Editing will mark your message as unread for your correspondent."
+
+msgid "La publication n'a pas pu être confirmée."
+msgstr "Publication could not be confirmed."
+
+msgid ""
+"La recherche a échoué. Les résultats précédents sont conservés. Réessayez."
+msgstr "Search failed. Previous results are preserved. Try again."
+
+msgid ""
+"La recherche n'a pas abouti. Vos résultats précédents restent affichés ; "
+"réessayez ou vérifiez votre connexion."
+msgstr ""
+"Search was unsuccessful. Your previous results remain displayed; try again "
+"or check your connection."
+
+msgid ""
+"La réponse IA a été refusée par les contrôles. Aucune orientation n’est "
+"affichée."
+msgstr "The AI response was rejected by the checks. No guidance is displayed."
+
+msgid ""
+"La réponse n'a pas passé les contrôles de sources. Aucun résumé n'a été "
+"publié."
+msgstr ""
+"The response did not pass the source checks. No summary has been published."
+
+msgid "La suite prévue"
+msgstr "Next steps"
+
+msgid ""
+"La tâche n'a pas pu être démarrée. Vérifiez le worker Celery et Redis, puis "
+"réessayez."
+msgstr ""
+"The task could not be started. Check the Celery worker and Redis, then try "
+"again."
+
+msgid "Last appointment"
+msgstr "Last appointment"
+
+msgid "Last reviewed"
+msgstr "Last reviewed"
+
+msgid "Last updated:"
+msgstr "Last updated:"
+
+msgid "Latest examination"
+msgstr "Latest examination"
+
+msgid "Latest platform events"
+msgstr "Latest platform events"
+
+msgid "Le bon point de départ,"
+msgstr "The right starting point,"
+
+msgid "Le bon professionnel"
+msgstr "The right professional"
+
+msgid ""
+"Le bon professionnel. Un rendez-vous qui vous convient. Et un suivi qui "
+"reste à vos côtés."
+msgstr ""
+"The right professional. An appointment that suits you. And follow-up that "
+"stays by your side."
+
+msgid ""
+"Le compte rendu a changé. Générez une nouvelle fiche à partir de sa dernière"
+" version."
+msgstr ""
+"The report has changed. Generate a new record from its latest version."
+
+msgid ""
+"Le compte rendu a changé. L'ancienne fiche est masquée au patient ; une "
+"nouvelle génération et validation sont nécessaires."
+msgstr ""
+"The report has changed. The old record is hidden from the patient; a new "
+"generation and validation are required."
+
+msgid ""
+"Le compte rendu dépasse 12 000 caractères. Réduisez-le avant la génération."
+msgstr "The report exceeds 12,000 characters. Reduce it before generation."
+
+msgid ""
+"Le compte rendu ou le brouillon a changé. Fermez puis rouvrez la fiche avant"
+" validation."
+msgstr ""
+"The report or draft has changed. Close then reopen the record before "
+"validation."
+
+msgid ""
+"Le compte rendu ou le brouillon a changé. Rechargez la page avant "
+"validation."
+msgstr "The report or draft has changed. Reload the page before validation."
+
+msgid ""
+"Le compte rendu, les messages et l'avis associés seront supprimés "
+"définitivement. Le rendez-vous sera conservé."
+msgstr ""
+"The report, messages and associated review will be permanently deleted. The "
+"appointment will be kept."
+
+msgid ""
+"Le diagnostic et les notes seront visibles par le patient concerné. Ces "
+"notes ne sont pas un espace privé du médecin."
+msgstr ""
+"The diagnosis and notes will be visible to the patient concerned. These "
+"notes are not a private space for the doctor."
+
+msgid "Le dialogue continue."
+msgstr "The dialogue continues."
+
+msgid ""
+"Le dossier médical et les examens sont accessibles après un rendez-vous "
+"terminé avec ce patient."
+msgstr ""
+"The medical record and exams are accessible after a completed appointment "
+"with this patient."
+
+msgid "Le délai de réponse a été dépassé. Vous pouvez réessayer."
+msgstr "The response timeout has been exceeded. You can try again."
+
+msgid "Le délai est dépassé. Vérifiez le worker et réessayez."
+msgstr "The timeout has been exceeded. Check the worker and try again."
+
+msgid "Le fournisseur IA est très sollicité. Réessayez plus tard."
+msgstr "The AI provider is under heavy load. Try again later."
+
+msgid "Le modèle configuré n'est pas disponible pour ce compte API."
+msgstr "The configured model is not available for this API account."
+
+msgid "Le numérique en appui."
+msgstr "Digital support."
+
+msgid ""
+"Le patient pourra laisser un avis lorsque vous aurez marqué ce rendez-vous "
+"comme terminé dans Appointments."
+msgstr ""
+"The patient will be able to leave a review when you have marked this "
+"appointment as completed in Appointments."
+
+msgid "Le premier pas vers le bon soin."
+msgstr "The first step towards the right care."
+
+msgid "Le rendez-vous doit être confirmé ou terminé."
+msgstr "The appointment must be confirmed or completed."
+
+msgid "Le rendez-vous doit être terminé pour laisser un avis."
+msgstr "The appointment must be completed to leave a review."
+
+msgid "Le rendez-vous est passé ?"
+msgstr "Is the appointment past?"
+
+msgid "Le serveur ne répond pas à temps. Réessayez plus tard."
+msgstr "The server is not responding in time. Please try again later."
+
+msgid ""
+"Le service IA est momentanément indisponible. Le compte rendu reste "
+"accessible."
+msgstr ""
+"The AI service is temporarily unavailable. The report remains accessible."
+
+msgid "Le service IA n’est pas configuré. Contactez l’administrateur."
+msgstr "The AI service is not configured. Contact the administrator."
+
+msgid ""
+"Le service a refusé l'accès. Vérifiez les droits et le crédit du compte API."
+msgstr ""
+"The service denied access. Check the rights and credit of the API account."
+
+msgid "Le service est très sollicité. Patientez avant de réessayer."
+msgstr "The service is under heavy load. Wait before trying again."
+
+msgid "Le soin commence par une rencontre."
+msgstr "Care begins with an encounter."
+
+msgid "Le suivi continue avec vous."
+msgstr "Follow-up continues with you."
+
+msgid "Le suivi qui continue"
+msgstr "Follow-up that continues"
+
+msgid "Le traitement n’a pas pu démarrer. Vérifiez le worker d’orientation."
+msgstr "The processing could not start. Check the guidance worker."
+
+msgid ""
+"Le traitement prend trop de temps. Contactez un professionnel ou réessayez "
+"plus tard."
+msgstr ""
+"The process is taking too long. Contact a professional or try again later."
+
+msgid ""
+"Lecture des réponses → comparaison des spécialités → préparation de "
+"l’orientation."
+msgstr "Reading responses → comparing specialties → preparing referral."
+
+msgid ""
+"Les citations sont vérifiées comme présentes dans le texte. Cela ne garantit"
+" pas que la reformulation est fidèle : comparez chaque phrase avant de "
+"publier."
+msgstr ""
+"Citations are verified as present in the text. This does not guarantee the "
+"reformulation is accurate: compare each sentence before publishing."
+
+msgid ""
+"Les comptes rendus apparaissent ici dès leur enregistrement par le médecin."
+msgstr "Reports appear here as soon as they are saved by the doctor."
+
+msgid "Les consignes mentionnées"
+msgstr "The mentioned instructions"
+
+msgid "Les médecins"
+msgstr "Doctors"
+
+msgid ""
+"Les médecins affichés sont actifs et approuvés sur MediConnect. Les créneaux"
+" sont vérifiés lors de la réservation."
+msgstr ""
+"The doctors displayed are active and approved on MediConnect. Slots are "
+"verified during booking."
+
+msgid "Les médecins pour votre recherche."
+msgstr "Doctors for your search."
+
+msgid "Les notes ont changé. Relancez la préparation."
+msgstr "The notes have changed. Restart the preparation."
+
+msgid "Les outils du quotidien, réunis."
+msgstr "Everyday tools, brought together."
+
+msgid ""
+"Les patients peuvent partager leur expérience après un rendez-vous terminé "
+"ayant un compte rendu."
+msgstr ""
+"Patients can share their experience after a completed appointment with a "
+"report."
+
+msgid "Les quatre rubriques apparaîtront ici, sans quitter cette page."
+msgstr "The four sections will appear here, without leaving this page."
+
+msgid "Les résultats se mettent à jour pendant la saisie."
+msgstr "Results update as you type."
+
+msgid "Les spécialités"
+msgstr "Specialties"
+
+msgid "Les spécialités seront affichées dès leur ajout à la plateforme."
+msgstr ""
+"Specialties will be displayed as soon as they are added to the platform."
+
+msgid ""
+"Less than 24 hours left: this appointment can no longer be changed online. "
+"Please contact the doctor."
+msgstr ""
+"Less than 24 hours left: this appointment can no longer be changed online. "
+"Please contact the doctor."
+
+msgid "Lien de visioconférence (HTTPS)"
+msgstr "Video conference link (HTTPS)"
+
+msgid "Light"
+msgstr "Light"
+
+msgid "Lire le compte rendu original"
+msgstr "Read the original report"
+
+msgid "Lire ma fiche patient ✦"
+msgstr "Read my patient record ✦"
+
+msgid "List any known medication, food, or environmental allergies."
+msgstr "List any known medication, food, or environmental allergies."
+
+msgid "List your practice"
+msgstr "List your practice"
+
+msgid "Live camera feed"
+msgstr "Live camera feed"
+
+msgid "Live camera preview for face enrollment"
+msgstr "Live camera preview for face enrollment"
+
+msgid "Live camera preview for face login"
+msgstr "Live camera preview for face login"
+
+msgid "Log in"
+msgstr "Log in"
+
+msgid "Log in to MediConnect"
+msgstr "Log in to MediConnect"
+
+msgid "Log out"
+msgstr "Log out"
+
+msgid "Logged in as"
+msgstr "Logged in as"
+
+msgid "Look at the camera"
+msgstr "Look at the camera"
+
+msgid ""
+"Look at the camera to sign in. You can close this dialog and use your email "
+"and password instead."
+msgstr ""
+"Look at the camera to sign in. You can close this dialog and use your email "
+"and password instead."
+
+msgid "Lu"
+msgstr "Read"
+
+msgid "L’HUMAIN AU CŒUR. LE NUMÉRIQUE EN APPUI."
+msgstr "PEOPLE AT THE HEART. DIGITAL AS SUPPORT."
+
+msgid "L’IA classe vos mots ; vous gardez la décision et la signature."
+msgstr "AI sorts your words; you keep the decision and signature."
+
+msgid "L’humain au cœur."
+msgstr "People at the heart."
+
+msgid ""
+"L’orientation est indisponible. Vous pouvez contacter un professionnel ou "
+"réessayer. Aucun diagnostic n’a été établi."
+msgstr ""
+"Guidance is unavailable. You can contact a professional or try again. No "
+"diagnosis has been made."
+
+msgid "MAKE YOURSELF AT HOME"
+msgstr "MAKE YOURSELF AT HOME"
+
+msgid "MEDICAL MANAGEMENT"
+msgstr "MEDICAL MANAGEMENT"
+
+msgid "MEDICAL RECORDS"
+msgstr "MEDICAL RECORDS"
+
+msgid "MEDICAL RECORDS / EXAMINATIONS"
+msgstr "MEDICAL RECORDS / EXAMINATIONS"
+
+msgid "MEDICAL RECORDS MANAGEMENT"
+msgstr "MEDICAL RECORDS MANAGEMENT"
+
+msgid "MENU"
+msgstr "MENU"
+
+msgid "MES DOCUMENTS ET CONSULTATIONS"
+msgstr "MY DOCUMENTS AND CONSULTATIONS"
+
+msgid "MODULE 4 · DOSSIER MÉDICAL"
+msgstr "MODULE 4 · MEDICAL RECORD"
+
+msgid "MOINS DE DÉMARCHES. PLUS DE LIEN."
+msgstr "FEWER STEPS. MORE CONNECTION."
+
+msgid "MON PARCOURS"
+msgstr "MY JOURNEY"
+
+msgid "MON SUIVI"
+msgstr "MY FOLLOW-UP"
+
+msgid "MY APPOINTMENTS"
+msgstr "MY APPOINTMENTS"
+
+msgid "MY HEALTH"
+msgstr "MY HEALTH"
+
+msgid "MY PRACTICE"
+msgstr "MY PRACTICE"
+
+msgid "Ma fiche de consultation"
+msgstr "My consultation form"
+
+msgid "Macro average"
+msgstr "Macro average"
+
+msgid "Main navigation"
+msgstr "Main navigation"
+
+msgid "Main specialty"
+msgstr "Main specialty"
+
+msgid "Making healthcare easier to find, access, and manage."
+msgstr "Making healthcare easier to find, access, and manage."
+
+msgid "Manage access and keep track of everyone using MediConnect."
+msgstr "Manage access and keep track of everyone using MediConnect."
+
+msgid "Manage appointments"
+msgstr "Manage appointments"
+
+msgid "Manage medical history and allergy information."
+msgstr "Manage medical history and allergy information."
+
+msgid "Manage patient medical examination documents."
+msgstr "Manage patient medical examination documents."
+
+msgid "Manage prescriptions associated with patient consultations."
+msgstr "Manage prescriptions associated with patient consultations."
+
+msgid "Manage the time slots when patients can request your care."
+msgstr "Manage the time slots when patients can request your care."
+
+msgid "Manage your authentication options"
+msgstr "Manage your authentication options"
+
+msgid "Manage your personal information and account security."
+msgstr "Manage your personal information and account security."
+
+msgid "Mark all as read"
+msgstr "Mark all as read"
+
+msgid "Mark appointment with"
+msgstr "Mark appointment with"
+
+msgid "Mark as read"
+msgstr "Mark as read"
+
+msgid "Masquer le mot de passe"
+msgstr "Hide password"
+
+msgid "Me laisser guider"
+msgstr "Guide me"
+
+msgid "Measured on the test set, never seen during training."
+msgstr "Measured on the test set, never seen during training."
+
+msgid "MediConnect"
+msgstr "MediConnect"
+
+msgid "MediConnect Platform"
+msgstr "MediConnect Platform"
+
+msgid "MediConnect · Votre espace personnel"
+msgstr "MediConnect · Your personal space"
+
+msgid "MediConnect — Le bon médecin, un suivi qui continue"
+msgstr "MediConnect — The right doctor, ongoing care"
+
+msgid "MediConnect, accueil"
+msgstr "MediConnect, home"
+
+msgid "MediConnect, accueil du site"
+msgstr "MediConnect, site home"
+
+msgid "MediConnect."
+msgstr "MediConnect."
+
+msgid "MediConnect. All rights reserved."
+msgstr "MediConnect. All rights reserved."
+
+msgid "Medical Examination"
+msgstr "Medical Examination"
+
+msgid "Medical Examinations"
+msgstr "Medical Examinations"
+
+msgid "Medical Examinations | MediConnect"
+msgstr "Medical Examinations | MediConnect"
+
+msgid "Medical History"
+msgstr "Medical History"
+
+msgid "Medical Record"
+msgstr "Medical Record"
+
+msgid "Medical Record #"
+msgstr "Medical Record #"
+
+msgid "Medical Record | MediConnect"
+msgstr "Medical Record | MediConnect"
+
+msgid "Medical Records"
+msgstr "Medical Records"
+
+msgid "Medical Records | MediConnect"
+msgstr "Medical Records | MediConnect"
+
+msgid "Medical degree or qualification"
+msgstr "Medical degree or qualification"
+
+msgid "Medical document"
+msgstr "Medical document"
+
+msgid ""
+"Medical documents are stored privately and require authorization to access."
+msgstr ""
+"Medical documents are stored privately and require authorization to access."
+
+msgid "Medical examination #"
+msgstr "Medical examination #"
+
+msgid ""
+"Medical examination documents will appear here once they have been added to "
+"this patient's medical record."
+msgstr ""
+"Medical examination documents will appear here once they have been added to "
+"this patient's medical record."
+
+msgid "Medical history"
+msgstr "Medical history"
+
+msgid "Medical history, previous conditions..."
+msgstr "Medical history, previous conditions..."
+
+msgid "Medical license / registration"
+msgstr "Medical license / registration"
+
+msgid "Medical license / registration number"
+msgstr "Medical license / registration number"
+
+msgid "Medical license or professional registration number."
+msgstr "Medical license or professional registration number."
+
+msgid "Medical prescription"
+msgstr "Medical prescription"
+
+msgid "Medical record"
+msgstr "Medical record"
+
+msgid "Medical record navigation"
+msgstr "Medical record navigation"
+
+msgid "Medication, dosage, frequency, duration..."
+msgstr "Medication, dosage, frequency, duration..."
+
+msgid "Medication, dosage, frequency..."
+msgstr "Medication, dosage, frequency..."
+
+msgid "Medication, food, and environmental allergies recorded by the patient."
+msgstr ""
+"Medication, food, and environmental allergies recorded by the patient."
+
+msgid "Medications"
+msgstr "Medications"
+
+msgid "Medications and dosage"
+msgstr "Medications and dosage"
+
+msgid "Medications prescribed during the consultation."
+msgstr "Medications prescribed during the consultation."
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Menu ☰"
+msgstr "Menu ☰"
+
+msgid "Merci ! Votre avis a été enregistré."
+msgstr "Thank you! Your review has been saved."
+
+msgid "Mes avis"
+msgstr "My Reviews"
+
+msgid "Mes consultations"
+msgstr "My Consultations"
+
+msgid "Mes documents et mon suivi"
+msgstr "My Documents and Follow-up"
+
+msgid "Mes examens"
+msgstr "My Tests"
+
+msgid "Mes médecins"
+msgstr "My Doctors"
+
+msgid "Mes médecins | MediConnect"
+msgstr "My Doctors | MediConnect"
+
+msgid "Mes ordonnances"
+msgstr "My Prescriptions"
+
+msgid "Mes préférences"
+msgstr "My Preferences"
+
+msgid "Mes rendez-vous"
+msgstr "My Appointments"
+
+msgid "Mes rendez-vous et mes médecins"
+msgstr "My Appointments and Doctors"
+
+msgid "Mes échanges"
+msgstr "My Conversations"
+
+msgid "Message shown to the doctor when more info is needed."
+msgstr "Message shown to the doctor when more info is needed."
+
+msgid "Messagerie"
+msgstr "Messaging"
+
+msgid "Messages"
+msgstr "Messages"
+
+msgid "Messages - Consultation #"
+msgstr "Messages - Consultation #"
+
+msgid "Messages non lus"
+msgstr "Unread messages"
+
+msgid "Miroir de consultation"
+msgstr "Consultation mirror"
+
+msgid "Miroir de consultation · Assistance IA"
+msgstr "Consultation mirror · AI assistance"
+
+msgid ""
+"Mode démonstration : calcul dans le serveur web. Avec un worker Celery et "
+"Redis, le traitement est exécuté en arrière-plan."
+msgstr ""
+"Demo mode: computation in web server. With a Celery worker and Redis, "
+"processing runs in background."
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Model comparison"
+msgstr "Model comparison"
+
+msgid "Model not trained yet"
+msgstr "Model not trained yet"
+
+msgid "Modifier"
+msgstr "Edit"
+
+msgid "Modifier le compte rendu"
+msgstr "Edit report"
+
+msgid "Modifier le compte rendu →"
+msgstr "Edit report →"
+
+msgid "Modifier le message #"
+msgstr "Edit message #"
+
+msgid "Modifier mon avis"
+msgstr "Edit my opinion"
+
+msgid "Modifier votre message."
+msgstr "Edit your message."
+
+msgid "Modèle :"
+msgstr "Model:"
+
+msgid "Moins de démarches."
+msgstr "Fewer procedures."
+
+msgid "Mon accueil"
+msgstr "My Home"
+
+msgid "Mon dossier médical"
+msgstr "My Medical Record"
+
+msgid "Mon espace santé"
+msgstr "My Health Space"
+
+msgid "Mon espace santé | MediConnect"
+msgstr "My Health Space | MediConnect"
+
+msgid "Mon espace ↗"
+msgstr "My space ↗"
+
+msgid "Mon profil"
+msgstr "My Profile"
+
+msgid "Mon profil ↗"
+msgstr "My profile ↗"
+
+msgid "Mon suivi"
+msgstr "My Follow-up"
+
+msgid "Monday"
+msgstr "Monday"
+
+msgid "More"
+msgstr "More"
+
+msgid "More info required"
+msgstr "More info required"
+
+msgid "Mot de passe"
+msgstr "Password"
+
+msgid "Motif de consultation"
+msgstr "Reason for consultation"
+
+msgid ""
+"Motif, observations, diagnostic explicitement établi, décisions de suivi…"
+msgstr ""
+"Reason, observations, explicitly established diagnosis, follow-up decisions…"
+
+msgid "Move my appointment"
+msgstr "Move my appointment"
+
+msgid "My Availability | MediConnect"
+msgstr "My Availability | MediConnect"
+
+msgid "My Consultations | MediConnect"
+msgstr "My Consultations | MediConnect"
+
+msgid "My Dashboard"
+msgstr "My Dashboard"
+
+msgid "My Doctors"
+msgstr "My Doctors"
+
+msgid "My Medical Record"
+msgstr "My Medical Record"
+
+msgid "My Medical Record | MediConnect"
+msgstr "My Medical Record | MediConnect"
+
+msgid "My Patients"
+msgstr "My Patients"
+
+msgid "My Patients &rarr;"
+msgstr "My Patients &rarr;"
+
+msgid "My Patients | MediConnect"
+msgstr "My Patients | MediConnect"
+
+msgid "My Prescriptions"
+msgstr "My Prescriptions"
+
+msgid "My Profile"
+msgstr "My Profile"
+
+msgid "My Profile | MediConnect"
+msgstr "My Profile | MediConnect"
+
+msgid "My appointments"
+msgstr "My appointments"
+
+msgid "My appointments table"
+msgstr "My appointments table"
+
+msgid "My appointments | MediConnect"
+msgstr "My appointments | MediConnect"
+
+msgid "My availability"
+msgstr "My availability"
+
+msgid "My availability slots"
+msgstr "My availability slots"
+
+msgid "My examinations"
+msgstr "My examinations"
+
+msgid "My slots"
+msgstr "My slots"
+
+msgid "Médecin"
+msgstr "Doctor"
+
+msgid "Médecin approuvé"
+msgstr "Approved doctor"
+
+msgid "Médecine générale"
+msgstr "General Medicine"
+
+msgid "Médecins"
+msgstr "Doctors"
+
+msgid "Médecins approuvés"
+msgstr "Approved doctors"
+
+msgid "Médicaments"
+msgstr "Medications"
+
+msgid "M’orienter avec l’IA"
+msgstr "Guide me with AI"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "National ID / passport"
+msgstr "National ID / passport"
+
+msgid "National ID card or passport."
+msgstr "National ID card or passport."
+
+msgid "National ID or passport"
+msgstr "National ID or passport"
+
+msgid "Navigation de votre espace patient"
+msgstr "Patient space navigation"
+
+msgid "Navigation de votre espace santé"
+msgstr "Health space navigation"
+
+msgid "Navigation principale"
+msgstr "Main navigation"
+
+msgid ""
+"Ne vous fiez pas à cet assistant pour une urgence. Contactez immédiatement "
+"les services d’urgence locaux ou un professionnel. Aucune réservation n’est "
+"proposée ici."
+msgstr ""
+"Do not rely on this assistant for an emergency. Contact local emergency "
+"services or a professional immediately. No booking is offered here."
+
+msgid "Needs info"
+msgstr "Needs info"
+
+msgid "Needs more info"
+msgstr "Needs more info"
+
+msgid "Needs review"
+msgstr "Needs review"
+
+msgid "Nephrology"
+msgstr "Nephrology"
+
+msgid "Neurology"
+msgstr "Neurology"
+
+msgid "New Prescription"
+msgstr "New Prescription"
+
+msgid "New doctor registration"
+msgstr "New doctor registration"
+
+msgid "New patient account"
+msgstr "New patient account"
+
+msgid "Next at "
+msgstr "Next at "
+
+msgid "Next →"
+msgstr "Next →"
+
+msgid "No"
+msgstr "No"
+
+msgid "No action available for this appointment."
+msgstr "No action available for this appointment."
+
+msgid "No action needed"
+msgstr "No action needed"
+
+msgid "No additional instructions provided."
+msgstr "No additional instructions provided."
+
+msgid "No additional instructions."
+msgstr "No additional instructions."
+
+msgid "No allergies have been recorded."
+msgstr "No allergies have been recorded."
+
+msgid "No allergies recorded."
+msgstr "No allergies recorded."
+
+msgid "No applications found for this filter."
+msgstr "No applications found for this filter."
+
+msgid "No appointments match your filters."
+msgstr "No appointments match your filters."
+
+msgid "No appointments scheduled for today"
+msgstr "No appointments scheduled for today"
+
+msgid "No approved doctor for this specialty yet."
+msgstr "No approved doctor for this specialty yet."
+
+msgid "No availability slots yet."
+msgstr "No availability slots yet."
+
+msgid "No camera detected — upload a photo instead"
+msgstr "No camera detected — upload a photo instead"
+
+msgid "No doctor accounts yet."
+msgstr "No doctor accounts yet."
+
+msgid "No examinations yet"
+msgstr "No examinations yet"
+
+msgid "No face detected"
+msgstr "No face detected"
+
+msgid "No face detected. Please ensure your face is clearly visible."
+msgstr "No face detected. Please ensure your face is clearly visible."
+
+msgid "No file"
+msgstr "No file"
+
+msgid ""
+"No free slots in the next 14 days. Please try another doctor or come back "
+"later."
+msgstr ""
+"No free slots in the next 14 days. Please try another doctor or come back "
+"later."
+
+msgid "No matching examinations"
+msgstr "No matching examinations"
+
+msgid "No medical examinations have been uploaded yet."
+msgstr "No medical examinations have been uploaded yet."
+
+msgid "No medical history has been recorded."
+msgstr "No medical history has been recorded."
+
+msgid "No medical history recorded."
+msgstr "No medical history recorded."
+
+msgid "No medical records found."
+msgstr "No medical records found."
+
+msgid "No medications recorded."
+msgstr "No medications recorded."
+
+msgid "No past appointments yet."
+msgstr "No past appointments yet."
+
+msgid ""
+"No patients yet. Patients will appear here when they have appointments with "
+"you."
+msgstr ""
+"No patients yet. Patients will appear here when they have appointments with "
+"you."
+
+msgid "No prescriptions have been created yet."
+msgstr "No prescriptions have been created yet."
+
+msgid "No prescriptions yet"
+msgstr "No prescriptions yet"
+
+msgid "No specialties yet."
+msgstr "No specialties yet."
+
+msgid "No specialty"
+msgstr "No specialty"
+
+msgid "No upcoming appointments"
+msgstr "No upcoming appointments"
+
+msgid "No users match your filters."
+msgstr "No users match your filters."
+
+msgid "No, keep it"
+msgstr "No, keep it"
+
+msgid "No-show"
+msgstr "No-show"
+
+msgid "No-show prediction model"
+msgstr "No-show prediction model"
+
+msgid "No-show risk"
+msgstr "No-show risk"
+
+msgid "No-show risk:"
+msgstr "No-show risk:"
+
+msgid "No-show: mark"
+msgstr "No-show: mark"
+
+msgid "Nom"
+msgstr "Name"
+
+msgid "Nom du médecin, cardiologie…"
+msgstr "Doctor name, cardiology…"
+
+msgid "Nom du médecin, spécialité…"
+msgstr "Doctor name, specialty…"
+
+msgid "Nom du patient ou du médecin"
+msgstr "Patient or doctor name"
+
+msgid "Non renseigné dans les notes."
+msgstr "Not specified in the notes."
+
+msgid "Not applicable"
+msgstr "Not applicable"
+
+msgid "Not available"
+msgstr "Not available"
+
+msgid "Not provided"
+msgstr "Not provided"
+
+msgid "Not uploaded"
+msgstr "Not uploaded"
+
+msgid "Not yet submitted"
+msgstr "Not yet submitted"
+
+msgid "Not yet updated"
+msgstr "Not yet updated"
+
+msgid "Note moyenne"
+msgstr "Average rating"
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "Notes de départ"
+msgstr "Starting notes"
+
+msgid "Notes du compte rendu (visibles par le patient)"
+msgstr "Report notes (visible to patient)"
+
+msgid "Notes et suivi"
+msgstr "Notes and follow-up"
+
+msgid "Notification deleted."
+msgstr "Notification deleted."
+
+msgid "Notification list"
+msgstr "Notification list"
+
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Notifications | MediConnect"
+msgstr "Notifications | MediConnect"
+
+msgid "Notifications,"
+msgstr "Notifications,"
+
+msgid "Notre assistant vous aide à vous orienter."
+msgstr "Our assistant helps you navigate."
+
+msgid "Nous facilitons la rencontre."
+msgstr "We make meeting easy."
+
+msgid "Nouveau sur MediConnect ?"
+msgstr "New to MediConnect?"
+
+msgid "Nouvelle ordonnance"
+msgstr "New prescription"
+
+msgid "Observations"
+msgstr "Observations"
+
+msgid "Oncology"
+msgstr "Oncology"
+
+msgid "Only PDF, JPG, JPEG and PNG files are allowed."
+msgstr "Only PDF, JPG, JPEG and PNG files are allowed."
+
+msgid "Only doctors verified by MediConnect are listed."
+msgstr "Only doctors verified by MediConnect are listed."
+
+msgid "Only you can change these availability slots."
+msgstr "Only you can change these availability slots."
+
+msgid "Open"
+msgstr "Open"
+
+msgid "Open camera"
+msgstr "Open camera"
+
+msgid "Open consultations &rarr;"
+msgstr "Open consultations &rarr;"
+
+msgid "Open messages &rarr;"
+msgstr "Open messages &rarr;"
+
+msgid "Open navigation menu"
+msgstr "Open navigation menu"
+
+msgid "Ophthalmology"
+msgstr "Ophthalmology"
+
+msgid "Optional"
+msgstr "Optional"
+
+msgid "Optional identity verification photo"
+msgstr "Optional identity verification photo"
+
+msgid "Optional selfie holding the ID — proves it's really you."
+msgstr "Optional selfie holding the ID — proves it's really you."
+
+msgid "Organisez vos disponibilités"
+msgstr "Organize your availability"
+
+msgid "Organisez vos rendez-vous"
+msgstr "Organize your appointments"
+
+msgid "Orientation IA"
+msgstr "AI Guidance"
+
+msgid "Orientation IA | MediConnect"
+msgstr "AI Guidance | MediConnect"
+
+msgid "Orientation disponible"
+msgstr "Guidance available"
+
+msgid "Orientation indisponible."
+msgstr "Guidance unavailable."
+
+msgid "Orientation interrompue"
+msgstr "Guidance interrupted"
+
+msgid "Orientation préparée avec une IA. Temps de traitement : %(v0)s s."
+msgstr "Guidance prepared with AI. Processing time: %(v0)s s."
+
+msgid "Orthopedics"
+msgstr "Orthopedics"
+
+msgid "Other"
+msgstr "Other"
+
+msgid "Our review team has a question or needs a clearer document."
+msgstr "Our review team has a question or needs a clearer document."
+
+msgid "Ouverture de votre atelier de préparation…"
+msgstr "Opening your preparation workshop…"
+
+msgid "Ouvrez un compte rendu pour démarrer un échange."
+msgstr "Open a report to start a conversation."
+
+msgid "Ouvrir la conversation →"
+msgstr "Open conversation →"
+
+msgid "Ouvrir la conversation → Consultation #"
+msgstr "Open conversation → Consultation #"
+
+msgid "Ouvrir la messagerie →"
+msgstr "Open messaging →"
+
+msgid "Ouvrir le copilote ✦"
+msgstr "Open copilot ✦"
+
+msgid "Overview"
+msgstr "Overview"
+
+msgid "Overview | MediConnect Admin"
+msgstr "Overview | MediConnect Admin"
+
+msgid "PATIENT INFORMATION"
+msgstr "PATIENT INFORMATION"
+
+msgid "PATIENT MEDICAL INFORMATION"
+msgstr "PATIENT MEDICAL INFORMATION"
+
+msgid "PATIENT PORTAL / EXAMINATIONS"
+msgstr "PATIENT PORTAL / EXAMINATIONS"
+
+msgid "PATIENT PORTAL / MEDICAL RECORDS"
+msgstr "PATIENT PORTAL / MEDICAL RECORDS"
+
+msgid "PATIENT PORTAL / PRESCRIPTIONS"
+msgstr "PATIENT PORTAL / PRESCRIPTIONS"
+
+msgid "PLUS PROCHE DU BON SOIN"
+msgstr "CLOSER TO THE RIGHT CARE"
+
+msgid "POUR LES PROFESSIONNELS DE SANTÉ"
+msgstr "FOR HEALTHCARE PROFESSIONALS"
+
+msgid "PRESCRIPTION DETAILS"
+msgstr "PRESCRIPTION DETAILS"
+
+msgid "PRESCRIPTION MANAGEMENT"
+msgstr "PRESCRIPTION MANAGEMENT"
+
+msgid "Page"
+msgstr "Page"
+
+msgid "Page not found"
+msgstr "Page not found"
+
+msgid "Page not found | MediConnect"
+msgstr "Page not found | MediConnect"
+
+msgid "Pagination"
+msgstr "Pagination"
+
+msgid "Pagination des médecins"
+msgstr "Doctors pagination"
+
+msgid ""
+"Parlez de l'accueil, de l'écoute et de la clarté des explications, sans "
+"inclure d'informations médicales personnelles. Cet avis sera visible par le "
+"médecin et l'administration."
+msgstr ""
+"Discuss the reception, listening and clarity of explanations, without "
+"including personal medical information. This review will be visible to the "
+"doctor and administration."
+
+msgid "Partagez le suivi avec le patient concerné."
+msgstr "Share the follow-up with the concerned patient."
+
+msgid "Partagez votre expérience."
+msgstr "Share your experience."
+
+msgid "Pas sûr de savoir"
+msgstr "Not sure"
+
+msgid "Passer à l’étape suivante"
+msgstr "Go to next step"
+
+msgid "Password-protected PDFs are not supported."
+msgstr "Password-protected PDFs are not supported."
+
+msgid "Past &amp; cancelled"
+msgstr "Past &amp; cancelled"
+
+msgid "Past and cancelled appointments"
+msgstr "Past and cancelled appointments"
+
+msgid "Patient"
+msgstr "Patient"
+
+msgid "Patient #"
+msgstr "Patient #"
+
+msgid "Patient Brief - Consultation #"
+msgstr "Patient Brief - Consultation #"
+
+msgid "Patient Email"
+msgstr "Patient Email"
+
+msgid "Patient Medical Record"
+msgstr "Patient Medical Record"
+
+msgid "Patient Medical Record | MediConnect"
+msgstr "Patient Medical Record | MediConnect"
+
+msgid "Patient account"
+msgstr "Patient account"
+
+msgid "Patient examination documents"
+msgstr "Patient examination documents"
+
+msgid "Patient identity"
+msgstr "Patient identity"
+
+msgid "Patient information"
+msgstr "Patient information"
+
+msgid "Patient management"
+msgstr "Patient management"
+
+msgid "Patient medical information · Read-only access"
+msgstr "Patient medical information · Read-only access"
+
+msgid "Patient medical record navigation"
+msgstr "Patient medical record navigation"
+
+msgid "Patient medical records"
+msgstr "Patient medical records"
+
+msgid "Patient navigation"
+msgstr "Patient navigation"
+
+msgid "Patient record"
+msgstr "Patient record"
+
+msgid "Patient records"
+msgstr "Patient records"
+
+msgid "Patient workspace"
+msgstr "Patient workspace"
+
+msgid "Patient · Consultation #"
+msgstr "Patient · Consultation #"
+
+msgid "Patient:"
+msgstr "Patient:"
+
+msgid "Patientez 20 secondes entre deux générations."
+msgstr "Wait 20 seconds between two generations."
+
+msgid "Patients associated with my appointments"
+msgstr "Patients associated with my appointments"
+
+msgid "Pediatrics"
+msgstr "Pediatrics"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Pending appointments"
+msgstr "Pending appointments"
+
+msgid "Pending approvals"
+msgstr "Pending approvals"
+
+msgid "Pending docs"
+msgstr "Pending docs"
+
+msgid "Pending documents"
+msgstr "Pending documents"
+
+msgid "Pending review"
+msgstr "Pending review"
+
+msgid "Period"
+msgstr "Period"
+
+msgid "Permanent deletion"
+msgstr "Permanent deletion"
+
+msgid "Personal Information"
+msgstr "Personal Information"
+
+msgid "Platform management"
+msgstr "Platform management"
+
+msgid "Please correct the specialty details."
+msgstr "Please correct the specialty details."
+
+msgid "Please describe the reason in a few words."
+msgstr "Please describe the reason in a few words."
+
+msgid "Please enter at least one medication."
+msgstr "Please enter at least one medication."
+
+msgid "Please provide a rejection reason."
+msgstr "Please provide a rejection reason."
+
+msgid ""
+"Please re-upload your documents. Make sure each file is clear and readable."
+msgstr ""
+"Please re-upload your documents. Make sure each file is clear and readable."
+
+msgid "Please review the information before continuing."
+msgstr "Please review the information before continuing."
+
+msgid "Please select a valid user role."
+msgstr "Please select a valid user role."
+
+msgid "Please write a message for the doctor."
+msgstr "Please write a message for the doctor."
+
+msgid "Plus de lien."
+msgstr "No more links."
+
+msgid "Poser une question"
+msgstr "Ask a question"
+
+msgid "Posez une question liée à cette consultation."
+msgstr "Ask a question related to this consultation."
+
+msgid ""
+"Position your face in the center of the camera and select Capture Face."
+msgstr ""
+"Position your face in the center of the camera and select Capture Face."
+
+msgid "Practice resources"
+msgstr "Practice resources"
+
+msgid "Practice tools"
+msgstr "Practice tools"
+
+msgid "Precision"
+msgstr "Precision"
+
+msgid "Precision, recall and F1 score per class"
+msgstr "Precision, recall and F1 score per class"
+
+msgid "Predicted no-show"
+msgstr "Predicted no-show"
+
+msgid "Predicted show"
+msgstr "Predicted show"
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Preferred language"
+msgstr "Preferred language"
+
+msgid "Prendre rendez-vous"
+msgstr "Make an appointment"
+
+msgid "Prepare Patient Brief - Consultation #"
+msgstr "Prepare Patient Brief - Consultation #"
+
+msgid "Prescription"
+msgstr "Prescription"
+
+msgid "Prescription #"
+msgstr "Prescription #"
+
+msgid "Prescription Details"
+msgstr "Prescription Details"
+
+msgid "Prescription action"
+msgstr "Prescription action"
+
+msgid "Prescription actions"
+msgstr "Prescription actions"
+
+msgid "Prescription created successfully."
+msgstr "Prescription created successfully."
+
+msgid "Prescription date"
+msgstr "Prescription date"
+
+msgid "Prescription deleted successfully."
+msgstr "Prescription deleted successfully."
+
+msgid "Prescription details"
+msgstr "Prescription details"
+
+msgid "Prescription details, medications, and treatment instructions."
+msgstr "Prescription details, medications, and treatment instructions."
+
+msgid "Prescription information"
+msgstr "Prescription information"
+
+msgid "Prescription updated successfully."
+msgstr "Prescription updated successfully."
+
+msgid "Prescription | MediConnect"
+msgstr "Prescription | MediConnect"
+
+msgid "Prescriptions"
+msgstr "Prescriptions"
+
+msgid "Prescriptions by patient and doctor"
+msgstr "Prescriptions by patient and doctor"
+
+msgid "Prescriptions from your doctors will appear here."
+msgstr "Prescriptions from your doctors will appear here."
+
+msgid "Prescriptions you create during consultations will appear here."
+msgstr "Prescriptions you create during consultations will appear here."
+
+msgid "Prescriptions | MediConnect"
+msgstr "Prescriptions | MediConnect"
+
+msgid "Preview"
+msgstr "Preview"
+
+msgid ""
+"Previous medical conditions, surgeries, chronic illnesses, and relevant "
+"health history."
+msgstr ""
+"Previous medical conditions, surgeries, chronic illnesses, and relevant "
+"health history."
+
+msgid "Privacy policy"
+msgstr "Privacy policy"
+
+msgid "Private"
+msgstr "Private"
+
+msgid "Private medical documents"
+msgstr "Private medical documents"
+
+msgid "Private medical information"
+msgstr "Private medical information"
+
+msgid "Professional license document"
+msgstr "Professional license document"
+
+msgid "Profil approuvé"
+msgstr "Profile approved"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Profile picture"
+msgstr "Profile picture"
+
+msgid "Profile picture for face login"
+msgstr "Profile picture for face login"
+
+msgid "Profils disponibles : %(count)s"
+msgstr "Profiles available: %(count)s"
+
+msgid "Prolongez l’échange"
+msgstr "Extend the exchange"
+
+msgid "Proposez vos créneaux et gérez les demandes."
+msgstr "Propose your slots and manage requests."
+
+msgid "Provider portal"
+msgstr "Provider portal"
+
+msgid "Précédent"
+msgstr "Previous"
+
+msgid "Prénom"
+msgstr "First name"
+
+msgid "Préparation de votre fiche en cours…"
+msgstr "Preparing your file..."
+
+msgid "Préparation en cours."
+msgstr "Preparation in progress."
+
+msgid "Préparer la fiche patient ✦"
+msgstr "Prepare patient file ✦"
+
+msgid "Préparer mon orientation"
+msgstr "Prepare my referral"
+
+msgid "Psychiatry"
+msgstr "Psychiatry"
+
+msgid "Publication de la fiche en cours…"
+msgstr "Publishing file..."
+
+msgid "Publication non confirmée. Rouvrez la fiche pour vérifier son état."
+msgstr "Publication not confirmed. Reopen the file to check its status."
+
+msgid "Pulmonology"
+msgstr "Pulmonology"
+
+msgid "Qualité du suivi"
+msgstr "Follow-up quality"
+
+msgid ""
+"Quelques phrases suffisent pour demander une piste d’orientation parmi les "
+"spécialités de MediConnect."
+msgstr ""
+"A few sentences are enough to request a referral suggestion among "
+"MediConnect specialties."
+
+msgid "Qui souhaitez-vous consulter ?"
+msgstr "Who would you like to consult?"
+
+msgid "Quick actions"
+msgstr "Quick actions"
+
+msgid "Quick overview"
+msgstr "Quick overview"
+
+msgid "ROC-AUC"
+msgstr "ROC-AUC"
+
+msgid "Radiology"
+msgstr "Radiology"
+
+msgid "Re-upload documents →"
+msgstr "Re-upload documents →"
+
+msgid "Read-only view. Doctors manage their own availability."
+msgstr "Read-only view. Doctors manage their own availability."
+
+msgid "Ready"
+msgstr "Ready"
+
+msgid "Real no-show"
+msgstr "Real no-show"
+
+msgid "Real show"
+msgstr "Real show"
+
+msgid "Reason"
+msgstr "Reason"
+
+msgid "Reason (optional)"
+msgstr "Reason (optional)"
+
+msgid "Reason for rejecting the application"
+msgstr "Reason for rejecting the application"
+
+msgid "Reason for the visit"
+msgstr "Reason for the visit"
+
+msgid "Reason:"
+msgstr "Reason:"
+
+msgid "Recall"
+msgstr "Recall"
+
+msgid "Recent activity"
+msgstr "Recent activity"
+
+msgid "Recherche : «"
+msgstr "Search: \""
+
+msgid "Recherche dans les profils approuvés…"
+msgstr "Searching approved profiles…"
+
+msgid "Recherche en cours…"
+msgstr "Search in progress…"
+
+msgid "Rechercher"
+msgstr "Search"
+
+msgid "Rechercher un médecin"
+msgstr "Search for a doctor"
+
+msgid "Rechercher un médecin ou une spécialité"
+msgstr "Search for a doctor or specialty"
+
+msgid "Rechercher une personne"
+msgstr "Search for a person"
+
+msgid "Rechercher ↗"
+msgstr "Search ↗"
+
+msgid "Reconnaissance faciale"
+msgstr "Facial recognition"
+
+msgid "Record #"
+msgstr "Record #"
+
+msgid "Record ID"
+msgstr "Record ID"
+
+msgid "Record created:"
+msgstr "Record created:"
+
+msgid "Reformulation et vérification des citations…"
+msgstr "Reformulating and verifying citations…"
+
+msgid "Refresh"
+msgstr "Refresh"
+
+msgid "Register again"
+msgstr "Register again"
+
+msgid "Registered"
+msgstr "Registered"
+
+msgid "Registered MediConnect users"
+msgstr "Registered MediConnect users"
+
+msgid "Registration steps"
+msgstr "Registration steps"
+
+msgid "Reject"
+msgstr "Reject"
+
+msgid "Reject application →"
+msgstr "Reject application →"
+
+msgid "Reject appointment with"
+msgstr "Reject appointment with"
+
+msgid "Rejected"
+msgstr "Rejected"
+
+msgid "Rejection reason on file"
+msgstr "Rejection reason on file"
+
+msgid "Rejoignez"
+msgstr "Join"
+
+msgid ""
+"Rejoignez MediConnect et gérez vos rendez-vous et le suivi de vos patients "
+"depuis votre espace professionnel."
+msgstr ""
+"Join MediConnect and manage your appointments and patient follow-up from "
+"your professional space."
+
+msgid "Rejoindre la plateforme ↗"
+msgstr "Join the platform ↗"
+
+msgid "Rejoindre la visioconférence ↗"
+msgstr "Join the video conference ↗"
+
+msgid "Rejoindre les médecins ↗"
+msgstr "Join the doctors ↗"
+
+msgid "Reminder"
+msgstr "Reminder"
+
+msgid "Reminder sent"
+msgstr "Reminder sent"
+
+msgid "Remplacer les champs du compte rendu par ce brouillon ?"
+msgstr "Replace the report fields with this draft?"
+
+msgid "Rencontrer nos médecins ↗"
+msgstr "Meet our doctors ↗"
+
+msgid "Rencontrez un professionnel"
+msgstr "Meet a professional"
+
+msgid "Rendez-vous"
+msgstr "Appointments"
+
+msgid "Rendez-vous du"
+msgstr "Appointment on"
+
+msgid "Rendez-vous terminés"
+msgstr "Completed appointments"
+
+msgid "Replier la fiche ↑"
+msgstr "Collapse details ↑"
+
+msgid "Requested"
+msgstr "Requested"
+
+msgid "Reschedule"
+msgstr "Reschedule"
+
+msgid "Reschedule appointment"
+msgstr "Reschedule appointment"
+
+msgid "Reschedule appointment | MediConnect"
+msgstr "Reschedule appointment | MediConnect"
+
+msgid "Retour en haut de la page"
+msgstr "Back to top of page"
+
+msgid "Retour en haut ↑"
+msgstr "Back to top ↑"
+
+msgid "Retrouver mes informations et mon historique."
+msgstr "Access my information and history."
+
+msgid "Retrouver mes résultats et mes documents."
+msgstr "Access my results and documents."
+
+msgid ""
+"Retrouvez le fil de votre santé, du premier rendez-vous au suivi de votre "
+"consultation."
+msgstr ""
+"Track your health journey, from the first appointment to consultation "
+"follow-up."
+
+msgid "Retrouvez les conversations liées à vos consultations."
+msgstr "Find conversations related to your consultations."
+
+msgid "Retrouvez les messages liés aux consultations."
+msgstr "Find messages related to consultations."
+
+msgid "Retrouvez vos comptes rendus de consultation."
+msgstr "Find your consultation reports."
+
+msgid "Retrouvez vos comptes rendus et gardez le fil de votre suivi."
+msgstr "Find your reports and keep track of your follow-up."
+
+msgid "Retrouvez vos comptes rendus et vos messages."
+msgstr "Find your reports and your messages."
+
+msgid ""
+"Retrouvez vos comptes rendus, échangez avec votre médecin et partagez votre "
+"avis après la consultation."
+msgstr ""
+"Find your reports, communicate with your doctor and share your feedback "
+"after the consultation."
+
+msgid "Retry"
+msgstr "Retry"
+
+msgid "Retry risk estimate for appointment"
+msgstr "Retry risk estimate for appointment"
+
+msgid "Review Application"
+msgstr "Review Application"
+
+msgid "Review Decision"
+msgstr "Review Decision"
+
+msgid "Review Dr."
+msgstr "Review Dr."
+
+msgid "Review a Consultation | MediConnect"
+msgstr "Review a Consultation | MediConnect"
+
+msgid "Review application for Dr."
+msgstr "Review application for Dr."
+
+msgid ""
+"Review the patient's medical history and known allergies to support informed"
+" clinical decisions."
+msgstr ""
+"Review the patient's medical history and known allergies to support informed"
+" clinical decisions."
+
+msgid "Review the prescriptions issued during your patient consultations."
+msgstr "Review the prescriptions issued during your patient consultations."
+
+msgid "Review →"
+msgstr "Review →"
+
+msgid "Review, approve or reject practitioner registration requests."
+msgstr "Review, approve or reject practitioner registration requests."
+
+msgid "Review, edit, or delete the specialties available to doctors."
+msgstr "Review, edit, or delete the specialties available to doctors."
+
+msgid "Reviewer note on file"
+msgstr "Reviewer note on file"
+
+msgid "Reviews"
+msgstr "Reviews"
+
+msgid "Rheumatology"
+msgstr "Rheumatology"
+
+msgid "Risk not available"
+msgstr "Risk not available"
+
+msgid "Role"
+msgstr "Role"
+
+msgid "Role for"
+msgstr "Role for"
+
+msgid "Rows: what really happened. Columns: what the model predicted."
+msgstr "Rows: what really happened. Columns: what the model predicted."
+
+msgid "Rédiger / modifier la consultation"
+msgstr "Write / edit the consultation"
+
+msgid "Rédigez des informations claires et compréhensibles pour le patient."
+msgstr "Write clear and understandable information for the patient."
+
+msgid "Rédigez vos comptes rendus"
+msgstr "Write your reports"
+
+msgid "Résultats actualisés."
+msgstr "Results updated."
+
+msgid "SPECIALTY"
+msgstr "SPECIALTY"
+
+msgid "Saturday"
+msgstr "Saturday"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Save Changes"
+msgstr "Save Changes"
+
+msgid "Save Medical Record"
+msgstr "Save Medical Record"
+
+msgid "Save Prescription"
+msgstr "Save Prescription"
+
+msgid "Save changes"
+msgstr "Save changes"
+
+msgid "Save my preferences"
+msgstr "Save my preferences"
+
+msgid "Save role for"
+msgstr "Save role for"
+
+msgid "Save specialty for"
+msgstr "Save specialty for"
+
+msgid "Scheduled appointments"
+msgstr "Scheduled appointments"
+
+msgid "Scheduled for today"
+msgstr "Scheduled for today"
+
+msgid "Se connecter"
+msgstr "Log in"
+
+msgid "Se connecter ↗"
+msgstr "Log in ↗"
+
+msgid "Se déconnecter ↗"
+msgstr "Log out ↗"
+
+msgid "Search by name, email, or username"
+msgstr "Search by name, email, or username"
+
+msgid "Search every appointment on the platform."
+msgstr "Search every appointment on the platform."
+
+msgid "Search examination documents"
+msgstr "Search examination documents"
+
+msgid "Search examinations by title..."
+msgstr "Search examinations by title..."
+
+msgid "Search users"
+msgstr "Search users"
+
+msgid "Security &amp; Login"
+msgstr "Security &amp; Login"
+
+msgid "See free slots"
+msgstr "See free slots"
+
+msgid "See free slots of Dr."
+msgstr "See free slots of Dr."
+
+msgid "Selfie holding your ID"
+msgstr "Selfie holding your ID"
+
+msgid "Selfie holding your ID (optional but recommended)"
+msgstr "Selfie holding your ID (optional but recommended)"
+
+msgid "Selfie with ID"
+msgstr "Selfie with ID"
+
+msgid "Send request"
+msgstr "Send request"
+
+msgid "Send request →"
+msgstr "Send request →"
+
+msgid "Server error | MediConnect"
+msgstr "Server error | MediConnect"
+
+msgid "Set Up Face Login"
+msgstr "Set Up Face Login"
+
+msgid "Set up facial recognition to enable an additional sign-in method."
+msgstr "Set up facial recognition to enable an additional sign-in method."
+
+msgid "Seul le médecin approuvé concerné peut générer cette fiche."
+msgstr "Only the relevant approved doctor can generate this form."
+
+msgid "Seul le médecin approuvé concerné peut rédiger la consultation."
+msgstr "Only the relevant approved doctor can write the consultation."
+
+msgid "Seul le médecin concerné peut supprimer ce compte rendu."
+msgstr "Only the relevant doctor can delete this report."
+
+msgid "Seul le médecin concerné peut valider la fiche."
+msgstr "Only the relevant doctor can validate the form."
+
+msgid "Seul le patient concerné peut laisser un avis."
+msgstr "Only the relevant patient can leave a review."
+
+msgid ""
+"Seuls le diagnostic et les notes sont transmis à Anthropic. Le nom du "
+"patient, son e-mail, les messages et les avis ne sont pas ajoutés "
+"automatiquement. Vérifiez toutefois le contenu des champs avant envoi. Pour "
+"la démonstration, utilisez des textes fictifs."
+msgstr ""
+"Only the diagnosis and notes are transmitted to Anthropic. The patient's "
+"name, email, messages and reviews are not added automatically. However, "
+"check the content of the fields before sending. For the demonstration, use "
+"fictional texts."
+
+msgid "Show"
+msgstr "Show"
+
+msgid "Show doctors"
+msgstr "Show doctors"
+
+msgid "Show password"
+msgstr "Show password"
+
+msgid "Showed up"
+msgstr "Showed up"
+
+msgid "Sign up"
+msgstr "Sign up"
+
+msgid "Skip to main content"
+msgstr "Skip to main content"
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+msgid "Specialties"
+msgstr "Specialties"
+
+msgid "Specialties | MediConnect"
+msgstr "Specialties | MediConnect"
+
+msgid "Specialties — Coming soon"
+msgstr "Specialties — Coming soon"
+
+msgid "Specialty"
+msgstr "Specialty"
+
+msgid "Specialty catalogue"
+msgstr "Specialty catalogue"
+
+msgid "Specialty for"
+msgstr "Specialty for"
+
+msgid "Spécialité"
+msgstr "Specialty"
+
+msgid "Spécialité médicale"
+msgstr "Medical specialty"
+
+msgid "Spécialités présentes"
+msgstr "Specialties present"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Statut du rendez-vous"
+msgstr "Appointment status"
+
+msgid "Structurer mes notes ✦"
+msgstr "Structure my notes ✦"
+
+msgid "Submit for review →"
+msgstr "Submit for review →"
+
+msgid "Submitted"
+msgstr "Submitted"
+
+msgid "Submitted Documents"
+msgstr "Submitted Documents"
+
+msgid "Suivant"
+msgstr "Next"
+
+msgid "Suivi"
+msgstr "Follow-up"
+
+msgid "Sunday"
+msgstr "Sunday"
+
+msgid "Support"
+msgstr "Support"
+
+msgid "Supprimer"
+msgstr "Delete"
+
+msgid "Supprimer cet avis"
+msgstr "Delete this review"
+
+msgid "Supprimer cet avis #"
+msgstr "Delete this review #"
+
+msgid "Supprimer cette consultation ?"
+msgstr "Delete this consultation?"
+
+msgid "Supprimer la consultation"
+msgstr "Delete consultation"
+
+msgid "Supprimer le message #"
+msgstr "Delete message #"
+
+msgid "Supprimer mon avis"
+msgstr "Delete my review"
+
+msgid "System"
+msgstr "System"
+
+msgid "S’inscrire avec Google"
+msgstr "Sign up with Google"
+
+msgid "Terminé"
+msgstr "Completed"
+
+msgid "Thank you,"
+msgstr "Thank you,"
+
+msgid "The AI model could not compute this estimate (model missing or error)."
+msgstr ""
+"The AI model could not compute this estimate (model missing or error)."
+
+msgid "The PDF is damaged or has an invalid structure."
+msgstr "The PDF is damaged or has an invalid structure."
+
+msgid "The PDF must contain at least one page."
+msgstr "The PDF must contain at least one page."
+
+msgid "The appointment was deleted."
+msgstr "The appointment was deleted."
+
+msgid ""
+"The confirmation link is no longer valid. This can happen if you already "
+"confirmed your email, or if the link has expired (links expire after 3 "
+"days)."
+msgstr ""
+"The confirmation link is no longer valid. This can happen if you already "
+"confirmed your email, or if the link has expired (links expire after 3 "
+"days)."
+
+msgid "The doctor already has an appointment at this time."
+msgstr "The doctor already has an appointment at this time."
+
+msgid ""
+"The doctor will be activated and can log in to their dashboard immediately."
+msgstr ""
+"The doctor will be activated and can log in to their dashboard immediately."
+
+msgid ""
+"The doctor will be notified and the slot will be offered to other patients. "
+"This cannot be undone."
+msgstr ""
+"The doctor will be notified and the slot will be offered to other patients. "
+"This cannot be undone."
+
+msgid "The doctor will see your message and be asked to re-upload documents."
+msgstr "The doctor will see your message and be asked to re-upload documents."
+
+msgid ""
+"The doctor's account will be deactivated. The reason will be shown to them."
+msgstr ""
+"The doctor's account will be deactivated. The reason will be shown to them."
+
+msgid "The file must not exceed 10 MB."
+msgstr "The file must not exceed 10 MB."
+
+msgid "The image content does not match its file extension."
+msgstr "The image content does not match its file extension."
+
+msgid ""
+"The model is tuned to catch most no-shows (high recall) at the cost of false"
+" alarms. That is acceptable here because a false alarm only means one extra "
+"reminder."
+msgstr ""
+"The model is tuned to catch most no-shows (high recall) at the cost of false"
+" alarms. That is acceptable here because a false alarm only means one extra "
+"reminder."
+
+msgid "The model only assists, the doctor decides."
+msgstr "The model only assists, the doctor decides."
+
+msgid ""
+"The patient history only counts appointments that happened before the "
+"booking day, so the model never uses information from the future."
+msgstr ""
+"The patient history only counts appointments that happened before the "
+"booking day, so the model never uses information from the future."
+
+msgid "The risk estimate is being computed again."
+msgstr "The risk estimate is being computed again."
+
+msgid "The risk is already available."
+msgstr "The risk is already available."
+
+msgid "The uploaded file cannot be empty."
+msgstr "The uploaded file cannot be empty."
+
+msgid "The uploaded file could not be read."
+msgstr "The uploaded file could not be read."
+
+msgid "The uploaded file is not a valid PDF."
+msgstr "The uploaded file is not a valid PDF."
+
+msgid "The uploaded image is invalid or corrupted."
+msgstr "The uploaded image is invalid or corrupted."
+
+msgid ""
+"These documents are used to verify your identity and qualifications. We "
+"accept PDF, JPG, and PNG files. All documents are stored securely."
+msgstr ""
+"These documents are used to verify your identity and qualifications. We "
+"accept PDF, JPG, and PNG files. All documents are stored securely."
+
+msgid "This account is inactive."
+msgstr "This account is inactive."
+
+msgid "This action cannot be undone."
+msgstr "This action cannot be undone."
+
+msgid ""
+"This action cannot be undone. Doctors assigned to this specialty will no "
+"longer have it assigned."
+msgstr ""
+"This action cannot be undone. Doctors assigned to this specialty will no "
+"longer have it assigned."
+
+msgid ""
+"This action cannot be undone. Records with protected related data cannot be "
+"deleted."
+msgstr ""
+"This action cannot be undone. Records with protected related data cannot be "
+"deleted."
+
+msgid ""
+"This action cannot be undone. The examination database record will be "
+"removed. The stored file requires separate cleanup."
+msgstr ""
+"This action cannot be undone. The examination database record will be "
+"removed. The stored file requires separate cleanup."
+
+msgid ""
+"This action cannot be undone. The prescription will be removed from the "
+"patient's medical records."
+msgstr ""
+"This action cannot be undone. The prescription will be removed from the "
+"patient's medical records."
+
+msgid ""
+"This appointment can no longer be cancelled online: cancelling is only "
+"possible more than 24 hours before the start, for pending or confirmed "
+"appointments."
+msgstr ""
+"This appointment can no longer be cancelled online: cancelling is only "
+"possible more than 24 hours before the start, for pending or confirmed "
+"appointments."
+
+msgid "This appointment can no longer be changed (less than 24 hours left)."
+msgstr "This appointment can no longer be changed (less than 24 hours left)."
+
+msgid "This appointment has not started yet."
+msgstr "This appointment has not started yet."
+
+msgid "This appointment is already in the past."
+msgstr "This appointment is already in the past."
+
+msgid "This availability overlaps another slot for the same doctor."
+msgstr "This availability overlaps another slot for the same doctor."
+
+msgid ""
+"This changes page content, forms, navigation and interface messages. "
+"Personal records and messages keep their original language."
+msgstr ""
+"This changes page content, forms, navigation and interface messages. "
+"Personal records and messages keep their original language."
+
+msgid "This link is invalid or expired"
+msgstr "This link is invalid or expired"
+
+msgid ""
+"This medical record contains private patient information. Access is "
+"restricted to authorized healthcare providers."
+msgstr ""
+"This medical record contains private patient information. Access is "
+"restricted to authorized healthcare providers."
+
+msgid "This page does not exist, or you do not have access to it."
+msgstr "This page does not exist, or you do not have access to it."
+
+msgid ""
+"This prescription contains private medical information and is accessible "
+"only to authorized users."
+msgstr ""
+"This prescription contains private medical information and is accessible "
+"only to authorized users."
+
+msgid ""
+"This process typically takes 1–2 business days. We'll notify you by email "
+"once a decision has been made."
+msgstr ""
+"This process typically takes 1–2 business days. We'll notify you by email "
+"once a decision has been made."
+
+msgid "This slot was just taken. Please choose another one."
+msgstr "This slot was just taken. Please choose another one."
+
+msgid "This time is outside the doctor's availability."
+msgstr "This time is outside the doctor's availability."
+
+msgid "Thursday"
+msgstr "Thursday"
+
+msgid "Time slot"
+msgstr "Time slot"
+
+msgid "Titre"
+msgstr "Title"
+
+msgid "Today's appointments"
+msgstr "Today's appointments"
+
+msgid "Toggle"
+msgstr "Toggle"
+
+msgid "Toggle availability on"
+msgstr "Toggle availability on"
+
+msgid "Toggle dashboard menu"
+msgstr "Toggle dashboard menu"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Total examinations"
+msgstr "Total examinations"
+
+msgid "Total issued prescriptions"
+msgstr "Total issued prescriptions"
+
+msgid "Total patients"
+msgstr "Total patients"
+
+msgid "Total prescriptions"
+msgstr "Total prescriptions"
+
+msgid "Total users"
+msgstr "Total users"
+
+msgid "Tous les médecins ↗"
+msgstr "All doctors ↗"
+
+msgid "Tous les statuts"
+msgstr "All statuses"
+
+msgid "Tout ce dont vous avez besoin pour organiser"
+msgstr "Everything you need to organize"
+
+msgid "Tout commence par une connexion."
+msgstr "It all starts with a connection."
+
+msgid "Tout voir ↗"
+msgstr "View all ↗"
+
+msgid "Toutes les conversations"
+msgstr "All conversations"
+
+msgid "Toutes les spécialités"
+msgstr "All specialties"
+
+msgid "Toutes mes conversations"
+msgstr "All my conversations"
+
+msgid "Trained on"
+msgstr "Trained on"
+
+msgid "Training data"
+msgstr "Training data"
+
+msgid "Treatment guidance and additional notes from the prescribing doctor."
+msgstr "Treatment guidance and additional notes from the prescribing doctor."
+
+msgid ""
+"Trois rubriques pour retrouver les constats, les consignes et la suite "
+"prévue."
+msgstr ""
+"Three sections to find the findings, instructions and planned follow-up."
+
+msgid "Trouver"
+msgstr "Find"
+
+msgid "Trouver mon médecin"
+msgstr "Find my doctor"
+
+msgid "Trouver mon médecin ↗"
+msgstr "Find my doctor ↗"
+
+msgid "Trouver un médecin"
+msgstr "Find a doctor"
+
+msgid "Trouvez votre médecin"
+msgstr "Find your doctor"
+
+msgid "Trouvez à qui vous adresser"
+msgstr "Find who to contact"
+
+msgid "Try searching for a different document title."
+msgstr "Try searching for a different document title."
+
+msgid "Tuesday"
+msgstr "Tuesday"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "UN COUP DE POUCE POUR COMMENCER"
+msgstr "A HELPING HAND TO GET STARTED"
+
+msgid "UN ESPACE POUR PRENDRE SOIN DU LIEN"
+msgstr "A SPACE TO NURTURE THE CONNECTION"
+
+msgid "UNE AIDE POUR LE PREMIER PAS"
+msgstr "HELP FOR THE FIRST STEP"
+
+msgid "Un accompagnement à chaque étape"
+msgstr "Support at every step"
+
+msgid "Un brouillon sourcé. Votre vérification. Une fiche patient validée."
+msgstr "A sourced draft. Your verification. A validated patient record."
+
+msgid "Un compte rendu utile"
+msgstr "A useful report"
+
+msgid "Un compte."
+msgstr "An account."
+
+msgid "Un créneau à choisir selon vos disponibilités."
+msgstr "A time slot to choose based on your availability."
+
+msgid "Un espace pour garder le fil de vos soins."
+msgstr "A space to keep track of your care."
+
+msgid ""
+"Un espace pour organiser vos rendez-vous et garder le contact avec vos "
+"patients, avant et après la consultation."
+msgstr ""
+"A space to organize your appointments and stay in touch with your patients, "
+"before and after the consultation."
+
+msgid "Un parcours de vérification avant l’accès."
+msgstr "A verification process before access."
+
+msgid "Un parcours pensé pour vous"
+msgstr "A journey designed for you"
+
+msgid "Un parcours qui vous ressemble"
+msgstr "A journey that suits you"
+
+msgid "Un parcours simple."
+msgstr "A simple journey."
+
+msgid ""
+"Un rendez-vous à organiser, un document à retrouver ou une question à poser "
+"? Votre parcours continue ici."
+msgstr ""
+"An appointment to schedule, a document to find or a question to ask? Your "
+"journey continues here."
+
+msgid "Un rendez-vous à votre rythme"
+msgstr "An appointment at your pace"
+
+msgid "Un suivi"
+msgstr "A follow-up"
+
+msgid "Un échange ciblé"
+msgstr "A targeted exchange"
+
+msgid "Unavailable"
+msgstr "Unavailable"
+
+msgid "Under review"
+msgstr "Under review"
+
+msgid ""
+"Une aide pour choisir à qui vous adresser. Cette piste doit être confirmée "
+"par un professionnel et ne permet pas d’exclure une urgence."
+msgstr ""
+"A guide to help you choose who to see. This suggestion must be confirmed by "
+"a professional and does not rule out an emergency."
+
+msgid "Une aide à la lecture"
+msgstr "Reading assistance"
+
+msgid ""
+"Une aide à la navigation, sans diagnostic ni prescription. En cas de danger "
+"immédiat, contactez les services d’urgence locaux."
+msgstr ""
+"Navigation assistance, without diagnosis or prescription. In case of "
+"immediate danger, contact local emergency services."
+
+msgid ""
+"Une aide à l’orientation, sans diagnostic. En cas d’urgence, contactez les "
+"services d’urgence locaux."
+msgstr ""
+"Guidance assistance, without diagnosis. In case of emergency, contact local "
+"emergency services."
+
+msgid "Une aide à l’orientation, à confirmer par un professionnel."
+msgstr "Guidance assistance, to be confirmed by a professional."
+
+msgid "Une fiche claire, validée par votre médecin."
+msgstr "A clear sheet, validated by your doctor."
+
+msgid "Une génération est déjà en cours. Patientez avant de réessayer."
+msgstr "A generation is already in progress. Please wait before trying again."
+
+msgid ""
+"Une nouvelle génération retirera la fiche actuelle de l'espace patient "
+"jusqu'à votre prochaine validation."
+msgstr ""
+"A new generation will remove the current sheet from the patient space until "
+"your next validation."
+
+msgid "Une piste pour votre consultation"
+msgstr "A suggestion for your consultation"
+
+msgid "Une spécialité, un médecin,"
+msgstr "A specialty, a doctor,"
+
+msgid "Une vue claire de votre consultation."
+msgstr "A clear view of your consultation."
+
+msgid ""
+"Unfortunately, we were unable to approve your application at this time."
+msgstr ""
+"Unfortunately, we were unable to approve your application at this time."
+
+msgid "Unread messages"
+msgstr "Unread messages"
+
+msgid "Unread:"
+msgstr "Unread:"
+
+msgid "Upcoming ("
+msgstr "Upcoming ("
+
+msgid "Upcoming appointments"
+msgstr "Upcoming appointments"
+
+msgid "Update Face Data"
+msgstr "Update Face Data"
+
+msgid "Update examination information."
+msgstr "Update examination information."
+
+msgid "Update prescription"
+msgstr "Update prescription"
+
+msgid ""
+"Update the medications and treatment instructions for this prescription."
+msgstr ""
+"Update the medications and treatment instructions for this prescription."
+
+msgid "Update the prescription details below."
+msgstr "Update the prescription details below."
+
+msgid "Update this availability slot."
+msgstr "Update this availability slot."
+
+msgid "Updates about your appointments and your account, newest first."
+msgstr "Updates about your appointments and your account, newest first."
+
+msgid "Upload Documents | MediConnect"
+msgstr "Upload Documents | MediConnect"
+
+msgid "Upload Examination"
+msgstr "Upload Examination"
+
+msgid "Upload Examination | MediConnect"
+msgstr "Upload Examination | MediConnect"
+
+msgid "Upload a medical examination for a patient."
+msgstr "Upload a medical examination for a patient."
+
+msgid "Upload documents"
+msgstr "Upload documents"
+
+msgid "Upload documents →"
+msgstr "Upload documents →"
+
+msgid "Upload examination"
+msgstr "Upload examination"
+
+msgid "Upload your documents"
+msgstr "Upload your documents"
+
+msgid "Upload your first examination"
+msgstr "Upload your first examination"
+
+msgid "Uploaded"
+msgstr "Uploaded"
+
+msgid "Urology"
+msgstr "Urology"
+
+msgid "User"
+msgstr "User"
+
+msgid "User ID required"
+msgstr "User ID required"
+
+msgid "User management"
+msgstr "User management"
+
+msgid "User not found"
+msgstr "User not found"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Users | MediConnect"
+msgstr "Users | MediConnect"
+
+msgid ""
+"Utilisez les flèches haut et bas ou les touches Page précédente et Page "
+"suivante pour parcourir les messages."
+msgstr ""
+"Use the up and down arrows or Page Up and Page Down keys to scroll through "
+"messages."
+
+msgid "VOS MOTS → UNE PISTE → UN PROFESSIONNEL"
+msgstr "YOUR WORDS → A LEAD → A PROFESSIONAL"
+
+msgid "VOTRE ESPACE PATIENT"
+msgstr "YOUR PATIENT SPACE"
+
+msgid "VOTRE ESPACE PROFESSIONNEL"
+msgstr "YOUR PROFESSIONAL SPACE"
+
+msgid "VOTRE PROCHAIN RENDEZ-VOUS"
+msgstr "YOUR NEXT APPOINTMENT"
+
+msgid "Valider et publier au patient"
+msgstr "Validate and publish to patient"
+
+msgid "Validé par le médecin"
+msgstr "Validated by doctor"
+
+msgid "Validée le"
+msgstr "Validated on"
+
+msgid "Video call"
+msgstr "Video call"
+
+msgid "Video element not found"
+msgstr "Video element not found"
+
+msgid "View"
+msgstr "View"
+
+msgid "View Medical Record"
+msgstr "View Medical Record"
+
+msgid "View Medical Record for patient #"
+msgstr "View Medical Record for patient #"
+
+msgid "View all →"
+msgstr "View all →"
+
+msgid "View and manage registered patient medical records."
+msgstr "View and manage registered patient medical records."
+
+msgid "View and manage this patient's medical information."
+msgstr "View and manage this patient's medical information."
+
+msgid "View appointment"
+msgstr "View appointment"
+
+msgid "View appointment of"
+msgstr "View appointment of"
+
+msgid "View appointments &rarr;"
+msgstr "View appointments &rarr;"
+
+msgid "View examination #"
+msgstr "View examination #"
+
+msgid "View examinations"
+msgstr "View examinations"
+
+msgid "View medical record #"
+msgstr "View medical record #"
+
+msgid ""
+"View medications and treatment instructions prescribed by your doctors."
+msgstr ""
+"View medications and treatment instructions prescribed by your doctors."
+
+msgid ""
+"View patients associated with your appointments and access their medical "
+"records when authorized."
+msgstr ""
+"View patients associated with your appointments and access their medical "
+"records when authorized."
+
+msgid "View prescription"
+msgstr "View prescription"
+
+msgid "View prescription #"
+msgstr "View prescription #"
+
+msgid "View prescriptions &rarr;"
+msgstr "View prescriptions &rarr;"
+
+msgid "View website"
+msgstr "View website"
+
+msgid "View ↗"
+msgstr "View ↗"
+
+msgid "Visioconférence"
+msgstr "Video conference"
+
+msgid "Voir la consultation →"
+msgstr "View consultation →"
+
+msgid "Voir la consultation → #"
+msgstr "View consultation → #"
+
+msgid "Voir le compte rendu"
+msgstr "View report"
+
+msgid "Voir le compte rendu →"
+msgstr "View report →"
+
+msgid "Voir le compte rendu → Consultation #"
+msgstr "View report → Consultation #"
+
+msgid "Voir le dossier médical"
+msgstr "View medical record"
+
+msgid "Voir le rendez-vous"
+msgstr "View appointment"
+
+msgid "Voir les créneaux de Dr"
+msgstr "View Dr's slots"
+
+msgid "Voir les créneaux →"
+msgstr "View time slots →"
+
+msgid "Voir les créneaux ↗"
+msgstr "View time slots ↗"
+
+msgid "Voir les extraits d’origine"
+msgstr "View original excerpts"
+
+msgid "Voir les sources ("
+msgstr "View sources ("
+
+msgid "Voir mes rendez-vous"
+msgstr "View my appointments"
+
+msgid "Voir mon rendez-vous"
+msgstr "View my appointment"
+
+msgid "Voir tous les médecins"
+msgstr "View all doctors"
+
+msgid "Vos essentiels, sans détour."
+msgstr "Your essentials, without detours."
+
+msgid "Vos notes. Un compte rendu bien organisé."
+msgstr "Your notes. A well-organized report."
+
+msgid "Vos retours d'expérience."
+msgstr "Your feedback."
+
+msgid "Vos réponses enregistrées et cette orientation ont été supprimées."
+msgstr "Your saved responses and this referral have been deleted."
+
+msgid "Vos soins."
+msgstr "Your care."
+
+msgid "Vos échanges, au même endroit."
+msgstr "Your conversations, in one place."
+
+msgid "Vos échanges."
+msgstr "Your conversations."
+
+msgid "Votre agenda vous attend."
+msgstr "Your calendar awaits you."
+
+msgid "Votre annuaire de soins"
+msgstr "Your care directory"
+
+msgid "Votre avis a été supprimé."
+msgstr "Your review has been deleted."
+
+msgid "Votre avis est attendu"
+msgstr "Your feedback is awaited"
+
+msgid ""
+"Votre avis sera disponible lorsque le médecin aura marqué ce rendez-vous "
+"comme terminé."
+msgstr ""
+"Your feedback will be available once the doctor has marked this appointment "
+"as completed."
+
+msgid "Votre candidature sera examinée par l’administration."
+msgstr "Your application will be reviewed by the administration."
+
+msgid "Votre compte médecin doit être approuvé."
+msgstr "Your doctor account must be approved."
+
+msgid "Votre demande est en préparation…"
+msgstr "Your request is being prepared…"
+
+msgid "Votre e-mail"
+msgstr "Your email"
+
+msgid "Votre espace"
+msgstr "Your space"
+
+msgid "Votre espace personnel"
+msgstr "Your personal space"
+
+msgid "Votre espace professionnel"
+msgstr "Your professional space"
+
+msgid "Votre espace."
+msgstr "Your space."
+
+msgid "Votre expérience"
+msgstr "Your experience"
+
+msgid "Votre fiche patient, ici même"
+msgstr "Your patient record, right here"
+
+msgid "Votre fiche prend forme"
+msgstr "Your record is taking shape"
+
+msgid "Votre futur espace patient"
+msgstr "Your future patient space"
+
+msgid "Votre message"
+msgstr "Your message"
+
+msgid "Votre mot de passe"
+msgstr "Your password"
+
+msgid "Votre note"
+msgstr "Your rating"
+
+msgid "Votre orientation est prête."
+msgstr "Your referral is ready."
+
+msgid "Votre parcours"
+msgstr "Your journey"
+
+msgid "Votre parcours MediConnect"
+msgstr "Your MediConnect journey"
+
+msgid "Votre parcours commence ici"
+msgstr "Your journey starts here"
+
+msgid "Votre parcours commence ici."
+msgstr "Your journey starts here."
+
+msgid "Votre parcours de soins"
+msgstr "Your care journey"
+
+msgid "Votre parcours, réuni au même endroit."
+msgstr "Your journey, all in one place."
+
+msgid "Votre pratique, au même endroit"
+msgstr "Your practice, in one place"
+
+msgid "Votre prochain échange commence ici."
+msgstr "Your next conversation starts here."
+
+msgid "Votre prochaine étape"
+msgstr "Your next step"
+
+msgid "Votre profil"
+msgstr "Your profile"
+
+msgid "Votre rendez-vous"
+msgstr "Your appointment"
+
+msgid "Votre retour aide à améliorer le suivi."
+msgstr "Your feedback helps improve follow-up."
+
+msgid "Votre retour compte"
+msgstr "Your feedback matters"
+
+msgid "Votre santé,"
+msgstr "Your health,"
+
+msgid "Votre santé, un peu plus simple."
+msgstr "Your health, a little simpler."
+
+msgid "Votre session a expiré. Reconnectez-vous."
+msgstr "Your session has expired. Please log in again."
+
+msgid "Votre version destinée au patient"
+msgstr "Your patient version"
+
+msgid "Votre évaluation"
+msgstr "Your assessment"
+
+msgid "Vous hésitez sur la spécialité ?"
+msgstr "Unsure about the specialty?"
+
+msgid "Vous ne participez pas à cette consultation."
+msgstr "You are not participating in this consultation."
+
+msgid "Vous ne savez pas"
+msgstr "You don't know"
+
+msgid "Vous pourrez laisser un avis après la fin du rendez-vous."
+msgstr "You will be able to leave a review after the appointment ends."
+
+msgid "Vous pourrez vérifier et corriger le résultat avant publication."
+msgstr "You will be able to review and correct the result before publication."
+
+msgid "Vous prenez soin des autres."
+msgstr "You take care of others."
+
+msgid "Vous souhaitez consulter un médecin ?"
+msgstr "Would you like to consult a doctor?"
+
+msgid "Vous êtes médecin ?"
+msgstr "Are you a doctor?"
+
+msgid "Vérification"
+msgstr "Verification"
+
+msgid "Vérifiez avant de continuer"
+msgstr "Check before continuing"
+
+msgid "Vérifiez le brouillon et cochez la confirmation."
+msgstr "Review the draft and check the confirmation."
+
+msgid "Vérifiez les champs et votre accord."
+msgstr "Check the fields and your agreement."
+
+msgid "Waiting for you"
+msgstr "Waiting for you"
+
+msgid "We sent a confirmation link to"
+msgstr "We sent a confirmation link to"
+
+msgid "Wednesday"
+msgstr "Wednesday"
+
+msgid "Weighted average"
+msgstr "Weighted average"
+
+msgid "Welcome to MediConnect, %(value0)s!"
+msgstr "Welcome to MediConnect, %(value0)s!"
+
+msgid "Welcome, Dr."
+msgstr "Welcome, Dr."
+
+msgid "When documents were submitted for review."
+msgstr "When documents were submitted for review."
+
+msgid "Why the patient wants to see the doctor."
+msgstr "Why the patient wants to see the doctor."
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "Yes, Delete Examination"
+msgstr "Yes, Delete Examination"
+
+msgid "Yes, Delete Prescription"
+msgstr "Yes, Delete Prescription"
+
+msgid "Yes, cancel the appointment"
+msgstr "Yes, cancel the appointment"
+
+msgid "Yes, delete prescription"
+msgstr "Yes, delete prescription"
+
+msgid "You already have an appointment at this time."
+msgstr "You already have an appointment at this time."
+
+msgid "You are about to delete medical record"
+msgstr "You are about to delete medical record"
+
+msgid ""
+"You are about to delete this prescription from the patient's medical "
+"information. Please review the details before confirming."
+msgstr ""
+"You are about to delete this prescription from the patient's medical "
+"information. Please review the details before confirming."
+
+msgid "You have no availability slots yet."
+msgstr "You have no availability slots yet."
+
+msgid "You have no notifications yet."
+msgstr "You have no notifications yet."
+
+msgid "You have no upcoming appointments."
+msgstr "You have no upcoming appointments."
+
+msgid "You're approved!"
+msgstr "You're approved!"
+
+msgid "Your account"
+msgstr "Your account"
+
+msgid "Your account details"
+msgstr "Your account details"
+
+msgid "Your account has been verified. Welcome to MediConnect,"
+msgstr "Your account has been verified. Welcome to MediConnect,"
+
+msgid "Your appointment was cancelled."
+msgstr "Your appointment was cancelled."
+
+msgid "Your appointment was moved. The doctor needs to confirm it again."
+msgstr "Your appointment was moved. The doctor needs to confirm it again."
+
+msgid "Your appointments will appear here when patients book with you."
+msgstr "Your appointments will appear here when patients book with you."
+
+msgid "Your details"
+msgstr "Your details"
+
+msgid ""
+"Your email is confirmed. The next step is to upload your verification "
+"documents so our team can review your application."
+msgstr ""
+"Your email is confirmed. The next step is to upload your verification "
+"documents so our team can review your application."
+
+msgid "Your medical degree or specialist qualification certificate."
+msgstr "Your medical degree or specialist qualification certificate."
+
+msgid ""
+"Your medical document is stored privately. Only authorized users can access "
+"it through the secure examination download feature."
+msgstr ""
+"Your medical document is stored privately. Only authorized users can access "
+"it through the secure examination download feature."
+
+msgid ""
+"Your medical documents, organized and securely accessible in one place."
+msgstr ""
+"Your medical documents, organized and securely accessible in one place."
+
+msgid "Your medical examination was uploaded successfully."
+msgstr "Your medical examination was uploaded successfully."
+
+msgid "Your medical record has been updated successfully."
+msgstr "Your medical record has been updated successfully."
+
+msgid ""
+"Your official medical license or professional registration document issued "
+"by your medical authority."
+msgstr ""
+"Your official medical license or professional registration document issued "
+"by your medical authority."
+
+msgid "Your personal medical history and known allergies."
+msgstr "Your personal medical history and known allergies."
+
+msgid "Your preferences have been saved."
+msgstr "Your preferences have been saved."
+
+msgid ""
+"Your request was sent to %(value0)s. You will be notified when it is "
+"confirmed."
+msgstr ""
+"Your request was sent to %(value0)s. You will be notified when it is "
+"confirmed."
+
+msgid "_error"
+msgstr "_error"
+
+msgid "ago"
+msgstr "ago"
+
+msgid "appointments (stratified 80/20 split)"
+msgstr "appointments (stratified 80/20 split)"
+
+msgid "appointments ·"
+msgstr "appointments ·"
+
+msgid "aria-describedby=\""
+msgstr "aria-describedby=\""
+
+msgid "aria-invalid=\"true\""
+msgstr "aria-invalid=\"true\""
+
+msgid "as absent on"
+msgstr "as absent on"
+
+msgid "as completed"
+msgstr "as completed"
+
+msgid "aujourd’hui ?"
+msgstr "today?"
+
+msgid "belonging to"
+msgstr "belonging to"
+
+msgid "care-dashboard"
+msgstr "care-dashboard"
+
+msgid "comment allez-vous"
+msgstr "how are you"
+
+msgid "commentaire"
+msgstr "comment"
+
+msgid "contenu"
+msgstr "content"
+
+msgid "diagnostic"
+msgstr "diagnosis"
+
+msgid "diploma"
+msgstr "diploma"
+
+msgid "doctor"
+msgstr "doctor"
+
+msgid "doctor@hospital.com"
+msgstr "doctor@hospital.com"
+
+msgid "doctors"
+msgstr "doctors"
+
+msgid "e.g. Cardiology"
+msgstr "e.g. Cardiology"
+
+msgid ""
+"e.g. The provided license number could not be verified with the medical "
+"authority."
+msgstr ""
+"e.g. The provided license number could not be verified with the medical "
+"authority."
+
+msgid ""
+"e.g. Your medical license image is blurry. Please re-upload a clearer "
+"version."
+msgstr ""
+"e.g. Your medical license image is blurry. Please re-upload a clearer "
+"version."
+
+msgid "files"
+msgstr "files"
+
+msgid "for"
+msgstr "for"
+
+msgid "fr"
+msgstr "fr"
+
+msgid "from"
+msgstr "from"
+
+msgid "la rencontre."
+msgstr "the appointment."
+
+msgid "lien_visio"
+msgstr "video_link"
+
+msgid "macro avg"
+msgstr "macro avg"
+
+msgid "medecin@exemple.com"
+msgstr "doctor@example.com"
+
+msgid "medical_license"
+msgstr "medical_license"
+
+msgid "message"
+msgstr "message"
+
+msgid "min"
+msgstr "min"
+
+msgid "minutes"
+msgstr "minutes"
+
+msgid "mode"
+msgstr "mode"
+
+msgid "model file missing on this server"
+msgstr "model file missing on this server"
+
+msgid "ms"
+msgstr "ms"
+
+msgid ""
+"ms. Les citations ci-dessous se rapportent au brouillon IA, pas aux "
+"corrections que vous saisissez."
+msgstr ""
+"ms. The citations below refer to the AI draft, not to the corrections you "
+"enter."
+
+msgid "médecin"
+msgstr "doctor"
+
+msgid "national_id"
+msgstr "national_id"
+
+msgid "no_show"
+msgstr "no_show"
+
+msgid "non lu"
+msgstr "unread"
+
+msgid "non lues"
+msgstr "unread"
+
+msgid "non lus)"
+msgstr "unread)"
+
+msgid "notes"
+msgstr "notes"
+
+msgid "of"
+msgstr "of"
+
+msgid "on"
+msgstr "on"
+
+msgid "ou avec votre adresse e-mail"
+msgstr "or with your email address"
+
+msgid "pour votre prochain échange."
+msgstr "for your next appointment."
+
+msgid "préparer la suite."
+msgstr "prepare the follow-up."
+
+msgid "python manage.py train_noshow_model"
+msgstr "python manage.py train_noshow_model"
+
+msgid "qui continue."
+msgstr "ongoing."
+
+msgid "reason"
+msgstr "reason"
+
+msgid "rendez-vous"
+msgstr "appointment"
+
+msgid "rendez-vous à venir"
+msgstr "upcoming appointments"
+
+msgid "résultat"
+msgstr "result"
+
+msgid "selfie_with_id"
+msgstr "selfie_with_id"
+
+msgid "show"
+msgstr "show"
+
+msgid "simple."
+msgstr "simple."
+
+msgid "simplement."
+msgstr "simply."
+
+msgid "soin du lien ?"
+msgstr "link care?"
+
+msgid "specialties"
+msgstr "specialties"
+
+msgid "support@mediconnect.com"
+msgstr "support@mediconnect.com"
+
+msgid "sur 5"
+msgstr "out of 5"
+
+msgid "to"
+msgstr "to"
+
+msgid "to start."
+msgstr "to start."
+
+msgid "trouvé"
+msgstr "found"
+
+msgid "un peu plus"
+msgstr "a little more"
+
+msgid "un suivi qui continue."
+msgstr "ongoing follow-up."
+
+msgid "unread"
+msgstr "unread"
+
+msgid "vos soins, à votre rythme."
+msgstr "your care, at your pace."
+
+msgid "votre prochain rendez-vous."
+msgstr "your next appointment."
+
+msgid "vous retrouver."
+msgstr "see you again."
+
+msgid "vous@exemple.com"
+msgstr "you@example.com"
+
+msgid "weighted avg"
+msgstr "weighted avg"
+
+msgid "with Dr."
+msgstr "with Dr."
+
+msgid "you@example.com"
+msgstr "you@example.com"
+
+msgid "| MediConnect"
+msgstr "| MediConnect"
+
+msgid "· Dr"
+msgstr "· Dr"
+
+msgid "· Génération et contrôle :"
+msgstr "· Generation and control:"
+
+msgid "· choose a free time and tell the doctor why you are coming."
+msgstr "· choose a free time and tell the doctor why you are coming."
+
+msgid "· test set:"
+msgstr "· test set:"
+
+msgid "À CHAQUE BESOIN, SON PROFESSIONNEL"
+msgstr "FOR EVERY NEED, A PROFESSIONAL"
+
+msgid "À PORTÉE DE MAIN"
+msgstr "AT YOUR FINGERTIPS"
+
+msgid "À confirmer"
+msgstr "To be confirmed"
+
+msgid "À propos de cette orientation"
+msgstr "About this referral"
+
+msgid "À préciser ensemble"
+msgstr "To be specified together"
+
+msgid "À venir dans votre agenda"
+msgstr "Coming in your calendar"
+
+msgid "À vérifier"
+msgstr "To verify"
+
+msgid "Échanger"
+msgstr "Communicate"
+
+msgid "Échanger - consultation #"
+msgstr "Exchange - consultation #"
+
+msgid "Échanges de suivi"
+msgstr "Follow-up messages"
+
+msgid "Écrivez au sujet de cette consultation…"
+msgstr "Write about this consultation…"
+
+msgid "Écrivez vos notes rapides"
+msgstr "Write your quick notes"
+
+msgid "Étapes de l’inscription médecin"
+msgstr "Doctor registration steps"
+
+msgid "Être suivi"
+msgstr "Be followed"
+
+msgid "à qui vous adresser ?"
+msgstr "who to contact?"
+
+msgid "à une fiche claire."
+msgstr "to a clear sheet."
+
+msgid "← All appointments"
+msgstr "← All appointments"
+
+msgid "← All my appointments"
+msgstr "← All my appointments"
+
+msgid "← Back to all applications"
+msgstr "← Back to all applications"
+
+msgid "← Back to the appointment"
+msgstr "← Back to the appointment"
+
+msgid "← Choose another doctor"
+msgstr "← Choose another doctor"
+
+msgid "← Explorer MediConnect"
+msgstr "← Explore MediConnect"
+
+msgid "← Mes consultations"
+msgstr "← My consultations"
+
+msgid "← My appointments"
+msgstr "← My appointments"
+
+msgid "← Previous"
+msgstr "← Previous"
+
+msgid "← Retour à l’accueil"
+msgstr "← Back to home"
+
+msgid "↩ Retake"
+msgstr "↩ Retake"
+
+msgid "⊙ Capture photo"
+msgstr "⊙ Capture photo"
+
+msgid "✅ Approve application"
+msgstr "✅ Approve application"
+
+msgid "✎ Edit"
+msgstr "✎ Edit"
+
+msgid "✓ Photo captured"
+msgstr "✓ Photo captured"
+
+msgid "✓ Profil approuvé"
+msgstr "✓ Profile approved"
+
+msgid "✕ Close camera"
+msgstr "✕ Close camera"
+
+msgid "✦ Besoin d’être orienté ?"
+msgstr "✦ Need guidance?"
+
+msgid "✦ Me laisser guider par l’IA"
+msgstr "✦ Let AI guide me"
+
+msgid "✦ Orientation proposée"
+msgstr "✦ Guidance suggested"
+
+msgid "❌ Reject application"
+msgstr "❌ Reject application"
+
+msgid "📋 Our team needs more information"
+msgstr "📋 Our team needs more information"
+
+msgid "📋 Request more information"
+msgstr "📋 Request more information"
+
+msgid "📝 Message from our team:"
+msgstr "📝 Message from our team:"
+
+msgid "📷 Open camera"
+msgstr "📷 Open camera"
+
+msgid "🗑 Delete"
+msgstr "🗑 Delete"
+
+msgid "🗑 Delete specialty"
+msgstr "🗑 Delete specialty"
+
+msgid "%(count)s doctor"
+msgid_plural "%(count)s doctors"
+msgstr[0] "%(count)s doctor"
+msgstr[1] "%(count)s doctors"
+
+msgid "%(count)s doctor found"
+msgid_plural "%(count)s doctors found"
+msgstr[0] "%(count)s doctor found"
+msgstr[1] "%(count)s doctors found"
+
+msgid "%(count)s result"
+msgid_plural "%(count)s results"
+msgstr[0] "%(count)s result"
+msgstr[1] "%(count)s results"
+
+msgid "%(count)s message"
+msgid_plural "%(count)s messages"
+msgstr[0] "%(count)s message"
+msgstr[1] "%(count)s messages"
+
+msgid "%(count)s unread"
+msgid_plural "%(count)s unread"
+msgstr[0] "%(count)s unread"
+msgstr[1] "%(count)s unread"

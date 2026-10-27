@@ -1,7 +1,7 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Prescription #{{ ordonnance.pk }} | MediConnect{% endblock %}
+{% block title %}{% translate "Prescription #" %}{{ ordonnance.pk }} {% translate "| MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -13,7 +13,7 @@
         width: 100%;
         max-width: 1050px;
         margin: 0 auto;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .rx-detail-back {
@@ -28,7 +28,7 @@
     }
 
     .rx-detail-back:hover {
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .rx-detail-back svg {
@@ -56,7 +56,7 @@
 
     .rx-detail-title {
         margin: 0 0 11px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: clamp(28px, 3vw, 38px);
         font-weight: 800;
         letter-spacing: -1.2px;
@@ -92,7 +92,7 @@
         overflow: hidden;
         border: 1px solid #e8ebe5;
         border-radius: 16px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
         box-shadow: 0 3px 15px rgba(30, 38, 30, .025);
     }
 
@@ -146,8 +146,8 @@
         padding: 8px 12px;
         border: 1px solid #eee6c5;
         border-radius: 8px;
-        background: #fff9e5;
-        color: #786a39;
+        background:var(--ui-adaptive-soft,#fff9e5);
+        color:var(--ui-adaptive-muted,#786a39);
         font-size: 11px;
         font-weight: 750;
     }
@@ -165,7 +165,7 @@
         padding: 24px;
         border: 1px solid #e9ece6;
         border-radius: 12px;
-        background: #fafbf8;
+        background:var(--ui-adaptive-paper,#fafbf8);
     }
 
     .rx-detail-meta-label {
@@ -178,7 +178,7 @@
 
     .rx-detail-meta-value {
         display: block;
-        color: #384036;
+        color:var(--ui-adaptive-ink,#384036);
         font-size: 13px;
         font-weight: 750;
         line-height: 1.6;
@@ -212,7 +212,7 @@
 
     .rx-detail-section h2 {
         margin: 0;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 16px;
         font-weight: 800;
     }
@@ -229,8 +229,8 @@
         padding: 19px 20px;
         border: 1px solid #e9ece6;
         border-radius: 11px;
-        background: #fafbf8;
-        color: #40483d;
+        background:var(--ui-adaptive-paper,#fafbf8);
+        color:var(--ui-adaptive-ink,#40483d);
         font-size: 13px;
         line-height: 1.85;
         overflow-wrap: anywhere;
@@ -269,8 +269,8 @@
         padding: 11px 17px;
         border: 1px solid #e3e7e0;
         border-radius: 9px;
-        background: #fff;
-        color: #4e584c;
+        background:var(--ui-adaptive-paper,#fff);
+        color:var(--ui-adaptive-ink,#4e584c);
         font-family: inherit;
         font-size: 12px;
         font-weight: 750;
@@ -281,8 +281,8 @@
 
     .rx-detail-button:hover {
         border-color: #e7d47c;
-        background: #fff9dc;
-        color: #252923;
+        background:var(--ui-adaptive-soft,#fff9dc);
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .rx-detail-button svg {
@@ -294,7 +294,7 @@
     .rx-detail-button--primary {
         border-color: #ffeb4d;
         background: #ffeb4d;
-        color: #252923;
+        color:#292d28;
     }
 
     .rx-detail-button--primary:hover {
@@ -304,13 +304,13 @@
 
     .rx-detail-button--danger {
         border-color: #efceca;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
         color: #a33b32;
     }
 
     .rx-detail-button--danger:hover {
         border-color: #e6b6b0;
-        background: #fff5f4;
+        background:var(--ui-adaptive-soft,#fff5f4);
         color: #8f3028;
     }
 
@@ -339,15 +339,15 @@
         padding: 13px 16px;
         border: 1px solid #cde6d0;
         border-radius: 10px;
-        background: #f1faf2;
-        color: #276337;
+        background:var(--ui-adaptive-soft,#f1faf2);
+        color:var(--ui-adaptive-ink,#276337);
         font-size: 13px;
         line-height: 1.6;
     }
 
     .rx-detail-alert--error {
         border-color: #f0c8c5;
-        background: #fff5f4;
+        background:var(--ui-adaptive-soft,#fff5f4);
         color: #a33b32;
     }
 
@@ -408,7 +408,7 @@
              aria-hidden="true">
             <path d="m15 18-6-6 6-6"/>
         </svg>
-        Back to prescriptions
+        {% translate "Back to prescriptions" %}
     </a>
 
     <!-- Page heading -->
@@ -417,20 +417,19 @@
         <div>
             <span class="rx-detail-eyebrow">
                 {% if request.user.role == "doctor" %}
-                    DOCTOR PORTAL / PRESCRIPTIONS
+                    {% translate "DOCTOR PORTAL / PRESCRIPTIONS" %}
                 {% else %}
-                    PATIENT PORTAL / PRESCRIPTIONS
+                    {% translate "PATIENT PORTAL / PRESCRIPTIONS" %}
                 {% endif %}
             </span>
 
             <h1 id="rx-detail-title"
                 class="rx-detail-title">
-                Prescription #{{ ordonnance.pk }}
+                {% translate "Prescription #" %}{{ ordonnance.pk }}
             </h1>
 
             <p class="rx-detail-subtitle">
-                Prescription details, medications, and treatment
-                instructions.
+                {% translate "Prescription details, medications, and treatment instructions." %}
             </p>
         </div>
 
@@ -475,17 +474,17 @@
 
                 <div>
                     <h2 class="rx-detail-card-heading">
-                        Medical prescription
+                        {% translate "Medical prescription" %}
                     </h2>
 
                     <p class="rx-detail-card-description">
-                        Issued {{ ordonnance.date|date:"F j, Y" }}
+                        {% translate "Issued" %} {{ ordonnance.date|date:"F j, Y" }}
                     </p>
                 </div>
             </div>
 
             <span class="rx-detail-badge">
-                Prescription #{{ ordonnance.pk }}
+                {% translate "Prescription #" %}{{ ordonnance.pk }}
             </span>
 
         </div>
@@ -498,7 +497,7 @@
 
                 <div>
                     <span class="rx-detail-meta-label">
-                        Patient
+                        {% translate "Patient" %}
                     </span>
 
                     <span class="rx-detail-meta-value">
@@ -508,7 +507,7 @@
 
                 <div>
                     <span class="rx-detail-meta-label">
-                        Doctor
+                        {% translate "Doctor" %}
                     </span>
 
                     <span class="rx-detail-meta-value">
@@ -518,7 +517,7 @@
 
                 <div>
                     <span class="rx-detail-meta-label">
-                        Prescription date
+                        {% translate "Prescription date" %}
                     </span>
 
                     <span class="rx-detail-meta-value">
@@ -528,7 +527,7 @@
 
                 <div>
                     <span class="rx-detail-meta-label">
-                        Consultation
+                        {% translate "Consultation" %}
                     </span>
 
                     <span class="rx-detail-meta-value">
@@ -553,12 +552,12 @@
                     </svg>
 
                     <h2 id="rx-medications">
-                        Medications
+                        {% translate "Medications" %}
                     </h2>
                 </div>
 
                 <p class="rx-detail-section-description">
-                    Medications prescribed during the consultation.
+                    {% translate "Medications prescribed during the consultation." %}
                 </p>
 
                 <div class="rx-detail-content">
@@ -566,7 +565,7 @@
                         {{ ordonnance.medicaments|linebreaksbr }}
                     {% else %}
                         <span class="rx-detail-muted">
-                            No medications recorded.
+                            {% translate "No medications recorded." %}
                         </span>
                     {% endif %}
                 </div>
@@ -588,13 +587,12 @@
                     </svg>
 
                     <h2 id="rx-instructions">
-                        Additional instructions
+                        {% translate "Additional instructions" %}
                     </h2>
                 </div>
 
                 <p class="rx-detail-section-description">
-                    Treatment guidance and additional notes from
-                    the prescribing doctor.
+                    {% translate "Treatment guidance and additional notes from the prescribing doctor." %}
                 </p>
 
                 <div class="rx-detail-content">
@@ -602,7 +600,7 @@
                         {{ ordonnance.instructions|linebreaksbr }}
                     {% else %}
                         <span class="rx-detail-muted">
-                            No additional instructions provided.
+                            {% translate "No additional instructions provided." %}
                         </span>
                     {% endif %}
                 </div>
@@ -612,7 +610,7 @@
             <!-- Actions -->
 
             <nav class="rx-detail-actions"
-                 aria-label="Prescription actions">
+                 aria-label="{% translate "Prescription actions" %}">
 
                 <a href="{% url 'medical_records:prescription_list' %}"
                    class="rx-detail-button">
@@ -622,7 +620,7 @@
                          aria-hidden="true">
                         <path d="m15 18-6-6 6-6"/>
                     </svg>
-                    Back to prescriptions
+                    {% translate "Back to prescriptions" %}
                 </a>
 
                 {% if can_manage %}
@@ -638,7 +636,7 @@
                                 <path d="m16 4 4 4-11 11-5 1 1-5L16 4Z"/>
                                 <path d="m14 6 4 4"/>
                             </svg>
-                            Edit prescription
+                            {% translate "Edit prescription" %}
                         </a>
 
                         <a href="{% url 'medical_records:prescription_delete' ordonnance.pk %}"
@@ -651,7 +649,7 @@
                                 <path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13"/>
                                 <path d="M10 11v5M14 11v5"/>
                             </svg>
-                            Delete prescription
+                            {% translate "Delete prescription" %}
                         </a>
 
                     </div>
@@ -675,8 +673,7 @@
         </svg>
 
         <span>
-            This prescription contains private medical information
-            and is accessible only to authorized users.
+            {% translate "This prescription contains private medical information and is accessible only to authorized users." %}
         </span>
     </div>
 

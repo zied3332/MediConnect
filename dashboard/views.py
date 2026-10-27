@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 
 from datetime import timedelta
 from functools import wraps
@@ -15,6 +16,7 @@ from consultations.models import Message
 from core.models import Availability, Specialty
 
 from .forms import AvailabilityForm, DoctorAvailabilityForm, SpecialtyForm
+from django.core.paginator import Paginator
 
 
 # ============================================================
@@ -38,6 +40,32 @@ def role_required(*roles):
         return wrapper
 
     return decorator
+
+
+@role_required("patient")
+def patient_doctors(request):
+    """Patient directory using the same approval rules as booking."""
+    from appointments.services import approved_doctors
+
+    approved = approved_doctors().select_related("main_specialty", "doctor_profile")
+    query = request.GET.get("q", "").strip()[:150]
+    selected = request.GET.get("specialty", "")
+    specialties = list(Specialty.objects.order_by("name"))
+    counts = dict(approved.values("main_specialty_id").annotate(total=Count("pk")).values_list("main_specialty_id", "total"))
+    for specialty in specialties:
+        specialty.doctor_count = counts.get(specialty.pk, 0)
+    doctors = approved
+    if selected:
+        # Invalid filters have no matches rather than silently showing all doctors.
+        doctors = doctors.filter(main_specialty_id=int(selected)) if selected.isdecimal() and len(selected) < 12 else doctors.none()
+    for word in query.split()[:12]:
+        doctors = doctors.filter(Q(first_name__icontains=word) | Q(last_name__icontains=word) | Q(main_specialty__name__icontains=word))
+    page = Paginator(doctors.order_by("first_name", "last_name", "pk"), 9).get_page(request.GET.get("page"))
+    context = {"dashboard_role": "patient", "active_nav": "patient_doctors", "page_title": ui_gettext("Mes médecins"),
+               "specialties": specialties, "doctors": page, "page_obj": page, "query": query,
+               "selected_specialty": selected, "doctor_total": approved.count(), "specialty_total": len(specialties)}
+    template = "dashboard/patient/doctors_results.html" if request.headers.get("X-Live-Search") == "1" else "dashboard/patient/doctors.html"
+    return render(request, template, context)
 
 
 def approved_doctor_required(view_func):
@@ -79,48 +107,48 @@ def admin_overview(request):
     ).count()
 
     context = {
-        "page_title": "Overview",
+        "page_title": ui_gettext("Overview"),
         "dashboard_role": "admin",
         "active_nav": "overview",
         "stats": [
             {
-                "label": "Total patients",
+                "label": ui_gettext("Total patients"),
                 "value": "1,248",
                 "change": "+12.5%",
                 "icon": "P",
             },
             {
-                "label": "Active doctors",
+                "label": ui_gettext("Active doctors"),
                 "value": "86",
                 "change": "+4.2%",
                 "icon": "D",
             },
             {
-                "label": "Appointments",
+                "label": ui_gettext("Appointments"),
                 "value": "324",
                 "change": "+8.1%",
                 "icon": "C",
             },
             {
-                "label": "Pending approvals",
+                "label": ui_gettext("Pending approvals"),
                 "value": str(pending_count),
-                "change": "Needs review",
+                "change": ui_gettext("Needs review"),
                 "icon": "!",
             },
         ],
         "recent_activity": [
             {
-                "title": "New doctor registration",
+                "title": ui_gettext("New doctor registration"),
                 "description": "A doctor submitted a verification request.",
                 "time": "10 min ago",
             },
             {
-                "title": "Appointment booked",
+                "title": ui_gettext("Appointment booked"),
                 "description": "A new consultation was scheduled.",
                 "time": "25 min ago",
             },
             {
-                "title": "New patient account",
+                "title": ui_gettext("New patient account"),
                 "description": "A patient joined MediConnect.",
                 "time": "1 hour ago",
             },
@@ -170,7 +198,7 @@ def admin_doctor_list(request):
     }
 
     context = {
-        "page_title": "Doctor Applications",
+        "page_title": ui_gettext("Doctor Applications"),
         "dashboard_role": "admin",
         "active_nav": "doctors",
         "profiles": qs,
@@ -221,7 +249,7 @@ def admin_doctor_detail(request, pk):
 
             messages.success(
                 request,
-                f"Dr. {profile.user.get_full_name()} has been approved.",
+                ui_gettext('Dr. %(value0)s has been approved.') % {'value0': profile.user.get_full_name()},
             )
 
             return redirect("dashboard:admin_doctor_list")
@@ -235,7 +263,7 @@ def admin_doctor_detail(request, pk):
             if not reason:
                 messages.error(
                     request,
-                    "Please provide a rejection reason.",
+                    ui_gettext("Please provide a rejection reason."),
                 )
             else:
                 profile.status = DoctorProfile.Status.REJECTED
@@ -255,8 +283,7 @@ def admin_doctor_detail(request, pk):
 
                 messages.success(
                     request,
-                    f"Dr. {profile.user.get_full_name()}'s application "
-                    "has been rejected.",
+                    ui_gettext("Dr. %(value0)s's application has been rejected.") % {'value0': profile.user.get_full_name()},
                 )
 
                 return redirect("dashboard:admin_doctor_list")
@@ -270,7 +297,7 @@ def admin_doctor_detail(request, pk):
             if not note:
                 messages.error(
                     request,
-                    "Please write a message for the doctor.",
+                    ui_gettext("Please write a message for the doctor."),
                 )
             else:
                 profile.status = DoctorProfile.Status.NEEDS_MORE_INFO
@@ -285,14 +312,13 @@ def admin_doctor_detail(request, pk):
 
                 messages.success(
                     request,
-                    f"Dr. {profile.user.get_full_name()} "
-                    "has been asked for more info.",
+                    ui_gettext('Dr. %(value0)s has been asked for more info.') % {'value0': profile.user.get_full_name()},
                 )
 
                 return redirect("dashboard:admin_doctor_list")
 
     context = {
-        "page_title": "Review Application",
+        "page_title": ui_gettext("Review Application"),
         "dashboard_role": "admin",
         "active_nav": "doctors",
         "profile": profile,
@@ -330,7 +356,7 @@ def admin_users(request):
         users = users.filter(role=selected_role)
 
     context = {
-        "page_title": "Users",
+        "page_title": ui_gettext("Users"),
         "dashboard_role": "admin",
         "users": users,
         "search_query": search_query,
@@ -360,14 +386,14 @@ def update_user_role(request, user_id):
     if role not in User.Role.values:
         messages.error(
             request,
-            "Please select a valid user role.",
+            ui_gettext("Please select a valid user role."),
         )
         return redirect("dashboard:admin_users")
 
     if user.role == role:
         messages.info(
             request,
-            f"{user.get_full_name() or user.email} already has this role.",
+            ui_gettext('%(value0)s already has this role.') % {'value0': user.get_full_name() or user.email},
         )
     else:
         user.role = role
@@ -375,8 +401,7 @@ def update_user_role(request, user_id):
 
         messages.success(
             request,
-            f"{user.get_full_name() or user.email} "
-            f"is now a {user.get_role_display().lower()}.",
+            ui_gettext('%(value0)s is now a %(value1)s.') % {'value0': user.get_full_name() or user.email, 'value1': user.get_role_display().lower()},
         )
 
     return redirect("dashboard:admin_users")
@@ -396,7 +421,7 @@ def admin_specialties(request):
 
             messages.success(
                 request,
-                f"{specialty.name} was added.",
+                ui_gettext('%(value0)s was added.') % {'value0': specialty.name},
             )
 
             return redirect("dashboard:admin_specialties")
@@ -404,7 +429,7 @@ def admin_specialties(request):
         form = SpecialtyForm()
 
     context = {
-        "page_title": "Specialties",
+        "page_title": ui_gettext("Specialties"),
         "dashboard_role": "admin",
         "form": form,
         "specialties": Specialty.objects.all(),
@@ -428,7 +453,7 @@ def specialty_list(request):
         request,
         "dashboard/admin/specialty_list.html",
         {
-            "page_title": "Specialties",
+            "page_title": ui_gettext("Specialties"),
             "dashboard_role": "admin",
             "specialties": Specialty.objects.all(),
         },
@@ -452,12 +477,12 @@ def edit_specialty(request, specialty_id):
             form.save()
             messages.success(
                 request,
-                f"{specialty.name} was updated.",
+                ui_gettext('%(value0)s was updated.') % {'value0': specialty.name},
             )
         else:
             messages.error(
                 request,
-                "Please correct the specialty details.",
+                ui_gettext("Please correct the specialty details."),
             )
 
     return redirect(
@@ -478,7 +503,7 @@ def delete_specialty(request, specialty_id):
 
         messages.success(
             request,
-            f"{name} was deleted.",
+            ui_gettext('%(value0)s was deleted.') % {'value0': name},
         )
 
     return redirect(
@@ -510,8 +535,7 @@ def update_doctor_specialty(request, user_id):
 
     messages.success(
         request,
-        f"{doctor.get_full_name() or doctor.email}'s "
-        "specialty was updated.",
+        ui_gettext("%(value0)s's specialty was updated.") % {'value0': doctor.get_full_name() or doctor.email},
     )
 
     return redirect("dashboard:admin_specialties")
@@ -524,7 +548,7 @@ def update_doctor_specialty(request, user_id):
 @role_required("admin")
 def admin_availability(request):
     context = {
-        "page_title": "Availability",
+        "page_title": ui_gettext("Availability"),
         "dashboard_role": "admin",
         "slots": Availability.objects.select_related("doctor"),
     }
@@ -561,7 +585,7 @@ def doctor_availability(request):
 
             messages.success(
                 request,
-                "Availability slot was added.",
+                ui_gettext("Availability slot was added."),
             )
 
             return redirect("dashboard:doctor_availability")
@@ -571,7 +595,7 @@ def doctor_availability(request):
         )
 
     context = {
-        "page_title": "Availability",
+        "page_title": ui_gettext("Availability"),
         "dashboard_role": "doctor",
         "form": form,
         "slots": request.user.availability_slots.all(),
@@ -607,7 +631,7 @@ def edit_doctor_availability(request, slot_id):
 
             messages.success(
                 request,
-                "Availability slot was updated.",
+                ui_gettext("Availability slot was updated."),
             )
 
             return redirect("dashboard:doctor_availability")
@@ -621,7 +645,7 @@ def edit_doctor_availability(request, slot_id):
         request,
         "dashboard/doctor/availability_form.html",
         {
-            "page_title": "Availability",
+            "page_title": ui_gettext("Availability"),
             "dashboard_role": "doctor",
             "form": form,
             "slot": slot,
@@ -642,7 +666,7 @@ def delete_doctor_availability(request, slot_id):
 
         messages.success(
             request,
-            "Availability slot was removed.",
+            ui_gettext("Availability slot was removed."),
         )
 
     return redirect("dashboard:doctor_availability")
@@ -662,7 +686,7 @@ def toggle_doctor_availability(request, slot_id):
 
         messages.success(
             request,
-            "Availability status was updated.",
+            ui_gettext("Availability status was updated."),
         )
 
     return redirect("dashboard:doctor_availability")
@@ -754,41 +778,41 @@ def doctor_overview(request):
 
     if next_appointment:
         next_appointment_label = (
-            "Next at "
+            ui_gettext("Next at ")
             + timezone.localtime(
                 next_appointment.start
             ).strftime("%b %d, %I:%M %p")
         )
     else:
-        next_appointment_label = "No upcoming appointments"
+        next_appointment_label = ui_gettext('No upcoming appointments')
 
     context = {
-        "page_title": "My Dashboard",
+        "page_title": ui_gettext("My Dashboard"),
         "dashboard_role": "doctor",
         "active_nav": "overview",
         "stats": [
             {
-                "label": "Today's appointments",
+                "label": ui_gettext("Today's appointments"),
                 "value": today_appointments.count(),
                 "change": next_appointment_label,
                 "icon": "C",
             },
             {
-                "label": "Total patients",
+                "label": ui_gettext("Total patients"),
                 "value": total_patients,
-                "change": f"+{new_patients_week} this week",
+                "change": ui_gettext("+%(count)s this week") % {"count": new_patients_week},
                 "icon": "P",
             },
             {
-                "label": "Pending appointments",
+                "label": ui_gettext("Pending appointments"),
                 "value": pending_count,
-                "change": "Awaiting confirmation",
+                "change": ui_gettext("Awaiting confirmation"),
                 "icon": "R",
             },
             {
-                "label": "Completed consultations",
+                "label": ui_gettext("Completed consultations"),
                 "value": completed_count,
-                "change": "All time",
+                "change": ui_gettext("All time"),
                 "icon": "✓",
             },
         ],
@@ -860,6 +884,11 @@ def patient_overview(request):
         )
 
         upcoming_list.append({
+            "pk": appt.pk,
+            "day": timezone.localtime(appt.start).strftime("%d"),
+            "month": timezone.localtime(appt.start).strftime("%m"),
+            "time": timezone.localtime(appt.start).strftime("%H:%M"),
+            "status_label": {"pending": ui_gettext("À confirmer"), "confirmed": ui_gettext("Confirmé")}.get(appt.status, appt.get_status_display()),
             "doctor": f"Dr. {doctor_name}",
             "specialty": (
                 specialty.name
@@ -874,26 +903,26 @@ def patient_overview(request):
         })
 
     context = {
-        "page_title": "My Health",
+        "page_title": ui_gettext("Mon accueil"),
         "dashboard_role": "patient",
         "active_nav": "overview",
         "stats": [
             {
-                "label": "Upcoming appointments",
+                "label": ui_gettext("Upcoming appointments"),
                 "value": upcoming_count,
-                "change": "Scheduled appointments",
+                "change": ui_gettext("Scheduled appointments"),
                 "icon": "C",
             },
             {
-                "label": "Doctors seen",
+                "label": ui_gettext("Doctors seen"),
                 "value": doctors_seen,
-                "change": "Completed visits",
+                "change": ui_gettext("Completed visits"),
                 "icon": "D",
             },
             {
-                "label": "Unread messages",
+                "label": ui_gettext("Unread messages"),
                 "value": unread_messages,
-                "change": "From healthcare providers",
+                "change": ui_gettext("From healthcare providers"),
                 "icon": "M",
             },
         ],
@@ -924,7 +953,7 @@ def profile_view(request):
         {
             "dashboard_role": request.user.role,
             "active_nav": "profile",
-            "page_title": "Profile",
+            "page_title": ui_gettext("Profile"),
         },
     )
 
@@ -965,7 +994,7 @@ def doctor_patients(request):
     )
 
     context = {
-        "page_title": "My Patients",
+        "page_title": ui_gettext("My Patients"),
         "dashboard_role": "doctor",
         "active_nav": "patients",
         "patients": patient_data,

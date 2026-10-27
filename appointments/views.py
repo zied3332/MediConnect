@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied, ValidationError
@@ -140,7 +141,7 @@ def book_appointment(request):
         "appointments/patient/book_doctor.html",
         _context(
             request,
-            "Book appointment",
+            ui_gettext('Book appointment'),
             form=form,
             specialty=specialty,
             doctors=doctors,
@@ -172,8 +173,7 @@ def book_with_doctor(request, doctor_id):
         else:
             messages.success(
                 request,
-                f"Your request was sent to {services.doctor_name(doctor)}. "
-                "You will be notified when it is confirmed.",
+                ui_gettext('Your request was sent to %(value0)s. You will be notified when it is confirmed.') % {'value0': services.doctor_name(doctor)},
             )
             return redirect(appointment)
 
@@ -182,7 +182,7 @@ def book_with_doctor(request, doctor_id):
         "appointments/patient/book_slot.html",
         _context(
             request,
-            "Book appointment",
+            ui_gettext('Book appointment'),
             doctor=doctor,
             form=form,
             days=_slot_days(slots),
@@ -195,7 +195,7 @@ def book_with_doctor(request, doctor_id):
 def reschedule_appointment(request, pk):
     appointment = _appointment_for(request.user, pk)
     if not appointment.can_be_changed_by_patient:
-        messages.error(request, "This appointment can no longer be changed (less than 24 hours left).")
+        messages.error(request, ui_gettext("This appointment can no longer be changed (less than 24 hours left)."))
         return redirect(appointment)
 
     slots = services.get_free_slots(appointment.doctor, exclude_appointment=appointment)
@@ -207,7 +207,7 @@ def reschedule_appointment(request, pk):
         except ValidationError as error:
             form.add_error(None, error)
         else:
-            messages.success(request, "Your appointment was moved. The doctor needs to confirm it again.")
+            messages.success(request, ui_gettext("Your appointment was moved. The doctor needs to confirm it again."))
             return redirect(appointment)
 
     return render(
@@ -233,12 +233,12 @@ def cancel_appointment(request, pk):
         except ValidationError as error:
             messages.error(request, _error_text(error))
         else:
-            messages.success(request, "Your appointment was cancelled.")
+            messages.success(request, ui_gettext("Your appointment was cancelled."))
         return redirect(appointment)
     return render(
         request,
         "appointments/patient/cancel_confirm.html",
-        _context(request, "Cancel appointment", appointment=appointment),
+        _context(request, ui_gettext('Cancel appointment'), appointment=appointment),
     )
 
 
@@ -310,17 +310,17 @@ def doctor_appointments(request):
 
 def _retry_risk(appointment, user):
     if appointment.no_show_risk is not None:
-        raise ValidationError("The risk is already available.")
+        raise ValidationError(ui_gettext("The risk is already available."))
     Appointment.objects.filter(pk=appointment.pk).update(risk_status=Appointment.RiskStatus.PENDING)
     services.queue_risk_computation(appointment.pk)
 
 
 DOCTOR_ACTIONS = {
-    "confirm": (services.confirm_appointment, "Appointment confirmed. The patient was notified."),
-    "reject": (services.reject_appointment, "Appointment rejected. The patient was notified."),
-    "complete": (services.complete_appointment, "Appointment marked as completed."),
-    "no-show": (services.mark_no_show, "Appointment marked as no-show."),
-    "retry-risk": (_retry_risk, "The risk estimate is being computed again."),
+    "confirm": (services.confirm_appointment, ui_gettext('Appointment confirmed. The patient was notified.')),
+    "reject": (services.reject_appointment, ui_gettext('Appointment rejected. The patient was notified.')),
+    "complete": (services.complete_appointment, ui_gettext('Appointment marked as completed.')),
+    "no-show": (services.mark_no_show, ui_gettext('Appointment marked as no-show.')),
+    "retry-risk": (_retry_risk, ui_gettext('The risk estimate is being computed again.')),
 }
 
 
@@ -386,9 +386,9 @@ def admin_delete_appointment(request, pk):
     try:
         appointment.delete()
     except ProtectedError:
-        messages.error(request, "Ce rendez-vous possède un compte rendu et ne peut pas être supprimé.")
+        messages.error(request, ui_gettext("Ce rendez-vous possède un compte rendu et ne peut pas être supprimé."))
         return redirect("appointments:admin_list")
-    messages.success(request, "The appointment was deleted.")
+    messages.success(request, ui_gettext("The appointment was deleted."))
     return redirect(_safe_next(request, reverse("appointments:admin_list")))
 
 
@@ -400,8 +400,8 @@ def admin_ai_model(request):
     report_rows, confusion = [], None
     if metrics:
         report = metrics.get("classification_report", {})
-        labels = {"show": "Showed up", "no_show": "No-show", "macro avg": "Macro average",
-                  "weighted avg": "Weighted average"}
+        labels = {ui_gettext("show"): ui_gettext("Showed up"), ui_gettext("no_show"): ui_gettext("No-show"), ui_gettext("macro avg"): ui_gettext("Macro average"),
+                  ui_gettext("weighted avg"): ui_gettext("Weighted average")}
         for key, label in labels.items():
             if key in report:
                 row = report[key]
@@ -421,7 +421,7 @@ def admin_ai_model(request):
         "appointments/admin/ai_model.html",
         _context(
             request,
-            "AI model",
+            ui_gettext('AI model'),
             active_nav="ai_model",
             metrics=metrics,
             report_rows=report_rows,

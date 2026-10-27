@@ -1,7 +1,7 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Upload Documents | MediConnect{% endblock %}
+{% block title %}{% translate "Upload Documents | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
@@ -11,7 +11,7 @@
 .mc-camera-widget {
     border: 1px solid #e8e8e4;
     border-radius: 10px;
-    background: #fafaf8;
+    background:var(--ui-adaptive-paper,#fafaf8);
     overflow: hidden;
 }
 
@@ -46,7 +46,7 @@
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    color: #666;
+    color:var(--ui-adaptive-ink,#666);
     text-align: center;
     padding: 20px;
 }
@@ -101,7 +101,7 @@
     display: flex;
     gap: 10px;
     padding: 14px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border-top: 1px solid #e8e8e4;
     flex-wrap: wrap;
 }
@@ -113,8 +113,8 @@
     padding: 0 16px;
     border-radius: 7px;
     border: 1px solid #dedede;
-    background: #fff;
-    color: #333;
+    background:var(--ui-adaptive-paper,#fff);
+    color:var(--ui-adaptive-ink,#333);
     font-family: inherit;
     font-size: 13px;
     font-weight: 700;
@@ -125,18 +125,18 @@
     gap: 7px;
     transition: background 120ms;
 }
-.mc-cam-btn:hover { background: #f5f5f2; }
+.mc-cam-btn:hover { background:var(--ui-adaptive-soft,#f5f5f2); }
 .mc-cam-btn:disabled { opacity: 0.4; cursor: default; }
 
 .mc-cam-btn--primary {
     background: #ffeb4d;
     border-color: #e8d96a;
-    color: #252525;
+    color:#292d28;
 }
 .mc-cam-btn--primary:hover { background: #f5df40; }
 
 .mc-cam-btn--danger {
-    background: #fce4ec;
+    background:var(--ui-adaptive-soft,#fce4ec);
     border-color: #f48fb1;
     color: #880e4f;
 }
@@ -188,10 +188,10 @@
 <div class="mc-auth-header">
     <a href="{% url 'core:home' %}" class="mc-auth-brand">
         <span class="mc-auth-logo" aria-hidden="true">+</span>
-        <span>MediConnect</span>
+        <span>{% translate "MediConnect" %}</span>
     </a>
     <span class="mc-auth-header-note">
-        Logged in as {{ request.user.get_full_name }}
+        {% translate "Logged in as" %} {{ request.user.get_full_name }}
     </span>
 </div>
 {% endblock %}
@@ -201,43 +201,42 @@
     <div class="mc-upload-container">
 
         <!-- Step indicator -->
-        <ol class="mc-doctor-steps" role="list" aria-label="Registration steps" style="margin-bottom:36px;">
+        <ol class="mc-doctor-steps" role="list" aria-label="{% translate "Registration steps" %}" style="margin-bottom:36px;">
             <li class="mc-step done">
                 <span class="mc-step-num" aria-hidden="true">✓</span>
-                <span class="mc-step-label"><span class="mc-sr-only">Completed: </span>Your details</span>
+                <span class="mc-step-label"><span class="mc-sr-only">{% translate "Completed:" %} </span>{% translate "Your details" %}</span>
                 <span class="mc-step-connector" aria-hidden="true"></span>
             </li>
             <li class="mc-step done">
                 <span class="mc-step-num" aria-hidden="true">✓</span>
-                <span class="mc-step-label"><span class="mc-sr-only">Completed: </span>Email confirmed</span>
+                <span class="mc-step-label"><span class="mc-sr-only">{% translate "Completed:" %} </span>{% translate "Email confirmed" %}</span>
                 <span class="mc-step-connector" aria-hidden="true"></span>
             </li>
             <li class="mc-step active" aria-current="step">
                 <span class="mc-step-num" aria-hidden="true">3</span>
-                <span class="mc-step-label">Upload documents</span>
+                <span class="mc-step-label">{% translate "Upload documents" %}</span>
                 <span class="mc-step-connector" aria-hidden="true"></span>
             </li>
             <li class="mc-step">
                 <span class="mc-step-num" aria-hidden="true">4</span>
-                <span class="mc-step-label">Under review</span>
+                <span class="mc-step-label">{% translate "Under review" %}</span>
             </li>
         </ol>
 
         {% if is_resubmit %}
         <div class="mc-reviewer-note" role="alert">
-            <strong>📋 Our team needs more information</strong>
+            <strong>{% translate "📋 Our team needs more information" %}</strong>
             {% if reviewer_note %}
                 {{ reviewer_note }}
             {% else %}
-                Please re-upload your documents. Make sure each file is clear and readable.
+                {% translate "Please re-upload your documents. Make sure each file is clear and readable." %}
             {% endif %}
         </div>
         {% endif %}
 
-        <h1>Upload your documents</h1>
+        <h1>{% translate "Upload your documents" %}</h1>
         <p class="mc-doctor-subtitle">
-            These documents are used to verify your identity and qualifications.
-            We accept PDF, JPG, and PNG files. All documents are stored securely.
+            {% translate "These documents are used to verify your identity and qualifications. We accept PDF, JPG, and PNG files. All documents are stored securely." %}
         </p>
 
         {% include "components/form_errors.html" with form=form error_class="mc-auth-error" only %}
@@ -247,9 +246,9 @@
 
             <!-- Medical license -->
             <div class="mc-doc-field">
-                <label for="doc-license">Medical license / registration number</label>
+                <label for="doc-license">{% translate "Medical license / registration number" %}</label>
                 <p class="mc-doc-hint" id="doc-license-help">
-                    Your official medical license or professional registration document issued by your medical authority.
+                    {% translate "Your official medical license or professional registration document issued by your medical authority." %}
                 </p>
                 <input type="file" id="doc-license" name="medical_license"
                        accept=".pdf,.jpg,.jpeg,.png" required {% include "components/form_field_attributes.html" with field=form.medical_license help_id="doc-license-help" only %}>
@@ -258,9 +257,9 @@
 
             <!-- Diploma -->
             <div class="mc-doc-field">
-                <label for="doc-diploma">Diploma or specialty certificate</label>
+                <label for="doc-diploma">{% translate "Diploma or specialty certificate" %}</label>
                 <p class="mc-doc-hint" id="doc-diploma-help">
-                    Your medical degree or specialist qualification certificate.
+                    {% translate "Your medical degree or specialist qualification certificate." %}
                 </p>
                 <input type="file" id="doc-diploma" name="diploma"
                        accept=".pdf,.jpg,.jpeg,.png" required {% include "components/form_field_attributes.html" with field=form.diploma help_id="doc-diploma-help" only %}>
@@ -269,9 +268,9 @@
 
             <!-- National ID -->
             <div class="mc-doc-field">
-                <label for="doc-id">National ID or passport</label>
+                <label for="doc-id">{% translate "National ID or passport" %}</label>
                 <p class="mc-doc-hint" id="doc-id-help">
-                    A government-issued photo ID confirming your identity.
+                    {% translate "A government-issued photo ID confirming your identity." %}
                 </p>
                 <input type="file" id="doc-id" name="national_id"
                        accept=".pdf,.jpg,.jpeg,.png" required {% include "components/form_field_attributes.html" with field=form.national_id help_id="doc-id-help" only %}>
@@ -283,12 +282,11 @@
 
                 <div style="padding: 18px 24px 14px;">
                     <div id="selfie-label" style="font-size:15px; font-weight:700; color:#303030;">
-                        Selfie holding your ID
-                        <span class="mc-doc-optional-tag">Optional</span>
+                        {% translate "Selfie holding your ID" %}
+                        <span class="mc-doc-optional-tag">{% translate "Optional" %}</span>
                     </div>
                     <p class="mc-doc-hint" id="selfie-help" style="margin-top:6px;">
-                        Hold your ID card or passport next to your face so both are clearly
-                        visible. Your photo is taken live — no upload needed.
+                        {% translate "Hold your ID card or passport next to your face so both are clearly visible. Your photo is taken live — no upload needed." %}
                     </p>
                 </div>
 
@@ -298,48 +296,48 @@
                     <div class="mc-camera-preview-area" id="camera-preview-area">
                         <div class="mc-camera-placeholder" id="camera-placeholder">
                             <span class="mc-camera-placeholder-icon">📷</span>
-                            <p>Camera is off.<br>Click <strong>Open camera</strong> to start.</p>
+                            <p>{% translate "Camera is off." %}<br>{% translate "Click" %} <strong>{% translate "Open camera" %}</strong> {% translate "to start." %}</p>
                         </div>
                         <video id="selfie-video" autoplay playsinline muted
-                               aria-label="Live camera feed"></video>
-                        <canvas id="selfie-canvas" aria-label="Captured photo"></canvas>
+                               aria-label="{% translate "Live camera feed" %}"></video>
+                        <canvas id="selfie-canvas" aria-label="{% translate "Captured photo" %}"></canvas>
                         <div class="mc-camera-overlay-hint" id="camera-hint">
-                            Hold your ID next to your face, then click Capture
+                            {% translate "Hold your ID next to your face, then click Capture" %}
                         </div>
-                        <div class="mc-captured-badge" id="captured-badge">✓ Photo captured</div>
+                        <div class="mc-captured-badge" id="captured-badge">{% translate "✓ Photo captured" %}</div>
                     </div>
 
                     <!-- Controls -->
                     <div class="mc-camera-controls">
                         <button type="button" class="mc-cam-btn mc-cam-btn--primary"
                                 id="btn-open-camera">
-                            📷 Open camera
+                            {% translate "📷 Open camera" %}
                         </button>
                         <button type="button" class="mc-cam-btn mc-cam-btn--primary"
                                 id="btn-capture" disabled>
-                            ⊙ Capture photo
+                            {% translate "⊙ Capture photo" %}
                         </button>
                         <button type="button" class="mc-cam-btn"
                                 id="btn-retake" disabled>
-                            ↩ Retake
+                            {% translate "↩ Retake" %}
                         </button>
                         <button type="button" class="mc-cam-btn mc-cam-btn--danger"
                                 id="btn-close-camera" disabled>
-                            ✕ Close camera
+                            {% translate "✕ Close camera" %}
                         </button>
                     </div>
 
                     <!-- Status line -->
                     <div class="mc-camera-status">
                         <span class="mc-cam-status-dot" id="status-dot" aria-hidden="true"></span>
-                        <span id="status-text" role="status" aria-live="polite" aria-atomic="true">Camera not started</span>
+                        <span id="status-text" role="status" aria-live="polite" aria-atomic="true">{% translate "Camera not started" %}</span>
                         <span id="camera-error" role="alert" aria-atomic="true"></span>
                     </div>
 
                     <!-- Fallback for browsers / devices without a camera -->
                     <div class="mc-camera-fallback" id="camera-fallback">
                         <label for="doc-selfie-fallback">
-                            No camera detected — upload a photo instead
+                            {% translate "No camera detected — upload a photo instead" %}
                         </label>
                         <input type="file" id="doc-selfie-fallback"
                                name="selfie_with_id"
@@ -355,7 +353,7 @@
             </div>
 
             <button type="submit" class="mc-auth-submit" style="margin-top:24px;">
-                Submit for review →
+                {% translate "Submit for review →" %}
             </button>
 
         </form>

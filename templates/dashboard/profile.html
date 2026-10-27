@@ -1,8 +1,8 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}My Profile | MediConnect{% endblock %}
+{% block title %}{% translate "My Profile | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -14,7 +14,7 @@
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .profile-page *,
@@ -41,7 +41,7 @@
 
     .profile-title {
         margin: 0 0 9px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: clamp(29px, 3vw, 38px);
         font-weight: 800;
         letter-spacing: -1.2px;
@@ -65,7 +65,7 @@
         padding: 25px 28px;
         border: 1px solid #e8ebe5;
         border-radius: 15px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
     }
 
     .profile-avatar {
@@ -77,7 +77,7 @@
         overflow: hidden;
         border-radius: 50%;
         background: #ffed9a;
-        color: #4d421b;
+        color:var(--ui-adaptive-ink,#4d421b);
         font-size: 22px;
         font-weight: 800;
         letter-spacing: -1px;
@@ -96,7 +96,7 @@
 
     .profile-summary-name {
         margin: 0 0 6px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 20px;
         font-weight: 800;
         letter-spacing: -.4px;
@@ -117,7 +117,7 @@
         padding: 8px 12px;
         border: 1px solid #e9e6d4;
         border-radius: 100px;
-        background: #fff9dc;
+        background:var(--ui-adaptive-soft,#fff9dc);
         color: #70622e;
         font-size: 11px;
         font-weight: 800;
@@ -145,7 +145,7 @@
         overflow: hidden;
         border: 1px solid #e8ebe5;
         border-radius: 15px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
     }
 
     .profile-card-header {
@@ -178,7 +178,7 @@
 
     .profile-card-heading h2 {
         margin: 0 0 5px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 16px;
         font-weight: 800;
     }
@@ -222,7 +222,7 @@
 
     .profile-detail-value {
         max-width: 68%;
-        color: #394037;
+        color:var(--ui-adaptive-ink,#394037);
         font-size: 12px;
         font-weight: 750;
         text-align: right;
@@ -239,12 +239,12 @@
         padding: 17px;
         border: 1px solid #eee6c5;
         border-radius: 11px;
-        background: #fffaf0;
+        background:var(--ui-adaptive-soft,#fffaf0);
     }
 
     .profile-security-status.enabled {
         border-color: #d9e8d9;
-        background: #f3faf3;
+        background:var(--ui-adaptive-soft,#f3faf3);
     }
 
     .profile-security-status-icon {
@@ -259,8 +259,8 @@
     }
 
     .profile-security-status.enabled .profile-security-status-icon {
-        background: #e1f1e1;
-        color: #47764b;
+        background:var(--ui-adaptive-soft,#e1f1e1);
+        color:var(--ui-adaptive-muted,#47764b);
     }
 
     .profile-security-status-icon svg {
@@ -270,13 +270,13 @@
 
     .profile-security-status h3 {
         margin: 0 0 5px;
-        color: #4b432b;
+        color:var(--ui-adaptive-ink,#4b432b);
         font-size: 13px;
         font-weight: 800;
     }
 
     .profile-security-status.enabled h3 {
-        color: #3b6940;
+        color:var(--ui-adaptive-ink,#3b6940);
     }
 
     .profile-security-status p {
@@ -287,7 +287,7 @@
     }
 
     .profile-security-status.enabled p {
-        color: #648168;
+        color:var(--ui-adaptive-muted,#648168);
     }
 
     .profile-security-actions {
@@ -304,7 +304,7 @@
         border: 1px solid #ffeb4d;
         border-radius: 9px;
         background: #ffeb4d;
-        color: #252923;
+        color:#292d28;
         font-family: inherit;
         font-size: 12px;
         font-weight: 800;
@@ -355,7 +355,7 @@
         padding: 30px;
         border: 1px solid #e8ebe5;
         border-radius: 17px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
         box-shadow: 0 24px 70px rgba(0, 0, 0, .16);
         text-align: center;
     }
@@ -370,15 +370,15 @@
         height: 35px;
         border: 1px solid #e8ebe5;
         border-radius: 9px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
         color: var(--mc-page-muted);
         font-size: 24px;
         cursor: pointer;
     }
 
     .face-login-close:hover {
-        background: #f7f8f5;
-        color: #252923;
+        background:var(--ui-adaptive-soft,#f7f8f5);
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .face-login-modal-icon {
@@ -399,7 +399,7 @@
 
     .face-login-modal-content h2 {
         margin: 0 0 9px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 23px;
         font-weight: 800;
         letter-spacing: -.5px;
@@ -442,17 +442,17 @@
     }
 
     .face-login-status.info {
-        background: #fff8dc;
+        background:var(--ui-adaptive-soft,#fff8dc);
         color: #78692d;
     }
 
     .face-login-status.success {
-        background: #edf8ee;
-        color: #3f7945;
+        background:var(--ui-adaptive-soft,#edf8ee);
+        color:var(--ui-adaptive-muted,#3f7945);
     }
 
     .face-login-status.error {
-        background: #fff0ed;
+        background:var(--ui-adaptive-soft,#fff0ed);
         color: #a94338;
     }
 
@@ -526,28 +526,28 @@
 
     <header class="profile-header">
         <span class="profile-eyebrow">
-            ACCOUNT SETTINGS
+            {% translate "ACCOUNT SETTINGS" %}
         </span>
 
         <h1 class="profile-title"
             id="profile-page-title">
-            My Profile
+            {% translate "My Profile" %}
         </h1>
 
         <p class="profile-subtitle">
-            Manage your personal information and account security.
+            {% translate "Manage your personal information and account security." %}
         </p>
     </header>
 
     <!-- Account summary -->
 
     <section class="profile-summary"
-             aria-label="Account summary">
+             aria-label="{% translate "Account summary" %}">
 
         <div class="profile-avatar">
             {% if user.profile_picture %}
                 <img src="{{ user.profile_picture.url }}"
-                     alt="Profile picture">
+                     alt="{% translate "Profile picture" %}">
             {% else %}
                 {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
             {% endif %}
@@ -565,7 +565,7 @@
 
         <span class="profile-role-badge">
             <span class="profile-role-dot"></span>
-            {{ user.get_role_display }}
+            {{ user.get_role_display|ui }}
         </span>
 
     </section>
@@ -592,9 +592,9 @@
 
                 <div class="profile-card-heading">
                     <h2 id="profile-info-heading">
-                        Personal Information
+                        {% translate "Personal Information" %}
                     </h2>
-                    <p>Your account details</p>
+                    <p>{% translate "Your account details" %}</p>
                 </div>
 
             </div>
@@ -603,7 +603,7 @@
 
                 <div class="profile-detail">
                     <span class="profile-detail-label">
-                        Full name
+                        {% translate "Full name" %}
                     </span>
 
                     <strong class="profile-detail-value">
@@ -613,7 +613,7 @@
 
                 <div class="profile-detail">
                     <span class="profile-detail-label">
-                        Email address
+                        {% translate "Email address" %}
                     </span>
 
                     <strong class="profile-detail-value">
@@ -623,7 +623,7 @@
 
                 <div class="profile-detail">
                     <span class="profile-detail-label">
-                        Username
+                        {% translate "Username" %}
                     </span>
 
                     <strong class="profile-detail-value">
@@ -633,11 +633,11 @@
 
                 <div class="profile-detail">
                     <span class="profile-detail-label">
-                        Account role
+                        {% translate "Account role" %}
                     </span>
 
                     <strong class="profile-detail-value">
-                        {{ user.get_role_display }}
+                        {{ user.get_role_display|ui }}
                     </strong>
                 </div>
 
@@ -663,9 +663,9 @@
 
                 <div class="profile-card-heading">
                     <h2 id="profile-security-heading">
-                        Security &amp; Login
+                        {% translate "Security &amp; Login" %}
                     </h2>
-                    <p>Manage your authentication options</p>
+                    <p>{% translate "Manage your authentication options" %}</p>
                 </div>
 
             </div>
@@ -687,10 +687,9 @@
                         </div>
 
                         <div>
-                            <h3>Face login enabled</h3>
+                            <h3>{% translate "Face login enabled" %}</h3>
                             <p>
-                                Facial recognition is configured
-                                for your account.
+                                {% translate "Facial recognition is configured for your account." %}
                             </p>
                         </div>
 
@@ -709,7 +708,7 @@
                                 <path d="M5 10a7 7 0 0 1 12-4M19 14a7 7 0 0 1-12 4"/>
                             </svg>
 
-                            Update Face Data
+                            {% translate "Update Face Data" %}
                         </button>
                     </div>
 
@@ -730,10 +729,9 @@
                         </div>
 
                         <div>
-                            <h3>Face login not configured</h3>
+                            <h3>{% translate "Face login not configured" %}</h3>
                             <p>
-                                Set up facial recognition to enable
-                                an additional sign-in method.
+                                {% translate "Set up facial recognition to enable an additional sign-in method." %}
                             </p>
                         </div>
 
@@ -753,14 +751,14 @@
                                 <path d="M8 17c1-2 7-2 8 0"/>
                             </svg>
 
-                            Set Up Face Login
+                            {% translate "Set Up Face Login" %}
                         </button>
                     </div>
 
                 {% endif %}
 
                 <p class="profile-security-note">
-                    Face recognition requires access to your device camera.
+                    {% translate "Face recognition requires access to your device camera." %}
                 </p>
 
             </div>
@@ -789,8 +787,8 @@
         <button type="button"
                 id="closeFaceEnrollModal"
                 class="face-login-close"
-                aria-label="Close face enrollment">
-            &times;
+                aria-label="{% translate "Close face enrollment" %}">
+            {% translate "&times;" %}
         </button>
 
         <div class="face-login-modal-icon" aria-hidden="true">
@@ -804,19 +802,18 @@
         </div>
 
         <h2 id="face-enroll-title">
-            Set Up Face Login
+            {% translate "Set Up Face Login" %}
         </h2>
 
         <p class="face-login-modal-description" id="face-enroll-description">
-            Position your face in the center of the camera
-            and select Capture Face.
+            {% translate "Position your face in the center of the camera and select Capture Face." %}
         </p>
 
         <div class="face-login-video-container">
             <video id="faceEnrollVideo"
                    autoplay
                    muted
-                   playsinline aria-label="Live camera preview for face enrollment"></video>
+                   playsinline aria-label="{% translate "Live camera preview for face enrollment" %}"></video>
 
             <canvas id="faceEnrollCanvas" aria-hidden="true"></canvas>
         </div>
@@ -825,14 +822,14 @@
            class="face-login-status info"
            role="status"
            aria-live="polite" aria-atomic="true">
-            Look at the camera
+            {% translate "Look at the camera" %}
         </p>
         <p id="faceEnrollError" class="face-login-status error" role="alert" aria-atomic="true"></p>
 
         <button type="button"
                 id="captureFaceBtn"
                 class="profile-action-btn face-login-capture">
-            Capture Face
+            {% translate "Capture Face" %}
         </button>
 
     </div>

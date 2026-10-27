@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 
 from io import BytesIO
 from pathlib import Path
@@ -23,14 +24,14 @@ class DossierMedicalForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "rows": 5,
-                    "placeholder": "Medical history, previous conditions...",
+                    "placeholder": ui_gettext("Medical history, previous conditions..."),
                 }
             ),
             "allergies": forms.Textarea(
                 attrs={
                     "class": "form-control",
                     "rows": 4,
-                    "placeholder": "Known allergies...",
+                    "placeholder": ui_gettext("Known allergies..."),
                 }
             ),
         }
@@ -48,14 +49,14 @@ class OrdonnanceForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "rows": 5,
-                    "placeholder": "Medication, dosage, frequency, duration...",
+                    "placeholder": ui_gettext("Medication, dosage, frequency, duration..."),
                 }
             ),
             "instructions": forms.Textarea(
                 attrs={
                     "class": "form-control",
                     "rows": 4,
-                    "placeholder": "Additional instructions...",
+                    "placeholder": ui_gettext("Additional instructions..."),
                 }
             ),
         }
@@ -65,7 +66,7 @@ class OrdonnanceForm(forms.ModelForm):
 
         if not medicaments:
             raise ValidationError(
-                "Please enter at least one medication."
+                ui_gettext("Please enter at least one medication.")
             )
 
         return medicaments
@@ -94,7 +95,7 @@ class ExamenForm(forms.ModelForm):
             "titre": forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Examination title",
+                    "placeholder": ui_gettext("Examination title"),
                 }
             ),
             "fichier": forms.ClearableFileInput(
@@ -123,19 +124,19 @@ class ExamenForm(forms.ModelForm):
         # 1. Validate file extension.
         if extension not in self.ALLOWED_EXTENSIONS:
             raise ValidationError(
-                "Only PDF, JPG, JPEG and PNG files are allowed."
+                ui_gettext("Only PDF, JPG, JPEG and PNG files are allowed.")
             )
 
         # 2. Reject empty files.
         if fichier.size == 0:
             raise ValidationError(
-                "The uploaded file cannot be empty."
+                ui_gettext("The uploaded file cannot be empty.")
             )
 
         # 3. Enforce the 10 MB limit.
         if fichier.size > self.MAX_FILE_SIZE:
             raise ValidationError(
-                "The file must not exceed 10 MB."
+                ui_gettext("The file must not exceed 10 MB.")
             )
 
         # 4. Read the uploaded file.
@@ -144,7 +145,7 @@ class ExamenForm(forms.ModelForm):
             content = fichier.read()
         except (OSError, ValueError) as exc:
             raise ValidationError(
-                "The uploaded file could not be read."
+                ui_gettext("The uploaded file could not be read.")
             ) from exc
         finally:
             try:
@@ -157,7 +158,7 @@ class ExamenForm(forms.ModelForm):
 
             if not content.startswith(b"%PDF-"):
                 raise ValidationError(
-                    "The uploaded file is not a valid PDF."
+                    ui_gettext("The uploaded file is not a valid PDF.")
                 )
 
             try:
@@ -168,19 +169,19 @@ class ExamenForm(forms.ModelForm):
 
                 if reader.is_encrypted:
                     raise ValidationError(
-                        "Password-protected PDFs are not supported."
+                        ui_gettext("Password-protected PDFs are not supported.")
                     )
 
                 if len(reader.pages) == 0:
                     raise ValidationError(
-                        "The PDF must contain at least one page."
+                        ui_gettext("The PDF must contain at least one page.")
                     )
 
             except ValidationError:
                 raise
             except Exception as exc:
                 raise ValidationError(
-                    "The PDF is damaged or has an invalid structure."
+                    ui_gettext("The PDF is damaged or has an invalid structure.")
                 ) from exc
 
         # 6. Validate JPEG and PNG images.
@@ -194,8 +195,8 @@ class ExamenForm(forms.ModelForm):
 
                     if image.format != expected_format:
                         raise ValidationError(
-                            "The image content does not match "
-                            "its file extension."
+                            ui_gettext("The image content does not match "
+                            "its file extension.")
                         )
 
                     image.verify()
@@ -209,7 +210,7 @@ class ExamenForm(forms.ModelForm):
                 SyntaxError,
             ) as exc:
                 raise ValidationError(
-                    "The uploaded image is invalid or corrupted."
+                    ui_gettext("The uploaded image is invalid or corrupted.")
                 ) from exc
 
         # 7. Reset the file pointer before saving.

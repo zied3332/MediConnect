@@ -1,17 +1,19 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Log In | MediConnect{% endblock %}
+{% block language %}{{ LANGUAGE_CODE }}{% endblock %}
+{% block title %}{% translate "Connexion | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/login-redesign.css' %}?v=3">
 <style>
 .mc-divider {
     display: flex;
     align-items: center;
     gap: 12px;
     margin: 4px 0;
-    color: #596057;
+    color:var(--ui-adaptive-ink,#596057);
     font-size: 13px;
 }
 .mc-divider::before,
@@ -19,7 +21,7 @@
     content: "";
     flex: 1;
     height: 1px;
-    background: #e8e8e4;
+    background:var(--ui-adaptive-soft,#e8e8e4);
 }
 
 .mc-google-btn {
@@ -31,8 +33,8 @@
     gap: 12px;
     border: 1.5px solid #dadce0;
     border-radius: 6px;
-    background: #fff;
-    color: #3c4043;
+    background:var(--ui-adaptive-paper,#fff);
+    color:var(--ui-adaptive-ink,#3c4043);
     font-family: inherit;
     font-size: 15px;
     font-weight: 600;
@@ -41,9 +43,9 @@
     transition: background 120ms, box-shadow 120ms;
 }
 .mc-google-btn:hover {
-    background: #f8f9fa;
+    background:var(--ui-adaptive-paper,#f8f9fa);
     box-shadow: 0 1px 6px rgba(0,0,0,0.10);
-    color: #3c4043;
+    color:var(--ui-adaptive-ink,#3c4043);
 }
 .mc-google-icon {
     width: 20px;
@@ -54,25 +56,30 @@
 {% endblock %}
 
 {% block navigation %}
-<div class="mc-auth-header">
+<div class="mc-auth-header login-header">
     <a href="{% url 'core:home' %}" class="mc-auth-brand">
         <span class="mc-auth-logo" aria-hidden="true">+</span>
-        <span>MediConnect</span>
+        <span>{% translate "MediConnect" %}</span>
     </a>
-</div>
+    <div class="login-header-actions"><a href="{% url 'core:home' %}">{% translate "← Retour à l’accueil" %}</a><a class="login-create-account" href="{% url 'accounts:signup' %}">{% translate "Créer un compte ↗" %}</a></div>
+<a class="ui-preferences-link" href="{% url 'core:preferences' %}" aria-label="{% translate "Preferences" %}">⚙ <span>{% translate "Preferences" %}</span></a></div>
 {% endblock %}
 
 {% block content %}
 <section class="mc-auth-page mc-auth-login">
+    <aside class="login-story" aria-label="{% translate "Votre parcours MediConnect" %}">
+        <span class="login-eyebrow">{% translate "LE SOIN COMMENCE PAR UNE RENCONTRE" %}</span>
+        <h2>{% translate "Vos soins." %}<br>{% translate "Vos échanges." %}<br><span>{% translate "Votre espace." %}</span></h2>
+        <p class="login-story-intro">{% translate "Retrouvez le fil de votre santé, du premier rendez-vous au suivi de votre consultation." %}</p>
+        <div class="login-journey"><div class="login-journey-heading"><span class="login-journey-icon" aria-hidden="true">✚</span><div><strong>{% translate "Un parcours qui vous ressemble" %}</strong><span>{% translate "Tout commence par une connexion." %}</span></div><span class="login-journey-spark" aria-hidden="true">✦</span></div><ol><li><span class="login-step-symbol" aria-hidden="true">01</span><div><strong>{% translate "Le bon professionnel" %}</strong><span>{% translate "Explorez les spécialités et les médecins approuvés." %}</span></div></li><li><span class="login-step-symbol" aria-hidden="true">02</span><div><strong>{% translate "Un rendez-vous à votre rythme" %}</strong><span>{% translate "Choisissez parmi les créneaux proposés." %}</span></div></li><li><span class="login-step-symbol" aria-hidden="true">03</span><div><strong>{% translate "Le suivi qui continue" %}</strong><span>{% translate "Comptes rendus et échanges, au même endroit." %}</span></div></li></ol></div>
+        <div class="login-story-footer"><span aria-hidden="true">✦</span><p>{% translate "L’humain au cœur." %}<br><strong>{% translate "Le numérique en appui." %}</strong></p></div>
+    </aside>
     <div class="mc-auth-login-card">
 
-        <div class="mc-auth-card-brand">
-            <span class="mc-auth-logo" aria-hidden="true">+</span>
-            <span>MediConnect</span>
-        </div>
+        <span class="login-eyebrow">{% translate "BIENVENUE DANS VOTRE ESPACE" %}</span>
 
-        <h1>Welcome back</h1>
-        <p class="mc-auth-subtitle">Log in to manage your healthcare.</p>
+        <h1>{% translate "Heureux de" %}<br>{% translate "vous retrouver." %}</h1>
+        <p class="mc-auth-subtitle">{% translate "Connectez-vous pour retrouver votre parcours de soins." %}</p>
 
         {% include "components/form_errors.html" with form=form error_class="mc-auth-error" only %}
 
@@ -84,31 +91,31 @@
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
-            Continue with Google
+            {% translate "Continuer avec Google" %}
         </a>
 
         <!-- ── Face login button ── -->
-        <button type="button" id="faceLoginBtn" class="mc-google-btn" style="background: linear-gradient(135deg, #465db0 0%, #65408f 100%); color: white; border: none;">
-            <svg class="mc-google-icon" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+        <button type="button" id="faceLoginBtn" class="mc-google-btn login-face-button">
+            <svg class="mc-google-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
             </svg>
-            Login with Face
+            {% translate "Reconnaissance faciale" %}
         </button>
 
-        <div class="mc-divider">or</div>
+        <div class="mc-divider">{% translate "ou avec votre adresse e-mail" %}</div>
 
         <!-- ── Email / password form ── -->
         <form id="mc-login-form" class="mc-auth-form" method="post" novalidate>
             {% csrf_token %}
 
             <div class="mc-auth-field">
-                <label for="login-email">Email</label>
+                <label for="login-email">{% translate "Adresse e-mail" %}</label>
                 <input
                     type="email"
                     id="login-email"
                     name="email"
                     value="{{ form.email.value|default:'' }}"
-                    placeholder="you@example.com"
+                    placeholder="{% translate "vous@exemple.com" %}"
                     autocomplete="email"
                     required
                  {% include "components/form_field_attributes.html" with field=form.email only %}>
@@ -116,13 +123,13 @@
             </div>
 
             <div class="mc-auth-field">
-                <label for="login-password">Password</label>
+                <label for="login-password">{% translate "Mot de passe" %}</label>
                 <div class="mc-auth-password-wrapper">
                     <input
                         type="password"
                         id="login-password"
                         name="password"
-                        placeholder="Enter your password"
+                        placeholder="{% translate "Votre mot de passe" %}"
                         autocomplete="current-password"
                         required
                      {% include "components/form_field_attributes.html" with field=form.password only %}>
@@ -130,19 +137,21 @@
                         type="button"
                         class="mc-auth-password-toggle"
                         data-password-toggle="login-password"
-                        aria-label="Show password"
-                    >Show</button>
+                        aria-label="{% translate "Afficher le mot de passe" %}"
+                        data-label-show="Afficher" data-label-hide="Masquer"
+                    >{% translate "Afficher" %}</button>
                 </div>
                 {% include "components/field_errors.html" with field=form.password error_class="mc-auth-field-error" only %}
             </div>
 
-            <button type="submit" class="mc-auth-submit">Continue</button>
+            <button type="submit" class="mc-auth-submit">{% translate "Se connecter" %} <span aria-hidden="true">↗</span></button>
 
             <p class="mc-auth-switch">
-                Don't have an account?
-                <a href="{% url 'accounts:signup' %}">Sign up</a>
+                {% translate "Nouveau sur MediConnect ?" %}
+                <a href="{% url 'accounts:signup' %}">{% translate "Créer mon compte" %}</a>
             </p>
         </form>
+        <p class="login-professional">{% translate "Vous êtes médecin ?" %} <a href="{% url 'accounts:doctor_signup' %}">{% translate "Rejoindre la plateforme ↗" %}</a></p>
 
     </div>
 </section>
@@ -151,13 +160,13 @@
 <div id="faceLoginModal" class="face-login-modal" role="dialog" aria-modal="true"
      aria-hidden="true" aria-labelledby="face-login-title" aria-describedby="face-login-description">
     <div class="face-login-modal-content">
-        <button id="closeFaceLoginModal" class="face-login-close" aria-label="Close">&times;</button>
-        <h2 id="face-login-title">Face Login</h2>
-        <p id="face-login-description">Look at the camera to sign in. You can close this dialog and use your email and password instead.</p>
+        <button id="closeFaceLoginModal" class="face-login-close" aria-label="{% translate "Close" %}">{% translate "&times;" %}</button>
+        <h2 id="face-login-title">{% translate "Face Login" %}</h2>
+        <p id="face-login-description">{% translate "Look at the camera to sign in. You can close this dialog and use your email and password instead." %}</p>
         <div class="face-login-video-container">
-            <video id="faceLoginVideo" autoplay muted playsinline aria-label="Live camera preview for face login"></video>
+            <video id="faceLoginVideo" autoplay muted playsinline aria-label="{% translate "Live camera preview for face login" %}"></video>
         </div>
-        <p id="faceLoginStatus" class="face-login-status" role="status" aria-live="polite" aria-atomic="true">Initializing...</p>
+        <p id="faceLoginStatus" class="face-login-status" role="status" aria-live="polite" aria-atomic="true">{% translate "Initializing..." %}</p>
         <p id="faceLoginError" class="face-login-status error" role="alert" aria-atomic="true"></p>
     </div>
 </div>
@@ -209,12 +218,12 @@
 }
 
 .face-login-close:hover {
-    color: #333;
+    color:var(--ui-adaptive-ink,#333);
 }
 
 .face-login-modal-content h2 {
     margin: 0 0 24px 0;
-    color: #333;
+    color:var(--ui-adaptive-ink,#333);
     font-size: 24px;
 }
 
@@ -241,17 +250,17 @@
 }
 
 .face-login-status.info {
-    background: #e3f2fd;
+    background:var(--ui-adaptive-soft,#e3f2fd);
     color: #155a96;
 }
 
 .face-login-status.success {
-    background: #e8f5e9;
+    background:var(--ui-adaptive-soft,#e8f5e9);
     color: #256b2a;
 }
 
 .face-login-status.error {
-    background: #ffebee;
+    background:var(--ui-adaptive-soft,#ffebee);
     color: #a52a2a;
 }
 </style>

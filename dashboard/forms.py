@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 from datetime import date, timedelta
 
 from django import forms
@@ -12,9 +13,9 @@ class SpecialtyForm(forms.ModelForm):
         model = Specialty
         fields = ("name", "description")
         widgets = {
-            "name": forms.TextInput(attrs={"placeholder": "e.g. Cardiology"}),
+            "name": forms.TextInput(attrs={"placeholder": ui_gettext("e.g. Cardiology")}),
             "description": forms.Textarea(
-                attrs={"rows": 4, "placeholder": "Describe this specialty"}
+                attrs={"rows": 4, "placeholder": ui_gettext("Describe this specialty")}
             ),
         }
 
@@ -54,14 +55,14 @@ class AvailabilityForm(forms.ModelForm):
             ).exclude(pk=self.instance.pk)
             if overlapping.exists():
                 raise ValidationError(
-                    "This availability overlaps another slot for the same doctor."
+                    ui_gettext("This availability overlaps another slot for the same doctor.")
                 )
         return cleaned
 
 
 class DoctorAvailabilityForm(AvailabilityForm):
     calendar_date = forms.DateField(
-        label="Day",
+        label=ui_gettext("Day"),
         required=True,
         widget=forms.DateInput(attrs={"type": "date"}),
     )
@@ -109,6 +110,6 @@ class DoctorAvailabilityForm(AvailabilityForm):
             ).exclude(pk=self.instance.pk)
             if overlapping.exists():
                 raise ValidationError(
-                    "This availability overlaps another slot for the same doctor."
+                    ui_gettext("This availability overlaps another slot for the same doctor.")
                 )
         return cleaned

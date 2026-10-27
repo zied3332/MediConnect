@@ -1,8 +1,8 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 {% load accessibility %}
 
-{% block title %}Upload Examination | MediConnect{% endblock %}
+{% block title %}{% translate "Upload Examination | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -14,7 +14,7 @@
         width: 100%;
         max-width: 980px;
         margin: 0 auto;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .upload-back {
@@ -30,7 +30,7 @@
     }
 
     .upload-back:hover {
-        color: #282d24;
+        color:var(--ui-adaptive-ink,#282d24);
     }
 
     .upload-back svg {
@@ -54,7 +54,7 @@
 
     .upload-heading h1 {
         margin: 0 0 11px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: clamp(28px, 3vw, 38px);
         font-weight: 800;
         letter-spacing: -1.2px;
@@ -75,7 +75,7 @@
         overflow: hidden;
         border: 1px solid #e8ebe5;
         border-radius: 16px;
-        background: #ffffff;
+        background:var(--ui-adaptive-paper,#ffffff);
         box-shadow: 0 3px 15px rgba(30, 38, 30, .025);
     }
 
@@ -95,7 +95,7 @@
         flex: 0 0 45px;
         border-radius: 12px;
         background: #fff7d4;
-        color: #6b5e30;
+        color:var(--ui-adaptive-ink,#6b5e30);
     }
 
     .upload-card-icon svg {
@@ -105,7 +105,7 @@
 
     .upload-card-header h2 {
         margin: 0 0 5px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 17px;
         font-weight: 800;
     }
@@ -130,7 +130,7 @@
     .upload-field label {
         display: block;
         margin-bottom: 10px;
-        color: #394037;
+        color:var(--ui-adaptive-ink,#394037);
         font-size: 13px;
         font-weight: 700;
     }
@@ -146,8 +146,8 @@
         padding: 12px 14px;
         border: 1px solid var(--mc-control-border);
         border-radius: 10px;
-        background: #fff;
-        color: #252923;
+        background:var(--ui-adaptive-paper,#fff);
+        color:var(--ui-adaptive-ink,#252923);
         font-family: inherit;
         font-size: 13px;
         line-height: 1.6;
@@ -165,7 +165,7 @@
         border: 0;
         border-radius: 7px;
         background: #fff5c7;
-        color: #4d4527;
+        color:var(--ui-adaptive-ink,#4d4527);
         font-family: inherit;
         font-size: 12px;
         font-weight: 750;
@@ -211,7 +211,7 @@
         padding: 13px 16px;
         border: 1px solid #f0c8c5;
         border-radius: 10px;
-        background: #fff5f4;
+        background:var(--ui-adaptive-soft,#fff5f4);
         color: #a33b32;
         font-size: 13px;
         line-height: 1.6;
@@ -239,7 +239,7 @@
         border: 1px solid #ffeb4d;
         border-radius: 9px;
         background: #ffeb4d;
-        color: #252923;
+        color:#292d28;
         font-family: inherit;
         font-size: 13px;
         font-weight: 800;
@@ -265,16 +265,16 @@
         padding: 12px 18px;
         border: 1px solid #e5e8e0;
         border-radius: 9px;
-        background: #fff;
-        color: #687065;
+        background:var(--ui-adaptive-paper,#fff);
+        color:var(--ui-adaptive-ink,#687065);
         font-size: 13px;
         font-weight: 700;
         text-decoration: none;
     }
 
     .upload-cancel:hover {
-        background: #f7f8f5;
-        color: #252923;
+        background:var(--ui-adaptive-soft,#f7f8f5);
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     /* Privacy note */
@@ -287,8 +287,8 @@
         padding: 18px 20px;
         border: 1px solid #f1e8bb;
         border-radius: 12px;
-        background: #fffaf0;
-        color: #756a46;
+        background:var(--ui-adaptive-soft,#fffaf0);
+        color:var(--ui-adaptive-muted,#756a46);
         font-size: 12px;
         line-height: 1.7;
     }
@@ -355,23 +355,22 @@
              aria-hidden="true">
             <path d="m15 18-6-6 6-6"/>
         </svg>
-        Back to examinations
+        {% translate "Back to examinations" %}
     </a>
 
     <!-- Page heading -->
 
     <header class="upload-heading">
         <span class="upload-eyebrow">
-            PATIENT PORTAL / EXAMINATIONS
+            {% translate "PATIENT PORTAL / EXAMINATIONS" %}
         </span>
 
         <h1 id="upload-page-title">
-            Upload Examination
+            {% translate "Upload Examination" %}
         </h1>
 
         <p>
-            Add a medical report, laboratory result, or examination
-            image to your personal medical record.
+            {% translate "Add a medical report, laboratory result, or examination image to your personal medical record." %}
         </p>
     </header>
 
@@ -392,10 +391,10 @@
 
             <div>
                 <h2 id="upload-card-title">
-                    Examination details
+                    {% translate "Examination details" %}
                 </h2>
                 <p>
-                    Fill in the information below to add your document.
+                    {% translate "Fill in the information below to add your document." %}
                 </p>
             </div>
         </div>
@@ -416,7 +415,7 @@
 
             <div class="upload-field">
                 <label for="{{ form.titre.id_for_label }}">
-                    Examination title
+                    {% translate "Examination title" %}
                 </label>
 
                 {% accessible_field form.titre %}
@@ -429,7 +428,7 @@
 
             <div class="upload-field">
                 <label for="{{ form.date.id_for_label }}">
-                    Examination date
+                    {% translate "Examination date" %}
                 </label>
 
                 {% accessible_field form.date %}
@@ -442,15 +441,14 @@
 
             <div class="upload-field">
                 <label for="{{ form.fichier.id_for_label }}">
-                    Medical document
+                    {% translate "Medical document" %}
                 </label>
 
                 {% accessible_field form.fichier "examination-file-help" %}
                 {% include "components/field_help.html" with field=form.fichier only %}
 
                 <p class="upload-help" id="examination-file-help">
-                    Accepted formats: PDF, JPG, JPEG, PNG.
-                    Maximum file size: 10 MB.
+                    {% translate "Accepted formats: PDF, JPG, JPEG, PNG. Maximum file size: 10 MB." %}
                 </p>
 
                 {% include "components/field_errors.html" with field=form.fichier error_class="upload-errors" only %}
@@ -467,12 +465,12 @@
                         <path d="M12 16V4m-4 4 4-4 4 4"/>
                         <path d="M4 16v4h16v-4"/>
                     </svg>
-                    Upload examination
+                    {% translate "Upload examination" %}
                 </button>
 
                 <a href="{% url 'medical_records:examination_list' patient_id=request.user.pk %}"
                    class="upload-cancel">
-                    Cancel
+                    {% translate "Cancel" %}
                 </a>
             </div>
 
@@ -492,9 +490,7 @@
         </svg>
 
         <span>
-            Your medical document is stored privately.
-            Only authorized users can access it through
-            the secure examination download feature.
+            {% translate "Your medical document is stored privately. Only authorized users can access it through the secure examination download feature." %}
         </span>
     </div>
 

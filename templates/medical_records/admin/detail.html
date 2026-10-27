@@ -1,8 +1,8 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Medical Record #{{ record.pk }} | MediConnect{% endblock %}
+{% block title %}{% translate "Medical Record #" %}{{ record.pk }} {% translate "| MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}?v=2">
@@ -13,17 +13,17 @@
 
     <div class="mr-breadcrumb">
         <a href="{% url 'medical_records:admin_record_list' %}">
-            Medical Records
+            {% translate "Medical Records" %}
         </a>
         <span>/</span>
-        <span>Record #{{ record.pk }}</span>
+        <span>{% translate "Record #" %}{{ record.pk }}</span>
     </div>
 
     <div class="mr-page-header">
         <div>
-            <div class="mr-eyebrow">PATIENT MEDICAL INFORMATION</div>
-            <h1>Medical Record #{{ record.pk }}</h1>
-            <p>View and manage this patient's medical information.</p>
+            <div class="mr-eyebrow">{% translate "PATIENT MEDICAL INFORMATION" %}</div>
+            <h1>{% translate "Medical Record #" %}{{ record.pk }}</h1>
+            <p>{% translate "View and manage this patient's medical information." %}</p>
         </div>
 
         <div class="mr-header-icon">
@@ -38,7 +38,7 @@
     </div>
 
     <section class="mr-panel mr-patient-panel">
-        <div class="mr-section-label">PATIENT INFORMATION</div>
+        <div class="mr-section-label">{% translate "PATIENT INFORMATION" %}</div>
 
         <div class="mr-patient-row">
             <div class="mr-avatar">
@@ -53,7 +53,7 @@
             </div>
 
             <span class="mr-patient-id">
-                Patient #{{ record.patient.pk }}
+                {% translate "Patient #" %}{{ record.patient.pk }}
             </span>
         </div>
     </section>
@@ -70,7 +70,7 @@
                         <path d="M9 4.5V3h6v1.5M9 10h6M9 14h6"/>
                     </svg>
                 </span>
-                <h2 class="mr-clinical-heading">Medical History</h2>
+                <h2 class="mr-clinical-heading">{% translate "Medical History" %}</h2>
             </div>
 
             <div class="mr-clinical-content">
@@ -78,7 +78,7 @@
                     {{ record.antecedents|linebreaks }}
                 {% else %}
                     <p class="mr-empty-text">
-                        No medical history has been recorded.
+                        {% translate "No medical history has been recorded." %}
                     </p>
                 {% endif %}
             </div>
@@ -94,7 +94,7 @@
                         <path d="M12 9v5M12 18h.01"/>
                     </svg>
                 </span>
-                <h2 class="mr-clinical-heading">Allergies</h2>
+                <h2 class="mr-clinical-heading">{% translate "Allergies" %}</h2>
             </div>
 
             <div class="mr-clinical-content">
@@ -102,7 +102,7 @@
                     {{ record.allergies|linebreaks }}
                 {% else %}
                     <p class="mr-empty-text">
-                        No allergies have been recorded.
+                        {% translate "No allergies have been recorded." %}
                     </p>
                 {% endif %}
             </div>
@@ -113,12 +113,12 @@
     <section class="mr-panel mr-footer-panel">
         <div class="mr-record-meta">
             <div>
-                <span>CREATED</span>
+                <span>{% translate "CREATED" %}</span>
                 <strong>{{ record.created_at|date:"M d, Y · H:i" }}</strong>
             </div>
 
             <div>
-                <span>LAST UPDATED</span>
+                <span>{% translate "LAST UPDATED" %}</span>
                 <strong>{{ record.updated_at|date:"M d, Y · H:i" }}</strong>
             </div>
         </div>
@@ -126,12 +126,12 @@
         <div class="mr-actions">
             <a href="{% url 'medical_records:admin_record_update' record.pk %}"
                class="mr-btn mr-btn-primary">
-                Edit Record
+                {% translate "Edit Record" %}
             </a>
 
             <a href="{% url 'medical_records:admin_record_delete' record.pk %}"
                class="mr-btn mr-btn-danger-outline">
-                Delete
+                {% translate "Delete" %}
             </a>
         </div>
     </section>

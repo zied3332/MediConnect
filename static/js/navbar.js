@@ -1,3 +1,5 @@
+function uiGettext(message) { return typeof gettext === "function" ? gettext(message) : message; }
+function uiInterpolate(message, values) { return message.replace(/%\(([^)]+)\)s/g, (_, key) => String(values[key])); }
 
 /**
  * MediConnect navigation interactions.
@@ -58,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileToggle.setAttribute("aria-expanded", "false");
         mobileToggle.setAttribute(
             "aria-label",
-            "Open navigation menu"
+            uiGettext("Open navigation menu")
         );
     }
 
@@ -76,8 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
             mobileToggle.setAttribute(
                 "aria-label",
                 isOpen
-                    ? "Open navigation menu"
-                    : "Close navigation menu"
+                    ? uiGettext("Open navigation menu")
+                    : uiGettext("Close navigation menu")
             );
         });
 

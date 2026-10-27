@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
 }
 
 .mc-auth-brand,
@@ -18,14 +18,14 @@
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    color: #292929;
+    color:var(--ui-adaptive-ink,#292929);
     font-size: 23px;
     font-weight: 700;
     text-decoration: none;
 }
 
 .mc-auth-brand:hover {
-    color: #292929;
+    color:var(--ui-adaptive-ink,#292929);
 }
 
 .mc-auth-logo {
@@ -37,7 +37,7 @@
     flex-shrink: 0;
     border-radius: 50%;
     background: #ffeb4d;
-    color: #292929;
+    color:var(--ui-adaptive-ink,#292929);
     font-size: 31px;
     font-weight: 500;
 }
@@ -48,7 +48,7 @@
 }
 
 .mc-auth-header-note span {
-    color: #333;
+    color:var(--ui-adaptive-ink,#333);
     text-decoration: underline;
     text-underline-offset: 3px;
 }
@@ -61,7 +61,7 @@
 /* Signup */
 
 .mc-auth-signup {
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     padding: 65px 24px 100px;
 }
 
@@ -72,7 +72,7 @@
 
 .mc-auth-form-container h1 {
     margin: 0 0 35px;
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-size: 36px;
     font-weight: 600;
     letter-spacing: -0.04em;
@@ -94,7 +94,7 @@
 }
 
 .mc-auth-field label {
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-size: 16px;
     font-weight: 600;
 }
@@ -103,10 +103,10 @@
     width: 100%;
     min-height: 54px;
     padding: 13px 15px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid var(--mc-control-border);
     border-radius: 4px;
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font: inherit;
     font-size: 16px;
 }
@@ -142,7 +142,7 @@
     transform: translateY(-50%);
     border: none;
     background: transparent;
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -155,7 +155,7 @@
     border: 0;
     border-radius: 4px;
     background: #ffeb4d;
-    color: #252525;
+    color:#292d28;
     font-family: inherit;
     font-size: 17px;
     font-weight: 600;
@@ -169,12 +169,12 @@
 .mc-auth-switch {
     margin: 0;
     text-align: center;
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-size: 15px;
 }
 
 .mc-auth-switch a {
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -204,14 +204,14 @@
     justify-content: center;
     align-items: center;
     padding: 65px 24px;
-    background: #f8f7f5;
+    background:var(--ui-adaptive-soft,#f8f7f5);
 }
 
 .mc-auth-login-card {
     width: 100%;
     max-width: 500px;
     padding: 42px 40px 45px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid #eceae6;
     border-radius: 10px;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
@@ -225,7 +225,7 @@
 
 .mc-auth-login-card h1 {
     margin: 0 0 10px;
-    color: #303030;
+    color:var(--ui-adaptive-ink,#303030);
     font-size: 30px;
     font-weight: 600;
     text-align: center;

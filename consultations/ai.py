@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 """Claude adapter: no identifiers, transcripts or credentials in logs/errors."""
 import hashlib
 import json
@@ -16,17 +17,17 @@ SECTIONS = (
     ("suivi", "La suite prévue"),
 )
 ERRORS = {
-    "configuration": "La clé API ou le modèle n'est pas configuré sur le serveur.",
-    "authentication": "La clé API a été refusée. Vérifiez la configuration du serveur.",
-    "access": "Le service a refusé l'accès. Vérifiez les droits et le crédit du compte API.",
-    "rate_limit": "Le service est très sollicité. Patientez avant de réessayer.",
-    "timeout": "Le délai de réponse a été dépassé. Vous pouvez réessayer.",
-    "unavailable": "Le service IA est momentanément indisponible. Le compte rendu reste accessible.",
-    "model": "Le modèle configuré n'est pas disponible pour ce compte API.",
-    "invalid_response": "La réponse n'a pas passé les contrôles de sources. Aucun résumé n'a été publié.",
-    "source_changed": "Le compte rendu a changé. Générez une nouvelle fiche à partir de sa dernière version.",
-    "too_long": "Le compte rendu dépasse 12 000 caractères. Réduisez-le avant la génération.",
-    "queue": "La tâche n'a pas pu être démarrée. Vérifiez le worker Celery et Redis, puis réessayez.",
+    "configuration": ui_gettext("La clé API ou le modèle n'est pas configuré sur le serveur."),
+    "authentication": ui_gettext('La clé API a été refusée. Vérifiez la configuration du serveur.'),
+    "access": ui_gettext("Le service a refusé l'accès. Vérifiez les droits et le crédit du compte API."),
+    "rate_limit": ui_gettext('Le service est très sollicité. Patientez avant de réessayer.'),
+    "timeout": ui_gettext('Le délai de réponse a été dépassé. Vous pouvez réessayer.'),
+    "unavailable": ui_gettext('Le service IA est momentanément indisponible. Le compte rendu reste accessible.'),
+    "model": ui_gettext("Le modèle configuré n'est pas disponible pour ce compte API."),
+    "invalid_response": ui_gettext("La réponse n'a pas passé les contrôles de sources. Aucun résumé n'a été publié."),
+    "source_changed": ui_gettext('Le compte rendu a changé. Générez une nouvelle fiche à partir de sa dernière version.'),
+    "too_long": ui_gettext('Le compte rendu dépasse 12 000 caractères. Réduisez-le avant la génération.'),
+    "queue": ui_gettext("La tâche n'a pas pu être démarrée. Vérifiez le worker Celery et Redis, puis réessayez."),
 }
 
 

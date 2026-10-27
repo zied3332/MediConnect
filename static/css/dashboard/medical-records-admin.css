@@ -164,11 +164,11 @@
 .mr-patient-id {
     padding: 8px 12px;
     border: 1px solid #e9ebec;
-    background: #f8f9f9;
+    background:var(--ui-adaptive-paper,#f8f9f9);
     border-radius: 8px;
     font-size: 12px;
     font-weight: 700;
-    color: #606b70;
+    color:var(--ui-adaptive-ink,#606b70);
     white-space: nowrap;
 }
 
@@ -214,12 +214,12 @@
 }
 
 .mr-allergy-icon {
-    background: #fff0e8;
+    background:var(--ui-adaptive-soft,#fff0e8);
     color: #bb6735;
 }
 
 .mr-clinical-content {
-    color: #445056;
+    color:var(--ui-adaptive-ink,#445056);
     font-size: 14px;
     line-height: 1.8;
     overflow-wrap: anywhere;
@@ -268,7 +268,7 @@
 .mr-record-meta strong {
     font-size: 12px;
     font-weight: 700;
-    color: #515d61;
+    color:var(--ui-adaptive-ink,#515d61);
 }
 
 .mr-actions {
@@ -297,22 +297,22 @@
 
 .mr-btn-primary {
     background: var(--mr-yellow);
-    color: #242424;
+    color:#292d28;
 }
 
 .mr-btn-primary:hover {
     background: var(--mr-yellow-hover);
-    color: #242424;
+    color:#292d28;
 }
 
 .mr-btn-danger-outline {
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border-color: #f1d5d5;
     color: #c43b3b;
 }
 
 .mr-btn-danger-outline:hover {
-    background: #fff3f3;
+    background:var(--ui-adaptive-soft,#fff3f3);
     border-color: #e8b8b8;
 }
 
@@ -349,7 +349,7 @@
 }
 
 .mr-table tbody tr:hover {
-    background: #fcfcfa;
+    background:var(--ui-adaptive-paper,#fcfcfa);
 }
 
 .mr-form-panel {
@@ -375,7 +375,7 @@
     padding: 12px 14px;
     border: 1px solid var(--mc-control-border);
     border-radius: 9px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     font: inherit;
     font-size: 14px;
     color: var(--mr-text);
@@ -405,7 +405,7 @@
 .mr-notice {
     padding: 14px 18px;
     margin-bottom: 20px;
-    background: #fffae9;
+    background:var(--ui-adaptive-soft,#fffae9);
     border: 1px solid #f7e8b5;
     border-radius: 10px;
     color: #876500;

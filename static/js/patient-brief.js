@@ -1,3 +1,5 @@
+function uiGettext(message) { return typeof gettext === "function" ? gettext(message) : message; }
+function uiInterpolate(message, values) { return message.replace(/%\(([^)]+)\)s/g, (_, key) => String(values[key])); }
 document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById('care-brief-panel');
     const holder = document.getElementById('care-brief-content');
@@ -34,12 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         const begin = () => {
             clear(); started = Date.now(); progress.hidden = false;
-            announce('Préparation de votre fiche en cours…');
+            announce(uiGettext('Préparation de votre fiche en cours…'));
             button.disabled = true; form.setAttribute('aria-busy','true');
             const elapsed = progress.querySelector('[data-brief-elapsed]');
             const tick = () => {
                 if (!active()) {clear(); return;}
-                if (elapsed) elapsed.textContent = `${Math.floor((Date.now()-started)/1000)} s d'attente dans cette fenêtre`;
+                if (elapsed) elapsed.textContent = uiInterpolate(uiGettext("%(v0)s s d'attente dans cette fenêtre"), {v0:(Math.floor((Date.now()-started)/1000))});
             };
             tick(); clock = setInterval(tick,1000); if (!root.closest('.care-brief-inline')) progress.scrollIntoView({block:'nearest'});
         };
@@ -75,16 +77,16 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const publishButton = publish.querySelector('button');
             if (publishButton.disabled) return;
-            publishButton.disabled = true; announce('Publication de la fiche en cours…');
+            publishButton.disabled = true; announce(uiGettext('Publication de la fiche en cours…'));
             try {
                 const response = await fetch(publish.action,{method:'POST',body:new FormData(publish),headers:{Accept:'application/json'}});
                 const data = await response.json();
                 if (!active()) return;
-                if (!response.ok) throw new Error(data.error || "La publication n'a pas pu être confirmée.");
+                if (!response.ok) throw new Error(data.error || uiGettext("La publication n'a pas pu être confirmée."));
                 await refresh(true, 'La fiche est publiée et accessible au patient.');
             } catch (failure) {
                 if (active()) {
-                    announce(failure.message || 'Publication non confirmée. Rouvrez la fiche pour vérifier son état.', true);
+                    announce(failure.message || uiGettext('Publication non confirmée. Rouvrez la fiche pour vérifier son état.'), true);
                     publishButton.disabled=false;
                     if (document.activeElement === document.body) publishButton.focus();
                 }
@@ -119,10 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
             opener.setAttribute('aria-expanded','true');
             holder.textContent = '';
             panel.hidden = false;
-            announce('Ouverture de votre atelier de préparation…');
+            announce(uiGettext('Ouverture de votre atelier de préparation…'));
             const version = inlineVersion + 1;
             try {await loadInline();}
-            catch {if (!panel.hidden && version === inlineVersion) announce('La fiche ne peut pas être ouverte. Vérifiez votre connexion et réessayez.', true);}
+            catch {if (!panel.hidden && version === inlineVersion) announce(uiGettext('La fiche ne peut pas être ouverte. Vérifiez votre connexion et réessayez.'), true);}
         }));
         panel.querySelector('[data-brief-close]').addEventListener('click',collapse);
     }
@@ -133,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const html=await fragment(location.href);
             const template=document.createElement('template'); template.innerHTML=html.trim();
             const next=template.content.querySelector('[data-brief-root]');
-            if (!next) throw new Error('La fiche ne peut pas être actualisée. Réessayez.');
+            if (!next) throw new Error(uiGettext('La fiche ne peut pas être actualisée. Réessayez.'));
             const restore = current.contains(document.activeElement) || (moveFocus && document.activeElement === document.body);
             cleanup(); current.replaceWith(next); current=next; cleanup=bind(current,refresh);
             if (restore) focusResult(current);

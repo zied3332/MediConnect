@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as ui_gettext
 """
 Business logic for appointments.
 
@@ -120,7 +121,7 @@ def _save_validated(appointment):
             appointment.full_clean()
             appointment.save()
     except IntegrityError:
-        raise ValidationError("This slot was just taken. Please choose another one.")
+        raise ValidationError(ui_gettext("This slot was just taken. Please choose another one."))
     return appointment
 
 
@@ -166,7 +167,7 @@ def reschedule_appointment(appointment, user, new_start):
     if user.pk != appointment.patient_id:
         raise PermissionDenied("Only the patient can reschedule this appointment.")
     if not appointment.can_be_changed_by_patient:
-        raise ValidationError("Appointments can only be changed more than 24 hours in advance.")
+        raise ValidationError(ui_gettext("Appointments can only be changed more than 24 hours in advance."))
 
     appointment.start = new_start
     appointment.status = Appointment.Status.PENDING
@@ -218,7 +219,7 @@ def confirm_appointment(appointment, user):
     _check_doctor(appointment, user)
     _check_status(appointment, [Appointment.Status.PENDING], "confirmed")
     if appointment.start <= timezone.now():
-        raise ValidationError("This appointment is already in the past.")
+        raise ValidationError(ui_gettext("This appointment is already in the past."))
     _set_status(appointment, Appointment.Status.CONFIRMED)
     notify(
         appointment.patient,
@@ -246,7 +247,7 @@ def cancel_appointment(appointment, user):
         raise PermissionDenied("Only the patient can cancel this appointment.")
     _check_status(appointment, Appointment.ACTIVE_STATUSES, "cancelled")
     if appointment.start - timezone.now() <= CHANGE_DEADLINE:
-        raise ValidationError("Appointments can only be cancelled more than 24 hours in advance.")
+        raise ValidationError(ui_gettext("Appointments can only be cancelled more than 24 hours in advance."))
     _set_status(appointment, Appointment.Status.CANCELLED)
     notify(
         appointment.doctor,
@@ -259,7 +260,7 @@ def cancel_appointment(appointment, user):
 
 def _check_started(appointment):
     if appointment.start > timezone.now():
-        raise ValidationError("This appointment has not started yet.")
+        raise ValidationError(ui_gettext("This appointment has not started yet."))
 
 
 def complete_appointment(appointment, user):

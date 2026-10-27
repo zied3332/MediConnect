@@ -1,0 +1,27 @@
+{% extends 'consultations/base.html' %}{% load i18n ui %}{% load static %}
+{% block title %}{% translate "Orientation IA | MediConnect" %}{% endblock %}
+{% block extra_css %}{{ block.super }}<link rel="stylesheet" href="{% static 'css/dashboard/intake.css' %}?v=2">{% endblock %}
+{% block care_content %}
+<header class="care-hero"><div><span class="care-eyebrow">{% translate "Avant votre rendez-vous" %}</span><h1>{% translate "Le bon point de départ," %}<br>{% translate "pour votre prochain échange." %}</h1><p>{% translate "Expliquez votre besoin. Retrouvez une spécialité et des médecins approuvés." %}</p></div><div class="care-orbit" aria-hidden="true">✦</div></header>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px">
+<section class="care-card"><h2>{% translate "Préparer mon orientation" %}</h2><p>{% translate "Une aide à la navigation, sans diagnostic ni prescription. En cas de danger immédiat, contactez les services d’urgence locaux." %}</p>
+<form id="intake-form" action="{% url 'consultations:intake_start' %}" method="post">{% csrf_token %}
+{{ form.consent }}
+<div class="care-field" style="margin:20px 0">{{ form.complaint.label_tag }}{{ form.complaint }}<span data-field-error="complaint" class="intake-error"></span></div>
+<p class="care-muted" id="intake-consent">{% translate "En cliquant sur « Accepter et préparer », vous acceptez l’envoi de ce texte à Anthropic pour obtenir une orientation. Pour la démonstration, utilisez des informations fictives." %}</p>
+<button class="care-btn" type="submit" id="intake-submit" aria-describedby="intake-consent">{% translate "Accepter et préparer ✦" %}</button></form></section>
+<section class="care-card intake-panel" aria-labelledby="result-title" id="intake-panel" aria-busy="false"><span class="care-eyebrow">{% translate "Votre prochaine étape" %}</span><h2 id="result-title">{% translate "Votre parcours commence ici." %}</h2>
+<div id="intake-loading" hidden><div class="intake-pulse" aria-hidden="true">✦</div><p role="status">{% translate "Votre demande est en préparation…" %} <span id="intake-clock">0</span> s</p><p>{% translate "Lecture des réponses → comparaison des spécialités → préparation de l’orientation." %}</p></div>
+<p id="intake-feedback" role="status" aria-live="polite">{% translate "Décrivez votre état. La proposition apparaîtra ici, sans quitter cette page." %}</p>
+<div id="intake-result" hidden>
+<div class="intake-recommendation"><div class="intake-recommendation-top"><span class="intake-result-badge">{% translate "✦ Orientation proposée" %}</span><span class="intake-result-mark" aria-hidden="true">✚</span></div><span class="intake-overline">{% translate "Une piste pour votre consultation" %}</span><h3 id="intake-specialty"></h3><p id="intake-explanation"></p></div>
+<div class="intake-next"><div><span class="intake-overline">{% translate "Passer à l’étape suivante" %}</span><h3>{% translate "Rencontrez un professionnel" %}</h3></div><span id="intake-doctor-count" class="intake-count"></span></div>
+<div id="intake-doctors"></div>
+<div class="intake-boundary"><span aria-hidden="true">ⓘ</span><p>{% translate "Une aide pour choisir à qui vous adresser. Cette piste doit être confirmée par un professionnel et ne permet pas d’exclure une urgence." %}</p></div>
+<details class="intake-details"><summary>{% translate "À propos de cette orientation" %}</summary><p id="intake-timing"></p><p>{% translate "Les médecins affichés sont actifs et approuvés sur MediConnect. Les créneaux sont vérifiés lors de la réservation." %}</p></details>
+</div>
+<button type="button" class="intake-clear" id="intake-delete" hidden>{% translate "Effacer cette orientation et mes réponses" %}</button>
+</section></div>
+<style>.intake-error{display:block;color:#a32929}.intake-pulse{font-size:64px;color:#176f65;text-align:center;animation:intake-breathe 1.6s ease-in-out infinite}#intake-form textarea,#intake-form select{width:100%;box-sizing:border-box}#intake-form input[type=checkbox]{width:20px;height:20px}#intake-loading[hidden],#intake-result[hidden],#intake-delete[hidden]{display:none}@keyframes intake-breathe{50%{transform:scale(1.18);opacity:.4}}@media(prefers-reduced-motion:reduce){.intake-pulse{animation:none}}</style>
+{% endblock %}
+{% block extra_js %}{{ block.super }}<script src="{% static 'js/intake.js' %}?v=3" defer></script>{% endblock %}

@@ -1,3 +1,5 @@
+function uiGettext(message) { return typeof gettext === "function" ? gettext(message) : message; }
+function uiInterpolate(message, values) { return message.replace(/%\(([^)]+)\)s/g, (_, key) => String(values[key])); }
 /**
  * Face Login with Face-API.js
  * 
@@ -30,7 +32,7 @@ async function loadFaceModels() {
         console.log('Face recognition models loaded');
     } catch (error) {
         console.error('Error loading face models:', error);
-        throw new Error('Failed to load face recognition models');
+        throw new Error(uiGettext('Failed to load face recognition models'));
     }
 }
 
@@ -56,7 +58,7 @@ async function getFaceDescriptorFromVideo(videoElement) {
         .withFaceDescriptor();
     
     if (!detection) {
-        throw new Error('No face detected');
+        throw new Error(uiGettext('No face detected'));
     }
     
     return detection.descriptor;
@@ -124,7 +126,7 @@ async function openFaceLoginModal() {
 async function startFaceLoginCamera(session) {
     const video = document.getElementById('faceLoginVideo');
     if (!video) {
-        throw new Error('Video element not found');
+        throw new Error(uiGettext('Video element not found'));
     }
     
     try {
@@ -143,7 +145,7 @@ async function startFaceLoginCamera(session) {
         detectAndMatchFace(video, session);
         
     } catch (error) {
-        throw new Error('Camera access denied. Please allow camera access.');
+        throw new Error(uiGettext('Camera access denied. Please allow camera access.'));
     }
 }
 

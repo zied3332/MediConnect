@@ -1,3 +1,4 @@
+from django.utils.translation import gettext
 import json
 from datetime import timedelta
 from unittest.mock import Mock, patch
@@ -66,8 +67,8 @@ class PatientBriefTests(AppointmentTestCase):
     def test_doctor_can_review_draft_but_patient_and_strangers_cannot(self):
         self.brief()
         self.client.force_login(self.doctor)
-        self.assertContains(self.client.get(self.url("brief")), "Voir les sources")
-        for user, status in ((self.patient, 403), (self.other_patient, 404), (self.other_doctor, 404), (self.admin, 404)):
+        self.assertRedirects(self.client.get(self.url("brief")), reverse("consultations:edit", args=[self.consultation.appointment_id]))
+        for user, status in ((self.patient, 302), (self.other_patient, 404), (self.other_doctor, 404), (self.admin, 404)):
             self.client.force_login(user)
             self.assertEqual(self.client.get(self.url("brief")).status_code, status)
 
@@ -84,27 +85,20 @@ class PatientBriefTests(AppointmentTestCase):
         self.assertEqual(brief.status, "published")
         self.assertEqual(brief.published_by, self.doctor)
         self.client.force_login(self.patient)
-        self.assertContains(self.client.get(self.url("brief")), "Texte vérifié par le médecin.")
+        self.assertRedirects(self.client.get(self.url("brief")), reverse("consultations:detail", args=[self.consultation.pk]))
         self.assertEqual(self.client.post(self.url("brief_publish"), self.approval(brief)).status_code, 403)
 
     def test_fragment_contains_workspace_without_duplicate_dashboard(self):
         self.brief()
         self.client.force_login(self.doctor)
         response = self.client.get(self.url("brief"), {"fragment": "1"})
-        self.assertContains(response, "data-brief-root")
-        self.assertContains(response, "care-ai-theatre")
-        self.assertContains(response, "data-brief-publish")
-        self.assertNotContains(response, '<aside class="mc-dashboard-sidebar"')
-        self.assertNotContains(response, "<!DOCTYPE html>")
+        self.assertRedirects(response, reverse("consultations:edit", args=[self.consultation.appointment_id]))
 
-    def test_consultation_opens_inline_panel_without_dialog(self):
+    def test_consultation_links_to_replacement_copilot(self):
         self.client.force_login(self.doctor)
         response = self.client.get(reverse("consultations:detail", args=[self.consultation.pk]))
-        self.assertContains(response, 'data-brief-open="'+self.url("brief")+'"')
-        self.assertContains(response, '<section id="care-brief-panel"')
-        self.assertNotContains(response, "<dialog")
-        self.assertContains(response, 'aria-controls="care-brief-panel"')
-        self.assertContains(response, "js/patient-brief.js")
+        self.assertContains(response, reverse("consultations:edit", args=[self.consultation.appointment_id])+"#copilot")
+        self.assertNotContains(response, "data-brief-open")
 
     def test_json_publication_returns_result_without_redirect(self):
         brief = self.brief()
@@ -132,14 +126,14 @@ class PatientBriefTests(AppointmentTestCase):
         self.brief()
         self.client.force_login(self.patient)
         response = self.client.get(self.url("brief"), {"fragment": "1"})
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, reverse("consultations:detail", args=[self.consultation.pk]))
 
     def test_source_change_hides_published_brief_and_blocks_old_approval(self):
         brief = self.brief(status="published", approved_cards=[{"key": "constat", "title": "Constat", "text": "Ancienne version"}])
         self.consultation.notes = "Compte rendu modifié."
         self.consultation.save()
         self.client.force_login(self.patient)
-        self.assertEqual(self.client.get(self.url("brief")).status_code, 403)
+        self.assertRedirects(self.client.get(self.url("brief")), reverse("consultations:detail", args=[self.consultation.pk]))
         self.assertNotContains(self.client.get(reverse("consultations:detail", args=[self.consultation.pk])), "Lire ma fiche patient")
         self.client.force_login(self.doctor)
         self.client.post(self.url("brief_publish"), self.approval(brief))
@@ -230,7 +224,7 @@ class PatientBriefTests(AppointmentTestCase):
         self.assertEqual(model, "test-model")
         self.assertGreaterEqual(duration, 0)
         self.client.force_login(self.doctor)
-        self.assertNotContains(self.client.get(self.url("brief")), "synthetic-test-key")
+        self.assertNotContains(self.client.get(self.url("brief")), "synthetic-test-key", status_code=302)
 
     @patch("consultations.ai._post")
     def test_provider_failures_are_classified_without_raw_response(self, post):

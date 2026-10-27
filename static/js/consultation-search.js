@@ -1,3 +1,5 @@
+function uiGettext(message) { return typeof gettext === "function" ? gettext(message) : message; }
+function uiInterpolate(message, values) { return message.replace(/%\(([^)]+)\)s/g, (_, key) => String(values[key])); }
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll("[data-live-search]").forEach((form) => {
         const results = document.querySelector("[data-live-results]");
@@ -25,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             controller = new AbortController();
             form.classList.add("is-searching");
             results.setAttribute("aria-busy", "true");
-            status.textContent = "Recherche en cours…";
+            status.textContent = uiGettext("Recherche en cours…");
             try {
                 const response = await fetch(url, {
                     headers: {"X-Live-Search": "1"},
@@ -40,12 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 results.innerHTML = html;
                 const count = results.querySelector("[data-live-count]");
                 // Focusing the count already announces it; avoid a second live announcement.
-                status.textContent = focusResults && count ? "" : count?.textContent.trim() || "Résultats actualisés.";
+                status.textContent = count?.hasAttribute("data-live-announcement") || (focusResults && count) ? "" : count?.textContent.trim() || uiGettext("Résultats actualisés.");
                 if (focusResults) count?.focus();
                 window.history.replaceState(null, "", url.pathname + url.search);
             } catch (error) {
                 if (error.name !== "AbortError" && requestId === sequence) {
-                    status.textContent = "La recherche n'a pas abouti. Vos résultats précédents restent affichés ; réessayez ou vérifiez votre connexion.";
+                    status.textContent = uiGettext("La recherche n'a pas abouti. Vos résultats précédents restent affichés ; réessayez ou vérifiez votre connexion.");
                 }
             } finally {
                 if (requestId === sequence) {

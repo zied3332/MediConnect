@@ -40,7 +40,7 @@
 
 .patient-welcome h1 {
     margin: 15px 0 12px;
-    color: #252923;
+    color:var(--ui-adaptive-ink,#252923);
     font-size: clamp(30px, 3vw, 43px);
     font-weight: 800;
     letter-spacing: -1.6px;
@@ -93,13 +93,13 @@
 
 .patient-btn-secondary {
     border-color: #e5dbb1;
-    background: #ffffff;
-    color: #33382e;
+    background:var(--ui-adaptive-paper,#ffffff);
+    color:var(--ui-adaptive-ink,#33382e);
 }
 
 .patient-btn-secondary:hover {
-    background: #fffdf4;
-    color: #33382e;
+    background:var(--ui-adaptive-soft,#fffdf4);
+    color:var(--ui-adaptive-ink,#33382e);
 }
 
 .patient-welcome-decoration {
@@ -130,7 +130,7 @@
 .patient-feature-card {
     border: 1px solid #e8ebe5;
     border-radius: 15px;
-    background: #ffffff;
+    background:var(--ui-adaptive-paper,#ffffff);
 }
 
 .patient-appointments {
@@ -148,7 +148,7 @@
 
 .patient-card-header h2 {
     margin: 9px 0 7px;
-    color: #252923;
+    color:var(--ui-adaptive-ink,#252923);
     font-size: 20px;
     font-weight: 750;
     letter-spacing: -0.5px;
@@ -163,7 +163,7 @@
 .patient-text-link {
     flex-shrink: 0;
     padding: 8px 0;
-    color: #414a3d;
+    color:var(--ui-adaptive-ink,#414a3d);
     font-size: 12px;
     font-weight: 700;
     text-decoration: none;
@@ -190,8 +190,8 @@
     height: 45px;
     flex: 0 0 45px;
     border-radius: 12px;
-    background: #f7f6ed;
-    color: #626b55;
+    background:var(--ui-adaptive-soft,#f7f6ed);
+    color:var(--ui-adaptive-ink,#626b55);
 }
 
 .patient-appointment-icon svg {
@@ -207,7 +207,7 @@
 }
 
 .patient-appointment-details strong {
-    color: #282e27;
+    color:var(--ui-adaptive-ink,#282e27);
     font-size: 13px;
     font-weight: 700;
 }
@@ -261,8 +261,8 @@
     width: 42px;
     height: 42px;
     border-radius: 11px;
-    background: #fff8dc;
-    color: #6c6036;
+    background:var(--ui-adaptive-soft,#fff8dc);
+    color:var(--ui-adaptive-ink,#6c6036);
 }
 
 .patient-feature-icon svg {
@@ -272,7 +272,7 @@
 
 .patient-feature-content h2 {
     margin: 0 0 9px;
-    color: #252923;
+    color:var(--ui-adaptive-ink,#252923);
     font-size: 16px;
     font-weight: 750;
 }
@@ -295,7 +295,7 @@
 }
 
 .patient-feature-card:hover .patient-feature-arrow {
-    color: #353e32;
+    color:var(--ui-adaptive-ink,#353e32);
     transform: translate(2px, -2px);
 }
 

@@ -1,3 +1,5 @@
+function uiGettext(message) { return typeof gettext === "function" ? gettext(message) : message; }
+function uiInterpolate(message, values) { return message.replace(/%\(([^)]+)\)s/g, (_, key) => String(values[key])); }
 
 document.addEventListener("DOMContentLoaded", () => {
     const toggle = document.getElementById("dashboard-menu-toggle");
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         form.addEventListener("submit", (event) => {
             event.preventDefault();
             pendingDeleteForm = form;
-            deleteTitle.textContent = `Delete “${form.dataset.deleteName}”?`;
+            deleteTitle.textContent = uiInterpolate(uiGettext("Delete “%(v0)s”?"), {v0:(form.dataset.deleteName)});
             window.MediConnectDialog.open(deleteModal, {
                 opener: event.submitter || document.activeElement,
                 initialFocus: deleteModal.querySelector("[data-delete-cancel]"),

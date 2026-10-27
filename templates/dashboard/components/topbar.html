@@ -1,3 +1,4 @@
+{% load i18n ui %}
 
 <header class="mc-dashboard-topbar">
     <div class="mc-topbar-left">
@@ -5,7 +6,7 @@
             type="button"
             class="mc-sidebar-toggle"
             id="dashboard-menu-toggle"
-            aria-label="Toggle dashboard menu"
+            aria-label="{% translate "Toggle dashboard menu" %}"
             aria-controls="dashboard-sidebar"
             aria-expanded="false"
         >
@@ -17,14 +18,14 @@
             </svg>
         </button>
 
-        <nav class="mc-topbar-breadcrumb" aria-label="Breadcrumb">
+        <nav class="mc-topbar-breadcrumb" aria-label="{% translate "Breadcrumb" %}">
             <span>
                 {% if dashboard_role == "admin" %}
-                    Administration
+                    {% translate "Administration" %}
                 {% elif dashboard_role == "doctor" %}
-                    Doctor Portal
+                    {% translate "Doctor Portal" %}
                 {% else %}
-                    My Health
+                    {% translate "Mon espace santé" %}
                 {% endif %}
             </span>
 
@@ -35,18 +36,19 @@
                 <path d="m9 18 6-6-6-6"/>
             </svg>
 
-            <strong>{{ page_title|default:"Overview" }}</strong>
+            <strong>{% if dashboard_role == 'patient' %}{% if active_nav == 'overview' %}{% translate "Mon accueil" %}{% elif active_nav == 'appointments' %}{% translate "Mes rendez-vous" %}{% elif active_nav == 'consultations' %}{% translate "Mes consultations" %}{% elif active_nav == 'consultation_messages' %}{% translate "Mes échanges" %}{% elif active_nav == 'consultation_reviews' %}{% translate "Mes avis" %}{% elif active_nav == 'patient_doctors' %}{% translate "Mes médecins" %}{% elif active_nav == 'medical_record' %}{% translate "Mon dossier médical" %}{% elif active_nav == 'prescriptions' %}{% translate "Mes ordonnances" %}{% elif active_nav == 'medical_examinations' %}{% translate "Mes examens" %}{% else %}{{ page_title|ui }}{% endif %}{% else %}{{ page_title|default:"Overview"|ui }}{% endif %}</strong>
         </nav>
     </div>
 
     <div class="mc-topbar-right">
+        {% if dashboard_role == 'patient' %}<a class="client-top-book" href="{% url 'dashboard:patient_doctors' %}"><span aria-hidden="true">+</span> {% translate "Prendre rendez-vous" %}</a>{% endif %}
 
         <!-- Notifications -->
         <a
             href="{% url 'notifications:list' %}"
             class="mc-topbar-notification"
-            aria-label="Notifications, {{ unread_notifications_count|default:0 }} unread"
-            title="Notifications"
+            aria-label="{% translate "Notifications," %} {{ unread_notifications_count|default:0 }} {% translate "unread" %}"
+            title="{% translate "Notifications" %}"
         >
             <svg viewBox="0 0 24 24" width="20" height="20"
                  fill="none" stroke="currentColor"
@@ -76,11 +78,11 @@
                     </strong>
                     <small>
                         {% if dashboard_role == "admin" %}
-                            Administrator
+                            {% translate "Administrator" %}
                         {% elif dashboard_role == "doctor" %}
-                            Doctor
+                            {% translate "Doctor" %}
                         {% else %}
-                            Patient
+                            {% translate "Patient" %}
                         {% endif %}
                     </small>
                 </span>
@@ -121,7 +123,7 @@
                             <path d="M15 12H3"/>
                             <path d="M12 3h6a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3h-6"/>
                         </svg>
-                        Log out
+                        {% translate "Log out" %}
                     </button>
                 </form>
             </div>

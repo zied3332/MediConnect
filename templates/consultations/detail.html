@@ -1,5 +1,5 @@
-{% extends "consultations/base.html" %}
-{% block title %}Consultation #{{ consultation.pk }} | MediConnect{% endblock %}
+{% extends "consultations/base.html" %}{% load i18n ui %}
+{% block title %}{% translate "Consultation #" %}{{ consultation.pk }} {% translate "| MediConnect" %}{% endblock %}
 
 
 {% block care_content %}
@@ -7,116 +7,45 @@
 <header class="care-hero">
     <div>
         <span class="care-eyebrow">
-            Compte rendu · N° {{ consultation.pk }}
+            {% translate "Compte rendu · N°" %} {{ consultation.pk }}
         </span>
 
-        <h1>Une vue claire de votre consultation.</h1>
+        <h1>{% translate "Une vue claire de votre consultation." %}</h1>
 
         <p>
-            {{ consultation.appointment.start|date:"d/m/Y à H:i" }}
-            · Dr {{ consultation.appointment.doctor.get_full_name }}
+            {{ consultation.appointment.start|date:"SHORT_DATETIME_FORMAT" }}
+            {% translate "· Dr" %} {{ consultation.appointment.doctor.get_full_name }}
         </p>
     </div>
 
     <div class="care-orbit" aria-hidden="true">✚</div>
 </header>
 
-<!-- AI PATIENT BRIEF -->
-<section class="care-card care-ai-intro">
-    <div>
-        <span class="care-eyebrow">
-            Miroir de consultation
-        </span>
-
-        <h2>
-            Une fiche claire, validée par votre médecin.
-        </h2>
-
-        <p>
-            Trois rubriques pour retrouver les constats,
-            les consignes et la suite prévue.
-        </p>
-    </div>
-
-    {% if dashboard_role == 'doctor' %}
-        <button
-            type="button"
-            class="care-btn"
-            data-brief-open="{% url 'consultations:brief' consultation.pk %}"
-            aria-expanded="false"
-            aria-controls="care-brief-panel"
-        >
-            Préparer la fiche patient ✦
-        </button>
-    {% elif published_brief %}
-        <a
-            class="care-btn"
-            href="{% url 'consultations:brief' consultation.pk %}"
-        >
-            Lire ma fiche patient ✦
-        </a>
-    {% else %}
-        <span class="care-badge">
-            En attente de validation médicale
-        </span>
-    {% endif %}
-</section>
-
-{% if dashboard_role == 'doctor' %}
-<section id="care-brief-panel"
-         class="care-brief-inline"
-         aria-labelledby="care-brief-title"
-         hidden>
-
-    <div class="care-brief-inline-bar">
-        <div>
-            <span class="care-eyebrow">
-                Atelier IA
-            </span>
-
-            <h2 id="care-brief-title" tabindex="-1">
-                Votre fiche patient, ici même
-            </h2>
-        </div>
-
-        <button
-            type="button"
-            class="care-btn secondary"
-            data-brief-close
-        >
-            Replier la fiche ↑
-        </button>
-    </div>
-
-    {% include "consultations/brief_announcements.html" %}
-    <div id="care-brief-content"></div>
-</section>
-{% endif %}
-
+{% if dashboard_role == 'doctor' %}<section class="care-card care-ai-intro"><div><span class="care-eyebrow">{% translate "COPILOTE DE RÉDACTION" %}</span><h2>{% translate "Vos notes. Un compte rendu bien organisé." %}</h2><p>{% translate "L’IA classe vos mots ; vous gardez la décision et la signature." %}</p></div><a class="care-btn" href="{% url 'consultations:edit' consultation.appointment_id %}#copilot">{% translate "Ouvrir le copilote ✦" %}</a></section>{% endif %}
 <div class="care-columns">
 
     <!-- CONSULTATION REPORT -->
     <article class="care-card">
 
         <h2 class="care-section-title">
-            Compte rendu médical
+            {% translate "Compte rendu médical" %}
         </h2>
 
-        <h3>Diagnostic</h3>
+        <h3>{% translate "Diagnostic" %}</h3>
 
         <div class="care-prose">
             {{ consultation.diagnostic|linebreaks }}
         </div>
 
-        <h3>Notes et suivi</h3>
+        <h3>{% translate "Notes et suivi" %}</h3>
 
         <div class="care-prose">
             {{ consultation.notes|default:"Aucune note complémentaire."|linebreaks }}
         </div>
 
         <p class="care-muted">
-            Dernière modification :
-            {{ consultation.updated_at|date:"d/m/Y à H:i" }}
+            {% translate "Dernière modification :" %}
+            {{ consultation.updated_at|date:"SHORT_DATETIME_FORMAT" }}
         </p>
 
         <div class="care-actions">
@@ -125,7 +54,7 @@
                     class="care-btn"
                     href="{% url 'consultations:edit' consultation.appointment_id %}"
                 >
-                    Modifier le compte rendu
+                    {% translate "Modifier le compte rendu" %}
                 </a>
             {% endif %}
 
@@ -134,7 +63,7 @@
                 type="button"
                 onclick="window.print()"
             >
-                Imprimer / PDF
+                {% translate "Imprimer / PDF" %}
             </button>
         </div>
 
@@ -146,31 +75,31 @@
         <section class="care-card">
 
             <h2 class="care-section-title">
-                Votre rendez-vous
+                {% translate "Votre rendez-vous" %}
             </h2>
 
             <dl class="care-meta">
                 <div>
-                    <dt>Patient</dt>
+                    <dt>{% translate "Patient" %}</dt>
                     <dd>
                         {{ consultation.appointment.patient.get_full_name }}
                     </dd>
                 </div>
 
                 <div>
-                    <dt>Médecin</dt>
+                    <dt>{% translate "Médecin" %}</dt>
                     <dd>
-                        Dr {{ consultation.appointment.doctor.get_full_name }}
+                        {% translate "Dr" %} {{ consultation.appointment.doctor.get_full_name }}
                     </dd>
                 </div>
 
                 <div>
-                    <dt>Format</dt>
+                    <dt>{% translate "Format" %}</dt>
                     <dd>
                         {% if consultation.appointment.mode == 'visio' %}
-                            Visioconférence
+                            {% translate "Visioconférence" %}
                         {% else %}
-                            Au cabinet
+                            {% translate "Au cabinet" %}
                         {% endif %}
                     </dd>
                 </div>
@@ -184,7 +113,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Rejoindre la visioconférence ↗
+                        {% translate "Rejoindre la visioconférence ↗" %}
                     </a>
                 </div>
             {% endif %}
@@ -194,16 +123,16 @@
                     class="care-btn secondary"
                     href="{% url 'appointments:detail' consultation.appointment_id %}"
                 >
-                    Voir le rendez-vous
+                    {% translate "Voir le rendez-vous" %}
                 </a>
 
                 <a
                     class="care-btn secondary"
                     href="{% url 'consultations:conversation' consultation.pk %}"
                 >
-                    Messages
+                    {% translate "Messages" %}
                     {% if unread %}
-                        ({{ unread }} non lus)
+                        ({{ unread }} {% translate "non lus)" %}
                     {% endif %}
                 </a>
             </div>
@@ -215,16 +144,15 @@
         <section class="care-card" style="margin-top: 20px;">
 
             <span class="care-eyebrow">
-                MODULE 4 · DOSSIER MÉDICAL
+                {% translate "MODULE 4 · DOSSIER MÉDICAL" %}
             </span>
 
             <h2 class="care-section-title">
-                Dossier médical du patient
+                {% translate "Dossier médical du patient" %}
             </h2>
 
             <p class="care-muted">
-                Accédez aux antécédents, allergies,
-                examens médicaux et ordonnances du patient.
+                {% translate "Accédez aux antécédents, allergies, examens médicaux et ordonnances du patient." %}
             </p>
 
             <div class="care-actions">
@@ -234,14 +162,14 @@
                         class="care-btn secondary"
                         href="{% url 'medical_records:patient_record' consultation.appointment.patient_id %}"
                     >
-                        Voir le dossier médical
+                        {% translate "Voir le dossier médical" %}
                     </a>
 
                     <a
                         class="care-btn secondary"
                         href="{% url 'medical_records:examination_list' consultation.appointment.patient_id %}"
                     >
-                        Examens médicaux
+                        {% translate "Examens médicaux" %}
                     </a>
                 {% endif %}
 
@@ -250,7 +178,7 @@
                         class="care-btn"
                         href="{% url 'medical_records:prescription_create' consultation.pk %}"
                     >
-                        Nouvelle ordonnance
+                        {% translate "Nouvelle ordonnance" %}
                     </a>
                 {% endif %}
 
@@ -258,9 +186,7 @@
 
             {% if not can_view_medical_record %}
                 <p class="care-muted">
-                    Le dossier médical et les examens sont
-                    accessibles après un rendez-vous terminé
-                    avec ce patient.
+                    {% translate "Le dossier médical et les examens sont accessibles après un rendez-vous terminé avec ce patient." %}
                 </p>
             {% endif %}
 
@@ -271,13 +197,13 @@
         <section class="care-card" style="margin-top: 20px;">
 
             <h2 class="care-section-title">
-                Votre expérience
+                {% translate "Votre expérience" %}
             </h2>
 
             {% if avis %}
                 <div
                     class="care-rating"
-                    aria-label="{{ avis.note }} sur 5"
+                    aria-label="{{ avis.note }} {% translate "sur 5" %}"
                 >
                     {{ avis.note }} / 5 ★
                 </div>
@@ -287,11 +213,12 @@
                 </p>
 
                 {% if dashboard_role == 'patient' %}
+                    <div class="care-review-actions">
                     <a
-                        class="care-link"
+                        class="care-btn secondary"
                         href="{% url 'consultations:review_edit' consultation.pk %}"
                     >
-                        Modifier mon avis
+                        {% translate "Modifier mon avis" %}
                     </a>
 
                     <form
@@ -303,40 +230,37 @@
 
                         <div class="care-actions">
                             <button class="care-btn danger">
-                                Supprimer mon avis
+                                {% translate "Supprimer mon avis" %}
                             </button>
                         </div>
                     </form>
+                    </div>
                 {% endif %}
 
             {% elif dashboard_role == 'patient' and consultation.appointment.status == 'completed' %}
                 <p>
-                    Votre retour aide à améliorer le suivi.
+                    {% translate "Votre retour aide à améliorer le suivi." %}
                 </p>
 
                 <a
                     class="care-btn"
                     href="{% url 'consultations:review_edit' consultation.pk %}"
                 >
-                    Donner mon avis ★
+                    {% translate "Donner mon avis ★" %}
                 </a>
 
             {% else %}
                 <p class="care-muted">
                     {% if dashboard_role == 'patient' %}
-                        Votre avis sera disponible lorsque
-                        le médecin aura marqué ce rendez-vous
-                        comme terminé.
+                        {% translate "Votre avis sera disponible lorsque le médecin aura marqué ce rendez-vous comme terminé." %}
                     {% else %}
-                        Le patient pourra laisser un avis
-                        lorsque vous aurez marqué ce rendez-vous
-                        comme terminé dans Appointments.
+                        {% translate "Le patient pourra laisser un avis lorsque vous aurez marqué ce rendez-vous comme terminé dans Appointments." %}
                     {% endif %}
 
                     <br>
 
-                    Rendez-vous du
-                    {{ consultation.appointment.start|date:"d/m/Y à H:i" }}.
+                    {% translate "Rendez-vous du" %}
+                    {{ consultation.appointment.start|date:"SHORT_DATETIME_FORMAT" }}.
                 </p>
             {% endif %}
 
@@ -353,7 +277,7 @@
         class="care-btn secondary"
         href="{% url 'consultations:list' %}"
     >
-        ← Mes consultations
+        {% translate "← Mes consultations" %}
     </a>
 
     {% if dashboard_role == 'doctor' %}
@@ -361,7 +285,7 @@
             class="care-btn danger"
             href="{% url 'consultations:delete' consultation.pk %}"
         >
-            Supprimer la consultation
+            {% translate "Supprimer la consultation" %}
         </a>
     {% endif %}
 

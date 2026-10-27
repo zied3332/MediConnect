@@ -15,7 +15,7 @@
     min-height: 76px;
     padding: 0 36px;
     overflow: visible;
-    background: #ffffff;
+    background:var(--ui-adaptive-paper,#ffffff);
     border-bottom: 1px solid #e9ebe5;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .mc-topbar-breadcrumb strong {
-    color: #252b26;
+    color:var(--ui-adaptive-ink,#252b26);
     font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -76,7 +76,7 @@
     border: 1px solid transparent;
     border-radius: 12px;
     background: transparent;
-    color: #41483f;
+    color:var(--ui-adaptive-ink,#41483f);
     text-decoration: none;
     transition:
         background 160ms ease,
@@ -85,9 +85,9 @@
 }
 
 .mc-topbar-notification:hover {
-    background: #f7f7f1;
+    background:var(--ui-adaptive-soft,#f7f7f1);
     border-color: #eeeee4;
-    color: #181d18;
+    color:var(--ui-adaptive-ink,#181d18);
 }
 
 .mc-topbar-notification svg {
@@ -115,7 +115,7 @@
     width: 1px;
     height: 28px;
     flex-shrink: 0;
-    background: #e8ebe5;
+    background:var(--ui-adaptive-soft,#e8ebe5);
 }
 
 /* Account dropdown */
@@ -150,7 +150,7 @@
 
 .mc-account-trigger:hover,
 .mc-account-menu[open] .mc-account-trigger {
-    background: #f8f8f3;
+    background:var(--ui-adaptive-soft,#f8f8f3);
     border-color: #e9ebe4;
 }
 
@@ -162,7 +162,7 @@
     flex: 0 0 38px;
     border-radius: 50%;
     background: #fff0b8;
-    color: #4d401b;
+    color:var(--ui-adaptive-ink,#4d401b);
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 0.3px;
@@ -179,7 +179,7 @@
     display: block;
     max-width: 160px;
     overflow: hidden;
-    color: #242824;
+    color:var(--ui-adaptive-ink,#242824);
     font-size: 12px;
     font-weight: 750;
     text-overflow: ellipsis;
@@ -214,7 +214,7 @@
     padding: 8px;
     border: 1px solid #e9ebe5;
     border-radius: 14px;
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     box-shadow:
         0 16px 40px rgba(30, 36, 29, 0.09),
         0 3px 10px rgba(30, 36, 29, 0.03);
@@ -228,7 +228,7 @@
 }
 
 .mc-account-dropdown-header strong {
-    color: #252a24;
+    color:var(--ui-adaptive-ink,#252a24);
     font-size: 13px;
     font-weight: 750;
 }
@@ -242,7 +242,7 @@
 .mc-account-dropdown-divider {
     height: 1px;
     margin: 5px 0;
-    background: #eff0eb;
+    background:var(--ui-adaptive-soft,#eff0eb);
 }
 
 /* Logout action */
@@ -261,7 +261,7 @@
     border: 0;
     border-radius: 9px;
     background: transparent;
-    color: #424a40;
+    color:var(--ui-adaptive-ink,#424a40);
     font-family: inherit;
     font-size: 13px;
     font-weight: 600;
@@ -273,7 +273,7 @@
 }
 
 .mc-account-logout:hover {
-    background: #fff2ef;
+    background:var(--ui-adaptive-soft,#fff2ef);
     color: #a43f34;
 }
 

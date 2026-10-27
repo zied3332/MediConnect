@@ -1,6 +1,6 @@
 
-{% extends "dashboard/base.html" %}
-{% block title %}{{ action|default:"Manage" }} Prescription | MediConnect{% endblock %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
+{% block title %}{{ action|default:"Manage" }} {% translate "Prescription | MediConnect" %}{% endblock %}
 
 {% load static %}
 
@@ -13,22 +13,22 @@
 
     <div class="mr-breadcrumb">
         <a href="{% url 'medical_records:admin_prescription_list' %}">
-            Prescriptions
+            {% translate "Prescriptions" %}
         </a>
         / {{ action }}
     </div>
 
     <div class="mr-page-header">
         <div>
-            <div class="mr-eyebrow">PRESCRIPTION MANAGEMENT</div>
+            <div class="mr-eyebrow">{% translate "PRESCRIPTION MANAGEMENT" %}</div>
 
-            <h1>{{ action }} Prescription</h1>
+            <h1>{{ action }} {% translate "Prescription" %}</h1>
 
             <p>
                 {% if prescription %}
-                    Update the prescription details below.
+                    {% translate "Update the prescription details below." %}
                 {% else %}
-                    Create a prescription for an eligible consultation.
+                    {% translate "Create a prescription for an eligible consultation." %}
                 {% endif %}
             </p>
         </div>
@@ -49,12 +49,12 @@
             <div class="mr-actions">
                 <button type="submit"
                         class="mr-btn mr-btn-primary">
-                    Save Prescription
+                    {% translate "Save Prescription" %}
                 </button>
 
                 <a href="{% url 'medical_records:admin_prescription_list' %}"
                    class="mr-btn">
-                    Cancel
+                    {% translate "Cancel" %}
                 </a>
             </div>
         </form>

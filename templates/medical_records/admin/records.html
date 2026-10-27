@@ -1,8 +1,8 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 {% load static %}
 
-{% block title %}Medical Records | MediConnect{% endblock %}
+{% block title %}{% translate "Medical Records | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/dashboard/medical-records-admin.css' %}?v=2">
@@ -13,32 +13,31 @@
 
     <div class="mr-page-header">
         <div>
-            <div class="mr-eyebrow">MEDICAL RECORDS MANAGEMENT</div>
-            <h1>Medical Records</h1>
-            <p>View and manage registered patient medical records.</p>
+            <div class="mr-eyebrow">{% translate "MEDICAL RECORDS MANAGEMENT" %}</div>
+            <h1>{% translate "Medical Records" %}</h1>
+            <p>{% translate "View and manage registered patient medical records." %}</p>
         </div>
 
         <a href="{% url 'medical_records:admin_record_create' %}"
            class="mr-btn mr-btn-primary">
-            + Create Record
+            {% translate "+ Create Record" %}
         </a>
     </div>
 
     <div class="mr-notice">
-        Each patient can have one medical record.
-        Patients with existing records are managed below.
+        {% translate "Each patient can have one medical record. Patients with existing records are managed below." %}
     </div>
 
     <section class="mr-panel mr-list-panel">
         <div class="mr-table-wrap">
             <table class="mr-table">
-            <caption class="mc-sr-only">Patient medical records</caption>
+            <caption class="mc-sr-only">{% translate "Patient medical records" %}</caption>
                 <thead>
                     <tr>
-                        <th scope="col">Record ID</th>
-                        <th scope="col">Patient</th>
-                        <th scope="col">Created</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">{% translate "Record ID" %}</th>
+                        <th scope="col">{% translate "Patient" %}</th>
+                        <th scope="col">{% translate "Created" %}</th>
+                        <th scope="col">{% translate "Actions" %}</th>
                     </tr>
                 </thead>
 
@@ -60,15 +59,15 @@
 
                         <td>
                             <div class="mr-table-actions">
-                                <a href="{% url 'medical_records:admin_record_detail' record.pk %}" aria-label="View medical record #{{ record.pk }}">
-                                    View
+                                <a href="{% url 'medical_records:admin_record_detail' record.pk %}" aria-label="{% translate "View medical record #" %}{{ record.pk }}">
+                                    {% translate "View" %}
                                 </a>
-                                <a href="{% url 'medical_records:admin_record_update' record.pk %}" aria-label="Edit medical record #{{ record.pk }}">
-                                    Edit
+                                <a href="{% url 'medical_records:admin_record_update' record.pk %}" aria-label="{% translate "Edit medical record #" %}{{ record.pk }}">
+                                    {% translate "Edit" %}
                                 </a>
                                 <a class="mr-delete-link"
-                                   href="{% url 'medical_records:admin_record_delete' record.pk %}" aria-label="Delete medical record #{{ record.pk }}">
-                                    Delete
+                                   href="{% url 'medical_records:admin_record_delete' record.pk %}" aria-label="{% translate "Delete medical record #" %}{{ record.pk }}">
+                                    {% translate "Delete" %}
                                 </a>
                             </div>
                         </td>
@@ -76,7 +75,7 @@
                     {% empty %}
                     <tr>
                         <td colspan="4">
-                            No medical records found.
+                            {% translate "No medical records found." %}
                         </td>
                     </tr>
                     {% endfor %}

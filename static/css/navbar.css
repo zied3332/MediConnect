@@ -8,7 +8,7 @@
     position: relative;
     z-index: 100;
     width: 100%;
-    background: #FFFDF5;
+    background:var(--ui-adaptive-soft,#FFFDF5);
     border-bottom: 1px solid #F0EEE5;
     font-family: var(--mc-font-body);
 }
@@ -34,7 +34,7 @@
     gap: 12px;
     flex-shrink: 0;
 
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
     font-size: 25px;
     font-weight: 800;
     letter-spacing: -0.055em;
@@ -42,7 +42,7 @@
 }
 
 .mc-nav-brand:hover {
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
 }
 
 .mc-nav-logo {
@@ -54,7 +54,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
 }
 
 /* Desktop links */
@@ -71,7 +71,7 @@
 .mc-nav-link,
 .mc-nav-login,
 .mc-nav-browse {
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
     font-size: 19px;
     font-weight: 500;
     white-space: nowrap;
@@ -100,7 +100,7 @@
 .mc-nav-browse {
     min-height: 60px;
     padding: 0 24px;
-    background: #EAE8E0;
+    background:var(--ui-adaptive-soft,#EAE8E0);
     border-radius: 5px;
 }
 
@@ -121,7 +121,7 @@
 .mc-nav-divider {
     height: 30px;
     width: 1px;
-    background: #E8E6DC;
+    background:var(--ui-adaptive-soft,#E8E6DC);
 }
 
 /* Sign up */
@@ -136,7 +136,7 @@
 
     background: #FFEB4D;
     border-radius: 5px;
-    color: #292D28;
+    color:#292d28;
     font-size: 19px;
     font-weight: 600;
     white-space: nowrap;
@@ -156,7 +156,7 @@
     min-width: 270px;
     padding: 18px 14px;
 
-    background: #FFFFFF;
+    background:var(--ui-adaptive-paper,#FFFFFF);
     border: 1px solid #E8E6DC;
     border-radius: 10px;
     box-shadow: 0 12px 35px rgba(0,0,0,0.12);
@@ -188,11 +188,11 @@
     padding: 12px;
     border-radius: 5px;
     font-size: 15px;
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
 }
 
 .mc-nav-menu a:hover {
-    background: #F8F6EF;
+    background:var(--ui-adaptive-soft,#F8F6EF);
 }
 
 .mc-nav-menu-disabled {
@@ -213,12 +213,12 @@
     background: transparent;
     border: 1px solid #E8E6DC;
     border-radius: 6px;
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
     cursor: pointer;
 }
 
 .mc-nav-mobile-menu {
-    background: #FFFDF5;
+    background:var(--ui-adaptive-soft,#FFFDF5);
     border-top: 1px solid #E8E6DC;
 }
 
@@ -237,7 +237,7 @@
 .mc-nav-mobile-content > span {
     display: block;
     padding: 13px 12px;
-    color: #292D28;
+    color:var(--ui-adaptive-ink,#292D28);
     font-size: 16px;
     text-decoration: none;
 }
@@ -250,7 +250,7 @@
     margin-top: 10px;
     padding: 14px 20px;
     background: #FFEB4D;
-    color: #292D28;
+    color:#292d28;
     border-radius: 5px;
     font-weight: 700;
     text-align: center;

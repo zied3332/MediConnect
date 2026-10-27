@@ -1,7 +1,8 @@
+{% load i18n ui %}
 
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" data-theme="{{ ui_theme|default:'light' }}">
 <head>
     <!-- ==================================================
          MediConnect — Shared Base Template
@@ -19,7 +20,7 @@
     <meta name="theme-color" content="#FFFDF5">
 
     <!-- Page Title -->
-    <title>{% block title %}MediConnect{% endblock %}</title>
+    <title>{% block title %}{% translate "MediConnect" %}{% endblock %}</title>
 
     <!-- Google Fonts: DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,14 +65,15 @@
 
     <!-- Page-Specific Styles -->
     {% block extra_css %}{% endblock %}
-    <link rel="stylesheet" href="{% static 'css/accessibility.css' %}">
+    <link rel="stylesheet" href="{% static 'css/accessibility.css' %}?v=2">
+<link rel="stylesheet" href="{% static 'css/theme.css' %}?v=5">
 </head>
 
 <body>
 
     <!-- Accessibility: Skip to Main Content -->
     <a href="#main-content" class="mc-skip-link">
-        Skip to main content
+        {% translate "Skip to main content" %}
     </a>
 
     <!-- ==================================================
@@ -109,7 +111,8 @@
     </script>
 
     <!-- MediConnect Navigation -->
-    <script src="{% static 'js/dialogs.js' %}" defer></script>
+    <script src="{% url 'javascript-catalog' %}"></script>
+<script src="{% static 'js/dialogs.js' %}" defer></script>
     <script
         src="{% static 'js/navbar.js' %}"
         defer>

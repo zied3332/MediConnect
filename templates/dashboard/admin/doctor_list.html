@@ -1,6 +1,6 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Doctor Applications | MediConnect{% endblock %}
+{% block title %}{% translate "Doctor Applications | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -18,32 +18,32 @@
     padding: 7px 16px;
     border-radius: 30px;
     border: 1px solid var(--mc-admin-border);
-    background: #fff;
-    color: #555;
+    background:var(--ui-adaptive-paper,#fff);
+    color:var(--ui-adaptive-ink,#555);
     font-size: 13px;
     font-weight: 600;
     text-decoration: none;
     transition: background 120ms, color 120ms;
 }
-.mc-filter-tab:hover { background: #f6f7f3; color: #222; }
-.mc-filter-tab.active { background: #fff8c8; border-color: #e8d96a; color: #292929; }
+.mc-filter-tab:hover { background:var(--ui-adaptive-soft,#f6f7f3); color:var(--ui-adaptive-ink,#222); }
+.mc-filter-tab.active { background: #fff8c8; border-color: #e8d96a; color:var(--ui-adaptive-ink,#292929); }
 .mc-filter-tab .mc-count {
     min-width: 20px;
     height: 20px;
     padding: 0 6px;
     border-radius: 20px;
-    background: #eee;
-    color: #555;
+    background:var(--ui-adaptive-soft,#eee);
+    color:var(--ui-adaptive-ink,#555);
     font-size: 11px;
     font-weight: 800;
     display: grid;
     place-items: center;
 }
-.mc-filter-tab.active .mc-count { background: #ffeb4d; color: #292929; }
+.mc-filter-tab.active .mc-count { background: #ffeb4d; color:var(--ui-adaptive-ink,#292929); }
 
 /* ── Table ─────────────────────────────────── */
 .mc-table-wrapper {
-    background: #fff;
+    background:var(--ui-adaptive-paper,#fff);
     border: 1px solid var(--mc-admin-border);
     border-radius: 12px;
     overflow-x: auto;
@@ -62,7 +62,7 @@
     letter-spacing: 0.8px;
     color: var(--mc-page-muted);
     border-bottom: 1px solid var(--mc-admin-border);
-    background: #fafaf8;
+    background:var(--ui-adaptive-paper,#fafaf8);
     text-transform: uppercase;
 }
 .mc-table tbody tr {
@@ -70,7 +70,7 @@
     transition: background 100ms;
 }
 .mc-table tbody tr:last-child { border-bottom: none; }
-.mc-table tbody tr:hover { background: #fafaf7; }
+.mc-table tbody tr:hover { background:var(--ui-adaptive-soft,#fafaf7); }
 .mc-table :is(td, th[scope="row"]) { padding: 16px 20px; vertical-align: middle; }
 
 .mc-doctor-cell { display: flex; flex-direction: column; gap: 3px; }
@@ -84,25 +84,25 @@
     font-size: 11px;
     font-weight: 700;
 }
-.pill-pending_documents { background: #e3f2fd; color: #0d47a1; }
-.pill-pending_review    { background: #fff8e1; color: #a13a00; }
-.pill-needs_more_info   { background: #fff3e0; color: #bf360c; }
-.pill-approved          { background: #e8f5e9; color: #1b5e20; }
-.pill-rejected          { background: #fce4ec; color: #880e4f; }
+.pill-pending_documents { background:var(--ui-adaptive-soft,#e3f2fd); color: #0d47a1; }
+.pill-pending_review    { background:var(--ui-adaptive-soft,#fff8e1); color: #a13a00; }
+.pill-needs_more_info   { background:var(--ui-adaptive-soft,#fff3e0); color: #bf360c; }
+.pill-approved          { background:var(--ui-adaptive-soft,#e8f5e9); color: #1b5e20; }
+.pill-rejected          { background:var(--ui-adaptive-soft,#fce4ec); color: #880e4f; }
 
 .mc-review-btn {
     padding: 7px 16px;
     border-radius: 6px;
     background: #fff8c8;
     border: 1px solid #e8d96a;
-    color: #292929;
+    color:var(--ui-adaptive-ink,#292929);
     font-size: 12px;
     font-weight: 700;
     text-decoration: none;
     white-space: nowrap;
     transition: background 120ms;
 }
-.mc-review-btn:hover { background: #ffeb4d; color: #292929; }
+.mc-review-btn:hover { background: #ffeb4d; color:#292d28; }
 
 .mc-empty-state {
     padding: 60px 20px;
@@ -116,9 +116,9 @@
 {% block content %}
 <div class="mc-page-heading">
     <div>
-        <span class="mc-page-eyebrow">DOCTOR MANAGEMENT</span>
-        <h1>Doctor Applications</h1>
-        <p>Review, approve or reject practitioner registration requests.</p>
+        <span class="mc-page-eyebrow">{% translate "DOCTOR MANAGEMENT" %}</span>
+        <h1>{% translate "Doctor Applications" %}</h1>
+        <p>{% translate "Review, approve or reject practitioner registration requests." %}</p>
     </div>
 </div>
 
@@ -126,27 +126,27 @@
 <div class="mc-filter-tabs">
     <a href="{% url 'dashboard:admin_doctor_list' %}"
        class="mc-filter-tab {% if not status_filter %}active{% endif %}">
-        All <span class="mc-count">{{ counts.all }}</span>
+        {% translate "All" %} <span class="mc-count">{{ counts.all }}</span>
     </a>
     <a href="?status=pending_review"
        class="mc-filter-tab {% if status_filter == 'pending_review' %}active{% endif %}">
-        Pending review <span class="mc-count">{{ counts.pending_review }}</span>
+        {% translate "Pending review" %} <span class="mc-count">{{ counts.pending_review }}</span>
     </a>
     <a href="?status=needs_more_info"
        class="mc-filter-tab {% if status_filter == 'needs_more_info' %}active{% endif %}">
-        Needs info <span class="mc-count">{{ counts.needs_more_info }}</span>
+        {% translate "Needs info" %} <span class="mc-count">{{ counts.needs_more_info }}</span>
     </a>
     <a href="?status=pending_documents"
        class="mc-filter-tab {% if status_filter == 'pending_documents' %}active{% endif %}">
-        Pending docs <span class="mc-count">{{ counts.pending_documents }}</span>
+        {% translate "Pending docs" %} <span class="mc-count">{{ counts.pending_documents }}</span>
     </a>
     <a href="?status=approved"
        class="mc-filter-tab {% if status_filter == 'approved' %}active{% endif %}">
-        Approved <span class="mc-count">{{ counts.approved }}</span>
+        {% translate "Approved" %} <span class="mc-count">{{ counts.approved }}</span>
     </a>
     <a href="?status=rejected"
        class="mc-filter-tab {% if status_filter == 'rejected' %}active{% endif %}">
-        Rejected <span class="mc-count">{{ counts.rejected }}</span>
+        {% translate "Rejected" %} <span class="mc-count">{{ counts.rejected }}</span>
     </a>
 </div>
 
@@ -168,14 +168,14 @@
 <div class="mc-table-wrapper">
     {% if profiles %}
     <table class="mc-table">
-            <caption class="mc-sr-only">Doctor applications</caption>
+            <caption class="mc-sr-only">{% translate "Doctor applications" %}</caption>
         <thead>
             <tr>
-                <th scope="col">Doctor</th>
-                <th scope="col">Specialty</th>
-                <th scope="col">Status</th>
-                <th scope="col">Submitted</th>
-                <th scope="col">Actions</th>
+                <th scope="col">{% translate "Doctor" %}</th>
+                <th scope="col">{% translate "Specialty" %}</th>
+                <th scope="col">{% translate "Status" %}</th>
+                <th scope="col">{% translate "Submitted" %}</th>
+                <th scope="col">{% translate "Actions" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -183,14 +183,14 @@
             <tr>
                 <th scope="row">
                     <div class="mc-doctor-cell">
-                        <strong>Dr. {{ profile.user.get_full_name }}</strong>
+                        <strong>{% translate "Dr." %} {{ profile.user.get_full_name }}</strong>
                         <span>{{ profile.user.email }}</span>
                     </div>
                 </th>
-                <td>{{ profile.get_specialty_display }}</td>
+                <td>{{ profile.get_specialty_display|ui }}</td>
                 <td>
                     <span class="mc-status-pill pill-{{ profile.status }}">
-                        {{ profile.get_status_display }}
+                        {{ profile.get_status_display|ui }}
                     </span>
                 </td>
                 <td>
@@ -202,8 +202,8 @@
                 </td>
                 <td>
                     <a href="{% url 'dashboard:admin_doctor_detail' pk=profile.pk %}"
-                       class="mc-review-btn" aria-label="Review application for Dr. {{ profile.user.get_full_name|default:profile.user.email }}">
-                        Review →
+                       class="mc-review-btn" aria-label="{% translate "Review application for Dr." %} {{ profile.user.get_full_name|default:profile.user.email }}">
+                        {% translate "Review →" %}
                     </a>
                 </td>
             </tr>
@@ -212,7 +212,7 @@
     </table>
     {% else %}
     <div class="mc-empty-state">
-        <p>No applications found for this filter.</p>
+        <p>{% translate "No applications found for this filter." %}</p>
     </div>
     {% endif %}
 </div>

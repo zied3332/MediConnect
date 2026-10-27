@@ -1,7 +1,7 @@
 
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/base.html" %}{% load i18n ui %}
 
-{% block title %}Prescriptions | MediConnect{% endblock %}
+{% block title %}{% translate "Prescriptions | MediConnect" %}{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -13,7 +13,7 @@
         width: 100%;
         max-width: 1160px;
         margin: 0 auto;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .rx-eyebrow {
@@ -37,7 +37,7 @@
 
     .rx-heading {
         margin: 0 0 11px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: clamp(28px, 3vw, 38px);
         font-weight: 800;
         letter-spacing: -1.2px;
@@ -78,7 +78,7 @@
         padding: 21px 24px;
         border: 1px solid #e8ebe5;
         border-radius: 14px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
     }
 
     .rx-summary-icon {
@@ -106,7 +106,7 @@
 
     .rx-summary-value {
         margin: 0;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 20px;
         font-weight: 800;
     }
@@ -122,7 +122,7 @@
         overflow: hidden;
         border: 1px solid #e8ebe5;
         border-radius: 15px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
         box-shadow: 0 3px 15px rgba(30, 38, 30, .025);
     }
 
@@ -161,7 +161,7 @@
 
     .rx-card-title {
         margin: 0 0 6px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 16px;
         font-weight: 800;
     }
@@ -178,8 +178,8 @@
         padding: 7px 11px;
         border: 1px solid #e9e5cc;
         border-radius: 8px;
-        background: #fff9e5;
-        color: #786a39;
+        background:var(--ui-adaptive-soft,#fff9e5);
+        color:var(--ui-adaptive-muted,#786a39);
         font-size: 11px;
         font-weight: 750;
     }
@@ -204,7 +204,7 @@
 
     .rx-meta-value {
         display: block;
-        color: #384036;
+        color:var(--ui-adaptive-ink,#384036);
         font-size: 13px;
         font-weight: 750;
         line-height: 1.6;
@@ -248,7 +248,7 @@
         border: 1px solid #ffeb4d;
         border-radius: 9px;
         background: #ffeb4d;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 12px;
         font-weight: 800;
         text-decoration: none;
@@ -258,7 +258,7 @@
     .rx-view-link:hover {
         border-color: #f3d92f;
         background: #f3d92f;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
     }
 
     .rx-view-link svg {
@@ -273,15 +273,15 @@
         padding: 13px 16px;
         border: 1px solid #cde6d0;
         border-radius: 10px;
-        background: #f1faf2;
-        color: #276337;
+        background:var(--ui-adaptive-soft,#f1faf2);
+        color:var(--ui-adaptive-ink,#276337);
         font-size: 13px;
         line-height: 1.6;
     }
 
     .rx-alert--error {
         border-color: #f0c8c5;
-        background: #fff5f4;
+        background:var(--ui-adaptive-soft,#fff5f4);
         color: #a33b32;
     }
 
@@ -291,7 +291,7 @@
         padding: 65px 25px;
         border: 1px solid #e8ebe5;
         border-radius: 16px;
-        background: #fff;
+        background:var(--ui-adaptive-paper,#fff);
         text-align: center;
     }
 
@@ -313,7 +313,7 @@
 
     .rx-empty h2 {
         margin: 0 0 11px;
-        color: #252923;
+        color:var(--ui-adaptive-ink,#252923);
         font-size: 19px;
         font-weight: 800;
     }
@@ -378,28 +378,26 @@
         <div>
             <span class="rx-eyebrow">
                 {% if request.user.role == "doctor" %}
-                    DOCTOR PORTAL / PRESCRIPTIONS
+                    {% translate "DOCTOR PORTAL / PRESCRIPTIONS" %}
                 {% else %}
-                    PATIENT PORTAL / PRESCRIPTIONS
+                    {% translate "PATIENT PORTAL / PRESCRIPTIONS" %}
                 {% endif %}
             </span>
 
             <h1 id="prescriptions-title"
                 class="rx-heading">
                 {% if request.user.role == "doctor" %}
-                    Issued Prescriptions
+                    {% translate "Issued Prescriptions" %}
                 {% else %}
-                    My Prescriptions
+                    {% translate "My Prescriptions" %}
                 {% endif %}
             </h1>
 
             <p class="rx-subtitle">
                 {% if request.user.role == "doctor" %}
-                    Review the prescriptions issued during
-                    your patient consultations.
+                    {% translate "Review the prescriptions issued during your patient consultations." %}
                 {% else %}
-                    View medications and treatment instructions
-                    prescribed by your doctors.
+                    {% translate "View medications and treatment instructions prescribed by your doctors." %}
                 {% endif %}
             </p>
         </div>
@@ -443,9 +441,9 @@
         <div>
             <p class="rx-summary-label">
                 {% if request.user.role == "doctor" %}
-                    Total issued prescriptions
+                    {% translate "Total issued prescriptions" %}
                 {% else %}
-                    Total prescriptions
+                    {% translate "Total prescriptions" %}
                 {% endif %}
             </p>
 
@@ -481,18 +479,18 @@
 
                             <div>
                                 <h2 class="rx-card-title">
-                                    Prescription #{{ ordonnance.pk }}
+                                    {% translate "Prescription #" %}{{ ordonnance.pk }}
                                 </h2>
 
                                 <p class="rx-card-date">
-                                    Issued on
+                                    {% translate "Issued on" %}
                                     {{ ordonnance.date|date:"F j, Y" }}
                                 </p>
                             </div>
                         </div>
 
                         <span class="rx-card-badge">
-                            Medical prescription
+                            {% translate "Medical prescription" %}
                         </span>
 
                     </div>
@@ -503,7 +501,7 @@
 
                             <div>
                                 <span class="rx-meta-label">
-                                    Patient
+                                    {% translate "Patient" %}
                                 </span>
 
                                 <span class="rx-meta-value">
@@ -513,7 +511,7 @@
 
                             <div>
                                 <span class="rx-meta-label">
-                                    Doctor
+                                    {% translate "Doctor" %}
                                 </span>
 
                                 <span class="rx-meta-value">
@@ -523,7 +521,7 @@
 
                             <div>
                                 <span class="rx-meta-label">
-                                    Consultation
+                                    {% translate "Consultation" %}
                                 </span>
 
                                 <span class="rx-meta-value">
@@ -533,7 +531,7 @@
 
                             <div>
                                 <span class="rx-meta-label">
-                                    Prescription date
+                                    {% translate "Prescription date" %}
                                 </span>
 
                                 <span class="rx-meta-value">
@@ -554,12 +552,12 @@
                                     <rect x="5" y="10" width="14" height="11" rx="2"/>
                                     <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
                                 </svg>
-                                Private medical information
+                                {% translate "Private medical information" %}
                             </p>
 
                             <a href="{% url 'medical_records:prescription_detail' ordonnance.pk %}"
-                               class="rx-view-link" aria-label="View prescription #{{ ordonnance.pk }}">
-                                View prescription
+                               class="rx-view-link" aria-label="{% translate "View prescription #" %}{{ ordonnance.pk }}">
+                                {% translate "View prescription" %}
 
                                 <svg viewBox="0 0 24 24" fill="none"
                                      stroke="currentColor" stroke-width="1.8"
@@ -595,15 +593,13 @@
                 </svg>
             </div>
 
-            <h2>No prescriptions yet</h2>
+            <h2>{% translate "No prescriptions yet" %}</h2>
 
             <p>
                 {% if request.user.role == "doctor" %}
-                    Prescriptions you create during consultations
-                    will appear here.
+                    {% translate "Prescriptions you create during consultations will appear here." %}
                 {% else %}
-                    Prescriptions from your doctors
-                    will appear here.
+                    {% translate "Prescriptions from your doctors will appear here." %}
                 {% endif %}
             </p>
 

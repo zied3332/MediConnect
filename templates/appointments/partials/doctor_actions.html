@@ -1,3 +1,4 @@
+{% load i18n ui %}
 {% with patient_name=appointment.patient.get_full_name|default:appointment.patient.email when=appointment.start|date:"j M Y H:i" %}
 <div class="mc-action-group">
     {% if appointment.status == "pending" %}
@@ -5,17 +6,17 @@
         <form method="post" action="{% url 'appointments:doctor_action' appointment.pk 'confirm' %}">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next_url }}">
-            <button type="submit" class="mc-role-save" aria-label="Confirm appointment with {{ patient_name }} on {{ when }}">Confirm</button>
+            <button type="submit" class="mc-role-save" aria-label="{% translate "Confirm appointment with" %} {{ patient_name }} {% translate "on" %} {{ when }}">{% translate "Confirm" %}</button>
         </form>
         {% endif %}
         <details class="mc-reject-details">
-            <summary class="mc-role-save mc-role-save--danger" aria-label="Reject appointment with {{ patient_name }} on {{ when }}">Reject</summary>
+            <summary class="mc-role-save mc-role-save--danger" aria-label="{% translate "Reject appointment with" %} {{ patient_name }} {% translate "on" %} {{ when }}">{% translate "Reject" %}</summary>
             <form method="post" action="{% url 'appointments:doctor_action' appointment.pk 'reject' %}" class="mc-reject-form">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ next_url }}">
-                <label for="reject-reason-{{ appointment.pk }}">Reason (optional)</label>
+                <label for="reject-reason-{{ appointment.pk }}">{% translate "Reason (optional)" %}</label>
                 <textarea id="reject-reason-{{ appointment.pk }}" name="reason" maxlength="500"></textarea>
-                <button type="submit" class="mc-role-save mc-role-save--danger">Confirm rejection</button>
+                <button type="submit" class="mc-role-save mc-role-save--danger">{% translate "Confirm rejection" %}</button>
             </form>
         </details>
     {% elif appointment.status == "confirmed" %}
@@ -23,18 +24,18 @@
         <form method="post" action="{% url 'appointments:doctor_action' appointment.pk 'complete' %}">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next_url }}">
-            <button type="submit" class="mc-role-save" aria-label="Mark appointment with {{ patient_name }} on {{ when }} as completed">Completed</button>
+            <button type="submit" class="mc-role-save" aria-label="{% translate "Mark appointment with" %} {{ patient_name }} {% translate "on" %} {{ when }} {% translate "as completed" %}">{% translate "Completed" %}</button>
         </form>
         <form method="post" action="{% url 'appointments:doctor_action' appointment.pk 'no-show' %}">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next_url }}">
-            <button type="submit" class="mc-role-save mc-role-save--danger" aria-label="No-show: mark {{ patient_name }} as absent on {{ when }}">No-show</button>
+            <button type="submit" class="mc-role-save mc-role-save--danger" aria-label="{% translate "No-show: mark" %} {{ patient_name }} {% translate "as absent on" %} {{ when }}">{% translate "No-show" %}</button>
         </form>
         {% else %}
-        <span class="mc-table-muted">Confirmed — actions available once it starts</span>
+        <span class="mc-table-muted">{% translate "Confirmed — actions available once it starts" %}</span>
         {% endif %}
     {% else %}
-        <span class="mc-table-muted">No action needed</span>
+        <span class="mc-table-muted">{% translate "No action needed" %}</span>
     {% endif %}
 </div>
 {% endwith %}
