@@ -112,10 +112,12 @@ class SharedAccessibilityTests(SimpleTestCase):
         self.assert_skip_contract("base.html")
 
     def test_dashboard_skip_link_is_first_link_and_has_focusable_target(self):
-        self.assert_skip_contract("dashboard/base.html")
+        for role in ("patient", "doctor", "admin"):
+            with self.subTest(role=role):
+                self.assert_skip_contract("dashboard/base.html", dashboard_role=role)
 
-    def assert_skip_contract(self, template):
-        tags = self.render_shell(template).tags
+    def assert_skip_contract(self, template, **context):
+        tags = self.render_shell(template, **context).tags
         first_link = next(attrs for tag, attrs in tags if tag == "a")
         self.assertEqual(first_link["href"], "#main-content")
         self.assertIn("mc-skip-link", first_link["class"].split())

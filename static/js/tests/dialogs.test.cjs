@@ -15,6 +15,7 @@ function fixture({empty = false, face = false} = {}) {
             this.parentElement = parent; this.children = []; this.inert = false;
             this.tabIndex = tabIndex; this.isConnected = true; this.disabled = false;
             this.visible = true; this.style = {}; this.attrs = {}; this.events = [];
+            this.listeners = new Map();
             const classes = new Set();
             this.classList = {contains: name => classes.has(name),
                 add: name => classes.add(name), remove: name => classes.delete(name)};
@@ -22,13 +23,18 @@ function fixture({empty = false, face = false} = {}) {
         }
         setAttribute(key, value) { this.attrs[key] = value; }
         removeAttribute(key) { delete this.attrs[key]; }
-        closest() { return this.inert ? this : this.parentElement?.closest() || null; }
+        closest(selector) {
+            if (selector === '.mc-modal') return this.classList.contains('mc-modal') ?
+                this : this.parentElement?.closest(selector) || null;
+            return this.inert ? this : this.parentElement?.closest(selector) || null;
+        }
         matches() { return this.disabled; }
         getClientRects() { return this.visible ? [{}] : []; }
         querySelectorAll() { return this.children.flatMap(child => [child, ...child.querySelectorAll()]); }
         contains(target) { return target === this || this.children.some(child => child.contains(target)); }
         focus() { document.activeElement = this; }
-        dispatchEvent(event) { this.events.push(event.type); }
+        addEventListener(type, callback) { this.listeners.set(type, callback); }
+        dispatchEvent(event) { this.events.push(event.type); this.listeners.get(event.type)?.(event); }
     }
     const body = document.body = new Element(); body.style.overflow = 'auto';
     const header = new Element(body); const opener = new Element(header, 0);
@@ -43,17 +49,18 @@ function fixture({empty = false, face = false} = {}) {
     const last = empty ? null : new Element(modal, 0);
     opener.focus();
     const window = {};
-    runInNewContext(readFileSync(resolve(__dirname, '../dialogs.js'), 'utf8'), {
+    const context = {
         window, document, getComputedStyle: () => ({visibility: 'visible'}),
         CustomEvent: class { constructor(type) { this.type = type; } },
-    });
+    };
+    runInNewContext(readFileSync(resolve(__dirname, '../dialogs.js'), 'utf8'), context);
     const key = (key, shiftKey = false) => {
         const event = {key, shiftKey, prevented: false, stopped: false,
             preventDefault() { this.prevented = true; },
             stopImmediatePropagation() { this.stopped = true; }};
         listeners.get('keydown')(event); return event;
     };
-    return {Element, document, dialog: window.MediConnectDialog, body, header, main, other,
+    return {Element, context, document, dialog: window.MediConnectDialog, body, header, main, other,
         alreadyInert, opener, modal, first, disabled, last, key, listeners};
 }
 
@@ -132,4 +139,45 @@ test('nested deletion returns to the specialty dialog before restoring the page'
     assert.equal(f.document.activeElement, f.opener);
     assert.equal(f.header.inert, false);
     assert.equal(f.body.style.overflow, 'auto');
+});
+
+function deletionFixture() {
+    const f = fixture(); f.modal.classList.add('mc-modal');
+    const confirmationForm = new f.Element(f.modal);
+    let submitted = 0;
+    const source = new f.Element(f.main);
+    source.dataset = {deleteName: 'appointment'};
+    source.submit = () => { submitted++; };
+    const title = {};
+    f.modal.querySelector = () => f.first;
+    f.document.getElementById = id => ({'delete-confirmation-modal': f.modal,
+        'delete-confirmation-title': title, 'delete-confirmation-form': confirmationForm}[id] || null);
+    f.document.querySelectorAll = selector => ({'[data-delete-confirm]': [source],
+        '[data-modal-close], [data-delete-cancel]': [f.first]}[selector] || []);
+    runInNewContext(readFileSync(resolve(__dirname, '../dashboard.js'), 'utf8'), f.context);
+    f.listeners.get('DOMContentLoaded')();
+    const submit = target => target.dispatchEvent({type: 'submit', submitter: f.opener,
+        preventDefault() {}});
+    return {...f, source, confirmationForm, title, submit, submitted: () => submitted};
+}
+
+test('dashboard deletion requires confirmation and restores the submitting button', () => {
+    const f = deletionFixture();
+    f.submit(f.source);
+    assert.equal(f.submitted(), 0);
+    assert.equal(f.document.activeElement, f.first);
+    assert.match(f.title.textContent, /appointment/);
+    f.submit(f.confirmationForm);
+    assert.equal(f.submitted(), 1);
+});
+
+test('Escape and Cancel clear pending dashboard deletion without posting', () => {
+    for (const close of [f => f.key('Escape'),
+        f => f.first.dispatchEvent({type: 'click'})]) {
+        const f = deletionFixture(); f.submit(f.source); close(f);
+        assert.equal(f.document.activeElement, f.opener);
+        f.submit(f.confirmationForm);
+        assert.equal(f.submitted(), 0);
+        assert.equal(f.modal.attrs['aria-hidden'], 'true');
+    }
 });
