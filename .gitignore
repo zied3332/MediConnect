@@ -19,3 +19,6 @@ appointments/ml/data/
 
 # Private patient medical documents
 /private_medical_files/
+
+# Local browser audit runtime (synthetic sessions and tool downloads)
+.audit-*
