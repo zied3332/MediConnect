@@ -59,3 +59,22 @@ body :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible 
 
 /* Row headers carry relationships while retaining normal table-body typography. */
 tbody th[scope="row"] { text-align: left; font-weight: inherit; }
+
+/* Let native file/select controls shrink inside narrow form columns. */
+:is(.mc-auth-form, .mc-doc-form, .mr-field, .mr-page, .mc-availability-form)
+:is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.mc-management-grid > *,
+.mc-dashboard-content,
+.mc-auth-form-container {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+    .mc-management-grid { grid-template-columns: minmax(0, 1fr); }
+    .mc-auth-header { flex-wrap: wrap; }
+}

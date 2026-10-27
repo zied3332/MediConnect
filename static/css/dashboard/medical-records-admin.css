@@ -51,11 +51,20 @@
 
 .mr-page-header {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
     margin-bottom: 26px;
 }
+
+.mr-page-header > *,
+.mr-details-grid > * {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.mr-breadcrumb { flex-wrap: wrap; }
 
 .mr-eyebrow,
 .mr-section-label {

@@ -97,6 +97,15 @@ class PageAccessibilityTests(SimpleTestCase):
         self.assertIn('role="dialog"', html)
         self.assertIn('Delete availability', html)
 
+    def test_narrow_layouts_allow_wrapping_and_local_table_scrolling(self):
+        self.assertEqual(self.declaration("templates/dashboard/admin/doctor_list.html", ".mc-table-wrapper", "overflow-x"), "auto")
+        self.assertEqual(self.declaration("templates/accounts/doctor/upload_docs.html", ".mc-camera-overlay-hint", "white-space"), "normal")
+        self.assertEqual(self.declaration("templates/accounts/doctor/upload_docs.html", ".mc-camera-overlay-hint", "max-width"), "calc(100% - 24px)")
+        self.assertEqual(self.declaration("static/css/dashboard/medical-records-admin.css", ".mr-page-header", "flex-wrap"), "wrap")
+        css = self.source("static/css/accessibility.css")
+        self.assertIn(".mc-management-grid { grid-template-columns: minmax(0, 1fr); }", css)
+        self.assertIn("input:not([type=\"checkbox\"]):not([type=\"radio\"]), select, textarea", css)
+
     def test_registration_progress_is_an_ordered_list_with_one_current_step(self):
         for page, current in (("signup", 0), ("upload_docs", 2)):
             with self.subTest(page=page):
