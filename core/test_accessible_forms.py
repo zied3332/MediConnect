@@ -73,6 +73,21 @@ class AccessibleFormTests(SimpleTestCase):
                     if tag in ("input", "select"):
                         self.assertNotIn("aria-invalid", attrs)
 
+    def test_camera_feedback_has_persistent_routine_and_error_regions(self):
+        for template, status_id, error_id in (
+            ("accounts/login.html", "faceLoginStatus", "faceLoginError"),
+            ("accounts/doctor/upload_docs.html", "status-text", "camera-error"),
+            ("dashboard/profile.html", "faceEnrollStatus", "faceEnrollError"),
+        ):
+            with self.subTest(template=template):
+                tags = self.assert_associations(render_page(template))
+                by_id = {attrs["id"]: attrs for _, attrs in tags if "id" in attrs}
+                self.assertEqual(by_id[status_id]["role"], "status")
+                self.assertEqual(by_id[status_id]["aria-live"], "polite")
+                self.assertEqual(by_id[error_id]["role"], "alert")
+                self.assertEqual(by_id[error_id]["aria-atomic"], "true")
+                self.assertNotIn("hidden", by_id[error_id])
+
     def test_authentication_autocomplete_and_password_values_are_preserved(self):
         for template, form_class in (("login.html", LoginForm), ("signup.html", SignupForm),
                                       ("doctor/signup.html", DoctorSignupForm)):

@@ -200,10 +200,13 @@ async function performFaceLogin(userId, session) {
             }, 1000);
         } else {
             showFaceLoginStatus(`Login failed: ${data.error}`, 'error');
-            closeFaceLoginModal();
+            stopFaceLoginCamera();
         }
     } catch (error) {
-        showFaceLoginStatus('Login failed. Please try again.', 'error');
+        if (faceLoginActive(session)) {
+            showFaceLoginStatus('Login failed. Please try again.', 'error');
+            stopFaceLoginCamera();
+        }
         console.error('Login error:', error);
     }
 }
@@ -228,10 +231,12 @@ function stopFaceLoginCamera() {
 // Show status message in modal
 function showFaceLoginStatus(message, type = 'info') {
     const statusEl = document.getElementById('faceLoginStatus');
+    const errorEl = document.getElementById('faceLoginError');
     if (statusEl) {
-        statusEl.textContent = message;
+        statusEl.textContent = type === 'error' ? '' : message;
         statusEl.className = `face-login-status ${type}`;
     }
+    if (errorEl) errorEl.textContent = type === 'error' ? message : '';
 }
 
 // Initialize face login button

@@ -147,10 +147,11 @@
     min-height: 36px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0;
 }
 
 .mc-cam-status-dot {
+    margin-right: 8px;
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -326,8 +327,9 @@
 
                     <!-- Status line -->
                     <div class="mc-camera-status">
-                        <span class="mc-cam-status-dot" id="status-dot"></span>
-                        <span id="status-text">Camera not started</span>
+                        <span class="mc-cam-status-dot" id="status-dot" aria-hidden="true"></span>
+                        <span id="status-text" role="status" aria-live="polite" aria-atomic="true">Camera not started</span>
+                        <span id="camera-error" role="alert" aria-atomic="true"></span>
                     </div>
 
                     <!-- Fallback for browsers / devices without a camera -->
@@ -377,6 +379,7 @@
     const fallbackFile = document.getElementById("doc-selfie-fallback");
     const statusDot    = document.getElementById("status-dot");
     const statusText   = document.getElementById("status-text");
+    const statusError  = document.getElementById("camera-error");
     const btnOpen      = document.getElementById("btn-open-camera");
     const btnCapture   = document.getElementById("btn-capture");
     const btnRetake    = document.getElementById("btn-retake");
@@ -388,7 +391,8 @@
 
     /* ── Helpers ───────────────────────────────────────── */
     function setStatus(msg, type) {
-        statusText.textContent = msg;
+        statusText.textContent = type === "error" ? "" : msg;
+        statusError.textContent = type === "error" ? msg : "";
         statusDot.className = "mc-cam-status-dot" + (type ? " " + type : "");
     }
 
