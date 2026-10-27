@@ -1,4 +1,3 @@
-
 from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
@@ -6,6 +5,8 @@ from django.core.files.base import ContentFile
 from django.test import TestCase
 from django.urls import reverse
 
+from appointments.models import Appointment
+from appointments.tests.base import at, make_appointment
 from medical_records.models import DossierMedical, Examen
 
 
@@ -17,7 +18,7 @@ class ExaminationDownloadTests(TestCase):
     Verify secure medical examination downloads.
 
     Test authentication, patient ownership, doctor restrictions,
-    missing files, and secure response headers.
+    completed appointments, missing files, and secure response headers.
     """
 
     @classmethod
@@ -63,7 +64,7 @@ class ExaminationDownloadTests(TestCase):
         )
 
         # Reference to a private file.
-        # The actual file contents are mocked during download.
+        # Actual file contents are mocked during download.
         cls.examen = Examen.objects.create(
             dossier=cls.dossier,
             titre="Blood Test",
@@ -146,9 +147,20 @@ class ExaminationDownloadTests(TestCase):
                 file_contents,
             )
 
-            # Do not explicitly call response.close() here.
-            # Closing a FileResponse can emit request_finished,
-            # which may close the test database connection.
+    def test_unauthorized_patient_cannot_open_private_file(self):
+        """
+        Authorization must happen before private storage access.
+        """
+        self.client.force_login(self.other_patient)
+
+        with patch.object(
+            self.examen.fichier.storage,
+            "open",
+        ) as mocked_open:
+            response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 403)
+        mocked_open.assert_not_called()
 
     # ========================================================
     # Doctor authorization
@@ -167,6 +179,56 @@ class ExaminationDownloadTests(TestCase):
         response = self.client.get(self.url)
 
         self.assertEqual(response.status_code, 403)
+
+    def test_doctor_with_completed_appointment_can_download(self):
+        """
+        A treating doctor may download an examination
+        after completing an appointment with the patient.
+        """
+        make_appointment(
+            self.patient,
+            self.doctor,
+            at(-1),
+            status=Appointment.Status.COMPLETED,
+        )
+
+        self.client.force_login(self.doctor)
+
+        file_contents = b"%PDF-1.4\nTest medical document"
+
+        with patch.object(
+            self.examen.fichier.storage,
+            "open",
+            return_value=ContentFile(file_contents),
+        ):
+            response = self.client.get(self.url)
+
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(response.streaming)
+
+            downloaded_content = b"".join(
+                response.streaming_content
+            )
+
+            self.assertEqual(
+                downloaded_content,
+                file_contents,
+            )
+
+    def test_unauthorized_doctor_cannot_open_private_file(self):
+        """
+        An unrelated doctor must never reach private storage.
+        """
+        self.client.force_login(self.other_doctor)
+
+        with patch.object(
+            self.examen.fichier.storage,
+            "open",
+        ) as mocked_open:
+            response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 403)
+        mocked_open.assert_not_called()
 
     # ========================================================
     # Missing examinations and files
