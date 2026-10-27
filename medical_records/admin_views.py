@@ -1,9 +1,11 @@
 
+import logging
 from functools import wraps
 from pathlib import Path
 
 from django import forms
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import ProtectedError
 from django.http import (
     FileResponse,
@@ -17,6 +19,9 @@ from accounts.models import User
 
 from .admin_forms import AdminOrdonnanceForm, AdminExamenForm
 from .models import DossierMedical, Ordonnance, Examen
+
+
+logger = logging.getLogger(__name__)
 
 
 # ============================================================
@@ -415,6 +420,42 @@ def get_admin_examination(pk):
 
 
 # ============================================================
+# PHASE 3 — PRIVATE FILE CLEANUP
+# ============================================================
+
+def schedule_examination_file_cleanup(file_name, storage):
+    """
+    Schedule deletion of a private examination file after
+    the database transaction successfully commits.
+
+    The file is deleted only when no examination still
+    references its storage name.
+
+    Storage failures are logged rather than causing an
+    HTTP 500 after a successful database operation.
+    """
+    if not file_name:
+        return
+
+    def cleanup():
+        try:
+            # Protect files referenced by another examination.
+            if Examen.objects.filter(
+                fichier=file_name
+            ).exists():
+                return
+
+            storage.delete(file_name)
+
+        except Exception:
+            logger.exception(
+                "Failed to clean up private examination file."
+            )
+
+    transaction.on_commit(cleanup)
+
+
+# ============================================================
 # PHASE 3 — MEDICAL EXAMINATIONS CRUD
 # ============================================================
 
@@ -480,6 +521,16 @@ def admin_examination_create(request):
 def admin_examination_update(request, pk):
     examination = get_admin_examination(pk)
 
+    # IMPORTANT:
+    # Capture the original filename before form.is_valid().
+    # Django's ModelForm validation can modify the instance.
+    old_file_name = (
+        examination.fichier.name
+        if examination.fichier
+        else None
+    )
+    old_storage = examination.fichier.storage
+
     form = AdminExamenForm(
         request.POST or None,
         request.FILES or None,
@@ -487,11 +538,30 @@ def admin_examination_update(request, pk):
     )
 
     if request.method == "POST" and form.is_valid():
-        form.save()
+
+        with transaction.atomic():
+            updated_examination = form.save()
+
+            new_file_name = (
+                updated_examination.fichier.name
+                if updated_examination.fichier
+                else None
+            )
+
+            # Delete the old file only when a replacement
+            # has been saved and the transaction commits.
+            if (
+                old_file_name
+                and old_file_name != new_file_name
+            ):
+                schedule_examination_file_cleanup(
+                    old_file_name,
+                    old_storage,
+                )
 
         return redirect(
             "medical_records:admin_examination_detail",
-            pk=examination.pk,
+            pk=updated_examination.pk,
         )
 
     return render(
@@ -511,8 +581,23 @@ def admin_examination_delete(request, pk):
     examination = get_admin_examination(pk)
 
     if request.method == "POST":
+        file_name = (
+            examination.fichier.name
+            if examination.fichier
+            else None
+        )
+        storage = examination.fichier.storage
+
         try:
-            examination.delete()
+            with transaction.atomic():
+                examination.delete()
+
+                if file_name:
+                    schedule_examination_file_cleanup(
+                        file_name,
+                        storage,
+                    )
+
         except ProtectedError:
             return HttpResponseForbidden(
                 "Cannot delete this examination because "
