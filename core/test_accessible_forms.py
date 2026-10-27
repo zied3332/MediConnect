@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.template.loader import render_to_string
 from django.test import RequestFactory, SimpleTestCase
+from django.utils.html import escape
 
 from accounts.models import DoctorProfile
 from accounts.forms import DoctorDocumentForm, DoctorSignupForm, LoginForm, SignupForm
@@ -179,3 +180,49 @@ class AccessibleFormTests(SimpleTestCase):
         patient = next(attrs for tag, attrs in tags if tag == "select" and attrs.get("name") == "dossier")
         self.assertIn("disabled", patient)
         self.assertIn("examination-patient-help", patient["aria-describedby"].split())
+
+    def test_all_password_validator_messages_are_rendered(self):
+        for template, form_class in (("signup.html", SignupForm),
+                                      ("doctor/signup.html", DoctorSignupForm)):
+            with self.subTest(template=template):
+                form = form_class(data={"email": "invalid", "password": "123",
+                                        "confirm_password": "123"})
+                self.assertFalse(form.is_valid())
+                self.assertGreaterEqual(len(form["password"].errors), 2)
+                html = render_page(f"accounts/{template}", form=form)
+                self.assert_associations(html)
+                for error in form["password"].errors:
+                    self.assertIn(str(escape(error)), html)
+
+    def test_login_password_errors_render_without_echoing_submitted_password(self):
+        form = LoginForm(data={})
+        self.assertFalse(form.is_valid())
+        html = render_page("accounts/login.html", form=form)
+        for error in form["password"].errors:
+            self.assertIn(str(escape(error)), html)
+        form = LoginForm(data={"email": "invalid", "password": "submitted-secret-example"})
+        self.assertFalse(form.is_valid())
+        self.assertNotIn("submitted-secret-example", render_page("accounts/login.html", form=form))
+
+    def test_reusable_error_and_help_markup_escapes_untrusted_text(self):
+        class ExampleForm(forms.Form):
+            notes = forms.CharField(help_text='<script>unsafe_help()</script>')
+        form = ExampleForm(data={})
+        form.is_valid()
+        form.add_error("notes", '<script>unsafe_error()</script>')
+        html = render_to_string("components/form_field.html", {"field": form["notes"]})
+        self.assert_associations(html)
+        self.assertNotIn("<script>", html)
+        self.assertIn("&lt;script&gt;unsafe_error()&lt;/script&gt;", html)
+        self.assertIn("&lt;script&gt;unsafe_help()&lt;/script&gt;", html)
+
+    def test_reusable_fields_keep_ids_unique_across_prefixed_forms(self):
+        class ExampleForm(forms.Form):
+            notes = forms.CharField(help_text="Guidance")
+        html = ""
+        for prefix in ("first", "second"):
+            form = ExampleForm(data={}, prefix=prefix)
+            form.is_valid()
+            html += render_to_string("components/form_field.html", {"field": form["notes"]})
+        tags = self.assert_associations(html)
+        self.assertEqual(sum(tag == "input" for tag, _ in tags), 2)
