@@ -1,0 +1,186 @@
+
+=================================================================
+MODEL: core.Specialty
+TABLE: core_specialty
+=================================================================
+doctors: ForeignKey | null=True | unique=N/A -> accounts.User
+id: BigAutoField | null=False | unique=True
+name: CharField | null=False | unique=True
+description: TextField | null=False | unique=False
+
+=================================================================
+MODEL: core.Availability
+TABLE: core_availability
+=================================================================
+id: BigAutoField | null=False | unique=True
+doctor: ForeignKey | null=False | unique=False -> accounts.User
+weekday: PositiveSmallIntegerField | null=False | unique=False
+start_time: TimeField | null=False | unique=False
+end_time: TimeField | null=False | unique=False
+is_free: BooleanField | null=False | unique=False
+
+=================================================================
+MODEL: accounts.User
+TABLE: accounts_user
+=================================================================
+logentry: ForeignKey | null=True | unique=N/A -> admin.LogEntry
+emailaddress: ForeignKey | null=True | unique=N/A -> account.EmailAddress
+socialaccount: ForeignKey | null=True | unique=N/A -> socialaccount.SocialAccount
+availability_slots: ForeignKey | null=True | unique=N/A -> core.Availability
+doctor_profile: OneToOneField | null=True | unique=N/A -> accounts.DoctorProfile
+notifications: ForeignKey | null=True | unique=N/A -> notifications.Notification
+patient_appointments: ForeignKey | null=True | unique=N/A -> appointments.Appointment
+doctor_appointments: ForeignKey | null=True | unique=N/A -> appointments.Appointment
+message: ForeignKey | null=True | unique=N/A -> consultations.Message
+avis_rediges: ForeignKey | null=True | unique=N/A -> consultations.Avis
+avis_recus: ForeignKey | null=True | unique=N/A -> consultations.Avis
+patientbrief: ForeignKey | null=True | unique=N/A -> consultations.PatientBrief
+dossier_medical: OneToOneField | null=True | unique=N/A -> medical_records.DossierMedical
+id: BigAutoField | null=False | unique=True
+password: CharField | null=False | unique=False
+last_login: DateTimeField | null=True | unique=False
+is_superuser: BooleanField | null=False | unique=False
+username: CharField | null=False | unique=True
+first_name: CharField | null=False | unique=False
+last_name: CharField | null=False | unique=False
+is_staff: BooleanField | null=False | unique=False
+is_active: BooleanField | null=False | unique=False
+date_joined: DateTimeField | null=False | unique=False
+email: CharField | null=False | unique=True
+main_specialty: ForeignKey | null=True | unique=False -> core.Specialty
+role: CharField | null=False | unique=False
+profile_picture: FileField | null=True | unique=False
+face_descriptor: TextField | null=False | unique=False
+groups: ManyToManyField | null=False | unique=False -> auth.Group
+user_permissions: ManyToManyField | null=False | unique=False -> auth.Permission
+
+=================================================================
+MODEL: accounts.DoctorProfile
+TABLE: accounts_doctorprofile
+=================================================================
+id: BigAutoField | null=False | unique=True
+user: OneToOneField | null=False | unique=True -> accounts.User
+specialty: CharField | null=False | unique=False
+status: CharField | null=False | unique=False
+medical_license: FileField | null=True | unique=False
+diploma: FileField | null=True | unique=False
+national_id: FileField | null=True | unique=False
+selfie_with_id: FileField | null=True | unique=False
+rejection_reason: TextField | null=False | unique=False
+reviewer_note: TextField | null=False | unique=False
+submitted_at: DateTimeField | null=True | unique=False
+reviewed_at: DateTimeField | null=True | unique=False
+created_at: DateTimeField | null=False | unique=False
+updated_at: DateTimeField | null=False | unique=False
+
+=================================================================
+MODEL: appointments.Appointment
+TABLE: appointments_appointment
+=================================================================
+consultation: OneToOneField | null=True | unique=N/A -> consultations.Consultation
+id: BigAutoField | null=False | unique=True
+patient: ForeignKey | null=False | unique=False -> accounts.User
+doctor: ForeignKey | null=False | unique=False -> accounts.User
+start: DateTimeField | null=False | unique=False
+duration_minutes: PositiveSmallIntegerField | null=False | unique=False
+mode: CharField | null=False | unique=False
+status: CharField | null=False | unique=False
+reason: TextField | null=False | unique=False
+status_note: TextField | null=False | unique=False
+no_show_risk: FloatField | null=True | unique=False
+risk_status: CharField | null=False | unique=False
+reminder_sent: BooleanField | null=False | unique=False
+early_reminder_sent: BooleanField | null=False | unique=False
+created_at: DateTimeField | null=False | unique=False
+updated_at: DateTimeField | null=False | unique=False
+
+=================================================================
+MODEL: consultations.Consultation
+TABLE: consultations_consultation
+=================================================================
+messages: ForeignKey | null=True | unique=N/A -> consultations.Message
+avis: OneToOneField | null=True | unique=N/A -> consultations.Avis
+patient_brief: OneToOneField | null=True | unique=N/A -> consultations.PatientBrief
+ordonnances: ForeignKey | null=True | unique=N/A -> medical_records.Ordonnance
+id: BigAutoField | null=False | unique=True
+appointment: OneToOneField | null=False | unique=True -> appointments.Appointment
+diagnostic: TextField | null=False | unique=False
+notes: TextField | null=False | unique=False
+lien_visio: CharField | null=False | unique=False
+created_at: DateTimeField | null=False | unique=False
+updated_at: DateTimeField | null=False | unique=False
+
+=================================================================
+MODEL: consultations.Message
+TABLE: consultations_message
+=================================================================
+id: BigAutoField | null=False | unique=True
+consultation: ForeignKey | null=False | unique=False -> consultations.Consultation
+auteur: ForeignKey | null=False | unique=False -> accounts.User
+contenu: TextField | null=False | unique=False
+date: DateTimeField | null=False | unique=False
+lu: BooleanField | null=False | unique=False
+
+=================================================================
+MODEL: consultations.Avis
+TABLE: consultations_avis
+=================================================================
+id: BigAutoField | null=False | unique=True
+consultation: OneToOneField | null=False | unique=True -> consultations.Consultation
+patient: ForeignKey | null=False | unique=False -> accounts.User
+medecin: ForeignKey | null=False | unique=False -> accounts.User
+note: PositiveSmallIntegerField | null=False | unique=False
+commentaire: TextField | null=False | unique=False
+date: DateTimeField | null=False | unique=False
+
+=================================================================
+MODEL: consultations.PatientBrief
+TABLE: consultations_patientbrief
+=================================================================
+id: BigAutoField | null=False | unique=True
+consultation: OneToOneField | null=False | unique=True -> consultations.Consultation
+status: CharField | null=False | unique=False
+generation_id: UUIDField | null=False | unique=False
+source_hash: CharField | null=False | unique=False
+cards: JSONField | null=False | unique=False
+approved_cards: JSONField | null=False | unique=False
+error_code: CharField | null=False | unique=False
+model_name: CharField | null=False | unique=False
+duration_ms: PositiveIntegerField | null=True | unique=False
+updated_at: DateTimeField | null=False | unique=False
+published_at: DateTimeField | null=True | unique=False
+published_by: ForeignKey | null=True | unique=False -> accounts.User
+
+=================================================================
+MODEL: medical_records.DossierMedical
+TABLE: medical_records_dossiermedical
+=================================================================
+examens: ForeignKey | null=True | unique=N/A -> medical_records.Examen
+id: BigAutoField | null=False | unique=True
+patient: OneToOneField | null=False | unique=True -> accounts.User
+antecedents: TextField | null=False | unique=False
+allergies: TextField | null=False | unique=False
+created_at: DateTimeField | null=False | unique=False
+updated_at: DateTimeField | null=False | unique=False
+
+=================================================================
+MODEL: medical_records.Ordonnance
+TABLE: medical_records_ordonnance
+=================================================================
+id: BigAutoField | null=False | unique=True
+consultation: ForeignKey | null=False | unique=False -> consultations.Consultation
+date: DateField | null=False | unique=False
+medicaments: TextField | null=False | unique=False
+instructions: TextField | null=False | unique=False
+created_at: DateTimeField | null=False | unique=False
+
+=================================================================
+MODEL: medical_records.Examen
+TABLE: medical_records_examen
+=================================================================
+id: BigAutoField | null=False | unique=True
+dossier: ForeignKey | null=False | unique=False -> medical_records.DossierMedical
+titre: CharField | null=False | unique=False
+fichier: FileField | null=False | unique=False
+date: DateField | null=False | unique=False
+created_at: DateTimeField | null=False | unique=False
