@@ -1,6 +1,7 @@
 """Rendered contracts for the shared accessibility components."""
 from html.parser import HTMLParser
 import re
+from types import SimpleNamespace
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -52,10 +53,43 @@ class SharedAccessibilityTests(SimpleTestCase):
                     self.assertGreaterEqual(self.contrast(self.css_token(
                         "static/css/accessibility.css", token), background), 3)
 
-    def render_shell(self, name):
+    def render_shell(self, name, **context):
         request = RequestFactory().get("/")
         request.user = get_user_model()(pk=1, username="patient", role="patient")
-        return Elements(render_to_string(name, {"request": request}))
+        return Elements(render_to_string(name, {"request": request, **context}))
+
+    def test_dashboard_loads_dialog_controller_before_its_consumers(self):
+        tags = self.render_shell("dashboard/base.html").tags
+        scripts = [attrs.get("src", "").split("?")[0] for tag, attrs in tags
+                   if tag == "script"]
+        self.assertLess(scripts.index("/static/js/dialogs.js"),
+                        scripts.index("/static/js/dashboard.js"))
+
+    def test_specialty_dialogs_have_resolvable_names_and_descriptions(self):
+        specialty = SimpleNamespace(id=1, name="Cardiology", description="Heart care")
+        for template in ("specialties.html", "specialty_list.html"):
+            with self.subTest(template=template):
+                tags = self.render_shell(f"dashboard/admin/{template}",
+                    dashboard_role="admin", specialties=[specialty],
+                    catalogue_specialties=[specialty]).tags
+                self.assert_dialog_contract(tags, expected_count=2)
+
+    def test_appointment_delete_dialog_has_name_description_and_safe_cancel(self):
+        tags = Elements(render_to_string("appointments/partials/delete_modal.html")).tags
+        self.assert_dialog_contract(tags, expected_count=1)
+        self.assertTrue(any(tag == "button" and attrs.get("type") == "button" and
+                            "data-delete-cancel" in attrs for tag, attrs in tags))
+
+    def assert_dialog_contract(self, tags, expected_count):
+        ids = [attrs["id"] for _, attrs in tags if "id" in attrs]
+        self.assertEqual(len(ids), len(set(ids)))
+        dialogs = [attrs for _, attrs in tags if attrs.get("role") == "dialog"]
+        self.assertEqual(len(dialogs), expected_count)
+        for dialog in dialogs:
+            self.assertEqual(dialog["aria-modal"], "true")
+            self.assertEqual(dialog["aria-hidden"], "true")
+            for attribute in ("aria-labelledby", "aria-describedby"):
+                self.assertIn(dialog[attribute], ids)
 
     def test_public_skip_link_is_first_link_and_has_focusable_target(self):
         self.assert_skip_contract("base.html")

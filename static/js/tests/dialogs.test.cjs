@@ -53,7 +53,7 @@ function fixture({empty = false, face = false} = {}) {
             stopImmediatePropagation() { this.stopped = true; }};
         listeners.get('keydown')(event); return event;
     };
-    return {document, dialog: window.MediConnectDialog, body, header, main, other,
+    return {Element, document, dialog: window.MediConnectDialog, body, header, main, other,
         alreadyInert, opener, modal, first, disabled, last, key, listeners};
 }
 
@@ -112,4 +112,24 @@ test('face dialog lifecycle uses its existing active class and closes idempotent
     f.dialog.close(f.modal); f.dialog.close(f.modal);
     assert.equal(f.modal.classList.contains('active'), false);
     assert.equal(f.modal.events.length, 1);
+});
+
+test('nested deletion returns to the specialty dialog before restoring the page', () => {
+    const f = fixture();
+    const confirmation = new f.Element(f.main);
+    const cancel = new f.Element(confirmation, 0);
+    f.dialog.open(f.modal); f.last.focus();
+    f.dialog.open(confirmation, {initialFocus: cancel});
+    assert.equal(f.document.activeElement, cancel);
+    assert.equal(f.modal.inert, true);
+    f.key('Escape');
+    assert.equal(f.document.activeElement, f.last);
+    assert.equal(f.modal.inert, false);
+    assert.equal(f.modal.classList.contains('is-open'), true);
+    assert.equal(f.header.inert, true);
+    assert.equal(f.body.style.overflow, 'hidden');
+    f.key('Escape');
+    assert.equal(f.document.activeElement, f.opener);
+    assert.equal(f.header.inert, false);
+    assert.equal(f.body.style.overflow, 'auto');
 });

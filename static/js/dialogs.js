@@ -22,8 +22,9 @@
     function close(modal) {
         if (!current || current.modal !== modal) return;
         const state = current;
-        current = null;
+        current = state.previous;
         state.background.forEach((inert, element) => { element.inert = inert; });
+        current?.background.forEach((_, element) => { element.inert = true; });
         document.body.style.overflow = state.overflow;
         // Move focus out before hiding the dialog from assistive technology.
         if (state.opener?.isConnected && !state.opener.closest("[inert]")) {
@@ -38,7 +39,10 @@
 
     function open(modal, {opener = document.activeElement, initialFocus = null} = {}) {
         if (!modal || current?.modal === modal) return;
-        if (current) close(current.modal);
+        // A specialty dialog can open its deletion confirmation. Suspend its
+        // isolation, then restore it when the confirmation closes.
+        const previous = current;
+        previous?.background.forEach((inert, element) => { element.inert = inert; });
         const background = new Map();
         let branch = modal;
         while (branch.parentElement) {
@@ -52,7 +56,7 @@
             branch = branch.parentElement;
         }
         const openClass = modal.classList.contains("face-login-modal") ? "active" : "is-open";
-        current = {modal, opener, initialFocus, background, openClass,
+        current = {modal, opener, initialFocus, background, openClass, previous,
             overflow: document.body.style.overflow};
         document.body.style.overflow = "hidden";
         modal.setAttribute("tabindex", "-1");
