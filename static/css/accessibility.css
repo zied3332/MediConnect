@@ -1,0 +1,28 @@
+/* Shared accessibility behavior for both public and dashboard shells. */
+.mc-skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 10000;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.mc-skip-link:focus {
+    width: auto;
+    height: auto;
+    padding: 12px 18px;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    background: #ffffff;
+    color: #242824;
+    border: 2px solid #1f5f8b;
+    border-radius: 6px;
+    text-decoration: underline;
+    outline: 3px solid #1f5f8b;
+    outline-offset: 2px;
+}
