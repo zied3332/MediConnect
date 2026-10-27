@@ -5,7 +5,6 @@ from pathlib import Path
 from unittest.mock import patch
 
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.db import connection
 from django.test import TestCase
 from django.urls import reverse
 
@@ -59,36 +58,10 @@ class AdminExaminationTests(TestCase):
             super().tearDownClass()
 
     # ========================================================
-    # DATABASE CONNECTION DIAGNOSTICS
-    # ========================================================
-
-    @staticmethod
-    def print_database_state(stage):
-        """
-        Print PostgreSQL connection state without modifying it.
-        """
-        raw_connection = connection.connection
-
-        print(f"\n[DB DIAGNOSTIC] {stage}")
-        print(f"  Django alias: {connection.alias}")
-        print(f"  In atomic block: {connection.in_atomic_block}")
-        print(f"  Connection exists: {raw_connection is not None}")
-
-        if raw_connection is not None:
-            print(
-                "  Connection closed:",
-                getattr(raw_connection, "closed", "unknown"),
-            )
-
-    # ========================================================
     # TEST SETUP
     # ========================================================
 
     def setUp(self):
-        self.print_database_state(
-            f"{self._testMethodName} - setUp START"
-        )
-
         self.admin = User.objects.create_user(
             username="admin_exam",
             email="admin_exam@example.com",
@@ -129,11 +102,6 @@ class AdminExaminationTests(TestCase):
             "medical_records:admin_examination_list"
         )
 
-    def tearDown(self):
-        self.print_database_state(
-            f"{self._testMethodName} - tearDown"
-        )
-
     # ========================================================
     # HELPERS
     # ========================================================
@@ -150,25 +118,6 @@ class AdminExaminationTests(TestCase):
         return reverse(
             f"medical_records:{name}",
             args=[examination.pk],
-        )
-
-    # ========================================================
-    # DATABASE CONNECTION DIAGNOSTIC TEST
-    # ========================================================
-
-    def test_database_connection_diagnostic(self):
-        self.print_database_state(
-            "Diagnostic test - before query"
-        )
-
-        self.assertTrue(
-            User.objects.filter(
-                pk=self.admin.pk
-            ).exists()
-        )
-
-        self.print_database_state(
-            "Diagnostic test - after query"
         )
 
     # ========================================================
@@ -547,8 +496,8 @@ class AdminExaminationTests(TestCase):
             response["Content-Disposition"],
         )
 
-        # Consume the streaming file response without
-        # explicitly calling response.close().
+        # Consume the streaming response without explicitly
+        # closing it inside Django's TestCase transaction.
         content = b"".join(response.streaming_content)
 
         self.assertGreater(len(content), 0)
