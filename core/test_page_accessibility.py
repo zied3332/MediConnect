@@ -62,6 +62,29 @@ class PageAccessibilityTests(SimpleTestCase):
                     self.assertLessEqual(level, previous + 1)
                     previous = level
 
+    def test_repeated_admin_actions_retain_visible_verbs_and_identify_records(self):
+        for page, identity, verbs in (
+            ("medical_records/admin/records", "medical record #2", ("View", "Edit", "Delete")),
+            ("medical_records/admin/prescriptions", "prescription #13", ("View", "Edit", "Delete")),
+            ("medical_records/admin/examinations", "examination #11", ("View", "Edit", "Delete")),
+        ):
+            tags = Elements(render_page(f"{page}.html", **self.page_context())).tags
+            names = [attrs.get("aria-label", "") for tag, attrs in tags if tag == "a"]
+            for verb in verbs:
+                self.assertIn(f"{verb} {identity}", names)
+
+    def test_user_save_actions_distinguish_role_and_specialty(self):
+        tags = Elements(render_page("dashboard/admin/users.html", **self.page_context())).tags
+        names = [attrs.get("aria-label") for tag, attrs in tags if tag == "button"]
+        self.assertIn("Save role for example@example.com", names)
+        self.assertIn("Save specialty for example@example.com", names)
+
+    def test_availability_actions_identify_the_day_and_time(self):
+        tags = Elements(render_page("dashboard/doctor/availability.html", **self.page_context())).tags
+        names = [attrs.get("aria-label", "") for tag, attrs in tags if tag in ("button", "a")]
+        for verb in ("Edit", "Toggle", "Delete"):
+            self.assertTrue(any(name.startswith(f"{verb} availability") and "09:00" in name and "10:00" in name for name in names))
+
     def test_page_titles_identify_purpose_without_clinical_details(self):
         context = self.page_context()
         groups = {

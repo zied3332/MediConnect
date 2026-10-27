@@ -109,7 +109,7 @@
                             <option value="{{ specialty.id }}" {% if doctor.main_specialty_id == specialty.id %}selected{% endif %}>{{ specialty.name }}</option>
                             {% endfor %}
                         </select>
-                        <button type="submit" class="mc-role-save">Save</button>
+                        <button type="submit" class="mc-role-save" aria-label="Save specialty for {{ doctor.email }}">Save</button>
                     </form>
                 </td>
             </tr>

@@ -201,7 +201,7 @@
                 </td>
                 <td>
                     <a href="{% url 'dashboard:admin_doctor_detail' pk=profile.pk %}"
-                       class="mc-review-btn">
+                       class="mc-review-btn" aria-label="Review application for Dr. {{ profile.user.get_full_name|default:profile.user.email }}">
                         Review →
                     </a>
                 </td>

@@ -70,16 +70,16 @@
 
                         <td>
                             <div class="mr-table-actions">
-                                <a href="{% url 'medical_records:admin_prescription_detail' prescription.pk %}">
+                                <a href="{% url 'medical_records:admin_prescription_detail' prescription.pk %}" aria-label="View prescription #{{ prescription.pk }}">
                                     View
                                 </a>
 
-                                <a href="{% url 'medical_records:admin_prescription_update' prescription.pk %}">
+                                <a href="{% url 'medical_records:admin_prescription_update' prescription.pk %}" aria-label="Edit prescription #{{ prescription.pk }}">
                                     Edit
                                 </a>
 
                                 <a href="{% url 'medical_records:admin_prescription_delete' prescription.pk %}"
-                                   class="mr-delete-link">
+                                   class="mr-delete-link" aria-label="Delete prescription #{{ prescription.pk }}">
                                     Delete
                                 </a>
                             </div>

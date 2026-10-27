@@ -41,12 +41,12 @@
                 <td>{% if slot.is_free %}Free{% else %}Unavailable{% endif %}</td>
                 <td>
                     <div class="mc-action-group">
-                        <a class="mc-role-save" href="{% url 'dashboard:edit_doctor_availability' slot.id %}">Edit</a>
+                        <a class="mc-role-save" href="{% url 'dashboard:edit_doctor_availability' slot.id %}" aria-label="Edit availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}">Edit</a>
                         <form method="post" action="{% url 'dashboard:toggle_doctor_availability' slot.id %}">
-                            {% csrf_token %}<button class="mc-role-save" type="submit">Toggle</button>
+                            {% csrf_token %}<button class="mc-role-save" type="submit" aria-label="Toggle availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}">Toggle</button>
                         </form>
                         <form method="post" action="{% url 'dashboard:delete_doctor_availability' slot.id %}">
-                            {% csrf_token %}<button class="mc-role-save mc-role-save--danger" type="submit">Delete</button>
+                            {% csrf_token %}<button class="mc-role-save mc-role-save--danger" type="submit" aria-label="Delete availability on {{ slot.get_weekday_display }} from {{ slot.start_time|time:'H:i' }} to {{ slot.end_time|time:'H:i' }}">Delete</button>
                         </form>
                     </div>
                 </td>

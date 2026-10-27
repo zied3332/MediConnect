@@ -56,7 +56,7 @@
 
                         <td>
                             {% if examination.fichier %}
-                                <a href="{% url 'medical_records:admin_examination_download' examination.pk %}">
+                                <a href="{% url 'medical_records:admin_examination_download' examination.pk %}" aria-label="Download examination #{{ examination.pk }}">
                                     Download
                                 </a>
                             {% else %}
@@ -65,15 +65,15 @@
                         </td>
 
                         <td>
-                            <a href="{% url 'medical_records:admin_examination_detail' examination.pk %}">
+                            <a href="{% url 'medical_records:admin_examination_detail' examination.pk %}" aria-label="View examination #{{ examination.pk }}">
                                 View
                             </a>
                             |
-                            <a href="{% url 'medical_records:admin_examination_update' examination.pk %}">
+                            <a href="{% url 'medical_records:admin_examination_update' examination.pk %}" aria-label="Edit examination #{{ examination.pk }}">
                                 Edit
                             </a>
                             |
-                            <a href="{% url 'medical_records:admin_examination_delete' examination.pk %}">
+                            <a href="{% url 'medical_records:admin_examination_delete' examination.pk %}" aria-label="Delete examination #{{ examination.pk }}">
                                 Delete
                             </a>
                         </td>
