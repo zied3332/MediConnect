@@ -10,6 +10,7 @@ import os
 import sys
 
 from dotenv import load_dotenv
+import dj_database_url
 
 # ==========================================================
 # BASE DIRECTORY
@@ -41,9 +42,27 @@ SECRET_KEY = os.environ.get(
     ),
 )
 
-DEBUG = env_bool("DEBUG", True)
+DEBUG = env_bool("DEBUG", not bool(os.environ.get("RENDER")))
+if not DEBUG and SECRET_KEY == "django-insecure-mediconnect-local-development-only":
+    raise RuntimeError("Configure SECRET_KEY in the production environment.")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+render_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "")
+default_allowed_hosts = "localhost,127.0.0.1" + (f",{render_hostname}" if render_hostname else "")
+ALLOWED_HOSTS = [host.strip() for host in os.environ.get("ALLOWED_HOSTS", default_allowed_hosts).split(",") if host.strip()]
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get(
+        "CSRF_TRUSTED_ORIGINS",
+        f"https://{render_hostname}" if render_hostname else "",
+    ).split(",")
+    if origin.strip()
+]
+
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 
 # ==========================================================
@@ -87,6 +106,7 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -142,16 +162,26 @@ WSGI_APPLICATION = "config.wsgi.application"
 # DATABASE — PostgreSQL
 # ==========================================================
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("DB_NAME", "mediconnect"),
-        "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", ""),
-        "HOST": os.environ.get("DB_HOST", "localhost"),
-        "PORT": os.environ.get("DB_PORT", "5432"),
+database_url = os.environ.get("DATABASE_URL")
+if database_url:
+    DATABASES = {
+        "default": dj_database_url.parse(
+            database_url,
+            conn_max_age=600,
+            ssl_require=not DEBUG,
+        )
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("DB_NAME", "mediconnect"),
+            "USER": os.environ.get("DB_USER", "postgres"),
+            "PASSWORD": os.environ.get("DB_PASSWORD", ""),
+            "HOST": os.environ.get("DB_HOST", "localhost"),
+            "PORT": os.environ.get("DB_PORT", "5432"),
+        }
+    }
 
 
 # ==========================================================
@@ -220,6 +250,17 @@ USE_TZ = True
 # ==========================================================
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": (
+            "whitenoise.storage.CompressedManifestStaticFilesStorage"
+            if not DEBUG
+            else "django.contrib.staticfiles.storage.StaticFilesStorage"
+        )
+    },
+}
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
