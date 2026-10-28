@@ -297,7 +297,11 @@ from celery.schedules import crontab  # noqa: E402
 RUNNING_TESTS = len(sys.argv) > 1 and sys.argv[1] == "test"
 
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/0")
-CELERY_TASK_ALWAYS_EAGER = env_bool("CELERY_TASK_ALWAYS_EAGER", False) or RUNNING_TESTS
+CELERY_TASK_ALWAYS_EAGER = (
+    env_bool("CELERY_TASK_ALWAYS_EAGER", False)
+    or RUNNING_TESTS
+    or bool(os.environ.get("RENDER"))   # toujours en mode eager sur Render (pas de Redis)
+)
 CELERY_TASK_EAGER_PROPAGATES = True
 CELERY_TASK_IGNORE_RESULT = True
 CELERY_TIMEZONE = TIME_ZONE
