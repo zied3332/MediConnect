@@ -13,6 +13,9 @@ from django.views.decorators.http import require_POST
 from accounts.models import User
 from .models import AIIntakeSession
 
+import logging
+logger = logging.getLogger(__name__)
+
 FAILURE = ui_gettext('L’orientation est indisponible. Vous pouvez contacter un professionnel ou réessayer. Aucun diagnostic n’a été établi.')
 URGENT = ui_gettext('Ne vous fiez pas à cet assistant pour une urgence. Contactez immédiatement les services d’urgence locaux ou un professionnel. Aucune réservation n’est proposée ici.')
 
@@ -56,6 +59,7 @@ def intake_start(request):
             try:
                 generate_orientation.apply_async(args=[str(session.pk)], retry=False)
             except Exception:
+                logger.exception("Orientation IA : échec (session %s)", session.pk)
                 AIIntakeSession.objects.filter(pk=session.pk, status='pending').update(status='failed', error_code='queue', updated_at=timezone.now())
         transaction.on_commit(enqueue)
     return JsonResponse({'status_url': reverse('consultations:intake_status', args=[session.pk]), 'delete_url': reverse('consultations:intake_delete', args=[session.pk])}, status=202)
